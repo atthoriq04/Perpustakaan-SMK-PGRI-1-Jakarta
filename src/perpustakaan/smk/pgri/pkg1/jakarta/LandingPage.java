@@ -91,7 +91,7 @@ public class LandingPage extends javax.swing.JFrame {
             }
         });
 
-        lihatKatalog.setIcon(new javax.swing.ImageIcon("C:\\Users\\thori\\Documents\\NetBeansProjects\\Perpustakaan SMK PGRI 1 Jakarta\\src\\perpustakaan\\smk\\pgri\\pkg1\\jakarta\\Button\\lihatKatalog.png")); // NOI18N
+        lihatKatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/lihatKatalog.png"))); // NOI18N
         lihatKatalog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lihatKatalogMouseEntered(evt);
@@ -150,7 +150,7 @@ public class LandingPage extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(58, 58, 58)
                 .addComponent(lihatKatalog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,13 +184,11 @@ public class LandingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton9ActionPerformed
 
     private void lihatKatalogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalogMouseEntered
-        lihatKatalog.setIcon(new javax.swing.ImageIcon("C:\\Users\\thori\\Documents\\NetBeansProjects\\Perpustakaan SMK PGRI 1 Jakarta\\src\\perpustakaan\\smk\\pgri\\pkg1\\jakarta\\Button\\lihatKataloghover.png")); // NOI18N
-
+        lihatKatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/lihatKataloghover.png")));
     }//GEN-LAST:event_lihatKatalogMouseEntered
 
     private void lihatKatalogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalogMouseExited
-        lihatKatalog.setIcon(new javax.swing.ImageIcon("C:\\Users\\thori\\Documents\\NetBeansProjects\\Perpustakaan SMK PGRI 1 Jakarta\\src\\perpustakaan\\smk\\pgri\\pkg1\\jakarta\\Button\\lihatKatalog.png")); // NOI18N
-
+        lihatKatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/lihatKatalog.png")));
     }//GEN-LAST:event_lihatKatalogMouseExited
 
     /**

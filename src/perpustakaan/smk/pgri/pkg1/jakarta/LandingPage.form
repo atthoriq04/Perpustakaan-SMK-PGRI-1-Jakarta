@@ -104,7 +104,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                   <Component id="lihatKatalog" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jToggleButton1" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       <Component id="jToggleButton6" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
@@ -219,7 +219,7 @@
         <Component class="javax.swing.JButton" name="lihatKatalog">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\thori\Documents\NetBeansProjects\Perpustakaan SMK PGRI 1 Jakarta\src\perpustakaan\smk\pgri\pkg1\jakarta\Button\lihatKatalog.png"/>
+              <Image iconType="3" name="/perpustakaan/smk/pgri/pkg1/jakarta/Button/lihatKatalog.png"/>
             </Property>
           </Properties>
           <Events>
