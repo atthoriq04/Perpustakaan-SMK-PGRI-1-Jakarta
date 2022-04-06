@@ -143,7 +143,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel22.setText("No HP");
 
-        jButton2.setText("Simpan");
+        jButton2.setText("s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
