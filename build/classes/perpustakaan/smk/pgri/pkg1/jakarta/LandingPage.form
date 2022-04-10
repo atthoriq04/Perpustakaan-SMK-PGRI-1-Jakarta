@@ -67,8 +67,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jToggleButton1" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
                                   <Component id="jToggleButton6" min="-2" pref="140" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jToggleButton7" min="-2" pref="140" max="-2" attributes="0"/>
@@ -105,7 +104,6 @@
                   <Component id="lihatKatalog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jToggleButton1" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       <Component id="jToggleButton6" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       <Component id="jToggleButton7" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       <Component id="jToggleButton8" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
@@ -175,13 +173,6 @@
               <Font name="Georgia" size="22" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Literasi Mencerdaskan"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButton6">
