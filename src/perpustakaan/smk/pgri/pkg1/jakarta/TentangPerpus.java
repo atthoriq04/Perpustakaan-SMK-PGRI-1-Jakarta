@@ -133,7 +133,7 @@ public class TentangPerpus extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel70)
                     .addComponent(jLabel71))
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addContainerGap(435, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
