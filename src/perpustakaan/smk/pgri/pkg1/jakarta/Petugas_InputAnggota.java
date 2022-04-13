@@ -152,7 +152,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
         jButton2.setText("Submi");
         jPanel1.add(jButton2);
-        jButton2.setBounds(1181, 690, 70, 23);
+        jButton2.setBounds(1190, 680, 70, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

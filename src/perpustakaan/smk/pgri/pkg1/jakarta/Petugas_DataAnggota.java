@@ -65,13 +65,13 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "#", "NIS", "Kelas", "Nama Anggota", "Tempat/Tanggal Lahir", "Alamat", "Username", "Email", "Aktif Hingga"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -89,7 +89,16 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         jLabel2.setBounds(170, 100, 50, 15);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
         jLabel3.setText("Ubah Kelas Anggota");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
         jPanel2.add(jLabel3);
         jLabel3.setBounds(1130, 100, 120, 15);
 
@@ -117,6 +126,14 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+       jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+       jLabel3.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_jLabel3MouseExited
 
     /**
      * @param args the command line arguments
@@ -159,9 +176,7 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
