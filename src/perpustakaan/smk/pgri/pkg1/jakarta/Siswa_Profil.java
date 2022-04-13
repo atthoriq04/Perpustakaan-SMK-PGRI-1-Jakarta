@@ -15,6 +15,8 @@ public class Siswa_Profil extends javax.swing.JFrame {
      */
     public Siswa_Profil() {
         initComponents();
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
     }
 
     /**
@@ -54,13 +56,25 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel71 = new javax.swing.JLabel();
         jLabel72 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
         jLabel2.setText("Profil Anggota");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(33, 52, 161, 32);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -70,59 +84,96 @@ public class Siswa_Profil extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 290, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(33, 116, 240, 280);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel3.setText("Nama");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(407, 116, 49, 23);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel8.setText("NIS");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(407, 168, 31, 23);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel9.setText("Alamat");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(407, 221, 57, 23);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel10.setText("Kelas");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(407, 280, 43, 23);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel11.setText("Tempat, Tanggal Lahir");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(407, 341, 191, 23);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel12.setText("Username");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(407, 397, 84, 23);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Unggah Foto");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(33, 424, 240, 34);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel13.setText("Email");
+        jPanel1.add(jLabel13);
+        jLabel13.setBounds(407, 447, 45, 23);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel14.setText("No HP");
+        jPanel1.add(jLabel14);
+        jLabel14.setBounds(407, 498, 52, 23);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel15.setText("Nama");
+        jPanel1.add(jLabel15);
+        jLabel15.setBounds(665, 116, 49, 23);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel16.setText("NIS");
+        jPanel1.add(jLabel16);
+        jLabel16.setBounds(665, 168, 31, 23);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel17.setText("Alamat");
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(665, 221, 57, 23);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel18.setText("Kelas");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(665, 280, 43, 23);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel19.setText("Tempat, Tanggal Lahir");
+        jPanel1.add(jLabel19);
+        jLabel19.setBounds(665, 341, 191, 23);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel20.setText("Username");
+        jPanel1.add(jLabel20);
+        jLabel20.setBounds(665, 397, 84, 23);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel21.setText("Email");
+        jPanel1.add(jLabel21);
+        jLabel21.setBounds(665, 447, 45, 23);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel22.setText("No HP");
+        jPanel1.add(jLabel22);
+        jLabel22.setBounds(665, 498, 52, 23);
 
         jButton2.setText("s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -130,30 +181,74 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(1218, 680, 37, 23);
 
         jButton3.setText("Ubah Password");
+        jPanel1.add(jButton3);
+        jButton3.setBounds(1105, 680, 107, 23);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel69.setBackground(new java.awt.Color(255, 255, 255));
         jLabel69.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel69.setText("SMK PGRI 1 Jakarta");
+        jLabel69.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel69MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel69MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel69MouseExited(evt);
+            }
+        });
 
         jLabel70.setBackground(new java.awt.Color(255, 255, 255));
         jLabel70.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel70.setText("Sirkulasi");
+        jLabel70.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel70MouseEntered(evt);
+            }
+        });
 
         jLabel71.setBackground(new java.awt.Color(255, 255, 255));
         jLabel71.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel71.setText("Usulan");
+        jLabel71.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel71MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel71MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel71MouseExited(evt);
+            }
+        });
 
         jLabel72.setBackground(new java.awt.Color(255, 255, 255));
         jLabel72.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel72.setText("Bebas Pustaka");
+        jLabel72.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel72MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel72MouseExited(evt);
+            }
+        });
 
         jLabel73.setBackground(new java.awt.Color(255, 255, 255));
         jLabel73.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel73.setText("User");
+        jLabel73.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel73MouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -184,120 +279,193 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3)
+        jPanel1.add(jPanel14);
+        jPanel14.setBounds(0, 11, 1282, 20);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel3MouseExited(evt);
+            }
+        });
+
+        jLabel76.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel76.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel76.setText("Katalog");
+        jLabel76.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel76MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel76MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel76MouseExited(evt);
+            }
+        });
+
+        jLabel81.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel81.setText("Pengembalian");
+        jLabel81.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel81MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel81MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel81MouseExited(evt);
+            }
+        });
+
+        jLabel82.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel82.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel82.setText("Denda");
+        jLabel82.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel82MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel82MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel82MouseExited(evt);
+            }
+        });
+
+        jLabel83.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel83.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel83.setText("Histori");
+        jLabel83.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel83MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel83MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel83MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel76)
+                    .addComponent(jLabel81)
+                    .addComponent(jLabel82)
+                    .addComponent(jLabel83))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel76)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(37, 37, 37))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
-                                .addGap(134, 134, 134)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel8))
-                                        .addGap(209, 209, 209)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel16)
-                                            .addComponent(jLabel15)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel10))
-                                        .addGap(201, 201, 201)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel18)
-                                            .addComponent(jLabel17)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel14))
-                                        .addGap(67, 67, 67)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel22)
-                                            .addComponent(jLabel21)
-                                            .addComponent(jLabel20)
-                                            .addComponent(jLabel19)))))))
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel81)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel82)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel83)
+                .addGap(0, 32, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(830, 40, 140, 130);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel4MouseExited(evt);
+            }
+        });
+
+        jLabel84.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel84.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel84.setText("Profil");
+        jLabel84.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel84MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel84MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel84MouseExited(evt);
+            }
+        });
+
+        jLabel85.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel85.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel85.setText("Notifkasi");
+        jLabel85.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel85MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel85MouseExited(evt);
+            }
+        });
+
+        jLabel86.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel86.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel86.setText("Log Out");
+        jLabel86.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel86MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel86MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel86MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel84)
+                    .addComponent(jLabel85)
+                    .addComponent(jLabel86))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel15))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel16))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel17))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel18))
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel19))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel20))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel21))))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap())
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel84)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel85)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel86)
+                .addGap(0, 8, Short.MAX_VALUE))
         );
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(1200, 40, 80, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,6 +474,157 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel69MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel69MouseClicked
+        Siswa_Home obj = new Siswa_Home();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel69MouseClicked
+
+    private void jLabel69MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel69MouseEntered
+        jLabel69.setForeground(new java.awt.Color(0,72,181));
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
+    }//GEN-LAST:event_jLabel69MouseEntered
+
+    private void jLabel69MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel69MouseExited
+        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel69MouseExited
+
+    private void jLabel70MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel70MouseEntered
+        jPanel3.setVisible(true);
+        jPanel4.setVisible(false);
+    }//GEN-LAST:event_jLabel70MouseEntered
+
+    private void jLabel71MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel71MouseClicked
+        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jLabel71MouseClicked
+
+    private void jLabel71MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel71MouseEntered
+        jLabel71.setForeground(new java.awt.Color(0,72,181));
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
+    }//GEN-LAST:event_jLabel71MouseEntered
+
+    private void jLabel71MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel71MouseExited
+        jLabel71.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel71MouseExited
+
+    private void jLabel72MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel72MouseEntered
+        jLabel72.setForeground(new java.awt.Color(0,72,181));
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
+    }//GEN-LAST:event_jLabel72MouseEntered
+
+    private void jLabel72MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel72MouseExited
+        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel72MouseExited
+
+    private void jLabel73MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel73MouseEntered
+        jPanel4.setVisible(true);
+        jPanel3.setVisible(false);
+    }//GEN-LAST:event_jLabel73MouseEntered
+
+    private void jLabel76MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel76MouseClicked
+        Katalog obj = new Katalog();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel76MouseClicked
+
+    private void jLabel76MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel76MouseEntered
+        jLabel76.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel76MouseEntered
+
+    private void jLabel76MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel76MouseExited
+        jLabel76.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel76MouseExited
+
+    private void jLabel81MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel81MouseClicked
+        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel81MouseClicked
+
+    private void jLabel81MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel81MouseEntered
+        jLabel81.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel81MouseEntered
+
+    private void jLabel81MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel81MouseExited
+        jLabel81.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel81MouseExited
+
+    private void jLabel82MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel82MouseClicked
+        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel82MouseClicked
+
+    private void jLabel82MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel82MouseEntered
+        jLabel82.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel82MouseEntered
+
+    private void jLabel82MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel82MouseExited
+        jLabel82.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel82MouseExited
+
+    private void jLabel83MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel83MouseClicked
+        Siswa_HistoriPeminjaman obj = new Siswa_HistoriPeminjaman();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel83MouseClicked
+
+    private void jLabel83MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel83MouseEntered
+        jLabel83.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel83MouseEntered
+
+    private void jLabel83MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel83MouseExited
+        jLabel83.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel83MouseExited
+
+    private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
+
+    }//GEN-LAST:event_jPanel3MouseExited
+
+    private void jLabel84MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel84MouseClicked
+        Siswa_Profil obj = new Siswa_Profil();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel84MouseClicked
+
+    private void jLabel84MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel84MouseEntered
+        jLabel84.setForeground(new java.awt.Color(0,72,181));       // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel84MouseEntered
+
+    private void jLabel84MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel84MouseExited
+        jLabel84.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel84MouseExited
+
+    private void jLabel85MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel85MouseEntered
+        jLabel85.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel85MouseEntered
+
+    private void jLabel85MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel85MouseExited
+        jLabel85.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel85MouseExited
+
+    private void jLabel86MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseClicked
+        Login obj = new Login();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel86MouseClicked
+
+    private void jLabel86MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseEntered
+        jLabel86.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_jLabel86MouseEntered
+
+    private void jLabel86MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseExited
+        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_jLabel86MouseExited
+
+    private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
+
+    }//GEN-LAST:event_jPanel4MouseExited
 
     /**
      * @param args the command line arguments
@@ -366,10 +685,19 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
