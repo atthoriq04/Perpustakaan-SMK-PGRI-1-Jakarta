@@ -103,22 +103,22 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel9.setText("Alamat");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(407, 221, 57, 23);
+        jLabel9.setBounds(407, 221, 100, 23);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel10.setText("Kelas");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(407, 280, 43, 23);
+        jLabel10.setBounds(407, 280, 120, 23);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel11.setText("Tempat, Tanggal Lahir");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(407, 341, 191, 23);
+        jLabel11.setBounds(407, 341, 220, 23);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel12.setText("Username");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(407, 397, 84, 23);
+        jLabel12.setBounds(407, 397, 110, 23);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Unggah Foto");
@@ -128,12 +128,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel13.setText("Email");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(407, 447, 45, 23);
+        jLabel13.setBounds(407, 447, 100, 23);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel14.setText("No HP");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(407, 498, 52, 23);
+        jLabel14.setBounds(407, 498, 90, 23);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel15.setText("Nama");
@@ -148,32 +148,32 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel17.setText("Alamat");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(665, 221, 57, 23);
+        jLabel17.setBounds(665, 221, 80, 23);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel18.setText("Kelas");
         jPanel1.add(jLabel18);
-        jLabel18.setBounds(665, 280, 43, 23);
+        jLabel18.setBounds(665, 280, 80, 23);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel19.setText("Tempat, Tanggal Lahir");
         jPanel1.add(jLabel19);
-        jLabel19.setBounds(665, 341, 191, 23);
+        jLabel19.setBounds(665, 341, 230, 23);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel20.setText("Username");
         jPanel1.add(jLabel20);
-        jLabel20.setBounds(665, 397, 84, 23);
+        jLabel20.setBounds(665, 397, 120, 23);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel21.setText("Email");
         jPanel1.add(jLabel21);
-        jLabel21.setBounds(665, 447, 45, 23);
+        jLabel21.setBounds(665, 447, 70, 23);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel22.setText("No HP");
         jPanel1.add(jLabel22);
-        jLabel22.setBounds(665, 498, 52, 23);
+        jLabel22.setBounds(665, 498, 80, 23);
 
         jButton2.setText("s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +186,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         jButton3.setText("Ubah Password");
         jPanel1.add(jButton3);
-        jButton3.setBounds(1105, 680, 107, 23);
+        jButton3.setBounds(1105, 680, 109, 23);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 

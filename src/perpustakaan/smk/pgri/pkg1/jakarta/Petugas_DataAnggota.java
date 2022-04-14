@@ -984,6 +984,9 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
         jLabel3.setText("Ubah Kelas Anggota");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel3MouseEntered(evt);
             }
@@ -1355,6 +1358,11 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
     }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        Petugas_NaikKelas obj = new Petugas_NaikKelas();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
