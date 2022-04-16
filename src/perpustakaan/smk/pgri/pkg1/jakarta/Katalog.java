@@ -147,6 +147,9 @@ public class Katalog extends javax.swing.JFrame {
         toBebpus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toBebpus.setText("Bebas Pustaka");
         toBebpus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebpusMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toBebpusMouseEntered(evt);
             }
@@ -171,7 +174,7 @@ public class Katalog extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(PGRI)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 657, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 653, Short.MAX_VALUE)
                 .addComponent(toSirkulasi)
                 .addGap(75, 75, 75)
                 .addComponent(toUsulan)
@@ -194,7 +197,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1282, 20);
+        jPanel14.setBounds(0, 11, 1278, 20);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -911,6 +914,11 @@ public class Katalog extends javax.swing.JFrame {
     private void toUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseExited
         toUsulan.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toUsulanMouseExited
+
+    private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
+        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
         toBebpus.setForeground(new java.awt.Color(0,72,181));

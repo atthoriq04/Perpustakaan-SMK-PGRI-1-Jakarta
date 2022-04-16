@@ -43,15 +43,15 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toUsulan = new javax.swing.JLabel();
         toBebpus = new javax.swing.JLabel();
         toUser = new javax.swing.JLabel();
-        SubUser = new javax.swing.JPanel();
-        toProf = new javax.swing.JLabel();
-        toNotif = new javax.swing.JLabel();
-        toOut = new javax.swing.JLabel();
         SubSirk = new javax.swing.JPanel();
         toKatalog = new javax.swing.JLabel();
         toPengembalian = new javax.swing.JLabel();
         toDenda = new javax.swing.JLabel();
         toHistori = new javax.swing.JLabel();
+        SubUser = new javax.swing.JPanel();
+        toProf = new javax.swing.JLabel();
+        toNotif = new javax.swing.JLabel();
+        toOut = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,6 +151,9 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toBebpus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toBebpus.setText("Bebas Pustaka");
         toBebpus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebpusMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toBebpusMouseEntered(evt);
             }
@@ -175,7 +178,7 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(PGRI)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 657, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 653, Short.MAX_VALUE)
                 .addComponent(toSirkulasi)
                 .addGap(75, 75, 75)
                 .addComponent(toUsulan)
@@ -198,82 +201,7 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         );
 
         jPanel12.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1282, 20);
-
-        SubUser.setBackground(new java.awt.Color(255, 255, 255));
-        SubUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SubUserMouseExited(evt);
-            }
-        });
-
-        toProf.setBackground(new java.awt.Color(255, 255, 255));
-        toProf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        toProf.setText("Profil");
-        toProf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toProfMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toProfMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toProfMouseExited(evt);
-            }
-        });
-
-        toNotif.setBackground(new java.awt.Color(255, 255, 255));
-        toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        toNotif.setText("Notifkasi");
-        toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toNotifMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toNotifMouseExited(evt);
-            }
-        });
-
-        toOut.setBackground(new java.awt.Color(255, 255, 255));
-        toOut.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        toOut.setText("Log Out");
-        toOut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toOutMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toOutMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toOutMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout SubUserLayout = new javax.swing.GroupLayout(SubUser);
-        SubUser.setLayout(SubUserLayout);
-        SubUserLayout.setHorizontalGroup(
-            SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubUserLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(toProf)
-                    .addComponent(toNotif)
-                    .addComponent(toOut))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        SubUserLayout.setVerticalGroup(
-            SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubUserLayout.createSequentialGroup()
-                .addComponent(toProf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toNotif)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toOut)
-                .addGap(0, 8, Short.MAX_VALUE))
-        );
-
-        jPanel12.add(SubUser);
-        SubUser.setBounds(1200, 40, 80, 80);
+        jPanel14.setBounds(0, 11, 1278, 20);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -371,6 +299,81 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         jPanel12.add(SubSirk);
         SubSirk.setBounds(830, 40, 140, 130);
 
+        SubUser.setBackground(new java.awt.Color(255, 255, 255));
+        SubUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SubUserMouseExited(evt);
+            }
+        });
+
+        toProf.setBackground(new java.awt.Color(255, 255, 255));
+        toProf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toProf.setText("Profil");
+        toProf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toProfMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toProfMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toProfMouseExited(evt);
+            }
+        });
+
+        toNotif.setBackground(new java.awt.Color(255, 255, 255));
+        toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toNotif.setText("Notifkasi");
+        toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toNotifMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toNotifMouseExited(evt);
+            }
+        });
+
+        toOut.setBackground(new java.awt.Color(255, 255, 255));
+        toOut.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toOut.setText("Log Out");
+        toOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toOutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toOutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toOutMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SubUserLayout = new javax.swing.GroupLayout(SubUser);
+        SubUser.setLayout(SubUserLayout);
+        SubUserLayout.setHorizontalGroup(
+            SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(toProf)
+                    .addComponent(toNotif)
+                    .addComponent(toOut))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        SubUserLayout.setVerticalGroup(
+            SubUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubUserLayout.createSequentialGroup()
+                .addComponent(toProf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(toNotif)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(toOut)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        jPanel12.add(SubUser);
+        SubUser.setBounds(1200, 40, 80, 80);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -385,15 +388,67 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
+        Siswa_Home obj = new Siswa_Home();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PGRIMouseClicked
+
+    private void PGRIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseEntered
+        PGRI.setForeground(new java.awt.Color(0,72,181));
+        SubUser.setVisible(false);
+        SubSirk.setVisible(false);
+    }//GEN-LAST:event_PGRIMouseEntered
+
+    private void PGRIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseExited
+        toBebpus.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_PGRIMouseExited
+
     private void toSirkulasiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toSirkulasiMouseEntered
         SubSirk.setVisible(true);
         SubUser.setVisible(false);
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
+    private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
+        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toUsulanMouseClicked
+
+    private void toUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseEntered
+        toUsulan.setForeground(new java.awt.Color(0,72,181));
+        SubUser.setVisible(false);
+        SubSirk.setVisible(false);
+    }//GEN-LAST:event_toUsulanMouseEntered
+
+    private void toUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseExited
+        toUsulan.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_toUsulanMouseExited
+
+    private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
+        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toBebpusMouseClicked
+
+    private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
+        toBebpus.setForeground(new java.awt.Color(0,72,181));
+        SubUser.setVisible(false);
+        SubSirk.setVisible(false);
+    }//GEN-LAST:event_toBebpusMouseEntered
+
+    private void toBebpusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseExited
+        toBebpus.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_toBebpusMouseExited
+
     private void toUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUserMouseEntered
         SubUser.setVisible(true);
         SubSirk.setVisible(false);
     }//GEN-LAST:event_toUserMouseEntered
+
+    private void toKatalogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKatalogMouseClicked
+        Katalog obj = new Katalog();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toKatalogMouseClicked
 
     private void toKatalogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKatalogMouseEntered
         toKatalog.setForeground(new java.awt.Color(0,72,181));
@@ -403,6 +458,12 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toKatalog.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toKatalogMouseExited
 
+    private void toPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toPengembalianMouseClicked
+        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toPengembalianMouseClicked
+
     private void toPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toPengembalianMouseEntered
         toPengembalian.setForeground(new java.awt.Color(0,72,181));
     }//GEN-LAST:event_toPengembalianMouseEntered
@@ -411,13 +472,25 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toPengembalian.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toPengembalianMouseExited
 
+    private void toDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseClicked
+        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toDendaMouseClicked
+
     private void toDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseEntered
-       toDenda.setForeground(new java.awt.Color(0,72,181));
+        toDenda.setForeground(new java.awt.Color(0,72,181));
     }//GEN-LAST:event_toDendaMouseEntered
 
     private void toDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseExited
         toDenda.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toDendaMouseExited
+
+    private void toHistoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toHistoriMouseClicked
+        Siswa_HistoriPeminjaman obj = new Siswa_HistoriPeminjaman();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toHistoriMouseClicked
 
     private void toHistoriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toHistoriMouseEntered
         toHistori.setForeground(new java.awt.Color(0,72,181));
@@ -427,8 +500,18 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toHistori.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toHistoriMouseExited
 
+    private void SubSirkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubSirkMouseExited
+
+    }//GEN-LAST:event_SubSirkMouseExited
+
+    private void toProfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfMouseClicked
+        Siswa_Profil obj = new Siswa_Profil();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toProfMouseClicked
+
     private void toProfMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfMouseEntered
-         toProf.setForeground(new java.awt.Color(0,72,181));       // TODO add your handling code here:
+        toProf.setForeground(new java.awt.Color(0,72,181));       // TODO add your handling code here:
     }//GEN-LAST:event_toProfMouseEntered
 
     private void toProfMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfMouseExited
@@ -443,6 +526,12 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toNotif.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toNotifMouseExited
 
+    private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
+        Login obj = new Login();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toOutMouseClicked
+
     private void toOutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseEntered
         toOut.setForeground(new java.awt.Color(0,72,181));
     }//GEN-LAST:event_toOutMouseEntered
@@ -451,89 +540,8 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toOut.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toOutMouseExited
 
-    private void toKatalogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKatalogMouseClicked
-       Katalog obj = new Katalog();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toKatalogMouseClicked
-
-    private void toPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toPengembalianMouseClicked
-       Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toPengembalianMouseClicked
-
-    private void toDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseClicked
-       Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toDendaMouseClicked
-
-    private void toHistoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toHistoriMouseClicked
-       Siswa_HistoriPeminjaman obj = new Siswa_HistoriPeminjaman();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toHistoriMouseClicked
-
-    private void toUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseEntered
-        toUsulan.setForeground(new java.awt.Color(0,72,181));
-        SubUser.setVisible(false);
-        SubSirk.setVisible(false);
-    }//GEN-LAST:event_toUsulanMouseEntered
-
-    private void toUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseExited
-        toUsulan.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_toUsulanMouseExited
-
-    private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
-        toBebpus.setForeground(new java.awt.Color(0,72,181));
-        SubUser.setVisible(false);
-        SubSirk.setVisible(false);
-    }//GEN-LAST:event_toBebpusMouseEntered
-
-    private void toBebpusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseExited
-         toBebpus.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_toBebpusMouseExited
-
-    private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-       Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
-       obj.setVisible(true);
-    }//GEN-LAST:event_toUsulanMouseClicked
-
-    private void toProfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfMouseClicked
-       Siswa_Profil obj = new Siswa_Profil();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toProfMouseClicked
-
-    private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_toOutMouseClicked
-
-    private void PGRIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseEntered
-        PGRI.setForeground(new java.awt.Color(0,72,181));
-        SubUser.setVisible(false);
-        SubSirk.setVisible(false);
-    }//GEN-LAST:event_PGRIMouseEntered
-
-    private void PGRIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseExited
-        toBebpus.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_PGRIMouseExited
-
-    private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
-        Siswa_Home obj = new Siswa_Home();
-       obj.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_PGRIMouseClicked
-
-    private void SubSirkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubSirkMouseExited
-        
-    }//GEN-LAST:event_SubSirkMouseExited
-
     private void SubUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubUserMouseExited
-        
+
     }//GEN-LAST:event_SubUserMouseExited
 
     /**

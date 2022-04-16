@@ -65,12 +65,12 @@ public class Siswa_Home extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
         jLabel11.setText("Perpustakaan SMK PGRI 1 Jakarta ");
         kGradientPanel2.add(jLabel11);
-        jLabel11.setBounds(35, 163, 627, 47);
+        jLabel11.setBounds(35, 163, 633, 47);
 
         jLabel12.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
         jLabel12.setText("Literasi Mencerdaskan");
         kGradientPanel2.add(jLabel12);
-        jLabel12.setBounds(35, 228, 225, 26);
+        jLabel12.setBounds(35, 228, 223, 26);
 
         jToggleButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
         kGradientPanel2.add(jToggleButton10);
@@ -163,6 +163,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         toBebpus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toBebpus.setText("Bebas Pustaka");
         toBebpus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebpusMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toBebpusMouseEntered(evt);
             }
@@ -210,7 +213,7 @@ public class Siswa_Home extends javax.swing.JFrame {
         );
 
         kGradientPanel2.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1282, 20);
+        jPanel14.setBounds(0, 11, 1278, 20);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -334,6 +337,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toNotif.setText("Notifkasi");
         toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toNotifMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toNotifMouseEntered(evt);
             }
@@ -566,6 +572,16 @@ public class Siswa_Home extends javax.swing.JFrame {
        this.dispose();
 
     }//GEN-LAST:event_lihatKatalog2ActionPerformed
+
+    private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
+       Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+       obj.setVisible(true);
+    }//GEN-LAST:event_toBebpusMouseClicked
+
+    private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
+        Siswa_Notifikasi obj = new Siswa_Notifikasi();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toNotifMouseClicked
 
     /**
      * @param args the command line arguments
