@@ -47,6 +47,9 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
@@ -62,9 +65,6 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toProf = new javax.swing.JLabel();
         toNotif = new javax.swing.JLabel();
         toOut = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,6 +177,18 @@ public class Siswa_Profil extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3);
         jButton3.setBounds(1105, 680, 107, 23);
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(670, 490, 350, 30);
+
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(670, 390, 350, 30);
+
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        jPanel1.add(jTextField3);
+        jTextField3.setBounds(670, 440, 350, 30);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -397,6 +409,9 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toNotif.setText("Notifkasi");
         toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toNotifMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toNotifMouseEntered(evt);
             }
@@ -446,18 +461,6 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(SubUser);
         SubUser.setBounds(1200, 40, 80, 80);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(670, 490, 350, 30);
-
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(670, 390, 350, 30);
-
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(670, 440, 350, 30);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -479,6 +482,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       Siswa_UbahPassword obj = new Siswa_UbahPassword();
+       obj.setVisible(true);
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
         Siswa_Home obj = new Siswa_Home();
@@ -610,6 +619,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toProf.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toProfMouseExited
 
+    private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
+        Siswa_Notifikasi obj = new Siswa_Notifikasi();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toNotifMouseClicked
+
     private void toNotifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseEntered
         toNotif.setForeground(new java.awt.Color(0,72,181));
     }//GEN-LAST:event_toNotifMouseEntered
@@ -635,12 +649,6 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private void SubUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubUserMouseExited
 
     }//GEN-LAST:event_SubUserMouseExited
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       Siswa_UbahPassword obj = new Siswa_UbahPassword();
-       obj.setVisible(true);
-       
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

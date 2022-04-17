@@ -86,6 +86,8 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         toKonfDenda = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
+        toKonfDenda1 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
         subMenuBlibliografi = new javax.swing.JPanel();
         toDataBuku = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -632,6 +634,9 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toDataJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toDataJurusanMouseEntered(evt);
             }
@@ -810,6 +815,9 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         toKonfDenda.setBackground(new java.awt.Color(229, 231, 238));
         toKonfDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toKonfDenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toKonfDendaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toKonfDendaMouseEntered(evt);
             }
@@ -838,8 +846,42 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         subMenuSirkulasi.add(toKonfDenda);
         toKonfDenda.setBounds(0, 120, 300, 40);
 
+        toKonfDenda1.setBackground(new java.awt.Color(229, 231, 238));
+        toKonfDenda1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toKonfDenda1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseExited(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel28.setText("Data Pengunjung");
+
+        javax.swing.GroupLayout toKonfDenda1Layout = new javax.swing.GroupLayout(toKonfDenda1);
+        toKonfDenda1.setLayout(toKonfDenda1Layout);
+        toKonfDenda1Layout.setHorizontalGroup(
+            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toKonfDenda1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+        toKonfDenda1Layout.setVerticalGroup(
+            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toKonfDenda1);
+        toKonfDenda1.setBounds(0, 160, 300, 40);
+
         jPanel1.add(subMenuSirkulasi);
-        subMenuSirkulasi.setBounds(80, 220, 250, 170);
+        subMenuSirkulasi.setBounds(80, 220, 250, 200);
 
         subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -886,6 +928,9 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
         toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toInputBukuMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toInputBukuMouseEntered(evt);
             }
@@ -920,6 +965,9 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toDataPenulis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataPenulisMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toDataPenulisMouseEntered(evt);
             }
@@ -1414,6 +1462,44 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
 
+    private void toKonfDenda1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDenda1MouseEntered
+        toKonfDenda1.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toKonfDenda1MouseEntered
+
+    private void toKonfDenda1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDenda1MouseExited
+        toKonfDenda1.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toKonfDenda1MouseExited
+
+    private void toKonfDenda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDenda1MouseClicked
+       Petugas_DataPengunjung obj = new Petugas_DataPengunjung();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_toKonfDenda1MouseClicked
+
+    private void toDataJurusanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataJurusanMouseClicked
+       Petugas_DataJurusan obj = new Petugas_DataJurusan();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_toDataJurusanMouseClicked
+
+    private void toDataPenulisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataPenulisMouseClicked
+        Petugas_DataPenulis obj = new Petugas_DataPenulis();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_toDataPenulisMouseClicked
+
+    private void toInputBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputBukuMouseClicked
+        Petugas_InputBuku obj = new Petugas_InputBuku();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_toInputBukuMouseClicked
+
+    private void toKonfDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDendaMouseClicked
+        Petugas_KonfirmasiDenda obj = new Petugas_KonfirmasiDenda();
+        obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_toKonfDendaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1468,6 +1554,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel7;
@@ -1511,6 +1598,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel toInputAnggota;
     private javax.swing.JPanel toInputBuku;
     private javax.swing.JPanel toKonfDenda;
+    private javax.swing.JPanel toKonfDenda1;
     private javax.swing.JPanel toLapAnggota;
     private javax.swing.JPanel toLapBuku;
     private javax.swing.JPanel toLapDenda;

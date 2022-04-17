@@ -325,6 +325,9 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toNotif.setText("Notifkasi");
         toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toNotifMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toNotifMouseEntered(evt);
             }
@@ -517,6 +520,11 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
     private void toProfMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfMouseExited
         toProf.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toProfMouseExited
+
+    private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
+        Siswa_Notifikasi obj = new Siswa_Notifikasi();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toNotifMouseClicked
 
     private void toNotifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseEntered
         toNotif.setForeground(new java.awt.Color(0,72,181));
