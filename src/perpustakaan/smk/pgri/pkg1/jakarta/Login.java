@@ -4,6 +4,13 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Atthoriq
@@ -13,10 +20,58 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
     public Login() {
         initComponents();
+        CC = new koneksi().connect();
     }
 
+    public void login(){
+        try {
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM user WHERE Username = '"+Username.getText()+
+            "' and Password = '"+Password.getText()+"'";
+            ResultSet rs = stat.executeQuery(sql);
+            if (rs.next())
+            {
+                int UserId = rs.getInt("IdUser");
+                String user = rs.getString("Username");
+                String pass = rs.getString("Password");
+                int status = rs.getInt("Nis/K");
+
+                if (pass.equals(pass) && user.equals(user)){
+                    JOptionPane.showMessageDialog(this, "Login Berhasil");
+                    UserSession.setUserLogin(user);
+                    UserSession.setUserId(UserId);
+                    
+                    if(status==3){
+                        Siswa_Home a=new Siswa_Home();
+                        a.setVisible(true);
+                        dispose();
+                    }else if(status==1 || (status==2)){
+                        Petugas_Dashboard a=new Petugas_Dashboard();
+                        a.setVisible(true);
+                        dispose();
+                    }else{
+                      Petugas_Dashboard a=new Petugas_Dashboard();
+                        a.setVisible(true);
+                        dispose();
+                    }
+                }
+                else
+                JOptionPane.showMessageDialog(null, "Username atau Password anda salah");
+            }
+            else
+            JOptionPane.showMessageDialog(this, "Username Tidak Ada");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Ada Kesalahan");
+        }        
+        Username.setText("");
+        Password.setText("");
+            
+    }              
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +110,11 @@ public class Login extends javax.swing.JFrame {
         Password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PasswordActionPerformed(evt);
+            }
+        });
+        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordKeyPressed(evt);
             }
         });
 
@@ -218,17 +278,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        String tipe = Username.getText();
-        if("Siswa".equals(tipe)){
-            Siswa_Home obj = new Siswa_Home();
-            obj.setVisible(true);
-            this.dispose();
-        }else if("Petugas".equals(tipe)){
-            Petugas_Dashboard obj = new Petugas_Dashboard();
-            obj.setVisible(true);
-            this.dispose();
-        }
+      login();
     }//GEN-LAST:event_loginActionPerformed
+
+    private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            login();
+         }
+    }//GEN-LAST:event_PasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -255,6 +313,9 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

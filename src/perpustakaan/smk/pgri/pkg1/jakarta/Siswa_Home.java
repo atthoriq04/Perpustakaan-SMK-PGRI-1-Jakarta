@@ -4,12 +4,18 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Atthoriq
  */
 public class Siswa_Home extends javax.swing.JFrame {
-
+     ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
     /**
      * Creates new form Siswa_Home
      */
@@ -17,8 +23,25 @@ public class Siswa_Home extends javax.swing.JFrame {
         initComponents();
         SubUser.setVisible(false);
         SubSirk.setVisible(false);
+         CC = new koneksi().connect();
+        userLogin();
+        hakakses();
     }
-
+    private void userLogin(){
+    toUser.setText(UserSession.getUserLogin());
+    }
+    
+     private void hakakses() {
+    String user=toUser.getText();
+        if(user.equals(3) || user.equals(3)){
+       //Master
+        //DataBuku.setEnabled(true);
+   
+     
+      
+        }
+    
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -163,9 +186,6 @@ public class Siswa_Home extends javax.swing.JFrame {
         toBebpus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toBebpus.setText("Bebas Pustaka");
         toBebpus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toBebpusMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toBebpusMouseEntered(evt);
             }
@@ -337,9 +357,6 @@ public class Siswa_Home extends javax.swing.JFrame {
         toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toNotif.setText("Notifkasi");
         toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toNotifMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toNotifMouseEntered(evt);
             }
@@ -573,16 +590,6 @@ public class Siswa_Home extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lihatKatalog2ActionPerformed
 
-    private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-       Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-       obj.setVisible(true);
-    }//GEN-LAST:event_toBebpusMouseClicked
-
-    private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
-        Siswa_Notifikasi obj = new Siswa_Notifikasi();
-        obj.setVisible(true);
-    }//GEN-LAST:event_toNotifMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -608,6 +615,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Siswa_Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

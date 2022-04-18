@@ -4,6 +4,11 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Atthoriq
@@ -13,12 +18,34 @@ public class Siswa_Profil extends javax.swing.JFrame {
     /**
      * Creates new form Siswa_Profil
      */
+    ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
     public Siswa_Profil() {
         initComponents();
         SubSirk.setVisible(false);
         SubUser.setVisible(false);
+        userLogin();
+        //UserId();
     }
 
+     private void userLogin(){
+        toUser.setText(UserSession.getUserLogin());
+    }
+//     private void UserId(){
+//        //toUser.setText(UserSession.getUserLogin());
+//        try {
+//       int UserId = UserSession.GetUserId();
+//       String sql = "SELECT user.IdUser,user.Username,kelas.IdKelas,kelas.Kelas,kelas.IdJurusan,jurusan.IdJurusan,jurusan.Jurusan,anggota.Nis,anggota.Nama,anggota.IdKelas,anggota.Email,anggota.Alamat,anggota.NoHp,anggota.TTL FROM user INNER JOIN anggota ON user.IdUser=anggota.IdUser INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.IdUser='"+UserId+"'";
+//            pst = CC.prepareStatement(sql);
+//            rs = pst.executeQuery();
+//            pst.setString(1, Nama.getText());
+//            rs.close();
+//            pst.close();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,11 +67,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        Nama = new javax.swing.JLabel();
+        NIS = new javax.swing.JLabel();
+        Alamat = new javax.swing.JLabel();
+        Kelas = new javax.swing.JLabel();
+        TTL = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -135,30 +162,30 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(jLabel14);
         jLabel14.setBounds(407, 498, 90, 23);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jLabel15.setText("Nama");
-        jPanel1.add(jLabel15);
-        jLabel15.setBounds(665, 116, 49, 23);
+        Nama.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        Nama.setText("Nama");
+        jPanel1.add(Nama);
+        Nama.setBounds(665, 116, 49, 23);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jLabel16.setText("NIS");
-        jPanel1.add(jLabel16);
-        jLabel16.setBounds(665, 168, 31, 23);
+        NIS.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        NIS.setText("NIS");
+        jPanel1.add(NIS);
+        NIS.setBounds(665, 168, 31, 23);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jLabel17.setText("Alamat");
-        jPanel1.add(jLabel17);
-        jLabel17.setBounds(665, 221, 80, 23);
+        Alamat.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        Alamat.setText("Alamat");
+        jPanel1.add(Alamat);
+        Alamat.setBounds(665, 221, 80, 23);
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jLabel18.setText("Kelas");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(665, 280, 80, 23);
+        Kelas.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        Kelas.setText("Kelas");
+        jPanel1.add(Kelas);
+        Kelas.setBounds(665, 280, 80, 23);
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jLabel19.setText("Tempat, Tanggal Lahir");
-        jPanel1.add(jLabel19);
-        jLabel19.setBounds(665, 341, 230, 23);
+        TTL.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        TTL.setText("Tempat, Tanggal Lahir");
+        jPanel1.add(TTL);
+        TTL.setBounds(665, 341, 230, 23);
 
         jButton2.setText("s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +194,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1218, 680, 37, 23);
+        jButton2.setBounds(1218, 680, 22, 22);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +203,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1105, 680, 107, 23);
+        jButton3.setBounds(1105, 680, 111, 22);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(jTextField1);
@@ -686,9 +713,14 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Alamat;
+    private javax.swing.JLabel Kelas;
+    private javax.swing.JLabel NIS;
+    private javax.swing.JLabel Nama;
     private javax.swing.JLabel PGRI;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
+    private javax.swing.JLabel TTL;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -697,11 +729,6 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
