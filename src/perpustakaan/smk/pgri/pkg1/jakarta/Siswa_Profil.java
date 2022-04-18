@@ -7,6 +7,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,29 +24,50 @@ public class Siswa_Profil extends javax.swing.JFrame {
     PreparedStatement pst = null;
     public Siswa_Profil() {
         initComponents();
+        CC = new koneksi().connect();
         SubSirk.setVisible(false);
         SubUser.setVisible(false);
         userLogin();
-        //UserId();
+        UserId();
     }
 
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
-//     private void UserId(){
-//        //toUser.setText(UserSession.getUserLogin());
-//        try {
-//       int UserId = UserSession.GetUserId();
-//       String sql = "SELECT user.IdUser,user.Username,kelas.IdKelas,kelas.Kelas,kelas.IdJurusan,jurusan.IdJurusan,jurusan.Jurusan,anggota.Nis,anggota.Nama,anggota.IdKelas,anggota.Email,anggota.Alamat,anggota.NoHp,anggota.TTL FROM user INNER JOIN anggota ON user.IdUser=anggota.IdUser INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.IdUser='"+UserId+"'";
-//            pst = CC.prepareStatement(sql);
-//            rs = pst.executeQuery();
-//            pst.setString(1, Nama.getText());
-//            rs.close();
-//            pst.close();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
-//    }
+     private void UserId(){
+        //toUser.setText(UserSession.getUserLogin());
+        try {
+        Statement stat = CC.createStatement();
+           int UserId = UserSession.GetUserId();
+           String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp \n" +
+"FROM user INNER JOIN anggota ON user.IdUser=anggota.IdUser \n" +
+"INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas \n" +
+"INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.IdUser='"+UserId+"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if (rs.next())
+            {
+                String Nama = rs.getString("anggota.Nama");
+                String Nis = rs.getString("anggota.Nis");
+                String Alamat = rs.getString("anggota.Alamat");
+                String Kelas = rs.getString("kelas.kelas");
+                String TTL = rs.getString("anggota.TTL");
+                String user = rs.getString("user.Username");
+                String Email = rs.getString("anggota.email");
+                String NoHp = rs.getString("anggota.NoHp");
+                nama.setText(Nama);
+                nis.setText(Nis);
+                alamat.setText(Alamat);
+                kelas.setText(Kelas);
+                ttl.setText(TTL);
+                username.setText(user);
+                email.setText(Email);
+                nohp.setText(NoHp);
+            } else
+            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,16 +89,16 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        Nama = new javax.swing.JLabel();
-        NIS = new javax.swing.JLabel();
-        Alamat = new javax.swing.JLabel();
-        Kelas = new javax.swing.JLabel();
-        TTL = new javax.swing.JLabel();
+        nama = new javax.swing.JLabel();
+        nis = new javax.swing.JLabel();
+        alamat = new javax.swing.JLabel();
+        kelas = new javax.swing.JLabel();
+        ttl = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        nohp = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
@@ -162,30 +184,30 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(jLabel14);
         jLabel14.setBounds(407, 498, 90, 23);
 
-        Nama.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        Nama.setText("Nama");
-        jPanel1.add(Nama);
-        Nama.setBounds(665, 116, 49, 23);
+        nama.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        nama.setText("Nama");
+        jPanel1.add(nama);
+        nama.setBounds(665, 116, 230, 23);
 
-        NIS.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        NIS.setText("NIS");
-        jPanel1.add(NIS);
-        NIS.setBounds(665, 168, 31, 23);
+        nis.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        nis.setText("NIS");
+        jPanel1.add(nis);
+        nis.setBounds(665, 168, 220, 23);
 
-        Alamat.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        Alamat.setText("Alamat");
-        jPanel1.add(Alamat);
-        Alamat.setBounds(665, 221, 80, 23);
+        alamat.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        alamat.setText("Alamat");
+        jPanel1.add(alamat);
+        alamat.setBounds(665, 221, 330, 23);
 
-        Kelas.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        Kelas.setText("Kelas");
-        jPanel1.add(Kelas);
-        Kelas.setBounds(665, 280, 80, 23);
+        kelas.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        kelas.setText("Kelas");
+        jPanel1.add(kelas);
+        kelas.setBounds(665, 280, 80, 23);
 
-        TTL.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        TTL.setText("Tempat, Tanggal Lahir");
-        jPanel1.add(TTL);
-        TTL.setBounds(665, 341, 230, 23);
+        ttl.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        ttl.setText("Tempat, Tanggal Lahir");
+        jPanel1.add(ttl);
+        ttl.setBounds(665, 341, 340, 23);
 
         jButton2.setText("s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -205,17 +227,22 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(jButton3);
         jButton3.setBounds(1105, 680, 111, 22);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(670, 490, 350, 30);
+        nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        jPanel1.add(nohp);
+        nohp.setBounds(660, 490, 350, 30);
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(670, 390, 350, 30);
+        username.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(username);
+        username.setBounds(660, 390, 350, 30);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(670, 440, 350, 30);
+        email.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        jPanel1.add(email);
+        email.setBounds(660, 440, 350, 30);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -677,6 +704,10 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SubUserMouseExited
 
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -713,14 +744,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Alamat;
-    private javax.swing.JLabel Kelas;
-    private javax.swing.JLabel NIS;
-    private javax.swing.JLabel Nama;
     private javax.swing.JLabel PGRI;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
-    private javax.swing.JLabel TTL;
+    private javax.swing.JLabel alamat;
+    private javax.swing.JTextField email;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -736,9 +764,10 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel kelas;
+    private javax.swing.JLabel nama;
+    private javax.swing.JLabel nis;
+    private javax.swing.JTextField nohp;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;
@@ -750,5 +779,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel toSirkulasi;
     private javax.swing.JLabel toUser;
     private javax.swing.JLabel toUsulan;
+    private javax.swing.JLabel ttl;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
