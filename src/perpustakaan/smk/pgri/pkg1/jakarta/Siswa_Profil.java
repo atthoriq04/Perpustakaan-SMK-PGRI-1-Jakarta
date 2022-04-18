@@ -40,9 +40,9 @@ public class Siswa_Profil extends javax.swing.JFrame {
         Statement stat = CC.createStatement();
            int UserId = UserSession.GetUserId();
            String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp \n" +
-"FROM user INNER JOIN anggota ON user.IdUser=anggota.IdUser \n" +
+"FROM user INNER JOIN anggota ON user.Nis=anggota.Nis \n" +
 "INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas \n" +
-"INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.IdUser='"+UserId+"'";
+"INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.Nis='"+UserId+"'";
            ResultSet rs = stat.executeQuery(sql);
            if (rs.next())
             {

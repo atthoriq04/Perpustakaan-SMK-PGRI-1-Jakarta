@@ -36,7 +36,7 @@ public class Login extends javax.swing.JFrame {
             ResultSet rs = stat.executeQuery(sql);
             if (rs.next())
             {
-                int UserId = rs.getInt("IdUser");
+                int Nis = rs.getInt("Nis");
                 String user = rs.getString("Username");
                 String pass = rs.getString("Password");
                 int status = rs.getInt("Nis/K");
@@ -44,7 +44,7 @@ public class Login extends javax.swing.JFrame {
                 if (pass.equals(pass) && user.equals(user)){
                     JOptionPane.showMessageDialog(this, "Login Berhasil");
                     UserSession.setUserLogin(user);
-                    UserSession.setUserId(UserId);
+                    UserSession.setUserId(Nis);
                     
                     if(status==3){
                         Siswa_Home a=new Siswa_Home();
@@ -66,7 +66,7 @@ public class Login extends javax.swing.JFrame {
             else
             JOptionPane.showMessageDialog(this, "Username Tidak Ada");
         }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Ada Kesalahan");
+            JOptionPane.showMessageDialog(null, e);
         }        
         Username.setText("");
         Password.setText("");
