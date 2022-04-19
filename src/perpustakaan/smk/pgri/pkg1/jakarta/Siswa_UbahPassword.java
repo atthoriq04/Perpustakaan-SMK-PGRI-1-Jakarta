@@ -4,6 +4,12 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Atthoriq
@@ -13,9 +19,41 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
     /**
      * Creates new form Siswa_UbahPassword
      */
+    ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
     public Siswa_UbahPassword() {
         initComponents();
+        CC = new koneksi().connect();
     }
+     int UserId = UserSession.GetUserId();
+     private void changepw(){
+         try{
+             Statement stat = CC.createStatement();
+             String Sql = "SELECT Password FROM user WHERE Nis = '"+UserId+"'";
+             ResultSet rs = stat.executeQuery(Sql);
+             if(rs.next()){
+             String oldpw = rs.getString("Password");
+             String newpw = pwbaru.getText();
+             String newpw2 = pwbaru2.getText();
+                if(pwlama.getText().equals(oldpw)){
+                    if(newpw.equals(newpw2)){
+                     String update = "UPDATE user SET user.Password='"+newpw2+"' WHERE Nis ="+UserId+"";
+                      pst = CC.prepareStatement(update);
+                      pst.execute();
+                      pst.close();
+                      JOptionPane.showMessageDialog(this, "Password Berhasil Di Ubah !!");   
+                    }else{
+                     JOptionPane.showMessageDialog(this, "Password Baru Tidak Sesuai !!");   
+                    }
+                }else{
+                   JOptionPane.showMessageDialog(this, "Password Lama Tidak Sesuai !!"); 
+                }
+             }
+         }catch (Exception e){
+             JOptionPane.showMessageDialog(null, e);
+         }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,9 +68,9 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jPasswordField3 = new javax.swing.JPasswordField();
+        pwlama = new javax.swing.JPasswordField();
+        pwbaru = new javax.swing.JPasswordField();
+        pwbaru2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -49,11 +87,11 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("Ulangi Password");
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pwlama.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        jPasswordField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pwbaru.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        jPasswordField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pwbaru2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jButton1.setText("Ubah");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,12 +120,12 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(pwlama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pwbaru, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pwbaru2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
@@ -101,15 +139,15 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwlama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwbaru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwbaru2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -129,10 +167,12 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        changepw();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -181,8 +221,8 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
+    private javax.swing.JPasswordField pwbaru;
+    private javax.swing.JPasswordField pwbaru2;
+    private javax.swing.JPasswordField pwlama;
     // End of variables declaration//GEN-END:variables
 }
