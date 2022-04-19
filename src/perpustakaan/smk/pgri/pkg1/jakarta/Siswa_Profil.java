@@ -34,12 +34,13 @@ public class Siswa_Profil extends javax.swing.JFrame {
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
+      int UserId = UserSession.GetUserId();
      private void UserId(){
         //toUser.setText(UserSession.getUserLogin());
         try {
         Statement stat = CC.createStatement();
-           int UserId = UserSession.GetUserId();
-           String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp \n" +
+          
+           String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.TingkatKelas,kelas.IdJurusan,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp,anggota.Expired \n" +
 "FROM user INNER JOIN anggota ON user.Nis=anggota.Nis \n" +
 "INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas \n" +
 "INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.Nis='"+UserId+"'";
@@ -49,19 +50,23 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 String Nama = rs.getString("anggota.Nama");
                 String Nis = rs.getString("anggota.Nis");
                 String Alamat = rs.getString("anggota.Alamat");
+                String tk = rs.getString("kelas.TingkatKelas");
+                String IdJurus = rs.getString("kelas.IdJurusan");
                 String Kelas = rs.getString("kelas.kelas");
                 String TTL = rs.getString("anggota.TTL");
                 String user = rs.getString("user.Username");
                 String Email = rs.getString("anggota.email");
                 String NoHp = rs.getString("anggota.NoHp");
+                String expire = rs.getString("anggota.Expired");
                 nama.setText(Nama);
                 nis.setText(Nis);
                 alamat.setText(Alamat);
-                kelas.setText(Kelas);
+                kelas.setText(tk+IdJurus+Kelas);
                 ttl.setText(TTL);
                 username.setText(user);
                 email.setText(Email);
                 nohp.setText(NoHp);
+                expired.setText(expire);
             } else
             JOptionPane.showMessageDialog(this, "Ada Kesalahan");
         } catch (Exception e) {
@@ -114,6 +119,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toProf = new javax.swing.JLabel();
         toNotif = new javax.swing.JLabel();
         toOut = new javax.swing.JLabel();
+        expired = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,16 +213,16 @@ public class Siswa_Profil extends javax.swing.JFrame {
         ttl.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         ttl.setText("Tempat, Tanggal Lahir");
         jPanel1.add(ttl);
-        ttl.setBounds(665, 341, 340, 23);
+        ttl.setBounds(660, 340, 340, 23);
 
-        jButton2.setText("s");
+        jButton2.setText("Simpan");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1218, 680, 22, 22);
+        jButton2.setBounds(1200, 680, 72, 22);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +231,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1105, 680, 111, 22);
+        jButton3.setBounds(1041, 680, 140, 22);
 
         nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(nohp);
@@ -515,6 +521,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(SubUser);
         SubUser.setBounds(1200, 40, 80, 80);
 
+        expired.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        expired.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        expired.setText("Expired");
+        jPanel1.add(expired);
+        expired.setBounds(40, 470, 230, 17);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -535,6 +547,28 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+         try{
+            
+            String User = username.getText();
+            String Email = email.getText();
+            String NoHP = nohp.getText();
+            String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
+            "SET user.Username = '"+User+"',\n" +
+            "anggota.Email='"+Email+"',\n" +
+            "anggota.NoHp='"+NoHP+"'" ;
+                pst = CC.prepareStatement(Sql);
+                pst.execute();
+                pst.close();
+              JOptionPane.showMessageDialog(null, "Update Berhasil");
+              username.setText(User);
+              email.setText(Email);
+              nohp.setText(NoHP);
+//            update.setEnabled(false);
+//            hapus.setEnabled(false);
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -749,6 +783,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JPanel SubUser;
     private javax.swing.JLabel alamat;
     private javax.swing.JTextField email;
+    private javax.swing.JLabel expired;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
