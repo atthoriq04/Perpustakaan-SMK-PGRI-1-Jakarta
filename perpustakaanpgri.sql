@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 18/04/2022 23:21:39
+ Date: 20/04/2022 13:07:03
 */
 
 SET NAMES utf8mb4;
@@ -29,15 +29,16 @@ CREATE TABLE `anggota`  (
   `Alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `NoHp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TTL` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `IdUser` int(11) NOT NULL,
-  PRIMARY KEY (`Nis`) USING BTREE,
-  UNIQUE INDEX `IdKelas`(`IdKelas`) USING BTREE
+  `Expired` date NULL DEFAULT NULL,
+  PRIMARY KEY (`Nis`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of anggota
 -- ----------------------------
-INSERT INTO `anggota` VALUES (99281, 'Dera', 1, 'deraabdulgani@gmail.com', 'Jakarta', '082129563899', 'Sukabumi, 12 Oktober 1999', 0);
+INSERT INTO `anggota` VALUES (99281, 'Dera', 1, 'masterblad213@gmail.com', 'Jakarta', '0821295332112', 'Sukabumi, 12 Oktober 1999', '2023-04-19');
+INSERT INTO `anggota` VALUES (99282, 'Radika', 2, 'radika@gmail.com', 'Jakarta', '0821223221', 'Jakarta, 20 April 2022', '2023-04-20');
+INSERT INTO `anggota` VALUES (99283, 'Yos', 3, 'yos@gmail.com', 'Jakarta', '08212231122', 'Jakarta, 20 April 2022', '2022-04-21');
 
 -- ----------------------------
 -- Table structure for biblio
@@ -203,8 +204,9 @@ CREATE TABLE `kelas`  (
 -- ----------------------------
 -- Records of kelas
 -- ----------------------------
-INSERT INTO `kelas` VALUES (1, '10', 'MM', '1');
-INSERT INTO `kelas` VALUES (2, '10', 'MM', '2');
+INSERT INTO `kelas` VALUES (1, 'X', 'MM', '1');
+INSERT INTO `kelas` VALUES (2, 'X', 'MM', '2');
+INSERT INTO `kelas` VALUES (3, 'XII', 'MM', '3');
 
 -- ----------------------------
 -- Table structure for mst_gmd
@@ -336,14 +338,15 @@ CREATE TABLE `user`  (
   `Password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Nis/K` int(11) NOT NULL DEFAULT 3,
   PRIMARY KEY (`Nis`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 99284 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'Admin', 'Admin', 1);
 INSERT INTO `user` VALUES (2, 'Petugas', 'Petugas', 2);
-INSERT INTO `user` VALUES (99281, 'Siswa', 'Siswa', 3);
+INSERT INTO `user` VALUES (99281, 'dera', 'getamped', 3);
 INSERT INTO `user` VALUES (99282, 'radika', 'radika', 3);
+INSERT INTO `user` VALUES (99283, 'yos', 'yos', 3);
 
 SET FOREIGN_KEY_CHECKS = 1;

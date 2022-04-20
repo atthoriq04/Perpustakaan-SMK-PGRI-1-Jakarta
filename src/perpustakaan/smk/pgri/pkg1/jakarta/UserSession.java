@@ -13,6 +13,7 @@ public class UserSession {
     
     private static String userLogin;
     private static int UserId;
+    private static String nis,nama,kelas,alamat;
     public static void setUserLogin(String userLogin) {
         UserSession.userLogin = userLogin;
     }
@@ -20,8 +21,6 @@ public class UserSession {
     public static void setUserId(int UserId) {
         UserSession.UserId = UserId;
     }
-   
-    
     
     public static String getUserLogin() {
         return userLogin;
@@ -29,5 +28,7 @@ public class UserSession {
     public static int GetUserId(){
         return UserId;
     }
+   
+    
 }
     
