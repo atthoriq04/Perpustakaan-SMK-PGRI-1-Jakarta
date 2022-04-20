@@ -3,13 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_DataJurusan extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_DataJurusan
      */
@@ -20,8 +32,35 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        judul();
+        Datas();
     }
-
+    public void judul() {
+            Object[] judul = {
+         "idJurusan", "Jurusan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        jurusan.setModel(tmdl);}
+    
+    public void Datas() {
+        String Kelas;
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery("SELECT * FROM Jurusan");
+            while(rst.next()){
+            Object[] data = {
+                rst.getString("idJurusan"),
+                rst.getString("Jurusan")
+                
+            };
+            tmdl.addRow(data);
+            }
+            }catch(Exception e){
+          e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,7 +136,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jurusan = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -999,7 +1038,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jurusan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1010,17 +1049,17 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
                 "#", "Id Jurusan", "Jurusan"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jurusan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jurusanMouseClicked(evt);
             }
         });
-        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jurusan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable1KeyPressed(evt);
+                jurusanKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jurusan);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
@@ -1073,14 +1112,14 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel3MouseExited
 
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+    private void jurusanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jurusanKeyPressed
         
-    }//GEN-LAST:event_jTable1KeyPressed
+    }//GEN-LAST:event_jurusanKeyPressed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jurusanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jurusanMouseClicked
        Petugas_EditJurusan obj = new Petugas_EditJurusan();
         obj.setVisible(true);
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jurusanMouseClicked
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1512,7 +1551,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jurusan;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

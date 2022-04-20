@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 20/04/2022 13:07:03
+ Date: 20/04/2022 14:44:34
 */
 
 SET NAMES utf8mb4;
@@ -292,12 +292,20 @@ INSERT INTO `mst_publisher` VALUES (11, 'Atlantic Monthly Press', '2007-11-29', 
 -- ----------------------------
 DROP TABLE IF EXISTS `pengunjung`;
 CREATE TABLE `pengunjung`  (
-  `IdPengunjung` int(11) NOT NULL,
+  `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT,
   `Nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Instansi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TanggalKunjungan` datetime(0) NOT NULL,
   PRIMARY KEY (`IdPengunjung`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of pengunjung
+-- ----------------------------
+INSERT INTO `pengunjung` VALUES (1, 'Atthoriq', 'thoriqaziz.muhammad@gmail.com', 'unindrag', '2022-04-20 13:35:00');
+INSERT INTO `pengunjung` VALUES (2, 'Yos', 'yos@gmail.com', 'Siswa', '2022-04-20 13:35:31');
+INSERT INTO `pengunjung` VALUES (3, 'Dera', 'masterblad213@gmail.com', 'Siswa', '2022-04-20 14:43:32');
 
 -- ----------------------------
 -- Table structure for petugas

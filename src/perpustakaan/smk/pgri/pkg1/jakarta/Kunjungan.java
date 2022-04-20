@@ -4,8 +4,15 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
-import java.awt.Color;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
 /**
  *
  * @author Atthoriq
@@ -15,10 +22,17 @@ public class Kunjungan extends javax.swing.JFrame {
     /**
      * Creates new form Kunjungan
      */
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public DefaultTableModel tmdl;
+    public PreparedStatement prst;
     public Kunjungan() {
         initComponents();
+        
+        
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,15 +47,15 @@ public class Kunjungan extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         text1 = new javax.swing.JLabel();
         text2 = new javax.swing.JLabel();
-        form2 = new javax.swing.JPasswordField();
         text3 = new javax.swing.JLabel();
         Siswa = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         Tamu = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        form1 = new javax.swing.JPasswordField();
-        form3 = new javax.swing.JPasswordField();
+        form1 = new javax.swing.JTextField();
+        form2 = new javax.swing.JTextField();
+        form3 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         toLogin = new javax.swing.JLabel();
         toKunjungan = new javax.swing.JLabel();
@@ -61,14 +75,6 @@ public class Kunjungan extends javax.swing.JFrame {
 
         text2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         text2.setText("Email");
-
-        form2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        form2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(229, 231, 238)));
-        form2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                form2ActionPerformed(evt);
-            }
-        });
 
         text3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         text3.setText("Instansi");
@@ -132,20 +138,9 @@ public class Kunjungan extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(2, 117, 216));
         jButton1.setText("Submit");
-
-        form1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        form1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(229, 231, 238)));
-        form1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                form1ActionPerformed(evt);
-            }
-        });
-
-        form3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        form3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(229, 231, 238)));
-        form3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                form3ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -159,7 +154,7 @@ public class Kunjungan extends javax.swing.JFrame {
                 .addComponent(Tamu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(text3)
@@ -169,9 +164,9 @@ public class Kunjungan extends javax.swing.JFrame {
                             .addGap(340, 340, 340))
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(text1)
-                    .addComponent(form2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(form1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(form3, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(form1)
+                    .addComponent(form2)
+                    .addComponent(form3))
                 .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,16 +178,16 @@ public class Kunjungan extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(text1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(form1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addComponent(form1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(text2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(form2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(form2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(text3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(form3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(form3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -317,10 +312,6 @@ public class Kunjungan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void form2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_form2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_form2ActionPerformed
-
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
         Login obj = new Login();
         obj.setVisible(true);
@@ -380,6 +371,7 @@ public class Kunjungan extends javax.swing.JFrame {
     private void SiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SiswaMouseClicked
         Tamu.setBackground(new java.awt.Color(188, 190, 208));
         Siswa.setBackground(new java.awt.Color(255, 255, 255));
+        int status = 1;
         text2.setVisible(false);
         text3.setVisible(false);
         text1.setText("NIS");
@@ -387,14 +379,6 @@ public class Kunjungan extends javax.swing.JFrame {
         form3.setVisible(false);
         
     }//GEN-LAST:event_SiswaMouseClicked
-
-    private void form1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_form1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_form1ActionPerformed
-
-    private void form3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_form3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_form3ActionPerformed
 
     private void TamuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TamuMouseEntered
         // TODO add your handling code here:
@@ -409,6 +393,41 @@ public class Kunjungan extends javax.swing.JFrame {
         form2.setVisible(true);
         form3.setVisible(true);
     }//GEN-LAST:event_TamuMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();  
+        if(text1.getText()== "Nama"){
+        try{
+            stt = CC.createStatement();
+            stt.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ form1.getText() + "','" 
+                    + form2.getText() + "','"
+                    + form3.getText() + "','"
+                    + dtf.format(now)+ "')");
+            JOptionPane.showMessageDialog(null, "Terima Kasih Telah Berkunjung");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+           
+       }else if(text1.getText()== "NIS"){
+           try{
+            stt = CC.createStatement();
+            String nama;
+            String email;
+            ResultSet rs = stt.executeQuery("SELECT * FROM anggota WHERE Nis ="+form1.getText());
+                    if(rs.next()){
+                    nama = rs.getString("Nama");
+                    email = rs.getString("Email");
+                    stt.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ nama + "','" 
+                    + email + "','Siswa','"+dtf.format(now)+"')");
+                    JOptionPane.showMessageDialog(null, "Terima Kasih Telah Berkunjung");
+                    }else
+            JOptionPane.showMessageDialog(this, "NIS Anda Tidak Terdaftar");
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }}
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,9 +467,9 @@ public class Kunjungan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Siswa;
     private javax.swing.JPanel Tamu;
-    private javax.swing.JPasswordField form1;
-    private javax.swing.JPasswordField form2;
-    private javax.swing.JPasswordField form3;
+    private javax.swing.JTextField form1;
+    private javax.swing.JTextField form2;
+    private javax.swing.JTextField form3;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel8;
