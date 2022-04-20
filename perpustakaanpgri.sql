@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 20/04/2022 14:44:34
+ Date: 21/04/2022 04:45:38
 */
 
 SET NAMES utf8mb4;
@@ -187,7 +187,10 @@ CREATE TABLE `jurusan`  (
 -- ----------------------------
 -- Records of jurusan
 -- ----------------------------
+INSERT INTO `jurusan` VALUES ('AKL', 'AKL');
+INSERT INTO `jurusan` VALUES ('BDP', 'BDP');
 INSERT INTO `jurusan` VALUES ('MM', 'Multimedia');
+INSERT INTO `jurusan` VALUES ('OTP', 'OTP');
 
 -- ----------------------------
 -- Table structure for kelas
@@ -206,7 +209,30 @@ CREATE TABLE `kelas`  (
 -- ----------------------------
 INSERT INTO `kelas` VALUES (1, 'X', 'MM', '1');
 INSERT INTO `kelas` VALUES (2, 'X', 'MM', '2');
-INSERT INTO `kelas` VALUES (3, 'XII', 'MM', '3');
+INSERT INTO `kelas` VALUES (3, 'X', 'BDP', '');
+INSERT INTO `kelas` VALUES (4, 'X', 'AKL', '1');
+INSERT INTO `kelas` VALUES (5, 'X', 'AKL', '2');
+INSERT INTO `kelas` VALUES (6, 'X', 'OTP', '1');
+INSERT INTO `kelas` VALUES (7, 'X', 'OTP', '2');
+INSERT INTO `kelas` VALUES (8, 'X', 'OTP', '3');
+INSERT INTO `kelas` VALUES (9, 'XI', 'MM', '1');
+INSERT INTO `kelas` VALUES (10, 'XI', 'MM', '2');
+INSERT INTO `kelas` VALUES (11, 'XI', 'BDP', '');
+INSERT INTO `kelas` VALUES (12, 'XI', 'AKL', '1');
+INSERT INTO `kelas` VALUES (13, 'XI', 'AKL', '2');
+INSERT INTO `kelas` VALUES (14, 'XI', 'AKL', '3');
+INSERT INTO `kelas` VALUES (15, 'XI', 'OTP', '1');
+INSERT INTO `kelas` VALUES (16, 'XI', 'OTP', '2');
+INSERT INTO `kelas` VALUES (17, 'XI', 'OTP', '3');
+INSERT INTO `kelas` VALUES (18, 'XII', 'MM', '1');
+INSERT INTO `kelas` VALUES (19, 'XII', 'MM', '2');
+INSERT INTO `kelas` VALUES (20, 'XII', 'BDP', '');
+INSERT INTO `kelas` VALUES (21, 'XII', 'AKL', '1');
+INSERT INTO `kelas` VALUES (22, 'XII', 'AKL', '2');
+INSERT INTO `kelas` VALUES (23, 'XII', 'AKL', '3');
+INSERT INTO `kelas` VALUES (24, 'XII', 'OTP', '1');
+INSERT INTO `kelas` VALUES (25, 'XII', 'OTP', '2');
+INSERT INTO `kelas` VALUES (26, 'XII', 'OTP', '3');
 
 -- ----------------------------
 -- Table structure for mst_gmd

@@ -7,6 +7,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +30,65 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        readCB();
     }
+   public String sql;
+   
+   public void readCB(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM kelas INNER JOIN Jurusan ON kelas.IdJurusan = Jurusan.IdJurusan";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String tk = rs.getString("kelas.TingkatKelas");
+           String jurus = rs.getString("kelas.IdJurusan");
+           String kls = rs.getString("kelas.Kelas");
+           String result = tk+jurus+kls;
+               cbkelas.addItem(result);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       
+       }
+   }
+   public void refreshData(){
+       try{
+           Statement stat = CC.createStatement();
+           String ns = nis.getText();
+           sql = "SELECT * FROM anggota INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas WHERE anggota.Nis="+ns+"";
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+               String k = rs.getString("kelas.TingkatKelas");
+               String l = rs.getString("kelas.IdJurusan");
+               String s = rs.getString("kelas.kelas");
+               nis.setText(ns);
+               nama.setText(rs.getString("anggota.Nama"));
+               kls.setText(k+l+s);
+               alamat.setText(rs.getString("anggota.Alamat"));
+           }
+       }catch(Exception e){
+       }
+   }
+   
+   public void updateData(){
+       try{
+            String ns = nis.getText();
+            String nm = nama.getText();
+            String ks = kls.getText();
+            String al = alamat.getText();
+           int value = cbkelas.getSelectedIndex()+1;
+           sql = "UPDATE anggota SET anggota.Nama ='"+nm+"', anggota.IdKelas="+value+", anggota.Alamat='"+al+"' WHERE Nis ="+ns+"";
+           pst = CC.prepareStatement(sql);
+           pst.execute();
+           JOptionPane.showMessageDialog(null, "Data Anggota Berhasil Terupdate");
+           pst.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+   }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,10 +170,11 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alamat = new javax.swing.JTextArea();
         nis = new javax.swing.JTextField();
-        kelas = new javax.swing.JTextField();
         nama = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        cbkelas = new javax.swing.JComboBox<>();
+        kls = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -813,7 +873,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             .addGroup(toDendaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         toDendaLayout.setVerticalGroup(
             toDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1046,15 +1106,6 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         jPanel1.add(nis);
         nis.setBounds(200, 170, 550, 23);
 
-        kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        kelas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kelasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(kelas);
-        kelas.setBounds(200, 290, 550, 23);
-
         nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1082,6 +1133,21 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         jPanel1.add(jButton3);
         jButton3.setBounds(1190, 680, 70, 22);
 
+        cbkelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Pilih Kelas--" }));
+        cbkelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkelasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbkelas);
+        cbkelas.setBounds(260, 290, 110, 22);
+
+        kls.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        kls.setText("jLabel2");
+        jPanel1.add(kls);
+        kls.setBounds(200, 290, 220, 20);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1098,10 +1164,6 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void kelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kelasActionPerformed
 
     private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
@@ -1493,7 +1555,15 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        updateData();
+        refreshData();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void cbkelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkelasActionPerformed
+        // TODO add your handling code here:
+        Object select = cbkelas.getSelectedItem();
+        kls.setText((String)select);
+    }//GEN-LAST:event_cbkelasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1532,6 +1602,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextArea alamat;
+    private javax.swing.JComboBox<String> cbkelas;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JButton jButton2;
@@ -1572,7 +1643,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    public javax.swing.JTextField kelas;
+    public javax.swing.JLabel kls;
     public javax.swing.JTextField nama;
     public javax.swing.JTextField nis;
     private javax.swing.JPanel subMenuAdmin;

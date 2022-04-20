@@ -17,10 +17,13 @@ public class UserSession {
     public static void setUserLogin(String userLogin) {
         UserSession.userLogin = userLogin;
     }
-    
     public static void setUserId(int UserId) {
         UserSession.UserId = UserId;
     }
+    public static void setDefaultKelas(String kelas){
+        UserSession.kelas = kelas;
+    } 
+    
     
     public static String getUserLogin() {
         return userLogin;
@@ -28,7 +31,8 @@ public class UserSession {
     public static int GetUserId(){
         return UserId;
     }
-   
-    
+    public static String getDefaultKelas(){
+        return kelas;
+    }
 }
     

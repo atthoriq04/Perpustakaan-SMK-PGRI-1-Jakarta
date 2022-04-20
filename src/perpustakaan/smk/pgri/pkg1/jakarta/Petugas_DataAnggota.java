@@ -1206,7 +1206,7 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         String Alamat = model.getValueAt(i, 5).toString();
         obj.nis.setText(Nis);
         obj.nama.setText(Nama);
-        obj.kelas.setText(Kelas);
+        obj.kls.setText(Kelas);
         obj.alamat.setText(Alamat);
         obj.setVisible(true);
         obj.pack();
