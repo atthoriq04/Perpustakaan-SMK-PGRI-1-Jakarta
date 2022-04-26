@@ -13,6 +13,7 @@ public class UserSession {
     
     private static String userLogin;
     private static int UserId;
+    public static int Publisher,Place;
     private static String nis,nama,kelas,alamat;
     public static void setUserLogin(String userLogin) {
         UserSession.userLogin = userLogin;
@@ -23,7 +24,13 @@ public class UserSession {
     public static void setDefaultKelas(String kelas){
         UserSession.kelas = kelas;
     } 
-    
+       
+   public static void setPublisher(int Publisher){
+       UserSession.Publisher = Publisher;
+   }
+   public static void setPlace(int Place){
+       UserSession.Place = Place;
+   }
     
     public static String getUserLogin() {
         return userLogin;
@@ -33,6 +40,12 @@ public class UserSession {
     }
     public static String getDefaultKelas(){
         return kelas;
+    }
+    public static int getPublisher(){
+        return Publisher;
+    }
+    public static int getPlace(){
+        return Place;
     }
 }
     

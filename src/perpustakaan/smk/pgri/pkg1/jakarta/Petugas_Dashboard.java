@@ -919,6 +919,9 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
         toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toInputBukuMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toInputBukuMouseEntered(evt);
             }
@@ -1447,6 +1450,13 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
        obj.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
+
+    private void toInputBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputBukuMouseClicked
+        // TODO add your handling code here:
+       Petugas_InputBuku obj = new Petugas_InputBuku();
+       obj.setVisible(true);
+       this.dispose();               
+    }//GEN-LAST:event_toInputBukuMouseClicked
 
     /**
      * @param args the command line arguments
