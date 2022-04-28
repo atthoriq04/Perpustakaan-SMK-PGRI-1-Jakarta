@@ -44,6 +44,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         readGMD();
         readPublisher();
         readPlace();
+        readAuthor();
     }
     public String sql;
     private void userLogin(){
@@ -114,6 +115,23 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
        
        }
    }
+   public void readAuthor(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT author_id, author_name FROM mst_author";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String result = rs.getString("mst_author.author_name");
+               cbPengarang.addItem(result);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       
+       }
+   }
+   
    public String file;
     private void attach(){
         JFileChooser chooser = new JFileChooser();
@@ -125,7 +143,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
         img.setIcon(icon);
     }
-   public int pub,place;
+   public int pub,place,language,auth;
    public void insertData(){
        String value1 = Judul.getText();
            int value2 = cbGMD.getSelectedIndex()+1;
@@ -136,10 +154,11 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
            String value7 = Deskripsi.getText();
            String value8 = JudulSeri.getText();
            String value9 = NoPanggil.getText();
-           int value10 = Bahasa.getSelectedIndex()+1;
+           int value10 = language;
            int value11 = place;
            String value12 = DDC.getText();
            String gmbar = file;
+           int Penulis = auth;
            if (gmbar == null){
                gmbar = "D:DeraKuliahPerpustakaan-SMK-PGRI-1-Jakartasrcperpustakaansmkpgripkg1jakartaButtonCover.png";
            }
@@ -147,8 +166,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
        try{
            
            stt = CC.createStatement();
-           sql = "INSERT INTO new_bliblio (IdGMD,Judul,Edisi,isbn_issn,IdPublisher,PublisherYear,Notes,SeriesTitle,call_number,"
-                   + "IdLanguage,TempatTerbit,Klasifikasi,image)VALUES("+value2+",'"+value1+"','"+value3+"','"+value4+"',"
+           sql = "INSERT INTO new_bliblio (IdGMD,Judul,author_id,Edisi,isbn_issn,IdPublisher,PublisherYear,Notes,SeriesTitle,call_number,"
+                   + "IdLanguage,TempatTerbit,Klasifikasi,image)VALUES("+value2+",'"+value1+"',"+Penulis+",'"+value3+"','"+value4+"',"
                    + ""+value5+",'"+value6+"','"+value7+"','"+value8+"','"+value9+"',"+value10+","+value11+",'"+value12+"','"+gmbar+"')";
                   
            stt.executeUpdate(sql);
@@ -208,6 +227,34 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         if(rs.next()){
          String value = rs.getString("place_name");
          TempatTerbit.setText(value);
+        }
+        }catch(Exception e){
+          JOptionPane.showMessageDialog(null, e);  
+        }
+   }
+   public void setValue3(){
+        try{
+        int index = Bahasa.getSelectedIndex();
+        Statement stat = CC.createStatement();
+        sql = "SELECT * FROM mst_language WHERE language_id="+index+"";
+        ResultSet rs = stat.executeQuery(sql);
+        if(rs.next()){
+         String value = rs.getString("language_name");
+         lang.setText(value);
+        }
+        }catch(Exception e){
+          JOptionPane.showMessageDialog(null, e);  
+        }
+   }
+   public void setValue4(){
+        try{
+        int index = cbPengarang.getSelectedIndex();
+        Statement stat = CC.createStatement();
+        sql = "SELECT * FROM mst_author WHERE author_id="+index+"";
+        ResultSet rs = stat.executeQuery(sql);
+        if(rs.next()){
+         String value = rs.getString("author_name");
+         Pengarang.setText(value);
         }
         }catch(Exception e){
           JOptionPane.showMessageDialog(null, e);  
@@ -277,10 +324,73 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, e);
         }
     }
+    public void setIndex3(){
+        try{
+        int index = Bahasa.getSelectedIndex();
+        Statement stat = CC.createStatement();
+        sql = "SELECT * FROM mst_language WHERE language_id="+index+"";
+        ResultSet rs = stat.executeQuery(sql);
+        if(rs.next()){
+         String value = rs.getString("language_name");
+         language = index;
+         lang.setText(value);
+        }else{
+         String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String bhs = lang.getText();
+             String SQL = "INSERT INTO mst_language (language_name,input_date,last_update) VALUES('"+bhs+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_language.language_id, language_name FROM mst_language WHERE language_name = '"+bhs+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                language = rsa.getInt("language_id");
+            }
+        }
+        }catch (Exception e){
+             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    public void setIndex4(){
+        try{
+        int index = cbPengarang.getSelectedIndex();
+        Statement stat = CC.createStatement();
+        sql = "SELECT * FROM mst_author WHERE author_id="+index+"";
+        ResultSet rs = stat.executeQuery(sql);
+        if(rs.next()){
+         String value = rs.getString("author_name");
+         auth = index;
+         Pengarang.setText(value);
+        }else{
+         String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String author = Pengarang.getText();
+             String SQL = "INSERT INTO mst_author (author_name,input_date,last_update) VALUES('"+author+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_author.author_id, author_name FROM mst_author WHERE author_name = '"+author+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                auth = rsa.getInt("author_id");
+            }
+        }
+        }catch (Exception e){
+             JOptionPane.showMessageDialog(null, e);
+        }
+    }
     public void initial(){
          inputData.setSelected(false);
         Judul.setEnabled(false);
         lbl_judul.setEnabled(false);
+        lbl_pengarang.setEnabled(false);
+        Pengarang.setEnabled(false);
+        cbPengarang.setEnabled(false);
         cbGMD.setEnabled(false);
         lbl_gmd.setEnabled(false);
         Edisi.setEnabled(false);
@@ -300,6 +410,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_nopanggil.setEnabled(false);
         Bahasa.setEnabled(false);
         lbl_bahasa.setEnabled(false);
+        lang.setEnabled(false);
         TempatTerbit.setEnabled(false);
         lbl_tempatTerbit.setEnabled(false);
         cbTempat.setEnabled(false);
@@ -420,6 +531,10 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC = new javax.swing.JTextField();
         cbPenerbit = new javax.swing.JComboBox<>();
         cbTempat = new javax.swing.JComboBox<>();
+        lang = new javax.swing.JTextField();
+        Pengarang = new javax.swing.JTextField();
+        lbl_pengarang = new javax.swing.JLabel();
+        cbPengarang = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1363,28 +1478,28 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judul.setText("Judul");
         jPanel1.add(lbl_judul);
-        lbl_judul.setBounds(110, 210, 80, 20);
+        lbl_judul.setBounds(110, 230, 80, 20);
 
         lbl_gmd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_gmd.setText("GMD");
         jPanel1.add(lbl_gmd);
-        lbl_gmd.setBounds(110, 250, 70, 20);
+        lbl_gmd.setBounds(110, 290, 70, 20);
 
         lbl_edisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_edisi.setText("Edisi");
         jPanel1.add(lbl_edisi);
-        lbl_edisi.setBounds(110, 290, 70, 20);
+        lbl_edisi.setBounds(110, 320, 70, 20);
 
         Deskripsi.setColumns(20);
         Deskripsi.setRows(5);
         jScrollPane1.setViewportView(Deskripsi);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(310, 450, 630, 70);
+        jScrollPane1.setBounds(310, 440, 630, 70);
 
         Judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Judul);
-        Judul.setBounds(310, 210, 630, 23);
+        Judul.setBounds(310, 230, 630, 23);
 
         Edisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Edisi.addActionListener(new java.awt.event.ActionListener() {
@@ -1393,7 +1508,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Edisi);
-        Edisi.setBounds(310, 290, 630, 23);
+        Edisi.setBounds(310, 320, 630, 23);
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
@@ -1409,12 +1524,12 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_isbn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_isbn.setText("ISBN");
         jPanel1.add(lbl_isbn);
-        lbl_isbn.setBounds(110, 330, 80, 20);
+        lbl_isbn.setBounds(110, 350, 80, 20);
 
         lbl_publisher.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_publisher.setText("Penerbit");
         jPanel1.add(lbl_publisher);
-        lbl_publisher.setBounds(110, 370, 70, 20);
+        lbl_publisher.setBounds(110, 380, 70, 20);
 
         lbl_tterbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_tterbit.setText("Tahun Terbit");
@@ -1424,27 +1539,27 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_tempatTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_tempatTerbit.setText("Tempat Terbit");
         jPanel1.add(lbl_tempatTerbit);
-        lbl_tempatTerbit.setBounds(110, 620, 90, 20);
+        lbl_tempatTerbit.setBounds(110, 610, 90, 20);
 
         lbl_bahasa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_bahasa.setText("Bahasa");
         jPanel1.add(lbl_bahasa);
-        lbl_bahasa.setBounds(110, 580, 90, 40);
+        lbl_bahasa.setBounds(110, 570, 90, 40);
 
         lbl_nopanggil.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_nopanggil.setText("No Panggil");
         jPanel1.add(lbl_nopanggil);
-        lbl_nopanggil.setBounds(110, 560, 150, 20);
+        lbl_nopanggil.setBounds(110, 550, 150, 20);
 
         lbl_judulseri.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judulseri.setText("Judul Seri");
         jPanel1.add(lbl_judulseri);
-        lbl_judulseri.setBounds(110, 530, 70, 20);
+        lbl_judulseri.setBounds(110, 520, 70, 20);
 
         lbl_fisik.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_fisik.setText("Deskripsi Fisik");
         jPanel1.add(lbl_fisik);
-        lbl_fisik.setBounds(110, 450, 100, 20);
+        lbl_fisik.setBounds(110, 440, 100, 20);
 
         TahunTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TahunTerbit.addActionListener(new java.awt.event.ActionListener() {
@@ -1462,15 +1577,15 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Penerbit);
-        Penerbit.setBounds(310, 370, 240, 23);
+        Penerbit.setBounds(310, 380, 240, 23);
 
         ISBN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(ISBN);
-        ISBN.setBounds(310, 330, 630, 23);
+        ISBN.setBounds(310, 350, 630, 23);
 
         JudulSeri.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(JudulSeri);
-        JudulSeri.setBounds(310, 530, 630, 23);
+        JudulSeri.setBounds(310, 520, 630, 23);
 
         TempatTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TempatTerbit.addActionListener(new java.awt.event.ActionListener() {
@@ -1479,7 +1594,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(TempatTerbit);
-        TempatTerbit.setBounds(310, 620, 200, 23);
+        TempatTerbit.setBounds(310, 610, 200, 23);
 
         NoPanggil.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         NoPanggil.addActionListener(new java.awt.event.ActionListener() {
@@ -1488,7 +1603,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(NoPanggil);
-        NoPanggil.setBounds(310, 560, 630, 23);
+        NoPanggil.setBounds(310, 550, 630, 23);
 
         panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
 
@@ -1519,13 +1634,15 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jPanel1.add(attach);
         attach.setBounds(1050, 410, 120, 22);
 
+        Bahasa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Bahasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Bahasa" }));
         Bahasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BahasaActionPerformed(evt);
             }
         });
         jPanel1.add(Bahasa);
-        Bahasa.setBounds(310, 590, 150, 22);
+        Bahasa.setBounds(520, 580, 150, 21);
 
         cbGMD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1533,12 +1650,12 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbGMD);
-        cbGMD.setBounds(310, 250, 150, 22);
+        cbGMD.setBounds(310, 290, 150, 22);
 
         lbl_ddc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_ddc.setText("Klasifikasi");
         jPanel1.add(lbl_ddc);
-        lbl_ddc.setBounds(110, 650, 90, 20);
+        lbl_ddc.setBounds(110, 640, 90, 20);
 
         DDC.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         DDC.addActionListener(new java.awt.event.ActionListener() {
@@ -1547,8 +1664,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DDC);
-        DDC.setBounds(310, 650, 630, 23);
+        DDC.setBounds(310, 640, 630, 23);
 
+        cbPenerbit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Penerbit" }));
         cbPenerbit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1556,8 +1674,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbPenerbit);
-        cbPenerbit.setBounds(560, 370, 120, 22);
+        cbPenerbit.setBounds(560, 380, 150, 21);
 
+        cbTempat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTempat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tempat" }));
         cbTempat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1565,21 +1684,45 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbTempat);
-        cbTempat.setBounds(520, 620, 150, 22);
+        cbTempat.setBounds(520, 610, 150, 21);
+
+        lang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(lang);
+        lang.setBounds(310, 580, 200, 23);
+
+        Pengarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(Pengarang);
+        Pengarang.setBounds(310, 260, 240, 23);
+
+        lbl_pengarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_pengarang.setText("Pengarang");
+        jPanel1.add(lbl_pengarang);
+        lbl_pengarang.setBounds(110, 260, 80, 20);
+
+        cbPengarang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbPengarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Pengarang" }));
+        cbPengarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPengarangActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbPengarang);
+        cbPengarang.setBounds(560, 260, 150, 21);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -1590,6 +1733,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         inputData.setSelected(false);
         Judul.setEnabled(false);
         lbl_judul.setEnabled(false);
+        lbl_pengarang.setEnabled(false);
+        Pengarang.setEnabled(false);
+        cbPengarang.setEnabled(false);
         cbGMD.setEnabled(false);
         lbl_gmd.setEnabled(false);
         Edisi.setEnabled(false);
@@ -1623,6 +1769,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         importData.setSelected(false);
         Judul.setEnabled(true);
         lbl_judul.setEnabled(true);
+        lbl_pengarang.setEnabled(true);
+        Pengarang.setEnabled(true);
+        cbPengarang.setEnabled(true);
         cbGMD.setEnabled(true);
         lbl_gmd.setEnabled(true);
         Edisi.setEnabled(true);
@@ -1642,6 +1791,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_nopanggil.setEnabled(true);
         Bahasa.setEnabled(true);
         lbl_bahasa.setEnabled(true);
+        lang.setEnabled(true);
         TempatTerbit.setEnabled(true);
         cbTempat.setEnabled(true);
          lbl_tempatTerbit.setEnabled(true);
@@ -2049,13 +2199,15 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
     private void BahasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BahasaActionPerformed
         // TODO add your handling code here:
-        
+        setValue3();
     }//GEN-LAST:event_BahasaActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
         setIndex1();
         setIndex2();
+        setIndex3();
+        setIndex4();
         insertData();
         reset();
     }//GEN-LAST:event_submitActionPerformed
@@ -2074,6 +2226,11 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         // TODO add your handling code here:
         attach();
     }//GEN-LAST:event_attachActionPerformed
+
+    private void cbPengarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPengarangActionPerformed
+        // TODO add your handling code here:
+        setValue4();
+    }//GEN-LAST:event_cbPengarangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2120,11 +2277,13 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JTextField JudulSeri;
     private javax.swing.JTextField NoPanggil;
     private javax.swing.JTextField Penerbit;
+    private javax.swing.JTextField Pengarang;
     private javax.swing.JTextField TahunTerbit;
     private javax.swing.JTextField TempatTerbit;
     private javax.swing.JButton attach;
     private javax.swing.JComboBox<String> cbGMD;
     private javax.swing.JComboBox<String> cbPenerbit;
+    private javax.swing.JComboBox<String> cbPengarang;
     private javax.swing.JComboBox<String> cbTempat;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
@@ -2166,6 +2325,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JTextField lang;
     private javax.swing.JLabel lbl_bahasa;
     private javax.swing.JLabel lbl_ddc;
     private javax.swing.JLabel lbl_edisi;
@@ -2175,6 +2335,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_judul;
     private javax.swing.JLabel lbl_judulseri;
     private javax.swing.JLabel lbl_nopanggil;
+    private javax.swing.JLabel lbl_pengarang;
     private javax.swing.JLabel lbl_publisher;
     private javax.swing.JLabel lbl_tempatTerbit;
     private javax.swing.JLabel lbl_tterbit;
