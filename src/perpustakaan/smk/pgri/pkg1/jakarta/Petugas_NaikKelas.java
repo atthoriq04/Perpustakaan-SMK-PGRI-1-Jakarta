@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Atthoriq
@@ -13,8 +19,73 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
     /**
      * Creates new form Petugas_NaikKelas
      */
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
     public Petugas_NaikKelas() {
         initComponents();
+        readCB();
+    }
+    
+    public String sql;
+    public String asaltingkat;
+    public String asalkelas;
+    public String asalId;
+    
+    public void readCB(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM kelas INNER JOIN Jurusan ON kelas.IdJurusan = Jurusan.IdJurusan";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String tk = rs.getString("kelas.TingkatKelas");
+           String jurus = rs.getString("kelas.IdJurusan");
+           String kls = rs.getString("kelas.Kelas");
+           String result = tk+jurus+kls;
+               Asal.addItem(result);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+   }
+    
+    public void readtujuan(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM kelas INNER JOIN Jurusan ON kelas.IdJurusan = Jurusan.IdJurusan WHERE TingkatKelas = '"+ asaltingkat +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String tk = rs.getString("kelas.TingkatKelas");
+           String jurus = rs.getString("kelas.IdJurusan");
+           String kls = rs.getString("kelas.Kelas");
+           String result = tk+jurus+kls;
+               Asal.addItem(result);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+   }
+    public void searchAsal(){
+        try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM kelas INNER JOIN Jurusan ON kelas.IdJurusan = Jurusan.IdJurusan WHERE TingkatKelas = '"+ asaltingkat +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+           String tk = rs.getString("kelas.TingkatKelas");
+           String jurus = rs.getString("kelas.IdJurusan");
+           String kls = rs.getString("kelas.Kelas");
+           String result = tk+jurus+kls;
+               
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     /**
@@ -28,8 +99,8 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        Asal = new javax.swing.JComboBox<>();
+        Tujuan = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -43,9 +114,16 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Masukan Kelas yang Akan diubah");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "XI", "XII" }));
+        Asal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Asal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<-Pilih Kelas Asal->" }));
+        Asal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsalActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "XI", "XII" }));
+        Tujuan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Tujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<-Pilih Kelas Tujuan->" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Masukan Kelas tujuan");
@@ -84,7 +162,7 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(88, 88, 88)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +170,7 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(Asal, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,7 +179,7 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Asal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,7 +187,7 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jButton1)
                 .addGap(81, 81, 81))
@@ -132,6 +210,11 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void AsalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsalActionPerformed
+        int value = Asal.getSelectedIndex();
+        System.out.print(value);
+    }//GEN-LAST:event_AsalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,9 +252,9 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Asal;
+    private javax.swing.JComboBox<String> Tujuan;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
@@ -1115,10 +1117,20 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
     private void jurusanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jurusanKeyPressed
         
     }//GEN-LAST:event_jurusanKeyPressed
-
+    public void Pressed(){
+        Petugas_EditJurusan obk = new Petugas_EditJurusan();
+        int i = jurusan.getSelectedRow();
+        TableModel model = jurusan.getModel() ;
+        String IdJurusan = model.getValueAt(i, 0).toString();
+        String Jurusan = model.getValueAt(i, 1).toString();
+        obk.Id.setText(IdJurusan);
+        obk.iId.setText(IdJurusan);
+        obk.Jrsn.setText(Jurusan);
+        obk.setVisible(true);
+        obk.pack();
+        obk.setDefaultCloseOperation(DISPOSE_ON_CLOSE);}
     private void jurusanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jurusanMouseClicked
-       Petugas_EditJurusan obj = new Petugas_EditJurusan();
-        obj.setVisible(true);
+       Pressed();
     }//GEN-LAST:event_jurusanMouseClicked
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered

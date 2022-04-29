@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
@@ -1160,10 +1162,39 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseExited
-
-    private void kelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseClicked
+    public String sql;
+    public  String tingkat;
+    public String idJrsn;
+    public String Kelas;
+    public void Pressed(){
         Petugas_EditKelas obk = new Petugas_EditKelas();
+        int i = kelas.getSelectedRow();
+        TableModel model = kelas.getModel() ;
+        tingkat = model.getValueAt(i, 0).toString();
+        String jurusan = model.getValueAt(i, 1).toString();
+        Kelas = model.getValueAt(i, 2).toString();
+        try{
+         Statement stat = CC.createStatement();
+           sql = "SELECT IdJurusan FROM jurusan Where Jurusan = '"+jurusan+"'";
+
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              idJrsn = rs.getString("IdJurusan");
+           }
+        }catch (Exception e){
+           e.printStackTrace();
+       
+       }
+        obk.Tingkat.setText(tingkat);
+        obk.jurusan.setText(idJrsn);
+        obk.klaz.setText(Kelas);
         obk.setVisible(true);
+        obk.pack();
+        obk.setDefaultCloseOperation(DISPOSE_ON_CLOSE);}
+    private void kelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseClicked
+        
+        Pressed();
+        
         
     }//GEN-LAST:event_kelasMouseClicked
 
@@ -1600,7 +1631,7 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable kelas;
+    public javax.swing.JTable kelas;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

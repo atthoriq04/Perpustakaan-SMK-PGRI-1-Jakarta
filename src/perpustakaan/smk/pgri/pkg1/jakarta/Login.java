@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,8 @@ public class Login extends javax.swing.JFrame {
 
     public void login(){
         try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+            LocalDateTime now = LocalDateTime.now();  
             Statement stat = CC.createStatement();
             String sql = "SELECT * FROM user WHERE Username = '"+Username.getText()+
             "' and Password = '"+Password.getText()+"'";
@@ -39,7 +44,7 @@ public class Login extends javax.swing.JFrame {
                 int Nis = rs.getInt("Nis");
                 String user = rs.getString("Username");
                 String pass = rs.getString("Password");
-                int status = rs.getInt("Nis/K");
+                int status = rs.getInt("Role");
 
                 if (pass.equals(pass) && user.equals(user)){
                     JOptionPane.showMessageDialog(this, "Login Berhasil");
@@ -47,9 +52,17 @@ public class Login extends javax.swing.JFrame {
                     UserSession.setUserId(Nis);
                     
                     if(status==3){
-                        Siswa_Home a=new Siswa_Home();
-                        a.setVisible(true);
-                        dispose();
+                        Statement a =CC.createStatement();
+                        ResultSet ras = a.executeQuery("SELECT * FROM anggota WHERE Nis ="+Nis);
+                    if(ras.next()){
+                        String nama = ras.getString("Nama");
+                        String email = ras.getString("Email");
+                        a.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ nama + "','" 
+                        + email + "','Siswa','"+dtf.format(now)+"')");
+                    }
+                       Siswa_Home v=new Siswa_Home();
+                       v.setVisible(true);
+                       dispose();
                     }else if(status==1 || (status==2)){
                         Petugas_Dashboard a=new Petugas_Dashboard();
                         a.setVisible(true);

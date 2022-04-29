@@ -1180,12 +1180,12 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Petugas_NaikKelas obj = new Petugas_NaikKelas();
-        obj.setVisible(true);
+        
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
+        Petugas_NaikKelas obj = new Petugas_NaikKelas();
+        obj.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
