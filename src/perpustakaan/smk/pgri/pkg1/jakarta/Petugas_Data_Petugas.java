@@ -3,13 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_Data_Petugas extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_PanelPetugas
      */
@@ -20,6 +34,38 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        judul();
+        Datas();
+    }
+    
+    public void judul() {
+            Object[] judul = {
+         "NIK", "Nama Petugas", "Alamat", "Email", "NoHP"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        petugas.setModel(tmdl);}
+    
+    public void Datas() {
+        String Kelas;
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery("SELECT * FROM Petugas");
+            while(rst.next()){
+            Object[] data = {
+                rst.getString("Nik"),
+                rst.getString("Nama"),
+                rst.getString("Alamat"),
+                rst.getString("Email"),
+                rst.getString("NoHp")
+                
+            };
+            tmdl.addRow(data);
+            }
+            }catch(Exception e){
+          e.printStackTrace();
+        }
     }
 
     /**
@@ -97,7 +143,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        petugas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -1001,7 +1047,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(110, 30, 170, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        petugas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -1012,7 +1058,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
                 "#", "NIK", "Nama", "Email", "No HP", "Username", "Email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(petugas);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
@@ -1026,6 +1072,9 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
         jLabel3.setText("Tambah Akun Petugas");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel3MouseEntered(evt);
             }
@@ -1434,6 +1483,11 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        Petugas_TambahAkunPetugas obj = new Petugas_TambahAkunPetugas();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1508,7 +1562,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable petugas;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

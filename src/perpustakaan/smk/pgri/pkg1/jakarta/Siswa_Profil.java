@@ -47,6 +47,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
            ResultSet rs = stat.executeQuery(sql);
            if (rs.next())
             {
+                
                 String Nama = rs.getString("anggota.Nama");
                 String Nis = rs.getString("anggota.Nis");
                 String Alamat = rs.getString("anggota.Alamat");
