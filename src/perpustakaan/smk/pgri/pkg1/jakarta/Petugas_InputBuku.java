@@ -132,6 +132,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
        }
    }
    
+
    public String file;
     private void attach(){
         JFileChooser chooser = new JFileChooser();
@@ -160,15 +161,19 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
            String gmbar = file;
            int Penulis = auth;
            if (gmbar == null){
-               gmbar = "D:DeraKuliahPerpustakaan-SMK-PGRI-1-Jakartasrcperpustakaansmkpgripkg1jakartaButtonCover.png";
+               gmbar = "D:\\Collage\\Smester 8\\Project\\Perpustakaan-SMK-PGRI-1-Jakarta\\src\\perpustakaan\\smk\\pgri\\pkg1\\jakarta\\Button\\Cover.png";
            }
            gmbar = gmbar.replace("\\","\\\\");
+            String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);
        try{
            
            stt = CC.createStatement();
            sql = "INSERT INTO new_bliblio (IdGMD,Judul,author_id,Edisi,isbn_issn,IdPublisher,PublisherYear,Notes,SeriesTitle,call_number,"
-                   + "IdLanguage,TempatTerbit,Klasifikasi,image)VALUES("+value2+",'"+value1+"',"+Penulis+",'"+value3+"','"+value4+"',"
-                   + ""+value5+",'"+value6+"','"+value7+"','"+value8+"','"+value9+"',"+value10+","+value11+",'"+value12+"','"+gmbar+"')";
+                   + "IdLanguage,TempatTerbit,Klasifikasi,image,input_date,last_update)VALUES("+value2+",'"+value1+"',"+Penulis+",'"+value3+"','"+value4+"',"
+                   + ""+value5+",'"+value6+"','"+value7+"','"+value8+"','"+value9+"',"+value10+","+value11+",'"+value12+"','"+gmbar+"','"+Date+"','"+Date+"')";
                   
            stt.executeUpdate(sql);
            JOptionPane.showMessageDialog(null, "Data Buku Berhasil Ditambahkan !!");
@@ -203,6 +208,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_tempatTerbit.setEnabled(true);
         DDC.setText("");
         lbl_ddc.setEnabled(true);
+        img.setIcon(null);
    }
    public void setValue1(){
         try{
@@ -1726,6 +1732,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void importDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importDataActionPerformed

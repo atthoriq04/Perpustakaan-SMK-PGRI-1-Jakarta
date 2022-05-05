@@ -4,18 +4,106 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_DataEksemplar extends javax.swing.JFrame {
-
+     ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
+    public Statement stt;
     /**
      * Creates new form Petugas_DataEksemplar
      */
+    
     public Petugas_DataEksemplar() {
         initComponents();
+        CC = new koneksi().connect();
+        userLogin();
+        showtable();
+        setValueLabel();
+        
+      
     }
+    private void userLogin(){
+        toUser.setText(UserSession.getUserLogin());
+    }
+    public String sql;
+ public void setValueLabel(){
+     call_number.setText(UserSession.getCallNumb());
+     Judul.setText(UserSession.getJudul());
+     desk.setText(UserSession.getFisik());
+  
+//    try{
+//         Statement stat = CC.createStatement();
+//         sql="SELECT * FROM new_bliblio WHERE call_number='"+UserSession.getCallNumb()+"'";
+//         ResultSet rs = stat.executeQuery(sql);
+//          String jdl = rs.getString("Judul");
+//             String psy = rs.getString("new_bliblio.Notes");
+//             String cn = rs.getString("call_number");
+//         if (rs.next()){
+//             call_number.setText(cn);
+//             desk.setText(psy);
+//            
+//             Judul.setText(jdl);
+//             
+//            
+//         } 
+//    }catch(Exception e){
+//    
+//    }
+ }
+ public String value,call;
+    public void showtable(){
+        DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
+          model.addColumn("ID Eksemplar");
+          model.addColumn("Tipe Koleksi");
+          model.addColumn("No Inventaris");
+          model.addColumn("Tanggal Penerima");
+          model.addColumn("Lokasi");
+          model.addColumn("Tanggal Pemesanan");
+          model.addColumn("Sumber Perolehan");
+          model.addColumn("Harga");
+          String value = null;
+          try{
+
+              Statement stat = CC.createStatement();
+              int no = 1;
+              String SQL = "SELECT * FROM Item INNER JOIN new_bliblio ON Item.biblio_id = new_bliblio.IdBliblio INNER JOIN mst_coll_type ON mst_coll_type.coll_type_id = Item.coll_type_id INNER JOIN mst_location ON mst_location.location_id = Item.location_id WHERE new_bliblio.call_number='"+UserSession.getCallNumb()+"'";
+              ResultSet rs = stat.executeQuery(SQL);
+              while(rs.next()){
+                int a = rs.getInt("Item.source");
+                if (a==1){
+                    value = "Beli";
+                }else if(a==2){
+                    value = "Hadiah / Hibah";
+                }
+                model.addRow(new Object[]{no++,rs.getString("Item.item_code"),
+                rs.getString("mst_coll_type.coll_type_name"),
+                rs.getString("Item.inventory_code"),
+                rs.getString("Item.received_date"),
+                rs.getString("mst_location.location_name"),
+                rs.getString("Item.order_date"),
+                value,
+                rs.getInt("Item.price")});
+                tbleksemplar.setModel(model);
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +130,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         toAnggo = new javax.swing.JLabel();
         toLaporan = new javax.swing.JLabel();
         empty1 = new javax.swing.JPanel();
+        toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
         subMenuAdmin = new javax.swing.JPanel();
         toProfilPetugas = new javax.swing.JPanel();
@@ -91,13 +180,16 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         toDataPenulis = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbleksemplar = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        call_number = new javax.swing.JLabel();
+        Judul = new javax.swing.JLabel();
+        desk = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -198,15 +290,24 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
             }
         });
 
+        toUser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        toUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        toUser.setText("jLabel2");
+
         javax.swing.GroupLayout empty1Layout = new javax.swing.GroupLayout(empty1);
         empty1.setLayout(empty1Layout);
         empty1Layout.setHorizontalGroup(
             empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(empty1Layout.createSequentialGroup()
+                .addComponent(toUser, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                .addContainerGap())
         );
         empty1Layout.setVerticalGroup(
             empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(empty1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(toUser, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.add(empty1);
@@ -310,7 +411,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -344,7 +445,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel2.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -592,7 +693,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -626,7 +727,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -660,7 +761,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -694,7 +795,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel2.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -912,7 +1013,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
             .addGroup(toDataBukuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         toDataBukuLayout.setVerticalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -957,7 +1058,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -991,12 +1092,12 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         jPanel2.add(subMenuBlibliografi);
         subMenuBlibliografi.setBounds(80, 140, 150, 130);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbleksemplar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -1007,7 +1108,12 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
                 "ID Eksemplar", "Tipe Koleksi", "No Inventaris", "Tanggal Penerima", "Lokasi", "Tanggal Pemesanan", "Hadiah", "Harga"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbleksemplar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbleksemplarMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbleksemplar);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(110, 300, 1140, 420);
@@ -1032,16 +1138,24 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("No Panggil");
+        jLabel5.setText("No Panggil :");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Judul Buku");
+        jLabel7.setText("Judul Buku :");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Deskripsi Fisik");
+        jLabel8.setText("Deskripsi Fisik :");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Subjek");
+        jLabel9.setText("Subjek :");
+
+        call_number.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        Judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Judul.setText("No Panggil :");
+
+        desk.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        desk.setText("Judul Buku :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1049,24 +1163,39 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(call_number, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Judul, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(desk, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 1013, Short.MAX_VALUE))
+                .addGap(0, 880, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(call_number))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(Judul))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(desk, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel9)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1);
@@ -1124,6 +1253,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -1529,6 +1659,21 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
+    private void tbleksemplarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbleksemplarMouseClicked
+        // TODO add your handling code here:
+        Petugas_EditEksemplar obj = new Petugas_EditEksemplar();
+        int i = tbleksemplar.getSelectedRow();
+        TableModel model = tbleksemplar.getModel() ;
+        String cn = model.getValueAt(i, 1).toString();
+        obj.numb=cn;
+        obj.barcode.setText(cn);
+        obj.initial();
+        obj.setVisible(true);
+        obj.pack();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_tbleksemplarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1565,6 +1710,9 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel Judul;
+    public javax.swing.JLabel call_number;
+    public javax.swing.JLabel desk;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel12;
@@ -1607,12 +1755,12 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
+    private javax.swing.JTable tbleksemplar;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;
@@ -1640,5 +1788,6 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
     private javax.swing.JPanel toPengembalianBuku;
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
+    private javax.swing.JLabel toUser;
     // End of variables declaration//GEN-END:variables
 }

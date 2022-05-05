@@ -15,6 +15,7 @@ public class UserSession {
     private static int UserId;
     public static int Publisher,Place;
     private static String nis,nama,kelas,alamat;
+    private static String call_numb,Judul,fisik;
     public static void setUserLogin(String userLogin) {
         UserSession.userLogin = userLogin;
     }
@@ -24,7 +25,15 @@ public class UserSession {
     public static void setDefaultKelas(String kelas){
         UserSession.kelas = kelas;
     } 
-       
+    public static void setCallNumb(String call_numb){
+        UserSession.call_numb = call_numb;
+    }   
+     public static void setJudul(String Judul){
+        UserSession.Judul = Judul;
+    }   
+      public static void setFisik(String fisik){
+        UserSession.fisik = fisik;
+    }   
    public static void setPublisher(int Publisher){
        UserSession.Publisher = Publisher;
    }
@@ -46,6 +55,15 @@ public class UserSession {
     }
     public static int getPlace(){
         return Place;
+    }
+    public static String getCallNumb(){
+        return call_numb;
+    }
+     public static String getJudul(){
+        return Judul;
+    }
+      public static String getFisik(){
+        return fisik;
     }
 }
     
