@@ -22,7 +22,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
     public ResultSet rst;
     Connection CC = new koneksi().connect();
     public Statement stt;
-    public DefaultTableModel tmdl;
+    public static DefaultTableModel tmdl;
     public PreparedStatement prst;
     /**
      * Creates new form Petugas_DataJurusan
@@ -145,6 +145,9 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel1MouseEntered(evt);
             }
@@ -1104,6 +1107,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        Datas();
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -1492,6 +1496,10 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        Datas();
+    }//GEN-LAST:event_jPanel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1563,7 +1571,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jurusan;
+    public javax.swing.JTable jurusan;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

@@ -33,7 +33,7 @@ public class Login extends javax.swing.JFrame {
 
     public void login(){
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
             LocalDateTime now = LocalDateTime.now();  
             Statement stat = CC.createStatement();
             String sql = "SELECT * FROM user WHERE Username = '"+Username.getText()+
@@ -55,10 +55,25 @@ public class Login extends javax.swing.JFrame {
                         Statement a =CC.createStatement();
                         ResultSet ras = a.executeQuery("SELECT * FROM anggota WHERE Nis ="+Nis);
                     if(ras.next()){
-                        String nama = ras.getString("Nama");
-                        String email = ras.getString("Email");
-                        a.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ nama + "','" 
-                        + email + "','Siswa','"+dtf.format(now)+"')");
+                        Statement b = CC.createStatement();
+                        ResultSet raa = b.executeQuery("SELECT TanggalKunjungan FROM Pengunjung WHERE nama = '"+ ras.getString("Nama") +"' ORDER BY TanggalKunjungan DESC LIMIT 1" );
+                        if(raa.next()){
+                            String tgl1 = raa.getString("TanggalKunjungan").substring(0,10);
+                            String tgl2 = dtf.format(now).substring(0,10);
+                            if(!tgl1.equals(tgl2)){
+                                String nama = ras.getString("Nama");
+                                String email = ras.getString("Email");
+                                a.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ nama + "','" 
+                                + email + "','Siswa','"+dtf.format(now)+"')");
+                            }
+                        }else{
+                            String nama = ras.getString("Nama");
+                            String email = ras.getString("Email");
+                            a.executeUpdate("INSERT INTO pengunjung(Nama,Email,Instansi,TanggalKunjungan) VALUES('"+ nama + "','" 
+                            + email + "','Siswa','"+dtf.format(now)+"')");
+                        }
+                        ;
+                        
                     }
                        Siswa_Home v=new Siswa_Home();
                        v.setVisible(true);

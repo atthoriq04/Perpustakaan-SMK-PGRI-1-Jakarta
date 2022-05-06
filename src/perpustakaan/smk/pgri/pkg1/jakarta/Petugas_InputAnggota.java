@@ -35,28 +35,67 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        cbkelas.setEnabled(false);
         readCB();
+        readCBJurusan();
     }
     public String sql;
     public void readCB(){
        try{
+           cbTingkat.addItem("X");
+           cbTingkat.addItem("XI");
+           cbTingkat.addItem("XII");
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+   }
+    public int value;
+    public void readCBJurusan(){
+       try{
            Statement stat = CC.createStatement();
-           sql = "SELECT * FROM kelas INNER JOIN Jurusan ON kelas.IdJurusan = Jurusan.IdJurusan";
+           sql = "SELECT * FROM Jurusan ";
            ResultSet rs = stat.executeQuery(sql);
            while(rs.next()){
-           String tk = rs.getString("kelas.TingkatKelas");
-           String jurus = rs.getString("kelas.IdJurusan");
-           String kls = rs.getString("kelas.Kelas");
-           String result = tk+jurus+kls;
-               cbkelas.addItem(result);
+           String jurusan = rs.getString("Jurusan");
+               cbJurusan.addItem(jurusan);
            }
            rs.last();
            int jumlah = rs.getRow();
            rs.first();
        }catch (Exception e){
-           e.printStackTrace();
        }
    }
+    public void Refresh(){
+        cbkelas.removeAllItems();
+        cbkelas.addItem("Kelas");
+    }
+    public void readCBKelas(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM Kelas JOIN Jurusan ON Kelas.IdJurusan = Jurusan.IdJurusan WHERE Jurusan.Jurusan ='"+String.valueOf(cbJurusan.getSelectedItem())+"' AND Kelas.TingkatKelas = '"+ String.valueOf(cbTingkat.getSelectedItem())  +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String kelas = rs.getString("Kelas.Kelas");
+               cbkelas.addItem(kelas);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       }
+   }
+    public void getId(){
+        try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT IdKelas FROM Kelas JOIN Jurusan ON Kelas.IdJurusan = Jurusan.IdJurusan WHERE Jurusan.Jurusan ='"+String.valueOf(cbJurusan.getSelectedItem())+"' AND Kelas.TingkatKelas = '"+ String.valueOf(cbTingkat.getSelectedItem())  +"' AND Kelas.Kelas = '"+ String.valueOf(cbkelas.getSelectedItem()) +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+               value = rs.getInt("IdKelas");
+           }
+       }catch (Exception e){
+       }
+    
+    }
     public void inputAnggota(){
         try{
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
@@ -64,7 +103,6 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             LocalDateTime next = now.plusYears(1);
             //System.out.println(dtf.format(next)); 
            Statement stat = CC.createStatement();
-           int value = cbkelas.getSelectedIndex();
            stat.executeUpdate("INSERT INTO anggota(Nis,Nama,IdKelas,Email,Alamat,NoHp,TTL,Expired) VALUES('"+ Nis.getText() + "','" 
                     + nama.getText() + "','"
                     + value + "',"
@@ -182,6 +220,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         cbkelas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         ttl = new javax.swing.JTextField();
+        cbTingkat = new javax.swing.JComboBox<>();
+        cbJurusan = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1163,14 +1203,14 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         jButton2.setBounds(1190, 680, 70, 23);
 
         cbkelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Pilih Kelas--" }));
+        cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas" }));
         cbkelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbkelasActionPerformed(evt);
             }
         });
         jPanel1.add(cbkelas);
-        cbkelas.setBounds(200, 290, 390, 22);
+        cbkelas.setBounds(500, 290, 90, 22);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("TTL");
@@ -1185,6 +1225,26 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         });
         jPanel1.add(ttl);
         ttl.setBounds(200, 500, 390, 23);
+
+        cbTingkat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbTingkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tingkat" }));
+        cbTingkat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTingkatActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbTingkat);
+        cbTingkat.setBounds(200, 290, 90, 22);
+
+        cbJurusan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurusan" }));
+        cbJurusan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbJurusanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbJurusan);
+        cbJurusan.setBounds(300, 290, 190, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1583,8 +1643,6 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
     private void cbkelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkelasActionPerformed
         // TODO add your handling code here:
-        Object select = cbkelas.getSelectedItem();
-        System.out.print(cbkelas.getSelectedItem());
     }//GEN-LAST:event_cbkelasActionPerformed
 
     private void ttlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttlActionPerformed
@@ -1592,9 +1650,20 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ttlActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        getId();
         inputAnggota();
         inputUser();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbTingkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTingkatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTingkatActionPerformed
+
+    private void cbJurusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJurusanActionPerformed
+        Refresh();
+        readCBKelas();
+        cbkelas.setEnabled(true);
+    }//GEN-LAST:event_cbJurusanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1634,6 +1703,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Nis;
     private javax.swing.JTextArea alamat;
+    private javax.swing.JComboBox<String> cbJurusan;
+    private javax.swing.JComboBox<String> cbTingkat;
     private javax.swing.JComboBox<String> cbkelas;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;

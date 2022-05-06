@@ -3,13 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import static perpustakaan.smk.pgri.pkg1.jakarta.Petugas_Data_Petugas.tmdl;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_KonfirmasiBebasPustaka
      */
@@ -20,6 +32,37 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        judul();
+        Datas();
+    }
+    
+     public void judul() {
+            Object[] judul = {
+         "NIS", "Nama", "Kelas", "Tanggal Permintaan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        req.setModel(tmdl);}
+    
+    public void Datas() {
+        String Kelas;
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery("SELECT * FROM ReqBebasPustaka JOIN anggota ON ReqBebasPustaka.Nis = anggota.Nis JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas");
+            while(rst.next()){
+            Object[] data = {
+                rst.getString("anggota.Nis"),
+                rst.getString("anggota.Nama"),
+                rst.getString("Kelas.TingkatKelas")+rst.getString("Kelas.IdJurusan")+rst.getString("Kelas.Kelas"),
+                rst.getString("ReqBebasPustaka.TglPermintaan")
+                
+            };
+            tmdl.addRow(data);
+            }
+            }catch(Exception e){
+          e.printStackTrace();
+        }
     }
 
     /**
@@ -97,7 +140,7 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        req = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -1000,7 +1043,7 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(110, 30, 400, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        req.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -1011,7 +1054,7 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Kelas", "Tanggal permintaan"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(req);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
@@ -1483,7 +1526,7 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable req;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

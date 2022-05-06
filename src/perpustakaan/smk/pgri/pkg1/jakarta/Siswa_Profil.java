@@ -557,7 +557,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
             "SET user.Username = '"+User+"',\n" +
             "anggota.Email='"+Email+"',\n" +
-            "anggota.NoHp='"+NoHP+"' Where Nis = '"+nis.getText()+"'" ;
+            "anggota.NoHp='"+NoHP+"' Where anggota.Nis = '"+nis.getText()+"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
                 pst.close();

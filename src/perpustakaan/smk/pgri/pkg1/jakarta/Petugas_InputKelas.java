@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Atthoriq
@@ -29,6 +30,8 @@ public class Petugas_InputKelas extends javax.swing.JFrame {
         Kelas.setEnabled(false);
         
     }
+    
+    
     public String sql;
     public void readCB(){
        try{

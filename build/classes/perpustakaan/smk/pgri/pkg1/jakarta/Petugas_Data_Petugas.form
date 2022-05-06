@@ -46,6 +46,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel2MouseClicked"/>
         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel2MouseEntered"/>
       </Events>
 
@@ -1527,6 +1528,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

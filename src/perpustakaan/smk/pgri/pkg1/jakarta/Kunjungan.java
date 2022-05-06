@@ -395,7 +395,7 @@ public class Kunjungan extends javax.swing.JFrame {
     }//GEN-LAST:event_TamuMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now();  
         if(text1.getText()== "Nama"){
         try{

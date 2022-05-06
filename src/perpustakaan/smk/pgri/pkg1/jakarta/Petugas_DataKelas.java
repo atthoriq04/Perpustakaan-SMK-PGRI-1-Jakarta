@@ -22,7 +22,7 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
     public ResultSet rst;
     Connection CC = new koneksi().connect();
     public Statement stt;
-    public DefaultTableModel tmdl;
+    public static DefaultTableModel tmdl;
     public PreparedStatement prst;
     /**
      * Creates new form Petugas_DataKelas
@@ -45,7 +45,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         kelas.setModel(tmdl);}
     
     public void Datas() {
-        String Kelas;
         try {
             stt = CC.createStatement();
             tmdl.getDataVector().removeAllElements();
@@ -55,7 +54,7 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
             Object[] data = {
                 rst.getString("TingkatKelas"),
                 rst.getString("Jurusan"),
-                rst.getString("TingkatKelas")+rst.getString("idJurusan")+rst.getString("Kelas")
+                rst.getString("Kelas")
                 
             };
             tmdl.addRow(data);
@@ -64,6 +63,7 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
           e.printStackTrace();
         }
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,6 +150,9 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel1MouseEntered(evt);
             }
@@ -1060,6 +1063,9 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kelasMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kelasMouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(kelas);
 
@@ -1142,6 +1148,8 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        Datas();
+         
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -1156,23 +1164,23 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
-        // TODO add your handling code here:
+      jLabel5.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_jLabel5MouseEntered
 
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-        // TODO add your handling code here:
+        jLabel5.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel5MouseExited
     public String sql;
-    public  String tingkat;
-    public String idJrsn;
-    public String Kelas;
+    String idJrsn;
     public void Pressed(){
-        Petugas_EditKelas obk = new Petugas_EditKelas();
+       }
+    private void kelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseClicked
+         Petugas_EditKelas obk = new Petugas_EditKelas();
         int i = kelas.getSelectedRow();
         TableModel model = kelas.getModel() ;
-        tingkat = model.getValueAt(i, 0).toString();
+        String tingkat = model.getValueAt(i, 0).toString();
         String jurusan = model.getValueAt(i, 1).toString();
-        Kelas = model.getValueAt(i, 2).toString();
+        String Kelas = model.getValueAt(i, 2).toString();
         try{
          Statement stat = CC.createStatement();
            sql = "SELECT IdJurusan FROM jurusan Where Jurusan = '"+jurusan+"'";
@@ -1190,12 +1198,7 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         obk.klaz.setText(Kelas);
         obk.setVisible(true);
         obk.pack();
-        obk.setDefaultCloseOperation(DISPOSE_ON_CLOSE);}
-    private void kelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseClicked
-        
-        Pressed();
-        
-        
+        obk.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_kelasMouseClicked
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1556,6 +1559,14 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
+
+    private void kelasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseEntered
+       
+    }//GEN-LAST:event_kelasMouseEntered
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        Datas();
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments

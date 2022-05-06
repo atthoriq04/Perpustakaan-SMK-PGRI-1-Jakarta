@@ -186,6 +186,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         toBebpus.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toBebpus.setText("Bebas Pustaka");
         toBebpus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebpusMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toBebpusMouseEntered(evt);
             }
@@ -590,6 +593,11 @@ public class Siswa_Home extends javax.swing.JFrame {
        this.dispose();
 
     }//GEN-LAST:event_lihatKatalog2ActionPerformed
+
+    private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
+        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toBebpusMouseClicked
 
     /**
      * @param args the command line arguments

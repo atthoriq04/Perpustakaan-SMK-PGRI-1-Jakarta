@@ -23,6 +23,8 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
     public ResultSet rs;
     Connection CC = new koneksi().connect();
     public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_EditJurusan
      */
@@ -148,6 +150,8 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+     
+    
     public void editJurusan(){
         try{
            Statement stat = CC.createStatement();

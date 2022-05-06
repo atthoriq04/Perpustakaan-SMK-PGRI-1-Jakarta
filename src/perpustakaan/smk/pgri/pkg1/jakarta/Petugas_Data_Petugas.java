@@ -22,7 +22,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
     public ResultSet rst;
     Connection CC = new koneksi().connect();
     public Statement stt;
-    public DefaultTableModel tmdl;
+    public static DefaultTableModel tmdl;
     public PreparedStatement prst;
     /**
      * Creates new form Petugas_PanelPetugas
@@ -36,6 +36,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
         judul();
         Datas();
+        
     }
     
     public void judul() {
@@ -152,6 +153,9 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel2MouseEntered(evt);
             }
@@ -1122,6 +1126,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        Datas();
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1486,7 +1491,14 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Petugas_TambahAkunPetugas obj = new Petugas_TambahAkunPetugas();
         obj.setVisible(true);
+        obj.pack();
+        obj.setLocationRelativeTo(null);
+        obj.setDefaultCloseOperation(obj.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1562,7 +1574,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable petugas;
+    protected javax.swing.JTable petugas;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

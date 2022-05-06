@@ -27,7 +27,6 @@ public class Petugas_TambahAkunPetugas extends javax.swing.JFrame {
     public Petugas_TambahAkunPetugas() {
         initComponents();
     }
-    
     public void inputPetugas(){
         try{ 
            Statement stat = CC.createStatement();
@@ -224,11 +223,13 @@ public class Petugas_TambahAkunPetugas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        inputPetugas();
-        inputUser();
-        this.dispose();
+        //inputPetugas();
+        //inputUser();
+        Petugas_Data_Petugas obj = new Petugas_Data_Petugas();
+        obj.Datas();
+        //this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

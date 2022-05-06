@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Atthoriq
@@ -34,6 +35,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     public int IdKelas;
     
      public String sql;
+     
     public void readCB(){
        try{
            Statement stat = CC.createStatement();
@@ -54,7 +56,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
          try{
            Petugas_DataKelas obj = new Petugas_DataKelas();
            Statement stat = CC.createStatement();
-               sql = "SELECT IdKelas FROM kelas Where idJurusan = '"+jurusan.getText()+"' AND TingkatKelas = '"+ Tingkat.getText() +"' ORDER BY `Kelas` DESC LIMIT 1";
+               sql = "SELECT IdKelas FROM kelas Where idJurusan = '"+jurusan.getText()+"' AND TingkatKelas = '"+ Tingkat.getText() +"' AND Kelas = '"+ klaz.getText() +"' LIMIT 1";
               //System.out.println(sql);
                ResultSet rs = stat.executeQuery(sql);
                if(rs.next()){
@@ -213,7 +215,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         jurusan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jurusan.setText("AKL");
         jPanel1.add(jurusan);
-        jurusan.setBounds(35, 154, 23, 17);
+        jurusan.setBounds(35, 154, 40, 17);
 
         klaz.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         klaz.setText("XIIIAKL3");
@@ -254,7 +256,6 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         getPreviousData();
         update();
-        
         this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
