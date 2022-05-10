@@ -34,10 +34,25 @@ public class Katalog extends javax.swing.JFrame {
     public Katalog() {
         initComponents();
          CC = new koneksi().connect();
+         PanelLog.setVisible(false);
+         PanelUmum.setVisible(false);
+         tampilNavbar();
         SubUser.setVisible(false);
         SubSirk.setVisible(false);
         initial();
         
+    }
+    int UserId = UserSession.GetUserId();
+
+    public void tampilNavbar(){
+            
+        if( UserId == 0){
+            System.out.println(UserId);
+             PanelUmum.setVisible(true);
+        }else{
+            PanelUmum.setVisible(false);
+            PanelLog.setVisible(true);
+        }
     }
     public String sql,img;
     int rows,col,x;
@@ -155,7 +170,12 @@ public class Katalog extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
+        PanelUmum = new javax.swing.JPanel();
+        toLogin = new javax.swing.JLabel();
+        toKunjungan = new javax.swing.JLabel();
+        toTentang = new javax.swing.JLabel();
+        toLandingPage = new javax.swing.JLabel();
+        PanelLog = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
         toUsulan = new javax.swing.JLabel();
@@ -230,7 +250,96 @@ public class Katalog extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        PanelUmum.setBackground(new java.awt.Color(255, 255, 255));
+
+        toLogin.setBackground(new java.awt.Color(255, 255, 255));
+        toLogin.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toLogin.setText("Login");
+        toLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLoginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLoginMouseExited(evt);
+            }
+        });
+
+        toKunjungan.setBackground(new java.awt.Color(255, 255, 255));
+        toKunjungan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toKunjungan.setText("Kunjungan");
+        toKunjungan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toKunjunganMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toKunjunganMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toKunjunganMouseExited(evt);
+            }
+        });
+
+        toTentang.setBackground(new java.awt.Color(255, 255, 255));
+        toTentang.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toTentang.setText("Tentang Perpustakaan");
+        toTentang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toTentangMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toTentangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toTentangMouseExited(evt);
+            }
+        });
+
+        toLandingPage.setBackground(new java.awt.Color(255, 255, 255));
+        toLandingPage.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        toLandingPage.setText("SMK PGRI 1 Jakarta");
+        toLandingPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLandingPageMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLandingPageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLandingPageMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelUmumLayout = new javax.swing.GroupLayout(PanelUmum);
+        PanelUmum.setLayout(PanelUmumLayout);
+        PanelUmumLayout.setHorizontalGroup(
+            PanelUmumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelUmumLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(toLandingPage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
+                .addComponent(toTentang)
+                .addGap(59, 59, 59)
+                .addComponent(toKunjungan)
+                .addGap(71, 71, 71)
+                .addComponent(toLogin)
+                .addGap(52, 52, 52))
+        );
+        PanelUmumLayout.setVerticalGroup(
+            PanelUmumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUmumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(toLogin)
+                .addComponent(toKunjungan)
+                .addComponent(toTentang)
+                .addComponent(toLandingPage))
+        );
+
+        jPanel1.add(PanelUmum);
+        PanelUmum.setBounds(0, 10, 1280, 20);
+
+        PanelLog.setBackground(new java.awt.Color(255, 255, 255));
 
         PGRI.setBackground(new java.awt.Color(255, 255, 255));
         PGRI.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -295,11 +404,11 @@ public class Katalog extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelLogLayout = new javax.swing.GroupLayout(PanelLog);
+        PanelLog.setLayout(PanelLogLayout);
+        PanelLogLayout.setHorizontalGroup(
+            PanelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLogLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(PGRI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 653, Short.MAX_VALUE)
@@ -312,10 +421,10 @@ public class Katalog extends javax.swing.JFrame {
                 .addComponent(toUser)
                 .addGap(48, 48, 48))
         );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        PanelLogLayout.setVerticalGroup(
+            PanelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLogLayout.createSequentialGroup()
+                .addGroup(PanelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PGRI)
                     .addComponent(toSirkulasi)
                     .addComponent(toUsulan)
@@ -324,8 +433,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1278, 20);
+        jPanel1.add(PanelLog);
+        PanelLog.setBounds(0, 11, 1278, 20);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -566,7 +675,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku1);
-        buku1.setBounds(25, 138, 153, 230);
+        buku1.setBounds(25, 138, 161, 238);
 
         buku2.setBackground(new java.awt.Color(255, 255, 255));
         buku2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -604,7 +713,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku2);
-        buku2.setBounds(233, 138, 153, 230);
+        buku2.setBounds(233, 138, 161, 238);
 
         buku4.setBackground(new java.awt.Color(255, 255, 255));
         buku4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -642,7 +751,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku4);
-        buku4.setBounds(668, 138, 153, 230);
+        buku4.setBounds(668, 138, 161, 238);
 
         buku3.setBackground(new java.awt.Color(255, 255, 255));
         buku3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -680,7 +789,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku3);
-        buku3.setBounds(449, 138, 153, 230);
+        buku3.setBounds(449, 138, 161, 238);
 
         buku5.setBackground(new java.awt.Color(255, 255, 255));
         buku5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -718,7 +827,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku5);
-        buku5.setBounds(877, 138, 153, 230);
+        buku5.setBounds(877, 138, 161, 238);
 
         buku6.setBackground(new java.awt.Color(255, 255, 255));
         buku6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -756,7 +865,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku6);
-        buku6.setBounds(1087, 138, 153, 230);
+        buku6.setBounds(1087, 138, 161, 238);
 
         buku7.setBackground(new java.awt.Color(255, 255, 255));
         buku7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -794,7 +903,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku7);
-        buku7.setBounds(25, 408, 153, 230);
+        buku7.setBounds(25, 408, 161, 238);
 
         buku8.setBackground(new java.awt.Color(255, 255, 255));
         buku8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -832,7 +941,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku8);
-        buku8.setBounds(233, 408, 153, 230);
+        buku8.setBounds(233, 408, 161, 238);
 
         buku9.setBackground(new java.awt.Color(255, 255, 255));
         buku9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -870,7 +979,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku9);
-        buku9.setBounds(449, 408, 153, 230);
+        buku9.setBounds(449, 408, 161, 238);
 
         buku10.setBackground(new java.awt.Color(255, 255, 255));
         buku10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -908,7 +1017,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku10);
-        buku10.setBounds(668, 408, 153, 230);
+        buku10.setBounds(668, 408, 161, 238);
 
         buku11.setBackground(new java.awt.Color(255, 255, 255));
         buku11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -946,7 +1055,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku11);
-        buku11.setBounds(877, 408, 153, 230);
+        buku11.setBounds(877, 408, 161, 238);
 
         buku12.setBackground(new java.awt.Color(255, 255, 255));
         buku12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -984,15 +1093,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku12);
-        buku12.setBounds(1087, 408, 153, 230);
+        buku12.setBounds(1087, 408, 161, 238);
 
         previous.setText("Previous");
         jPanel1.add(previous);
-        previous.setBounds(395, 680, 80, 22);
+        previous.setBounds(395, 680, 80, 23);
 
         next.setText("Next");
         jPanel1.add(next);
-        next.setBounds(520, 680, 55, 22);
+        next.setBounds(520, 680, 55, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1179,6 +1288,62 @@ public class Katalog extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SubUserMouseExited
 
+    private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
+        Login obj = new Login();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toLoginMouseClicked
+
+    private void toLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseEntered
+        toLogin.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_toLoginMouseEntered
+
+    private void toLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseExited
+        toLogin.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_toLoginMouseExited
+
+    private void toKunjunganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKunjunganMouseClicked
+        Kunjungan obj = new Kunjungan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toKunjunganMouseClicked
+
+    private void toKunjunganMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKunjunganMouseEntered
+        toKunjungan.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_toKunjunganMouseEntered
+
+    private void toKunjunganMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKunjunganMouseExited
+        toKunjungan.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_toKunjunganMouseExited
+
+    private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
+        TentangPerpus obj = new TentangPerpus();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toTentangMouseClicked
+
+    private void toTentangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseEntered
+        toTentang.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_toTentangMouseEntered
+
+    private void toTentangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseExited
+        toTentang.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_toTentangMouseExited
+
+    private void toLandingPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseClicked
+        LandingPage obj = new LandingPage();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toLandingPageMouseClicked
+
+    private void toLandingPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseEntered
+        toLandingPage.setForeground(new java.awt.Color(0,72,181));
+    }//GEN-LAST:event_toLandingPageMouseEntered
+
+    private void toLandingPageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseExited
+        toLandingPage.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_toLandingPageMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1216,6 +1381,8 @@ public class Katalog extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PGRI;
+    private javax.swing.JPanel PanelLog;
+    private javax.swing.JPanel PanelUmum;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
     private javax.swing.JPanel buku1;
@@ -1234,7 +1401,6 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel judul1;
     private javax.swing.JLabel judul10;
@@ -1266,11 +1432,15 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;
     private javax.swing.JLabel toKatalog;
+    private javax.swing.JLabel toKunjungan;
+    private javax.swing.JLabel toLandingPage;
+    private javax.swing.JLabel toLogin;
     private javax.swing.JLabel toNotif;
     private javax.swing.JLabel toOut;
     private javax.swing.JLabel toPengembalian;
     private javax.swing.JLabel toProf;
     private javax.swing.JLabel toSirkulasi;
+    private javax.swing.JLabel toTentang;
     private javax.swing.JLabel toUser;
     private javax.swing.JLabel toUsulan;
     private javax.swing.JToggleButton toggle1;
