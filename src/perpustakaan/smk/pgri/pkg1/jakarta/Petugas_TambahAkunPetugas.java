@@ -225,11 +225,9 @@ public class Petugas_TambahAkunPetugas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //inputPetugas();
-        //inputUser();
-        Petugas_Data_Petugas obj = new Petugas_Data_Petugas();
-        obj.Datas();
-        //this.dispose();
+        inputPetugas();
+        inputUser();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

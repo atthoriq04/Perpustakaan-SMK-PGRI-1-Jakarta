@@ -130,6 +130,15 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
        e.printStackTrace();
        }
     }
+    public void Lulus(){
+         try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("Delete Anggota WHERE IdKelas = '"+ IdKelasAsal +"'");
+           JOptionPane.showMessageDialog(null, "Data Kelas Berhasil diUpdate");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -309,8 +318,13 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
         if(opt==0){
             System.out.println(IdKelasAsal);
             System.out.println(IdKelasTujuan);
-            NaikKelas();
-            this.dispose();
+            if(IdKelasTujuan <= 0){
+                Lulus();
+            } else {
+                NaikKelas();
+            }
+            //
+            //this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -346,6 +360,10 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
         TTingkat.addItem("XI");
         TTingkat.addItem("XII");
         TTingkat.removeItem(String.valueOf(AsalTingkat.getSelectedItem()));
+        if(String.valueOf(AsalTingkat.getSelectedItem()) == "XII"){   
+            TTingkat.removeAllItems();
+            TTingkat.addItem("Luluskan");
+        }
         
     }//GEN-LAST:event_AsalKelasActionPerformed
 
@@ -373,7 +391,12 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
     }//GEN-LAST:event_TJurusanActionPerformed
 
     private void TTingkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTingkatActionPerformed
-        TJurusan.setEnabled(true);
+        if(String.valueOf(TTingkat.getSelectedItem()) == "Luluskan"){    
+            TJurusan.setEnabled(false);
+            jButton1.setEnabled(true);
+        }else{
+            TJurusan.setEnabled(true);
+        }
     }//GEN-LAST:event_TTingkatActionPerformed
 
     /**

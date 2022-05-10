@@ -36,14 +36,57 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
             initComponents();
         }
     }
-    public void insert(){
-        try{
-            stt = CC.createStatement();
-            stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+    /**
+         stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
             + jBuku.getText() + "','"
             + penBuku.getText() + "','"
             + pBuku.getText() + "','"
             + ttBuku.getText()+ "','1')");
+            JOptionPane.showMessageDialog(null, "Permintaan Dibuat, Terima Kasih Telah memberi Masukan");
+     
+     */
+    public void insert(){
+        try{
+            stt = CC.createStatement();
+            if(jBuku.getText().isEmpty() && penBuku.getText().isEmpty() && pBuku.getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(null, "Mohon masukan data dengan Benar");
+            } else if(jBuku.getText().isEmpty()){
+                if(pBuku.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Mohon Masukan Data Penulis Atau Judul ");
+                }else if(penBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }else{
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','"
+                    + penBuku.getText() + "','"
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }
+            }else if(penBuku.getText().isEmpty()){
+                if(pBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }else{
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }
+            }else if(pBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + penBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+            }else{
+                stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                + jBuku.getText() + "','"
+                + penBuku.getText() + "','"
+                + pBuku.getText() + "','"
+                + ttBuku.getText()+ "','1')");
+                
+            }
             JOptionPane.showMessageDialog(null, "Permintaan Dibuat, Terima Kasih Telah memberi Masukan");
                     
             
