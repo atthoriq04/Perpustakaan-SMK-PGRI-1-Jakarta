@@ -4,11 +4,26 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_InputAnggota extends javax.swing.JFrame {
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public DefaultTableModel tmdl;
+    public PreparedStatement prst;
 
     /**
      * Creates new form Petugas_InputAnggota
@@ -20,6 +35,99 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        cbkelas.setEnabled(false);
+        readCB();
+        readCBJurusan();
+    }
+    public String sql;
+    public void readCB(){
+       try{
+           cbTingkat.addItem("X");
+           cbTingkat.addItem("XI");
+           cbTingkat.addItem("XII");
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+   }
+    public int value;
+    public void readCBJurusan(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM Jurusan ";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String jurusan = rs.getString("Jurusan");
+               cbJurusan.addItem(jurusan);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       }
+   }
+    public void Refresh(){
+        cbkelas.removeAllItems();
+        cbkelas.addItem("Kelas");
+    }
+    public void readCBKelas(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM Kelas JOIN Jurusan ON Kelas.IdJurusan = Jurusan.IdJurusan WHERE Jurusan.Jurusan ='"+String.valueOf(cbJurusan.getSelectedItem())+"' AND Kelas.TingkatKelas = '"+ String.valueOf(cbTingkat.getSelectedItem())  +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String kelas = rs.getString("Kelas.Kelas");
+               cbkelas.addItem(kelas);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       }
+   }
+    public void getId(){
+        try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT IdKelas FROM Kelas JOIN Jurusan ON Kelas.IdJurusan = Jurusan.IdJurusan WHERE Jurusan.Jurusan ='"+String.valueOf(cbJurusan.getSelectedItem())+"' AND Kelas.TingkatKelas = '"+ String.valueOf(cbTingkat.getSelectedItem())  +"' AND Kelas.Kelas = '"+ String.valueOf(cbkelas.getSelectedItem()) +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+               value = rs.getInt("IdKelas");
+           }
+       }catch (Exception e){
+       }
+    
+    }
+    public void inputAnggota(){
+        try{
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+            LocalDateTime now = LocalDateTime.now(); 
+            LocalDateTime next = now.plusYears(1);
+            //System.out.println(dtf.format(next)); 
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("INSERT INTO anggota(Nis,Nama,IdKelas,Email,Alamat,NoHp,TTL,Expired) VALUES('"+ Nis.getText() + "','" 
+                    + nama.getText() + "','"
+                    + value + "',"
+                            + "'Alamat@email.Siswa','"
+                    + alamat.getText() +"',"
+                            + "'000088889999','"
+                    + ttl.getText() + "','"
+                    + dtf.format(next)+ "')");
+           JOptionPane.showMessageDialog(null, "Data Anggota Berhasil Ditambah");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
+    
+    public void inputUser(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("INSERT INTO user(Nis,Username,Password) VALUES('"+ Nis.getText() + "','" 
+                    + Nis.getText() + "','"
+                    + Nis.getText() + "')");
+           
+           JOptionPane.showMessageDialog(null, "User Anggota Berhasil Ditambah");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
     }
 
     /**
@@ -95,6 +203,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        toDataUsulan = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -105,11 +215,15 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        alamat = new javax.swing.JTextArea();
+        Nis = new javax.swing.JTextField();
+        nama = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        cbkelas = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        ttl = new javax.swing.JTextField();
+        cbTingkat = new javax.swing.JComboBox<>();
+        cbJurusan = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1002,8 +1116,42 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         subMenuBlibliografi.add(toDataPenulis);
         toDataPenulis.setBounds(0, 80, 150, 43);
 
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
+
+        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
+        toDataUsulan.setLayout(toDataUsulanLayout);
+        toDataUsulanLayout.setHorizontalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataUsulanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        toDataUsulanLayout.setVerticalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataUsulan);
+        toDataUsulan.setBounds(0, 120, 150, 43);
+
         jPanel1.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(80, 140, 150, 130);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Tambah Anggota Baru");
@@ -1061,38 +1209,78 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(130, 290, 70, 20);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        alamat.setColumns(20);
+        alamat.setRows(5);
+        jScrollPane1.setViewportView(alamat);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(200, 360, 390, 110);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(200, 170, 390, 23);
+        Nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(Nis);
+        Nis.setBounds(200, 170, 390, 23);
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                namaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(200, 290, 390, 23);
-
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(200, 230, 390, 23);
+        jPanel1.add(nama);
+        nama.setBounds(200, 230, 390, 23);
 
         jButton2.setText("Submi");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
         jButton2.setBounds(1190, 680, 70, 23);
+
+        cbkelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas" }));
+        cbkelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkelasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbkelas);
+        cbkelas.setBounds(500, 290, 90, 22);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("TTL");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(130, 500, 70, 20);
+
+        ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ttl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttlActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ttl);
+        ttl.setBounds(200, 500, 390, 23);
+
+        cbTingkat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbTingkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tingkat" }));
+        cbTingkat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTingkatActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbTingkat);
+        cbTingkat.setBounds(200, 290, 90, 22);
+
+        cbJurusan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurusan" }));
+        cbJurusan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbJurusanActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbJurusan);
+        cbJurusan.setBounds(300, 290, 190, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1118,13 +1306,9 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_namaActionPerformed
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
        subMenuBlibliografi.setVisible(false);
@@ -1446,6 +1630,30 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
+    private void cbkelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkelasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbkelasActionPerformed
+
+    private void ttlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttlActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        getId();
+        inputAnggota();
+        inputUser();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbTingkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTingkatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTingkatActionPerformed
+
+    private void cbJurusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJurusanActionPerformed
+        Refresh();
+        readCBKelas();
+        cbkelas.setEnabled(true);
+    }//GEN-LAST:event_cbJurusanActionPerformed
+
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -1488,6 +1696,20 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataPenulisMouseExited
 
+    private void toDataUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseClicked
+        Petugas_DataUsulan obj = new Petugas_DataUsulan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toDataUsulanMouseClicked
+
+    private void toDataUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseEntered
+        toDataUsulan.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toDataUsulanMouseEntered
+
+    private void toDataUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseExited
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toDataUsulanMouseExited
+
     private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
         subMenuBlibliografi.setVisible(false);
@@ -1529,11 +1751,18 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Nis;
+    private javax.swing.JTextArea alamat;
+    private javax.swing.JComboBox<String> cbJurusan;
+    private javax.swing.JComboBox<String> cbTingkat;
+    private javax.swing.JComboBox<String> cbkelas;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1572,10 +1801,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nama;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -1593,6 +1819,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel toDataPenulis;
     private javax.swing.JPanel toDataPetugas;
     private javax.swing.JPanel toDataTransaksi;
+    private javax.swing.JPanel toDataUsulan;
     private javax.swing.JPanel toDenda;
     private javax.swing.JPanel toInputAnggota;
     private javax.swing.JPanel toInputBuku;
@@ -1608,5 +1835,6 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel toPengembalianBuku;
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
+    private javax.swing.JTextField ttl;
     // End of variables declaration//GEN-END:variables
 }

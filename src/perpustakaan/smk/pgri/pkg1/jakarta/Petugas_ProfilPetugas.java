@@ -3,13 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_ProfilPetugas extends javax.swing.JFrame {
-
+    ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
     /**
      * Creates new form Petugas_ProfilPetugas
      */
@@ -20,8 +30,45 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        CC = new koneksi().connect();
+        userLogin();
+        UserId();
     }
-
+    public String Nik;
+    private void userLogin(){
+        toUser.setText(UserSession.getUserLogin());
+    }
+      int UserId = UserSession.GetUserId();
+     public void UserId(){
+        //toUser.setText(UserSession.getUserLogin());
+        try {
+        Statement stat = CC.createStatement();
+          
+           String sql = "Select * FROM Petugas JOIN User ON Petugas.Nik = User.Nis WHERE Petugas.Nik = '"+ UserId +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if (rs.next())
+            {
+                 Nik = rs.getString("Petugas.Nik");
+                String Nama = rs.getString("Petugas.Nama");
+                String alamat = rs.getString("Petugas.Alamat");
+                String user = rs.getString("user.Username");
+                String email = rs.getString("Petugas.email");
+                String noHp = rs.getString("Petugas.NoHp");
+                String password = rs.getString("user.Password");
+                toUser.setText(user);
+                NamaP.setText(Nama);
+                NikP.setText(Nik);
+                Alamat.setText(alamat);
+                Username.setText(user);
+                Password.setText(password);
+                Email.setText(email);
+                NoHP.setText(noHp);
+            } else
+            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +95,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         toAnggo = new javax.swing.JLabel();
         toLaporan = new javax.swing.JLabel();
         empty1 = new javax.swing.JPanel();
+        toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
         subMenuAdmin = new javax.swing.JPanel();
         toProfilPetugas = new javax.swing.JPanel();
@@ -91,26 +139,28 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         subMenuBlibliografi = new javax.swing.JPanel();
         toDataBuku = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         toInputBuku = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        toDataUsulan = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
+        Username = new javax.swing.JTextField();
+        NoHP = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        Password = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        NamaP = new javax.swing.JLabel();
+        NikP = new javax.swing.JLabel();
+        Alamat = new javax.swing.JLabel();
+        Update = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -210,15 +260,25 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
 
+        toUser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        toUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        toUser.setText("jLabel2");
+
         javax.swing.GroupLayout empty1Layout = new javax.swing.GroupLayout(empty1);
         empty1.setLayout(empty1Layout);
         empty1Layout.setHorizontalGroup(
             empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(empty1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(toUser, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addContainerGap())
         );
         empty1Layout.setVerticalGroup(
             empty1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, empty1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(toUser, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel5.add(empty1);
@@ -914,8 +974,8 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
 
-        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel34.setText("Data Buku");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel10.setText("Data Buku");
 
         javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
         toDataBuku.setLayout(toDataBukuLayout);
@@ -923,12 +983,12 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         toDataBukuLayout.setVerticalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuBlibliografi.add(toDataBuku);
@@ -1005,8 +1065,42 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         subMenuBlibliografi.add(toDataPenulis);
         toDataPenulis.setBounds(0, 80, 150, 43);
 
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
+
+        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
+        toDataUsulan.setLayout(toDataUsulanLayout);
+        toDataUsulanLayout.setHorizontalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataUsulanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        toDataUsulanLayout.setVerticalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataUsulan);
+        toDataUsulan.setBounds(0, 120, 150, 43);
+
         jPanel3.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(80, 140, 150, 130);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Profil");
@@ -1025,32 +1119,32 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Username");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        Email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                EmailActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        Username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                UsernameActionPerformed(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        NoHP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NoHP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                NoHPActionPerformed(evt);
             }
         });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("No HP");
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
+        Password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Password.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1064,13 +1158,13 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addGap(260, 260, 260)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Username)
+                    .addComponent(Password, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                    .addComponent(Email)
+                    .addComponent(NoHP))
+                .addGap(316, 316, 316))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1078,20 +1172,20 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(21, 21, 21)
+                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(NoHP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel1);
@@ -1111,54 +1205,55 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         jPanel3.add(jPanel6);
         jPanel6.setBounds(110, 100, 160, 170);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setText("Nama");
-        jPanel3.add(jLabel14);
-        jLabel14.setBounds(330, 150, 56, 17);
+        NamaP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NamaP.setText("Nama");
+        jPanel3.add(NamaP);
+        NamaP.setBounds(330, 150, 56, 17);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("NIK");
-        jPanel3.add(jLabel11);
-        jLabel11.setBounds(330, 110, 56, 17);
+        NikP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NikP.setText("NIK");
+        jPanel3.add(NikP);
+        NikP.setBounds(330, 110, 56, 17);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setText("Alamat");
-        jPanel3.add(jLabel15);
-        jLabel15.setBounds(330, 190, 56, 17);
+        Alamat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Alamat.setText("Alamat");
+        jPanel3.add(Alamat);
+        Alamat.setBounds(330, 190, 380, 17);
 
-        jButton1.setText("jButton1");
-        jPanel3.add(jButton1);
-        jButton1.setBounds(1170, 690, 73, 23);
+        Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Update);
+        Update.setBounds(1170, 690, 67, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_EmailActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_UsernameActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void NoHPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_NoHPActionPerformed
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1480,6 +1575,30 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+            try{
+            
+            String User = Username.getText();
+            String eml = Email.getText();
+            String nohp = NoHP.getText();
+            String Pass = Password.getText();
+            String Sql = "UPDATE Petugas JOIN User ON Petugas.Nik = User.Nis SET Petugas.NoHP='"+ nohp +"',Petugas.Email ='"+eml+"',User.Username = '"+User+"',User.Password = '" + Pass + "' WHERE Petugas.Nik = '"+ Nik +"'" ;
+                pst = CC.prepareStatement(Sql);
+                pst.execute();
+                pst.close();
+              JOptionPane.showMessageDialog(null, "Update Berhasil");
+              Username.setText(User);
+              Email.setText(eml);
+              NoHP.setText(nohp);
+              Password.setText(Pass);
+//            update.setEnabled(false);
+//            hapus.setEnabled(false);
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_UpdateActionPerformed
+
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -1522,6 +1641,20 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataPenulisMouseExited
 
+    private void toDataUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseClicked
+        Petugas_DataUsulan obj = new Petugas_DataUsulan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toDataUsulanMouseClicked
+
+    private void toDataUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseEntered
+        toDataUsulan.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toDataUsulanMouseEntered
+
+    private void toDataUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseExited
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toDataUsulanMouseExited
+
     private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
         subMenuBlibliografi.setVisible(false);
@@ -1563,15 +1696,21 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Alamat;
+    private javax.swing.JTextField Email;
+    private javax.swing.JLabel NamaP;
+    private javax.swing.JLabel NikP;
+    private javax.swing.JTextField NoHP;
+    private javax.swing.JPasswordField Password;
+    private javax.swing.JButton Update;
+    private javax.swing.JTextField Username;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1589,7 +1728,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1599,7 +1737,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -1608,9 +1745,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -1628,6 +1762,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JPanel toDataPenulis;
     private javax.swing.JPanel toDataPetugas;
     private javax.swing.JPanel toDataTransaksi;
+    private javax.swing.JPanel toDataUsulan;
     private javax.swing.JPanel toDenda;
     private javax.swing.JPanel toInputAnggota;
     private javax.swing.JPanel toInputBuku;
@@ -1643,5 +1778,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JPanel toPengembalianBuku;
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
+    private javax.swing.JLabel toUser;
     // End of variables declaration//GEN-END:variables
 }

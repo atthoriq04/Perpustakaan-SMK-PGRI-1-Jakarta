@@ -3,7 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Atthoriq
@@ -13,10 +20,103 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     /**
      * Creates new form Petugas_EditKelas
      */
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
     public Petugas_EditKelas() {
         initComponents();
+        readCB();
+        Kelas.setEditable(false);
     }
+    public String jrsn;
+    public String kls;
+    public String idJrsn;
+    public int clssNmbr;
+    public int IdKelas;
+    
+     public String sql;
+     
+    public void readCB(){
+       try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM jurusan";
+           ResultSet rs = stat.executeQuery(sql);
+           while(rs.next()){
+           String result = rs.getString("Jurusan");
+               jurusankombo.addItem(result);
+           }
+           rs.last();
+           int jumlah = rs.getRow();
+           rs.first();
+       }catch (Exception e){
+       
+       }
+   }
+    public void getPreviousData(){
+         try{
+           Petugas_DataKelas obj = new Petugas_DataKelas();
+           Statement stat = CC.createStatement();
+               sql = "SELECT IdKelas FROM kelas Where idJurusan = '"+jurusan.getText()+"' AND TingkatKelas = '"+ Tingkat.getText() +"' AND Kelas = '"+ klaz.getText() +"' LIMIT 1";
+              //System.out.println(sql);
+               ResultSet rs = stat.executeQuery(sql);
+               if(rs.next()){
+                  IdKelas = rs.getInt("IdKelas");}
+         }catch(Exception e){
+           e.printStackTrace();
+       
+       }
+    }
+    public void getID(){
+        try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT IdJurusan FROM jurusan Where Jurusan = '"+jrsn+"'";
 
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              idJrsn = rs.getString("IdJurusan");
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+       
+       }
+    }
+    public void getNumber(){
+        try{
+               Statement stat = CC.createStatement();
+               sql = "SELECT kelas FROM kelas Where idJurusan = '"+idJrsn+"' AND TingkatKelas = '"+ kls +"' ORDER BY `kelas` DESC LIMIT 1";
+               
+               ResultSet rs = stat.executeQuery(sql);
+               if(rs.next()){
+                  int tkt = rs.getInt("kelas");
+                  clssNmbr = tkt+1;
+                  System.out.print(clssNmbr);
+               }
+           }catch (Exception e){
+               e.printStackTrace();
+
+           }
+    }
+    public void update(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("UPDATE kelas SET TingkatKelas = '"
+                   + kls+"', IdJurusan =  '"
+                   +idJrsn+ "', kelas= '"
+                   + clssNmbr + "' WHERE IdKelas = '"+ IdKelas +"'");
+           JOptionPane.showMessageDialog(null, "Data Kelas Berhasil diUpdate");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
+     public void delete(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("DELETE FROM kelas WHERE `IdKelas`='"+IdKelas+"'");
+           JOptionPane.showMessageDialog(null, "Data Kelas Berhasil diHapus");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,43 +128,57 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jurusankombo = new javax.swing.JComboBox<>();
+        tingkatCombo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        Kelas = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        Tingkat = new javax.swing.JLabel();
+        jurusan = new javax.swing.JLabel();
+        klaz = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Edit kelas");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(105, 11, 114, 30);
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AKL", "BDP", "MM", "OTP" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jurusankombo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jurusankombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<-Pilih jurusan->" }));
+        jurusankombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jurusankomboActionPerformed(evt);
             }
         });
+        jPanel1.add(jurusankombo);
+        jurusankombo.setBounds(78, 149, 232, 26);
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "XI", "XII" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        tingkatCombo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tingkatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<-Pilih Kelas->", "X", "XI", "XII" }));
+        tingkatCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                tingkatComboActionPerformed(evt);
             }
         });
+        jPanel1.add(tingkatCombo);
+        tingkatCombo.setBounds(78, 82, 232, 26);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Jurusan");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(35, 126, 48, 17);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Kelas");
+        jLabel3.setText("Tingkat");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(35, 59, 45, 17);
 
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,17 +186,8 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("No");
-
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "XI", "XII" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(220, 266, 90, 23);
 
         jButton2.setText("Hapus");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -90,89 +195,75 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(20, 260, 80, 23);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
-        );
+        Kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(Kelas);
+        Kelas.setBounds(90, 216, 220, 29);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Kelas");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(35, 193, 30, 17);
+
+        Tingkat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Tingkat.setText("XII");
+        jPanel1.add(Tingkat);
+        Tingkat.setBounds(35, 87, 25, 17);
+
+        jurusan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jurusan.setText("AKL");
+        jPanel1.add(jurusan);
+        jurusan.setBounds(35, 154, 40, 17);
+
+        klaz.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        klaz.setText("XIIIAKL3");
+        jPanel1.add(klaz);
+        klaz.setBounds(35, 222, 51, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void jurusankomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusankomboActionPerformed
+        jrsn =String.valueOf(jurusankombo.getSelectedItem());
+        getID();
+        getNumber();
+        Kelas.setText(kls+idJrsn+clssNmbr);
+    }//GEN-LAST:event_jurusankomboActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    private void tingkatComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tingkatComboActionPerformed
+        jurusankombo.setEnabled(true);
+      kls = String.valueOf(tingkatCombo.getSelectedItem());
+      Kelas.setText(kls);
+      if(idJrsn != null){
+        getNumber();
+        Kelas.setText(kls+idJrsn+clssNmbr);
+      } 
+    }//GEN-LAST:event_tingkatComboActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        getPreviousData();
+        update();
         this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
+        getPreviousData();
+        delete();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -211,15 +302,18 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    protected javax.swing.JTextField Kelas;
+    public javax.swing.JLabel Tingkat;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel jurusan;
+    private javax.swing.JComboBox<String> jurusankombo;
+    public javax.swing.JLabel klaz;
+    private javax.swing.JComboBox<String> tingkatCombo;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,6 +47,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
            ResultSet rs = stat.executeQuery(sql);
            if (rs.next())
             {
+                
                 String Nama = rs.getString("anggota.Nama");
                 String Nis = rs.getString("anggota.Nis");
                 String Alamat = rs.getString("anggota.Alamat");
@@ -556,7 +557,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
             "SET user.Username = '"+User+"',\n" +
             "anggota.Email='"+Email+"',\n" +
-            "anggota.NoHp='"+NoHP+"'" ;
+            "anggota.NoHp='"+NoHP+"' Where anggota.Nis = '"+nis.getText()+"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
                 pst.close();

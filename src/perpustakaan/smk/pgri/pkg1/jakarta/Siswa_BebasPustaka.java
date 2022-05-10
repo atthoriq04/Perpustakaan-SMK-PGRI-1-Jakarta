@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Atthoriq
@@ -13,8 +19,68 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
     /**
      * Creates new form Siswa_BebasPustaka
      */
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
     public Siswa_BebasPustaka() {
-        initComponents();
+        checkLogin();
+        
+        
+    }
+    int UserId = UserSession.GetUserId();
+    public void checkLogin(){
+        if( UserId <= 0){
+             Login obj = new Login();
+             obj.setVisible(true);
+             this.dispose();
+             JOptionPane.showMessageDialog(null, "Harap Login Terlebih Dahulu");
+             
+        }else{
+            initComponents();
+            user();
+        }
+    }
+    public void user(){
+         try {
+        Statement stat = CC.createStatement();
+          
+           String sql = "SELECT * FROM anggota JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas WHERE anggota.Nis= '"+ UserId +"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if (rs.next())
+            {
+                
+                String nama = rs.getString("anggota.Nama");
+                String nis = rs.getString("anggota.Nis");
+                String tk = rs.getString("kelas.TingkatKelas");
+                String IdJurus = rs.getString("kelas.IdJurusan");
+                String kelas = rs.getString("kelas.kelas");
+                Nama.setText(nama);
+                Nis.setText(nis);
+                Kelas.setText(tk+" "+IdJurus+" "+kelas);
+            } else
+            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    public void input(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        try{
+            stt = CC.createStatement();
+            ResultSet rs = stt.executeQuery("SELECT * FROM ReqBebasPustaka WHERE Nis ="+Nis.getText());
+                    if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Permintaan Sudah Dibuat,Harap Menunggu Konfirmasi");
+                    }else{
+                        
+                    stt.executeUpdate("INSERT INTO ReqBebasPustaka(TglPermintaan,Nis) VALUES('"+ dtf.format(now) + "','" 
+                    + Nis.getText() + "')");
+                    JOptionPane.showMessageDialog(null, "Permintaan Dibuat, Harap meninggu Konfirmasi");
+                    }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -31,9 +97,9 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        Nama = new javax.swing.JLabel();
+        Nis = new javax.swing.JLabel();
+        Kelas = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -53,14 +119,14 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Kelas :");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Nama");
+        Nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nama.setText("Nama");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("NIS");
+        Nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nis.setText("NIS");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Kelas ");
+        Kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Kelas.setText("Kelas ");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Memohon Untuk Diterbitkan Surat Bebas Pustaka");
@@ -87,11 +153,11 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(136, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Nama, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                            .addComponent(Nis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Kelas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -111,11 +177,11 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(Nama)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
+                        .addComponent(Nis)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7)))
+                        .addComponent(Kelas)))
                 .addGap(31, 31, 31)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
@@ -138,9 +204,11 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose();
+       input();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -179,14 +247,14 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Kelas;
+    private javax.swing.JLabel Nama;
+    private javax.swing.JLabel Nis;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

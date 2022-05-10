@@ -3,13 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import static perpustakaan.smk.pgri.pkg1.jakarta.Petugas_Data_Petugas.tmdl;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_KonfirmasiBebasPustaka
      */
@@ -20,6 +32,38 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        sort.setVisible(false);
+        judul();
+        Datas();
+    }
+    
+     public void judul() {
+            Object[] judul = {
+         "NIS", "Nama", "Kelas", "Tanggal Permintaan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        req.setModel(tmdl);}
+    public String sqlz = "SELECT * FROM ReqBebasPustaka JOIN anggota ON ReqBebasPustaka.Nis = anggota.Nis JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas ORDER BY TglPermintaan ASC , IdReq ASC";
+    public void Datas() {
+        String Kelas;
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while(rst.next()){
+            Object[] data = {
+                rst.getString("anggota.Nis"),
+                rst.getString("anggota.Nama"),
+                rst.getString("Kelas.TingkatKelas")+rst.getString("Kelas.IdJurusan")+rst.getString("Kelas.Kelas"),
+                rst.getString("ReqBebasPustaka.TglPermintaan")
+                
+            };
+            tmdl.addRow(data);
+            }
+            }catch(Exception e){
+          e.printStackTrace();
+        }
     }
 
     /**
@@ -48,6 +92,10 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         toLaporan = new javax.swing.JLabel();
         empty1 = new javax.swing.JPanel();
         empty2 = new javax.swing.JPanel();
+        sort = new javax.swing.JPanel();
+        nis = new javax.swing.JLabel();
+        kelas = new javax.swing.JLabel();
+        tanggal = new javax.swing.JLabel();
         subMenuAdmin = new javax.swing.JPanel();
         toProfilPetugas = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -95,10 +143,12 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        toDataUsulan = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        req = new javax.swing.JTable();
+        Active = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -234,6 +284,83 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3);
         jPanel3.setBounds(0, 0, 80, 720);
+
+        sort.setBackground(new java.awt.Color(255, 255, 255));
+        sort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sortMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sortMouseExited(evt);
+            }
+        });
+
+        nis.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nis.setText("Nis");
+        nis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nisMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nisMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nisMouseExited(evt);
+            }
+        });
+
+        kelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        kelas.setText("Kelas");
+        kelas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kelasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kelasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                kelasMouseExited(evt);
+            }
+        });
+
+        tanggal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tanggal.setText("Tanggal");
+        tanggal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tanggalMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tanggalMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tanggalMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sortLayout = new javax.swing.GroupLayout(sort);
+        sort.setLayout(sortLayout);
+        sortLayout.setHorizontalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addGroup(sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nis, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(kelas, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 50, Short.MAX_VALUE))
+        );
+        sortLayout.setVerticalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addComponent(nis)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(kelas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tanggal)
+                .addContainerGap())
+        );
+
+        jPanel2.add(sort);
+        sort.setBounds(170, 40, 100, 60);
 
         subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
         subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -992,15 +1119,49 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         subMenuBlibliografi.add(toDataPenulis);
         toDataPenulis.setBounds(0, 80, 150, 43);
 
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseExited(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel10.setText("Usulan Buku");
+
+        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
+        toDataUsulan.setLayout(toDataUsulanLayout);
+        toDataUsulanLayout.setHorizontalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataUsulanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        toDataUsulanLayout.setVerticalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataUsulan);
+        toDataUsulan.setBounds(0, 120, 150, 43);
+
         jPanel2.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(80, 140, 150, 130);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Permintaan Surat Bebas Pustaka");
         jPanel2.add(jLabel1);
         jLabel1.setBounds(110, 30, 400, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        req.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -1011,20 +1172,25 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Kelas", "Tanggal permintaan"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(req);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Nama");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
+        Active.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Active.setText("Tanggal");
+        jPanel2.add(Active);
+        Active.setBounds(170, 100, 50, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sort By");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+        });
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
+        jLabel4.setBounds(110, 100, 160, 15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1050,6 +1216,8 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        Datas();
+        sort.setVisible(false);
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1364,6 +1532,64 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
+    private void nisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nisMouseClicked
+        Active.setText(nis.getText());
+        sqlz = "SELECT * FROM ReqBebasPustaka JOIN anggota ON ReqBebasPustaka.Nis = anggota.Nis JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas ORDER BY ReqBebasPustaka.Nis ASC";
+        Datas();
+        sort.setVisible(false);
+
+    }//GEN-LAST:event_nisMouseClicked
+
+    private void kelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseClicked
+        Active.setText(kelas.getText());
+        sqlz = "SELECT * FROM ReqBebasPustaka JOIN anggota ON ReqBebasPustaka.Nis = anggota.Nis JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas ORDER BY Kelas.TingkatKelas ASC, Kelas.IdJurusan ASC, Kelas.Kelas ASC";
+        Datas();
+        sort.setVisible(false);
+    }//GEN-LAST:event_kelasMouseClicked
+
+    private void sortMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_sortMouseEntered
+
+    private void sortMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseExited
+
+    }//GEN-LAST:event_sortMouseExited
+
+    private void tanggalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tanggalMouseClicked
+        Active.setText(tanggal.getText());
+        sqlz = "SELECT * FROM ReqBebasPustaka JOIN anggota ON ReqBebasPustaka.Nis = anggota.Nis JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas ORDER BY TglPermintaan ASC , IdReq ASC";
+        Datas();
+        sort.setVisible(false);
+    }//GEN-LAST:event_tanggalMouseClicked
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
+    private void nisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nisMouseEntered
+        nis.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_nisMouseEntered
+
+    private void nisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nisMouseExited
+        nis.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_nisMouseExited
+
+    private void kelasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseEntered
+        kelas.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_kelasMouseEntered
+
+    private void kelasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kelasMouseExited
+        kelas.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_kelasMouseExited
+
+    private void tanggalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tanggalMouseEntered
+        tanggal.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_tanggalMouseEntered
+
+    private void tanggalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tanggalMouseExited
+        tanggal.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_tanggalMouseExited
+
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -1406,6 +1632,20 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataPenulisMouseExited
 
+    private void toDataUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseClicked
+        Petugas_DataUsulan obj = new Petugas_DataUsulan();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_toDataUsulanMouseClicked
+
+    private void toDataUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseEntered
+        toDataUsulan.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toDataUsulanMouseEntered
+
+    private void toDataUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseExited
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toDataUsulanMouseExited
+
     private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
         subMenuBlibliografi.setVisible(false);
@@ -1447,9 +1687,11 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Active;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1457,7 +1699,6 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1483,12 +1724,16 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel kelas;
+    private javax.swing.JLabel nis;
+    private javax.swing.JTable req;
+    private javax.swing.JPanel sort;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
+    private javax.swing.JLabel tanggal;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;
@@ -1501,6 +1746,7 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     private javax.swing.JPanel toDataPenulis;
     private javax.swing.JPanel toDataPetugas;
     private javax.swing.JPanel toDataTransaksi;
+    private javax.swing.JPanel toDataUsulan;
     private javax.swing.JPanel toDenda;
     private javax.swing.JPanel toInputAnggota;
     private javax.swing.JPanel toInputBuku;

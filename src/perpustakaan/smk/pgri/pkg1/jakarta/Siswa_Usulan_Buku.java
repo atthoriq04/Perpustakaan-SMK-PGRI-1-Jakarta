@@ -3,18 +3,96 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Atthoriq
  */
 public class Siswa_Usulan_Buku extends javax.swing.JFrame {
-
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
     /**
      * Creates new form Usulan_Buku
      */
     public Siswa_Usulan_Buku() {
-        initComponents();
+        checkLogin();
+    }
+    int UserId = UserSession.GetUserId();
+    public void checkLogin(){
+        if( UserId <= 0){
+             this.dispose();
+             Login obj = new Login();
+             obj.setVisible(true);
+             JOptionPane.showMessageDialog(null, "Harap Login Terlebih Dahulu");
+             
+        }else{
+            initComponents();
+        }
+    }
+    /**
+         stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+            + jBuku.getText() + "','"
+            + penBuku.getText() + "','"
+            + pBuku.getText() + "','"
+            + ttBuku.getText()+ "','1')");
+            JOptionPane.showMessageDialog(null, "Permintaan Dibuat, Terima Kasih Telah memberi Masukan");
+     
+     */
+    public void insert(){
+        try{
+            stt = CC.createStatement();
+            if(jBuku.getText().isEmpty() && penBuku.getText().isEmpty() && pBuku.getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(null, "Mohon masukan data dengan Benar");
+            } else if(jBuku.getText().isEmpty()){
+                if(pBuku.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Mohon Masukan Data Penulis Atau Judul ");
+                }else if(penBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }else{
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','"
+                    + penBuku.getText() + "','"
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }
+            }else if(penBuku.getText().isEmpty()){
+                if(pBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }else{
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + pBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+                }
+            }else if(pBuku.getText().isEmpty()){
+                    stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                    + jBuku.getText() + "','"
+                    + penBuku.getText() + "','"
+                    + ttBuku.getText()+ "','1')");
+            }else{
+                stt.executeUpdate("INSERT INTO UsulanBuku(Nis,Judul,Penerbit,Penulis,TahunTerbit,Status) VALUES('"+ UserId + "','" 
+                + jBuku.getText() + "','"
+                + penBuku.getText() + "','"
+                + pBuku.getText() + "','"
+                + ttBuku.getText()+ "','1')");
+                
+            }
+            JOptionPane.showMessageDialog(null, "Permintaan Dibuat, Terima Kasih Telah memberi Masukan");
+                    
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -31,10 +109,10 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
+        jBuku = new javax.swing.JTextField();
+        pBuku = new javax.swing.JTextField();
+        penBuku = new javax.swing.JTextField();
+        ttBuku = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -56,36 +134,37 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel29.setText("Tahun Terbit");
 
-        jTextField21.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField21.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField21.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jBuku.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jTextField22.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField22.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField22.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTextField22.addActionListener(new java.awt.event.ActionListener() {
+        pBuku.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        pBuku.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField22jTextField2ActionPerformed(evt);
+                pBukujTextField2ActionPerformed(evt);
             }
         });
 
-        jTextField23.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField23.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField23.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTextField23.addActionListener(new java.awt.event.ActionListener() {
+        penBuku.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        penBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        penBuku.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField23jTextField3ActionPerformed(evt);
+                penBukujTextField3ActionPerformed(evt);
             }
         });
 
-        jTextField24.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField24.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        ttBuku.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        ttBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel30.setText("Form Usulan Buku");
 
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Kembali");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -101,14 +180,14 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26)
                     .addComponent(jLabel27)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(penBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ttBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,19 +209,19 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel28)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(penBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ttBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,17 +249,21 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField22jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22jTextField2ActionPerformed
+    private void pBukujTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pBukujTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField22jTextField2ActionPerformed
+    }//GEN-LAST:event_pBukujTextField2ActionPerformed
 
-    private void jTextField23jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField23jTextField3ActionPerformed
+    private void penBukujTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penBukujTextField3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField23jTextField3ActionPerformed
+    }//GEN-LAST:event_penBukujTextField3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insert();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,6 +302,7 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField jBuku;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel26;
@@ -227,9 +311,8 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField pBuku;
+    private javax.swing.JTextField penBuku;
+    private javax.swing.JTextField ttBuku;
     // End of variables declaration//GEN-END:variables
 }
