@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -23,6 +25,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
+    public String sql;
     public Petugas_DataBuku() {
         initComponents();
         CC = new koneksi().connect();
@@ -39,6 +42,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     }
     private void showtable(){
         DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
           model.addColumn("No Panggil");
           model.addColumn("Judul Buku");
           model.addColumn("GMD");
@@ -1184,6 +1188,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -1206,9 +1211,36 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblBukuKeyPressed
 
+   
     private void tblBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBukuMouseClicked
        Petugas_DataEksemplar obj = new Petugas_DataEksemplar();
+       Petugas_InputEksemplar obj1 = new Petugas_InputEksemplar();
+        int i = tblBuku.getSelectedRow();
+        TableModel model = tblBuku.getModel() ;
+        String cn = model.getValueAt(i, 1).toString();
+        String jdl = model.getValueAt(i, 2).toString();
+        UserSession.setCallNumb(cn);
+        UserSession.setJudul(jdl);
+        obj.call_number.setText(cn);
+        obj.Judul.setText(jdl);
+        try{
+            Statement stat = CC.createStatement();
+            sql="SELECT * FROM new_bliblio WHERE call_number = '"+cn+"'";
+            ResultSet rs = stat.executeQuery(sql);
+            if (rs.next()){
+                obj.desk.setText(rs.getString("Notes"));
+                String n = rs.getString("Notes");
+                UserSession.setFisik(n);
+                
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+       
         obj.setVisible(true);
+        obj.showtable();
+        obj.pack();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_tblBukuMouseClicked
 
@@ -1684,7 +1716,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
-    private javax.swing.JTable tblBuku;
+    public javax.swing.JTable tblBuku;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;
