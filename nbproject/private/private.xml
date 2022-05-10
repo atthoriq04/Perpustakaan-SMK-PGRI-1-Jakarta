@@ -7,12 +7,20 @@
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataJurusan.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Login.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataAnggota.java</file>
-            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataKelas.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_NaikKelas.java</file>
-            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataEksemplar.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditBuku.java</file>
-            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataPengunjung.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Kunjungan.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_ProfilPetugas.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Katalog.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputBuku.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditEksemplar.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Siswa_Usulan_Buku.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataBuku.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputEksemplar.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataKelas.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataEksemplar.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_Data_Petugas.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataPengunjung.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataUsulan.java</file>
             <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/koneksi.java</file>
         </group>
