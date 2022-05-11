@@ -237,6 +237,9 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(229, 231, 238));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3MouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel3MouseExited(evt);
             }
@@ -1700,6 +1703,10 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografisubMenuBlibliografiMouseExited
+
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+       subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_jPanel3MouseEntered
 
     /**
      * @param args the command line arguments

@@ -368,7 +368,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -402,7 +402,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -650,7 +650,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -684,7 +684,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -718,7 +718,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -752,7 +752,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -940,6 +940,9 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
 
         subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 subMenuBlibliografiMouseExited(evt);
             }
@@ -1015,7 +1018,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1049,7 +1052,7 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1564,6 +1567,10 @@ public class Petugas_DataJurusan extends javax.swing.JFrame {
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
+
+    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
+       subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
     /**
      * @param args the command line arguments

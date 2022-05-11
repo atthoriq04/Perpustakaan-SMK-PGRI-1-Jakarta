@@ -1031,6 +1031,9 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
 
         subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 subMenuBlibliografisubMenuBlibliografiMouseExited(evt);
             }
@@ -1867,6 +1870,11 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografisubMenuBlibliografiMouseExited
+
+    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
+        // TODO add your handling code here:
+        subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
     /**
      * @param args the command line arguments

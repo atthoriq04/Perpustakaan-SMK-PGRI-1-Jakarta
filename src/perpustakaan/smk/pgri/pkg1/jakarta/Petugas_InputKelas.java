@@ -75,12 +75,13 @@ public class Petugas_InputKelas extends javax.swing.JFrame {
                
                ResultSet rs = stat.executeQuery(sql);
                if(rs.next()){
-                  int tkt = rs.getInt("kelas");
-                  clssNmbr = tkt+1;
-                  System.out.print(clssNmbr);
+                 Integer tkt = rs.getInt("kelas");
+                 System.out.println(tkt);
+                 clssNmbr = tkt+1;
+               }else{
+                clssNmbr = 1;
                }
            }catch (Exception e){
-               e.printStackTrace();
 
            }
     }

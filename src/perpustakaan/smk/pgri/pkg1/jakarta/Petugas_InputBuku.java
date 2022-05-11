@@ -1333,6 +1333,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
         subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 subMenuBlibliografiMouseExited(evt);
             }
@@ -2288,6 +2291,10 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
+
+    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
+       subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
     /**
      * @param args the command line arguments
