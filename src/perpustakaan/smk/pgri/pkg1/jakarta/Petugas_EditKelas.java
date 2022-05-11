@@ -140,7 +140,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         jurusan = new javax.swing.JLabel();
         klaz = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -187,7 +187,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(220, 266, 90, 23);
+        jButton1.setBounds(220, 266, 90, 22);
 
         jButton2.setText("Hapus");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(20, 260, 80, 23);
+        jButton2.setBounds(20, 260, 80, 22);
 
         Kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Kelas);
@@ -234,6 +234,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jurusankomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusankomboActionPerformed

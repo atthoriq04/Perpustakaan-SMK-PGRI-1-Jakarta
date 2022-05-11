@@ -43,7 +43,7 @@ public class Katalog extends javax.swing.JFrame {
         
     }
     int UserId = UserSession.GetUserId();
-
+    String UserLogin = UserSession.getUserLogin();
     public void tampilNavbar(){
             
         if( UserId == 0){
@@ -52,30 +52,68 @@ public class Katalog extends javax.swing.JFrame {
         }else{
             PanelUmum.setVisible(false);
             PanelLog.setVisible(true);
+            toUser.setText(UserLogin);
         }
     }
     public String sql,img;
-    int rows,col,x;
+    int rows,col,limit;
+    
     private void initial(){
         try{
          JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
          JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
          JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
          JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
-//              JPanel[] buku = new JPanel[12];
-//            buku[1] = buku1;
-//            buku[2] = buku2;
-//            buku[3] = buku3;
-//            buku[4] = buku4;
-//            buku[5] = buku5;
-//            buku[6] = buku6;
-//            buku[7] = buku7;
-//            buku[8] = buku8;
-//            buku[9] = buku9;
-//            buku[10] = buku10;
-//            buku[11] = buku11;
-//            buku[12] = buku12;
-   
+         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT '"+limit+"'",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panel;
+                   for (panel=0;panel<12;panel++){
+                       buku[panel].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  buku[rowindex].setVisible(true);
+                  Judul[rowindex].setText(rs.getString("Judul"));
+                  Author[rowindex].setText(rs.getString("mst_author.author_name"));
+//                 Image getAbsolutePath = null;
+                 ImageIcon icon = new ImageIcon(rs.getString("image"));
+                 Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                 img[rowindex].setIcon(icon);
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    private void onceclick(){
+         try{
+         JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
+         JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
+         JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
+         JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
+         int offset = 12;
          PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT 12",
         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
@@ -111,54 +149,14 @@ public class Katalog extends javax.swing.JFrame {
                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
                  img[rowindex].setIcon(icon);
                   
-                System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
              rowindex++;
-                } while (rs.next());
-            System.out.println("array2D = " + Arrays.deepToString(array2D));
- 
-//          for (int i=0;i<data.;i++){
-//            for (int j=0;j<3;j++){
-//                System.out.print(huruf[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
-//            JPanel[] buku = new JPanel[12];
-//            buku[1] = buku1;
-//            buku[2] = buku2;
-//            buku[3] = buku3;
-//            buku[4] = buku4;
-//            buku[5] = buku5;
-//            buku[6] = buku6;
-//            buku[7] = buku7;
-//            buku[8] = buku8;
-//            buku[9] = buku9;
-//            buku[10] = buku10;
-//            buku[11] = buku11;
-//            buku[12] = buku12;
-////          JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
-//          int panel;
-//                   for (panel=1;panel<data;panel++){
-//                       buku[panel].setVisible(false);
-//                   }
-                
-//              JLabel[] buku = new JLabel[numb];
-//               buku[0] = judul1;
-//              buku[1] = judul2;
-               
-              //judul1.setText("+arr+");
-              //penulis1.setText("+arr+");
-               //data[limit].replace("\\","\\\\");
-                 //file = .getAbsolutePath();
-              
-//              if(judul1 == null && penulis1 == null){
-//                  buku1.setVisible(false);
-//              }
-              
-              
+                } while (rs.next());              
         
         }catch(Exception e){
              JOptionPane.showMessageDialog(null, e);
         }
+    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -675,7 +673,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku1);
-        buku1.setBounds(25, 138, 161, 238);
+        buku1.setBounds(25, 138, 153, 230);
 
         buku2.setBackground(new java.awt.Color(255, 255, 255));
         buku2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -713,7 +711,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku2);
-        buku2.setBounds(233, 138, 161, 238);
+        buku2.setBounds(233, 138, 153, 230);
 
         buku4.setBackground(new java.awt.Color(255, 255, 255));
         buku4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -751,7 +749,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku4);
-        buku4.setBounds(668, 138, 161, 238);
+        buku4.setBounds(668, 138, 153, 230);
 
         buku3.setBackground(new java.awt.Color(255, 255, 255));
         buku3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -789,7 +787,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku3);
-        buku3.setBounds(449, 138, 161, 238);
+        buku3.setBounds(449, 138, 153, 230);
 
         buku5.setBackground(new java.awt.Color(255, 255, 255));
         buku5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -827,7 +825,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku5);
-        buku5.setBounds(877, 138, 161, 238);
+        buku5.setBounds(877, 138, 153, 230);
 
         buku6.setBackground(new java.awt.Color(255, 255, 255));
         buku6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -865,7 +863,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku6);
-        buku6.setBounds(1087, 138, 161, 238);
+        buku6.setBounds(1087, 138, 153, 230);
 
         buku7.setBackground(new java.awt.Color(255, 255, 255));
         buku7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -903,7 +901,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku7);
-        buku7.setBounds(25, 408, 161, 238);
+        buku7.setBounds(25, 408, 153, 230);
 
         buku8.setBackground(new java.awt.Color(255, 255, 255));
         buku8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -941,7 +939,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku8);
-        buku8.setBounds(233, 408, 161, 238);
+        buku8.setBounds(233, 408, 153, 230);
 
         buku9.setBackground(new java.awt.Color(255, 255, 255));
         buku9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -979,7 +977,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku9);
-        buku9.setBounds(449, 408, 161, 238);
+        buku9.setBounds(449, 408, 153, 230);
 
         buku10.setBackground(new java.awt.Color(255, 255, 255));
         buku10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1017,7 +1015,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku10);
-        buku10.setBounds(668, 408, 161, 238);
+        buku10.setBounds(668, 408, 153, 230);
 
         buku11.setBackground(new java.awt.Color(255, 255, 255));
         buku11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1055,7 +1053,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku11);
-        buku11.setBounds(877, 408, 161, 238);
+        buku11.setBounds(877, 408, 153, 230);
 
         buku12.setBackground(new java.awt.Color(255, 255, 255));
         buku12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1093,15 +1091,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku12);
-        buku12.setBounds(1087, 408, 161, 238);
+        buku12.setBounds(1087, 408, 153, 230);
 
         previous.setText("Previous");
         jPanel1.add(previous);
-        previous.setBounds(395, 680, 80, 23);
+        previous.setBounds(520, 680, 80, 22);
 
         next.setText("Next");
         jPanel1.add(next);
-        next.setBounds(520, 680, 55, 23);
+        next.setBounds(690, 680, 55, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1115,6 +1113,7 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -1272,6 +1271,8 @@ public class Katalog extends javax.swing.JFrame {
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
         Login obj = new Login();
+        UserSession.setUserLogin(null);
+        UserSession.setUserId(0);
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toOutMouseClicked

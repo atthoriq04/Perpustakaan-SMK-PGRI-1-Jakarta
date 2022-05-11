@@ -17,6 +17,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         initComponents();
         SubSirk.setVisible(false);
         SubUser.setVisible(false);
+        toUser.setText(UserSession.getUserLogin());
     }
 
     /**
@@ -53,7 +54,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         toNotif = new javax.swing.JLabel();
         toOut = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setLayout(null);
@@ -389,6 +390,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
@@ -536,6 +538,8 @@ public class Siswa_Denda extends javax.swing.JFrame {
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
         Login obj = new Login();
+        UserSession.setUserLogin(null);
+        UserSession.setUserId(0);
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toOutMouseClicked

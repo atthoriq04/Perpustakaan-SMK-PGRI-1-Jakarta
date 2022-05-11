@@ -116,7 +116,7 @@ public class Petugas_InputKelas extends javax.swing.JFrame {
         Kelas = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,6 +224,7 @@ public class Petugas_InputKelas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jurusankomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jurusankomboActionPerformed

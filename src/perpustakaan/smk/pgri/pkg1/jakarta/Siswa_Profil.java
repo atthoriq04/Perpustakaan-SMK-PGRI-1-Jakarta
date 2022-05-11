@@ -724,6 +724,8 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
         Login obj = new Login();
+        UserSession.setUserLogin(null);
+        UserSession.setUserId(0);
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toOutMouseClicked

@@ -17,6 +17,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
         initComponents();
          SubSirk.setVisible(false);
         SubUser.setVisible(false);
+        toUser.setText(UserSession.getUserLogin());
     }
 
     /**
@@ -599,7 +600,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel19);
-        jPanel19.setBounds(52, 70, 1170, 650);
+        jPanel19.setBounds(52, 70, 1170, 660);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -613,6 +614,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
@@ -760,6 +762,8 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
         Login obj = new Login();
+        UserSession.setUserLogin(null);
+        UserSession.setUserId(0);
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toOutMouseClicked

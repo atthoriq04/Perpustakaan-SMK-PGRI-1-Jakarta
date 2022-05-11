@@ -74,7 +74,7 @@ public class Detail extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -478,7 +478,7 @@ public class Detail extends javax.swing.JFrame {
         );
 
         jPanel10.add(jPanel2);
-        jPanel2.setBounds(70, 116, 1053, 400);
+        jPanel2.setBounds(70, 116, 1053, 395);
 
         jPanel1.add(jPanel10);
         jPanel10.setBounds(0, 0, 1280, 720);
@@ -495,6 +495,7 @@ public class Detail extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

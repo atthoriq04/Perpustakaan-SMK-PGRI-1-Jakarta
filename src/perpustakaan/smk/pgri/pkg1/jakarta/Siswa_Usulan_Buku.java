@@ -117,7 +117,7 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -247,6 +247,7 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void pBukujTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pBukujTextField2ActionPerformed
