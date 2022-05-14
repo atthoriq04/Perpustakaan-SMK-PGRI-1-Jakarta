@@ -1659,6 +1659,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
 
     private void tbleksemplarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbleksemplarMouseClicked
         // TODO add your handling code here:
+        
         Petugas_EditEksemplar obj = new Petugas_EditEksemplar();
         int i = tbleksemplar.getSelectedRow();
         TableModel model = tbleksemplar.getModel() ;

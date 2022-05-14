@@ -516,7 +516,7 @@ public class Siswa_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_toPengembalianMouseExited
 
     private void toDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseClicked
-        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        Siswa_Denda obj = new Siswa_Denda();
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toDendaMouseClicked

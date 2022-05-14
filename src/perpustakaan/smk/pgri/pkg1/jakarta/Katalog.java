@@ -29,11 +29,10 @@ public class Katalog extends javax.swing.JFrame {
      * Creates new form Katalog
      */
     ResultSet rs = null;
-    Connection CC = null;
+    Connection CC = new koneksi().connect();
     PreparedStatement pst = null;
     public Katalog() {
         initComponents();
-         CC = new koneksi().connect();
          PanelLog.setVisible(false);
          PanelUmum.setVisible(false);
          tampilNavbar();
@@ -64,7 +63,7 @@ public class Katalog extends javax.swing.JFrame {
          JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
          JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
          JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
-         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT '"+limit+"'",
+         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT 0, 12",
         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
 
@@ -104,7 +103,7 @@ public class Katalog extends javax.swing.JFrame {
                 } while (rs.next());              
         
         }catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
+             e.printStackTrace();
         }
     }
     private void onceclick(){
@@ -1121,9 +1120,8 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void buku1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku1MouseClicked
-        Detail obj = new Detail();
-        obj.setVisible(true);
-        this.dispose();
+        System.out.print(judul1.getText());
+        System.out.print(penulis1.getText());
     }//GEN-LAST:event_buku1MouseClicked
 
     private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
@@ -1211,7 +1209,7 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toPengembalianMouseExited
 
     private void toDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseClicked
-        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        Siswa_Denda obj = new Siswa_Denda();
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toDendaMouseClicked

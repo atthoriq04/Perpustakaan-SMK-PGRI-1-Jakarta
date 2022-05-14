@@ -1387,11 +1387,11 @@ public int bliblio;
 
         tgl_penerima.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_penerima);
-        tgl_penerima.setBounds(310, 370, 630, 20);
+        tgl_penerima.setBounds(310, 360, 630, 30);
 
         tgl_pesan.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_pesan);
-        tgl_pesan.setBounds(310, 450, 630, 20);
+        tgl_pesan.setBounds(310, 440, 630, 30);
 
         hadiah.setText("Hadiah / Hibah");
         hadiah.addActionListener(new java.awt.event.ActionListener() {

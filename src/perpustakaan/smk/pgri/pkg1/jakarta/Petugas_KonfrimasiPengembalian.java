@@ -3,7 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
+import java.text.*;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Atthoriq
@@ -13,6 +28,12 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
     /**
      * Creates new form Petugas_KonfrimasiPengembalian
      */
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
+    
     public Petugas_KonfrimasiPengembalian() {
         initComponents();
         subMenuBlibliografi.setVisible(false);
@@ -21,10 +42,114 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
+        judul();
+        Datas();
+        setting();
     }
 
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
+    }
+     public int ddn;
+     public String tggtk;
+     public String tgglk;
+     public String idt;
+     public String bcd;
+     public String nm;
+     public String kls;
+     public String jdl;
+      String nis;
+     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 2 OR transaksi.status = 3";
+     public void setting(){
+         try{
+            Statement stat = CC.createStatement();
+            ResultSet rb = stat.executeQuery("SELECT * FROM pengaturan LIMIT 1");
+            if(rb.next()){
+                ddn = rb.getInt("DendaHarian");
+            }
+        }catch(Exception e){
+        }
+     }
+     public void judul() {
+        Object[] judul = {
+            "id Transaksi", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Tanggal Pinjam" , "Tenggat Pengembalian", "Tanggal pengembalian", "Keterangan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        kPengemb.setModel(tmdl);
+    }
+     public void keterlambatan(){
+     try {
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            Date now = new Date();
+            stt = CC.createStatement();
+            Date d1 = sdformat.parse(tgglk);
+            Date d2 = sdformat.parse(tggtk);
+            long diff = d2.getTime() - d1.getTime();
+             if(d1.compareTo(d2) <= 0) {
+                 int opt = JOptionPane.showConfirmDialog(null, "Apakah Buku yang Dikembalikan benar?" , "Update", JOptionPane.YES_NO_OPTION);
+                 if(opt == 0){
+                     stt.executeUpdate("UPDATE transaksi SET Status = '4', Keterangan = 'Selesai' WHERE IdTransaksi = '"+ idt +"' ");
+                     stt.executeUpdate("UPDATE item SET location_Id = '2' WHERE item_Code = '"+ bcd +"' ");
+                     stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('2','"+ nis +"','Pengembalian Buku Berhasil(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
+                     JOptionPane.showMessageDialog(null, "Berhasil");
+                 }else{
+                     stt.executeUpdate("UPDATE transaksi SET Status = '1', Keterangan = 'Dipinjam' WHERE IdTransaksi = '"+ idt +"' ");
+                     stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('1','"+ nis +"','Buku Yang Dikembalikan Tidak Sesuai(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
+                     JOptionPane.showMessageDialog(null, "Berhasil");
+                 }
+             } else if(d1.compareTo(d2) > 0) {
+                String sql = "SELECT DATE(transaksi.TanggalKembali) AS 'Date1', DATE(transaksi.Tenggat) AS 'Date2', DATEDIFF(transaksi.Tenggat, transaksi.TanggalKembali) AS 'Date' FROM transaksi WHERE IdTransaksi = '"+idt+"'";
+                rst = stt.executeQuery(sql);
+                if(rst.next()){
+                    int opt = JOptionPane.showConfirmDialog(null, "Apakah Buku yang Dikembalikan benar?" , "Update", JOptionPane.YES_NO_OPTION);
+                    if(opt == 0){
+                     int Denda = Math.abs( rst.getInt("Date")) * ddn;
+                    stt.executeUpdate("INSERT INTO denda(IdTransaksi,jenis,Barang,Nominal,Status) VALUES('"+ idt +"','Tunai','-','"+ Denda +"','1' )");
+                    stt.executeUpdate("UPDATE transaksi SET Status = '4', Keterangan = 'Selesai' WHERE IdTransaksi = '"+ idt +"' ");
+                    stt.executeUpdate("UPDATE item SET location_Id = '2' WHERE item_Code = '"+ bcd +"' ");
+                    stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('4','"+ nis +"','Anda Mendapat Denda Keterlambatan Pengembalian Buku(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
+                    JOptionPane.showMessageDialog(null, "Berhasil");
+                    }else{
+                     stt.executeUpdate("UPDATE transaksi SET Status = '1', Keterangan = 'Dipinjam' WHERE IdTransaksi = '"+ idt +"' ");
+                     stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('1','"+ nis +"','Buku Yang Dikembalikan Tidak Sesuai(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
+                     JOptionPane.showMessageDialog(null, "Berhasil");
+                    }
+                    
+                }
+             }
+             System.out.print(d1+" "+d2);
+             System.out.print(d1.compareTo(d2));
+        } catch (ParseException ex) {
+            Logger.getLogger(Petugas_KonfrimasiPengembalian.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_KonfrimasiPengembalian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+    public void Datas() {
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while (rst.next()) {
+                Object[] data = {
+                    rst.getString("transaksi.IdTransaksi"),
+                    rst.getString("anggota.Nis"),
+                    rst.getString("anggota.Nama"),
+                    rst.getString("kelas.TingkatKelas")+" " +rst.getString("kelas.IdJurusan")+" "+ rst.getString("kelas.Kelas") ,
+                    rst.getString("transaksi.Barcode"),
+                    rst.getString("new_bliblio.Judul"),
+                    rst.getString("transaksi.TanggalPinjam"),
+                    rst.getString("transaksi.Tenggat"),
+                    rst.getString("transaksi.TanggalKembali"),
+                    rst.getString("transaksi.Keterangan"),
+
+                };
+                tmdl.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +229,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        kPengemb = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -1053,7 +1178,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        kPengemb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -1064,12 +1189,12 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
                 "#", "NIS", "Kelas", "Nama Anggota", "id Eksemplar", "tanggal pinjam", "Tenggat Kembali", "Tangal Kembali", "Keterangan"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        kPengemb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                kPengembMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(kPengemb);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
@@ -1109,10 +1234,36 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-       Petugas_TambahDenda obj = new Petugas_TambahDenda();
-        obj.setVisible(true);
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void kPengembMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kPengembMouseClicked
+            int i = kPengemb.getSelectedRow();
+            TableModel model = kPengemb.getModel() ;
+            tggtk = model.getValueAt(i, 7).toString();
+            tgglk = model.getValueAt(i, 8).toString();
+            idt = model.getValueAt(i, 0).toString();
+            String kt = model.getValueAt(i,9).toString();
+            nis = model.getValueAt(i,1).toString();
+            bcd = model.getValueAt(i,4).toString();
+            nm = model.getValueAt(i,2).toString();
+            kls = model.getValueAt(i,3).toString();
+            jdl = model.getValueAt(i,5).toString();
+            if(kt.equals("Buku Hilang")){
+                Petugas_TambahDenda obj = new Petugas_TambahDenda();
+                obj.NIS.setText(nis);
+                obj.Nama.setText(nm);
+                obj.Kelas.setText(kls);
+                obj.Jdbk.setText(jdl);
+                obj.brcd.setText(bcd);
+                obj.id.setText(idt);
+                obj.setVisible(true);
+                obj.pack();
+                obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }else{
+                keterlambatan();
+                Datas();
+            }
+            
+        
+    }//GEN-LAST:event_kPengembMouseClicked
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1564,7 +1715,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable kPengemb;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

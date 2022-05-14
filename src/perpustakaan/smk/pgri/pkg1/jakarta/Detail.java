@@ -49,17 +49,21 @@ public class Detail extends javax.swing.JFrame {
         toOut = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel74 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
+        dCN = new javax.swing.JLabel();
+        dJudul = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel83 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
+        dSisa = new javax.swing.JLabel();
+        dPenerbit = new javax.swing.JLabel();
+        dTahun = new javax.swing.JLabel();
+        dPenulis = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        dTahun1 = new javax.swing.JLabel();
+        dTK = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -367,13 +371,13 @@ public class Detail extends javax.swing.JFrame {
             .addGap(0, 200, Short.MAX_VALUE)
         );
 
-        jLabel74.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel74.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel74.setText("No Panggil");
+        dCN.setBackground(new java.awt.Color(255, 255, 255));
+        dCN.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dCN.setText("No Panggil");
 
-        jLabel75.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel75.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel75.setText("Judul Buku");
+        dJudul.setBackground(new java.awt.Color(255, 255, 255));
+        dJudul.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        dJudul.setText("Judul Buku");
 
         jLabel77.setBackground(new java.awt.Color(255, 255, 255));
         jLabel77.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -387,21 +391,21 @@ public class Detail extends javax.swing.JFrame {
         jLabel79.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel79.setText("Penulis");
 
-        jLabel80.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel80.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel80.setText("Sisa Eksemplar");
+        dSisa.setBackground(new java.awt.Color(255, 255, 255));
+        dSisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        dSisa.setText("Sisa Eksemplar");
 
-        jLabel83.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel83.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel83.setText("Penerbit");
+        dPenerbit.setBackground(new java.awt.Color(255, 255, 255));
+        dPenerbit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dPenerbit.setText("Penerbit");
 
-        jLabel84.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel84.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel84.setText("Tahun Terbit");
+        dTahun.setBackground(new java.awt.Color(255, 255, 255));
+        dTahun.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dTahun.setText("Tahun Terbit");
 
-        jLabel86.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel86.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel86.setText("Penulis");
+        dPenulis.setBackground(new java.awt.Color(255, 255, 255));
+        dPenulis.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dPenulis.setText("Penulis");
 
         jButton3.setText("Pinjam");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -417,35 +421,56 @@ public class Detail extends javax.swing.JFrame {
             }
         });
 
+        jLabel80.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel80.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel80.setText("Tipe Koleksi");
+
+        jLabel81.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel81.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel81.setText("GMD");
+
+        dTahun1.setBackground(new java.awt.Color(255, 255, 255));
+        dTahun1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dTahun1.setText("GMD");
+
+        dTK.setBackground(new java.awt.Color(255, 255, 255));
+        dTK.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dTK.setText("Penulis");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel77)
-                    .addComponent(jLabel78)
-                    .addComponent(jLabel79))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel84)
-                        .addComponent(jLabel75)
-                        .addComponent(jLabel74)
-                        .addComponent(jLabel86)
-                        .addComponent(jLabel83))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel80)
-                        .addGap(19, 19, 19)))
-                .addContainerGap(720, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel77)
+                    .addComponent(jLabel78)
+                    .addComponent(jLabel79)
+                    .addComponent(jLabel81)
+                    .addComponent(jLabel80))
+                .addGap(53, 53, 53)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dTahun1)
+                    .addComponent(dTK)
+                    .addComponent(dTahun)
+                    .addComponent(dPenulis)
+                    .addComponent(dPenerbit)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dJudul)
+                            .addComponent(dCN))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(dSisa)
+                            .addGap(19, 19, 19))))
+                .addContainerGap(720, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,23 +479,32 @@ public class Detail extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel75)
+                        .addComponent(dJudul)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel74)
+                        .addComponent(dCN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel80)))
+                        .addComponent(dSisa)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel77)
-                    .addComponent(jLabel83))
+                    .addComponent(dPenerbit))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel78)
-                    .addComponent(jLabel84))
+                    .addComponent(dTahun))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel79)
-                    .addComponent(jLabel86))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(dPenulis))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel81)
+                    .addComponent(dTahun1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel80)
+                    .addComponent(dTK))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -478,7 +512,7 @@ public class Detail extends javax.swing.JFrame {
         );
 
         jPanel10.add(jPanel2);
-        jPanel2.setBounds(70, 116, 1053, 395);
+        jPanel2.setBounds(70, 116, 1053, 550);
 
         jPanel1.add(jPanel10);
         jPanel10.setBounds(0, 0, 1280, 720);
@@ -708,18 +742,22 @@ public class Detail extends javax.swing.JFrame {
     private javax.swing.JLabel PGRI;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
+    private javax.swing.JLabel dCN;
+    private javax.swing.JLabel dJudul;
+    private javax.swing.JLabel dPenerbit;
+    private javax.swing.JLabel dPenulis;
+    private javax.swing.JLabel dSisa;
+    private javax.swing.JLabel dTK;
+    private javax.swing.JLabel dTahun;
+    private javax.swing.JLabel dTahun1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel14;

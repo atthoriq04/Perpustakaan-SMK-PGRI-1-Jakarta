@@ -1305,35 +1305,63 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
 
    
     private void tblBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBukuMouseClicked
-       Petugas_DataEksemplar obj = new Petugas_DataEksemplar();
-       Petugas_InputEksemplar obj1 = new Petugas_InputEksemplar();
-        int i = tblBuku.getSelectedRow();
-        TableModel model = tblBuku.getModel() ;
-        String cn = model.getValueAt(i, 1).toString();
-        String jdl = model.getValueAt(i, 2).toString();
-        UserSession.setCallNumb(cn);
-        UserSession.setJudul(jdl);
-        obj.call_number.setText(cn);
-        obj.Judul.setText(jdl);
-        try{
-            Statement stat = CC.createStatement();
-            sql="SELECT * FROM new_bliblio WHERE call_number = '"+cn+"'";
-            ResultSet rs = stat.executeQuery(sql);
-            if (rs.next()){
-                obj.desk.setText(rs.getString("Notes"));
-                String n = rs.getString("Notes");
-                UserSession.setFisik(n);
-                
+            int i = tblBuku.getSelectedRow();
+            TableModel model = tblBuku.getModel() ;
+            String cn = model.getValueAt(i, 1).toString();
+            String jdl = model.getValueAt(i, 2).toString();
+        String[] options = {"Eksemplar", "Pinjamkan Buku"};
+        int x = JOptionPane.showOptionDialog(null, "Pilih Aksi",
+                "Click a button",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        if(x == 0 ){
+            Petugas_DataEksemplar obj = new Petugas_DataEksemplar();
+            Petugas_InputEksemplar obj1 = new Petugas_InputEksemplar();
+            
+            UserSession.setCallNumb(cn);
+            UserSession.setJudul(jdl);
+            obj.call_number.setText(cn);
+            obj.Judul.setText(jdl);
+            try{
+                Statement stat = CC.createStatement();
+                sql="SELECT * FROM new_bliblio WHERE call_number = '"+cn+"'";
+                ResultSet rs = stat.executeQuery(sql);
+                if (rs.next()){
+                    obj.desk.setText(rs.getString("Notes"));
+                    String n = rs.getString("Notes");
+                    UserSession.setFisik(n);
+
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            obj.setVisible(true);
+            obj.showtable();
+            obj.pack();
+            obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.dispose();
+        }else{
+            // 
+            try{
+              Statement stat = CC.createStatement();
+              String SQL = "SELECT COUNT(*) FROM `item` JOIN new_bliblio ON new_bliblio.call_number = item.call_number WHERE new_bliblio.call_number = '" + cn + "' AND NOT location_Id = '3' ";
+              ResultSet rs = stat.executeQuery(SQL);
+              if(rs.next()){
+                int a = rs.getInt("COUNT(*)");
+                System.out.print(a);
+                if( a <= 0 ){
+                    JOptionPane.showMessageDialog(null,"Tidak Ada Eksemplar Tersedia" );
+                }else{
+                    Dialog_Konfirmasi obj = new Dialog_Konfirmasi();
+                    obj.setVisible(true);
+                }
+                
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+            
         }
-       
-        obj.setVisible(true);
-        obj.showtable();
-        obj.pack();
-        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.dispose();
+        
     }//GEN-LAST:event_tblBukuMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

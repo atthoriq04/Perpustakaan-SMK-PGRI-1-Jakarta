@@ -3,7 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
@@ -13,6 +23,12 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     /**
      * Creates new form Petugas_DataTransaksi
      */
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
+    
     public Petugas_DataTransaksi() {
         initComponents();
          subMenuBlibliografi.setVisible(false);
@@ -21,10 +37,45 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
+        judul();
+        Datas();
     }
 
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
+    }
+     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 1";
+     public void judul() {
+        Object[] judul = {
+            "No", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Tanggal Pinjam" , "Tenggat Pengembalian"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        transaksi.setModel(tmdl);
+    }
+
+    public void Datas() {
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while (rst.next()) {
+                Object[] data = {
+                    "1",
+                    rst.getString("anggota.Nis"),
+                    rst.getString("anggota.Nama"),
+                    rst.getString("kelas.TingkatKelas")+" " +rst.getString("kelas.IdJurusan")+" "+ rst.getString("kelas.Kelas") ,
+                    rst.getString("transaksi.Barcode"),
+                    rst.getString("new_bliblio.Judul"),
+                    rst.getString("transaksi.TanggalPinjam"),
+                    rst.getString("transaksi.Tenggat"),
+
+                };
+                tmdl.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,10 +155,10 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         toDataUsulan = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transaksi = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        export = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1055,7 +1106,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         jPanel1.add(subMenuBlibliografi);
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        transaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -1066,39 +1117,42 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Kelas", "Judul Buku", "Tanggal Pinjam", "Tenggat kembali", "Tanggal Kembali", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(transaksi);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tangggal");
+        jLabel2.setText("Belum Tuntas");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
+        jLabel2.setBounds(170, 100, 90, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Sort By");
+        jLabel4.setText("Filter");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
+        jLabel4.setBounds(110, 100, 160, 15);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
-        jLabel3.setText("Export");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        export.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        export.setForeground(new java.awt.Color(0, 112, 207));
+        export.setText("Export");
+        export.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                exportMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                exportMouseExited(evt);
             }
         });
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(1020, 110, 70, 15);
+        jPanel1.add(export);
+        export.setBounds(1020, 110, 70, 15);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 112, 207));
         jLabel5.setText("Konfirmasi Pengembalian");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel5MouseEntered(evt);
             }
@@ -1126,13 +1180,13 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_jLabel3MouseEntered
+    private void exportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMouseEntered
+        export.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_exportMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
-    }//GEN-LAST:event_jLabel3MouseExited
+    private void exportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMouseExited
+        export.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_exportMouseExited
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1143,11 +1197,11 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
-        // TODO add your handling code here:
+       jLabel5.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_jLabel5MouseEntered
 
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-        // TODO add your handling code here:
+        jLabel5.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel5MouseExited
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1527,6 +1581,12 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        Petugas_KonfrimasiPengembalian obj = new Petugas_KonfrimasiPengembalian();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1565,6 +1625,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
+    private javax.swing.JLabel export;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1585,7 +1646,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1602,7 +1662,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -1637,5 +1696,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
     private javax.swing.JLabel toUser;
+    private javax.swing.JTable transaksi;
     // End of variables declaration//GEN-END:variables
 }

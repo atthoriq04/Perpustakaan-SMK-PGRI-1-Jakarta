@@ -3,13 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
  */
 public class Siswa_Denda extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Siswa_Denda
      */
@@ -18,8 +32,64 @@ public class Siswa_Denda extends javax.swing.JFrame {
         SubSirk.setVisible(false);
         SubUser.setVisible(false);
         toUser.setText(UserSession.getUserLogin());
+        getData();
+        judul();
+        Datas();
+    }
+    int UserId = UserSession.GetUserId();
+    public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE (transaksi.Nis = '"+ UserId +"') AND (denda.Status = '1' OR denda.Status='2' )ORDER BY transaksi.IdTransaksi";
+     public void judul() {
+        Object[] judul = {
+            "Id denda", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        TDen.setModel(tmdl);
     }
 
+    public void Datas() {
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while (rst.next()) {
+                Object[] data = {
+                    rst.getString("denda.IdDenda"),
+                    rst.getString("anggota.Nama"),
+                    rst.getString("kelas.TingkatKelas")+" " +rst.getString("kelas.IdJurusan")+" "+ rst.getString("kelas.Kelas") ,
+                    rst.getString("transaksi.Barcode"),
+                    rst.getString("new_bliblio.Judul"),
+                    rst.getString("denda.jenis"),
+                    rst.getString("denda.barang"),
+                    rst.getString("denda.Nominal"),
+                    rst.getString("denda.Ket"),
+
+                };
+                tmdl.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void getData(){
+        try {
+        Statement stat = CC.createStatement();
+          
+           String sql = "SELECT * FROM user INNER JOIN anggota ON user.Nis=anggota.Nis \n" +
+"INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas \n" +
+"INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.Nis='"+UserId+"'";
+           ResultSet rs = stat.executeQuery(sql);
+           if (rs.next())
+            {
+                String kelas = rs.getString("Kelas.TingkatKelas")+" "+rs.getString("Kelas.IdJurusan")+" "+rs.getString("Kelas.Kelas");
+                Nama.setText(rs.getString("anggota.Nama"));
+                Kelas.setText(kelas);
+            } else
+            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,10 +104,10 @@ public class Siswa_Denda extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        Nama = new javax.swing.JLabel();
+        Kelas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TDen = new javax.swing.JTable();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
@@ -81,17 +151,17 @@ public class Siswa_Denda extends javax.swing.JFrame {
         jPanel12.add(jLabel9);
         jLabel9.setBounds(25, 176, 64, 17);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Nama");
-        jPanel12.add(jLabel10);
-        jLabel10.setBounds(133, 141, 242, 17);
+        Nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nama.setText("Nama");
+        jPanel12.add(Nama);
+        Nama.setBounds(133, 141, 242, 17);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("Kelas ");
-        jPanel12.add(jLabel11);
-        jLabel11.setBounds(133, 176, 242, 17);
+        Kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Kelas.setText("Kelas ");
+        jPanel12.add(Kelas);
+        Kelas.setBounds(133, 176, 242, 17);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TDen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -102,7 +172,12 @@ public class Siswa_Denda extends javax.swing.JFrame {
                 "#", "ID Eksemplar", "Jenis Denda", "Nominal", "Barang", "Keterangan", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        TDen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TDenMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TDen);
 
         jPanel12.add(jScrollPane1);
         jScrollPane1.setBounds(25, 212, 1223, 508);
@@ -478,7 +553,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
     }//GEN-LAST:event_toPengembalianMouseExited
 
     private void toDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseClicked
-        Siswa_PeminjamanBerjalan obj = new Siswa_PeminjamanBerjalan();
+        Siswa_Denda obj = new Siswa_Denda();
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toDendaMouseClicked
@@ -556,6 +631,24 @@ public class Siswa_Denda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SubUserMouseExited
 
+    private void TDenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TDenMouseClicked
+       int i = TDen.getSelectedRow();
+        TableModel model = TDen.getModel() ;
+        String idt = model.getValueAt(i, 0).toString();
+        int opt = JOptionPane.showConfirmDialog(null, "Apakah Data Sudah benar?" , "Update", JOptionPane.YES_NO_OPTION);
+        if(opt == 0){
+             try{
+                    Statement stat = CC.createStatement();
+                    stat.executeUpdate("UPDATE denda SET  Status = '2' WHERE IdDenda = '"+ idt +"' ");
+                    JOptionPane.showMessageDialog(null, "Silahkan Bayarkan Denda Anda");
+                     
+                   }catch (Exception e){
+                   e.printStackTrace();
+                   }
+        }
+        Datas();
+    }//GEN-LAST:event_TDenMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -592,11 +685,12 @@ public class Siswa_Denda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Kelas;
+    private javax.swing.JLabel Nama;
     private javax.swing.JLabel PGRI;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JTable TDen;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
@@ -604,7 +698,6 @@ public class Siswa_Denda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;

@@ -1246,7 +1246,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         jPanel1.add(nama);
         nama.setBounds(200, 230, 390, 23);
 
-        jButton2.setText("Submi");
+        jButton2.setText("Submit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

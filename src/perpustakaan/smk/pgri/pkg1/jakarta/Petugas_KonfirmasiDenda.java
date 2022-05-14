@@ -3,13 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.Date;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_KonfirmasiDenda
      */
@@ -21,10 +37,47 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
+        judul();
+        Datas();
     }
 
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
+    }
+     public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='2' ORDER BY transaksi.IdTransaksi";
+     public void judul() {
+        Object[] judul = {
+            "Id denda", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        kDenda.setModel(tmdl);
+    }
+
+    public void Datas() {
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while (rst.next()) {
+                Object[] data = {
+                   rst.getString("denda.IdDenda"),
+                    rst.getString("anggota.Nis"),
+                    rst.getString("anggota.Nama"),
+                    rst.getString("kelas.TingkatKelas")+" " +rst.getString("kelas.IdJurusan")+" "+ rst.getString("kelas.Kelas") ,
+                    rst.getString("transaksi.Barcode"),
+                    rst.getString("new_bliblio.Judul"),
+                    rst.getString("denda.jenis"),
+                    rst.getString("denda.barang"),
+                    rst.getString("denda.Nominal"),
+                    rst.getString("denda.Ket"),
+
+                };
+                tmdl.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +157,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        kDenda = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -1053,7 +1106,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        kDenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -1064,7 +1117,12 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Jenis Denda", "Jumlah", "Barang", "Status", "Keterangan"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        kDenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kDendaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(kDenda);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
@@ -1481,6 +1539,28 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void kDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kDendaMouseClicked
+        int i = kDenda.getSelectedRow();
+        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+        Date now = new Date();
+        TableModel model = kDenda.getModel() ;
+        String idt = model.getValueAt(i, 0).toString();
+        String nis = model.getValueAt(i, 1).toString();
+        int opt = JOptionPane.showConfirmDialog(null, "Apakah Denda Sudah Dibayarkan?" , "Update", JOptionPane.YES_NO_OPTION);
+        if(opt == 0){
+             try{
+                    Statement stat = CC.createStatement();
+                    stat.executeUpdate("UPDATE denda SET  Status = '3' WHERE IdDenda = '"+ idt +"' ");
+                    stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('3','"+ nis +"','Denda Dengan Kode  "+ idt +" Berhasil Dibayarkan ','"+ sdformat.format(now) +"','1' )");
+                    JOptionPane.showMessageDialog(null, "berhasil");
+                     
+                   }catch (Exception e){
+                   e.printStackTrace();
+                   }
+        }
+        Datas();
+    }//GEN-LAST:event_kDendaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1554,7 +1634,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable kDenda;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
