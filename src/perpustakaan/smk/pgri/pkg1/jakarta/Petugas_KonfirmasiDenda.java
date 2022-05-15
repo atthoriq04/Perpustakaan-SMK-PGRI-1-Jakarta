@@ -158,7 +158,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         kDenda = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        Active = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1127,15 +1127,20 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tangggal");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
+        Active.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Active.setText("Menunggu Konfirmasi");
+        jPanel1.add(Active);
+        Active.setBounds(170, 100, 120, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Sort By");
+        jLabel4.setText("Filter");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+        });
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
+        jLabel4.setBounds(110, 100, 160, 15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1540,26 +1545,31 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
     private void kDendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kDendaMouseClicked
-        int i = kDenda.getSelectedRow();
-        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-        Date now = new Date();
-        TableModel model = kDenda.getModel() ;
-        String idt = model.getValueAt(i, 0).toString();
-        String nis = model.getValueAt(i, 1).toString();
-        int opt = JOptionPane.showConfirmDialog(null, "Apakah Denda Sudah Dibayarkan?" , "Update", JOptionPane.YES_NO_OPTION);
-        if(opt == 0){
-             try{
-                    Statement stat = CC.createStatement();
-                    stat.executeUpdate("UPDATE denda SET  Status = '3' WHERE IdDenda = '"+ idt +"' ");
-                    stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('3','"+ nis +"','Denda Dengan Kode  "+ idt +" Berhasil Dibayarkan ','"+ sdformat.format(now) +"','1' )");
-                    JOptionPane.showMessageDialog(null, "berhasil");
-                     
-                   }catch (Exception e){
-                   e.printStackTrace();
-                   }
-        }
-        Datas();
+            int i = kDenda.getSelectedRow();
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            Date now = new Date();
+            TableModel model = kDenda.getModel() ;
+            String idt = model.getValueAt(i, 0).toString();
+            String nis = model.getValueAt(i, 1).toString();
+            int opt = JOptionPane.showConfirmDialog(null, "Apakah Denda Sudah Dibayarkan?" , "Update", JOptionPane.YES_NO_OPTION);
+            if(opt == 0){
+                 try{
+                        Statement stat = CC.createStatement();
+                        stat.executeUpdate("UPDATE denda SET  Status = '3' WHERE IdDenda = '"+ idt +"' ");
+                        stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('3','"+ nis +"','Denda Dengan Kode  "+ idt +" Berhasil Dibayarkan ','"+ sdformat.format(now) +"','1' )");
+                        JOptionPane.showMessageDialog(null, "berhasil");
+
+                       }catch (Exception e){
+                       e.printStackTrace();
+                       }
+            }
+            Datas();
+        
     }//GEN-LAST:event_kDendaMouseClicked
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+
+    }//GEN-LAST:event_jLabel4MouseEntered
 
     /**
      * @param args the command line arguments
@@ -1597,6 +1607,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Active;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel1;
@@ -1608,7 +1619,6 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

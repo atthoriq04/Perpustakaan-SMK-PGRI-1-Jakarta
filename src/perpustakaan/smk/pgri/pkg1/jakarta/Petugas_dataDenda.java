@@ -4,12 +4,29 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.Date;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_dataDenda extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form Petugas_dataDenda
      */
@@ -21,11 +38,50 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
+        judul();
+        Datas();
+        sort.setVisible(false);
     }
 
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
+      public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
+     public void judul() {
+        Object[] judul = {
+            "Id denda", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        dendaT.setModel(tmdl);
+    }
+
+    public void Datas() {
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery(sqlz);
+            while (rst.next()) {
+                Object[] data = {
+                   rst.getString("denda.IdDenda"),
+                    rst.getString("anggota.Nis"),
+                    rst.getString("anggota.Nama"),
+                    rst.getString("kelas.TingkatKelas")+" " +rst.getString("kelas.IdJurusan")+" "+ rst.getString("kelas.Kelas") ,
+                    rst.getString("transaksi.Barcode"),
+                    rst.getString("new_bliblio.Judul"),
+                    rst.getString("denda.jenis"),
+                    rst.getString("denda.barang"),
+                    rst.getString("denda.Nominal"),
+                    rst.getString("denda.Ket"),
+
+                };
+                tmdl.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +109,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         empty1 = new javax.swing.JPanel();
         toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         subMenuAdmin = new javax.swing.JPanel();
         toProfilPetugas = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -104,10 +161,12 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        dendaT = new javax.swing.JTable();
+        Active = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        sort = new javax.swing.JPanel();
+        tuntas = new javax.swing.JLabel();
+        tunggukonfir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -251,6 +310,23 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 0, 80, 720);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
+        jLabel3.setText("Konfirmasi Pembayaran Denda");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(1080, 110, 170, 15);
 
         subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
         subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1054,7 +1130,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dendaT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -1065,37 +1141,82 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Jenis Denda", "Jumlah", "Barang", "Status", "Keterangan"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(dendaT);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tangggal");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
+        Active.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Active.setText("Belum Tuntas");
+        jPanel1.add(Active);
+        Active.setBounds(170, 100, 110, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Sort By");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
-        jLabel3.setText("Konfirmasi Pembayaran Denda");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
+        jLabel4.setText("Filter");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                jLabel4MouseEntered(evt);
             }
         });
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(1080, 110, 170, 15);
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(110, 100, 230, 15);
+
+        sort.setBackground(new java.awt.Color(255, 255, 255));
+        sort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sortMouseEntered(evt);
+            }
+        });
+
+        tuntas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tuntas.setText("Tuntas");
+        tuntas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tuntasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tuntasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tuntasMouseExited(evt);
+            }
+        });
+
+        tunggukonfir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tunggukonfir.setText("Belum Tuntas");
+        tunggukonfir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tunggukonfirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tunggukonfirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tunggukonfirMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sortLayout = new javax.swing.GroupLayout(sort);
+        sort.setLayout(sortLayout);
+        sortLayout.setHorizontalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sortLayout.createSequentialGroup()
+                .addGroup(sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tunggukonfir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tuntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        sortLayout.setVerticalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addComponent(tuntas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tunggukonfir)
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(sort);
+        sort.setBounds(170, 60, 120, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1120,6 +1241,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        sort.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -1513,6 +1635,44 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void tuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseClicked
+        sort.setVisible(false);
+        Active.setText(tuntas.getText());
+        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='3' ORDER BY transaksi.IdTransaksi";
+        Datas();
+    }//GEN-LAST:event_tuntasMouseClicked
+
+    private void tuntasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseEntered
+        tuntas.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_tuntasMouseEntered
+
+    private void tuntasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseExited
+        tuntas.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_tuntasMouseExited
+
+    private void tunggukonfirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tunggukonfirMouseClicked
+        sort.setVisible(false);
+        Active.setText(tunggukonfir.getText());
+        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
+        Datas();
+    }//GEN-LAST:event_tunggukonfirMouseClicked
+
+    private void tunggukonfirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tunggukonfirMouseEntered
+        tunggukonfir.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_tunggukonfirMouseEntered
+
+    private void tunggukonfirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tunggukonfirMouseExited
+        tunggukonfir.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_tunggukonfirMouseExited
+
+    private void sortMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_sortMouseEntered
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+       sort.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1549,6 +1709,8 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Active;
+    private javax.swing.JTable dendaT;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel1;
@@ -1560,7 +1722,6 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1587,7 +1748,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel sort;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -1622,5 +1783,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
     private javax.swing.JLabel toUser;
+    private javax.swing.JLabel tunggukonfir;
+    private javax.swing.JLabel tuntas;
     // End of variables declaration//GEN-END:variables
 }

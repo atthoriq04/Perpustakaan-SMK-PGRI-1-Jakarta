@@ -92,7 +92,7 @@ public class Petugas_InputEksemplar extends javax.swing.JFrame {
      public void readLokasi(){
        try{
            Statement stat = CC.createStatement();
-           sql = "SELECT mst_location.location_id, location_name FROM mst_location";
+           sql = "SELECT mst_location.location_id, location_name FROM mst_location WHERE NOT location_id = '3' AND NOT location_id ='4'";
            ResultSet rs = stat.executeQuery(sql);
            while(rs.next()){
            String result = rs.getString("mst_location.location_name");
@@ -1434,7 +1434,7 @@ public int bliblio;
             }
         });
         jPanel1.add(cbLokasi);
-        cbLokasi.setBounds(500, 410, 110, 20);
+        cbLokasi.setBounds(500, 410, 200, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

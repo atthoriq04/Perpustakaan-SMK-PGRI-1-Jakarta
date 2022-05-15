@@ -1314,11 +1314,11 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
-        // TODO add your handling code here:
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_jLabel5MouseEntered
 
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-        // TODO add your handling code here:
+        jLabel5.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel5MouseExited
 
     private void tblanggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblanggotaMouseClicked

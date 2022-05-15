@@ -264,6 +264,10 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insert();
+        jBuku.setText(null);
+        pBuku.setText(null);
+        penBuku.setText(null);
+        ttBuku.setText(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

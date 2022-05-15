@@ -7,6 +7,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -26,10 +27,13 @@ public class Siswa_Home extends javax.swing.JFrame {
          CC = new koneksi().connect();
         userLogin();
         hakakses();
+        no.setVisible(false);
+        jumlahnotif();
     }
     private void userLogin(){
     toUser.setText(UserSession.getUserLogin());
     }
+    int UserId = UserSession.GetUserId();
     
      private void hakakses() {
     String user=toUser.getText();
@@ -42,6 +46,21 @@ public class Siswa_Home extends javax.swing.JFrame {
         }
     
         }
+     
+     public void jumlahnotif(){
+         try {
+            ;
+            Statement stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT COUNT(*) FROM notifikasi WHERE Nis = '"+ UserId +"' AND Status = 1");
+            if(rs.next()){
+                no.setVisible(true);
+                no.setText("<html><B>(" +  rs.getString("COUNT(*)") + ")</B></html>");
+            }
+            
+            }catch(Exception e){
+          e.printStackTrace();
+        }
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +85,7 @@ public class Siswa_Home extends javax.swing.JFrame {
         toUsulan = new javax.swing.JLabel();
         toBebpus = new javax.swing.JLabel();
         toUser = new javax.swing.JLabel();
+        no = new javax.swing.JLabel();
         SubSirk = new javax.swing.JPanel();
         toKatalog = new javax.swing.JLabel();
         toPengembalian = new javax.swing.JLabel();
@@ -206,6 +226,9 @@ public class Siswa_Home extends javax.swing.JFrame {
             }
         });
 
+        no.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        no.setText("1");
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -221,7 +244,9 @@ public class Siswa_Home extends javax.swing.JFrame {
                 .addComponent(toBebpus)
                 .addGap(45, 45, 45)
                 .addComponent(toUser)
-                .addGap(48, 48, 48))
+                .addGap(17, 17, 17)
+                .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +256,8 @@ public class Siswa_Home extends javax.swing.JFrame {
                     .addComponent(toSirkulasi)
                     .addComponent(toUsulan)
                     .addComponent(toBebpus)
-                    .addComponent(toUser))
+                    .addComponent(toUser)
+                    .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -360,6 +386,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         toNotif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         toNotif.setText("Notifkasi");
         toNotif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toNotifMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toNotifMouseEntered(evt);
             }
@@ -601,6 +630,11 @@ public class Siswa_Home extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_toBebpusMouseClicked
 
+    private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
+        Siswa_Notifikasi obj = new Siswa_Notifikasi();
+        obj.setVisible(true);
+    }//GEN-LAST:event_toNotifMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -653,6 +687,7 @@ public class Siswa_Home extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton14;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JButton lihatKatalog2;
+    private javax.swing.JLabel no;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;

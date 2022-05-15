@@ -533,7 +533,6 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         Judul = new javax.swing.JTextField();
         Edisi = new javax.swing.JTextField();
         submit = new javax.swing.JButton();
-        jSeparator8 = new javax.swing.JSeparator();
         lbl_isbn = new javax.swing.JLabel();
         lbl_publisher = new javax.swing.JLabel();
         lbl_tterbit = new javax.swing.JLabel();
@@ -562,6 +561,8 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         lbl_pengarang = new javax.swing.JLabel();
         cbPengarang = new javax.swing.JComboBox<>();
         delete = new javax.swing.JButton();
+        attach1 = new javax.swing.JButton();
+        img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1511,28 +1512,28 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         lbl_judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judul.setText("Judul");
         jPanel1.add(lbl_judul);
-        lbl_judul.setBounds(110, 230, 80, 20);
+        lbl_judul.setBounds(120, 160, 80, 20);
 
         lbl_gmd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_gmd.setText("GMD");
         jPanel1.add(lbl_gmd);
-        lbl_gmd.setBounds(110, 290, 70, 20);
+        lbl_gmd.setBounds(120, 220, 70, 20);
 
         lbl_edisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_edisi.setText("Edisi");
         jPanel1.add(lbl_edisi);
-        lbl_edisi.setBounds(110, 320, 70, 20);
+        lbl_edisi.setBounds(120, 250, 70, 20);
 
         Deskripsi.setColumns(20);
         Deskripsi.setRows(5);
         jScrollPane1.setViewportView(Deskripsi);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(310, 440, 630, 70);
+        jScrollPane1.setBounds(320, 370, 630, 70);
 
         Judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Judul);
-        Judul.setBounds(310, 230, 630, 23);
+        Judul.setBounds(320, 160, 630, 23);
 
         Edisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Edisi.addActionListener(new java.awt.event.ActionListener() {
@@ -1541,58 +1542,56 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Edisi);
-        Edisi.setBounds(310, 320, 630, 23);
+        Edisi.setBounds(320, 250, 630, 23);
 
-        submit.setText("Update");
+        submit.setText("Perbarui");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1020, 660, 80, 23);
-        jPanel1.add(jSeparator8);
-        jSeparator8.setBounds(80, 160, 1200, 10);
+        submit.setBounds(1140, 680, 80, 23);
 
         lbl_isbn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_isbn.setText("ISBN");
         jPanel1.add(lbl_isbn);
-        lbl_isbn.setBounds(110, 350, 80, 20);
+        lbl_isbn.setBounds(120, 280, 80, 20);
 
         lbl_publisher.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_publisher.setText("Penerbit");
         jPanel1.add(lbl_publisher);
-        lbl_publisher.setBounds(110, 380, 70, 20);
+        lbl_publisher.setBounds(120, 310, 70, 20);
 
         lbl_tterbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_tterbit.setText("Tahun Terbit");
         jPanel1.add(lbl_tterbit);
-        lbl_tterbit.setBounds(110, 410, 90, 20);
+        lbl_tterbit.setBounds(120, 340, 90, 20);
 
         lbl_tempatTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_tempatTerbit.setText("Tempat Terbit");
         jPanel1.add(lbl_tempatTerbit);
-        lbl_tempatTerbit.setBounds(110, 610, 90, 20);
+        lbl_tempatTerbit.setBounds(120, 540, 90, 20);
 
         lbl_bahasa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_bahasa.setText("Bahasa");
         jPanel1.add(lbl_bahasa);
-        lbl_bahasa.setBounds(110, 570, 90, 40);
+        lbl_bahasa.setBounds(120, 500, 90, 40);
 
         lbl_nopanggil.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_nopanggil.setText("No Panggil");
         jPanel1.add(lbl_nopanggil);
-        lbl_nopanggil.setBounds(110, 550, 150, 20);
+        lbl_nopanggil.setBounds(120, 480, 150, 20);
 
         lbl_judulseri.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judulseri.setText("Judul Seri");
         jPanel1.add(lbl_judulseri);
-        lbl_judulseri.setBounds(110, 520, 70, 20);
+        lbl_judulseri.setBounds(120, 450, 70, 20);
 
         lbl_fisik.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_fisik.setText("Deskripsi Fisik");
         jPanel1.add(lbl_fisik);
-        lbl_fisik.setBounds(110, 440, 100, 20);
+        lbl_fisik.setBounds(120, 370, 100, 20);
 
         TahunTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TahunTerbit.addActionListener(new java.awt.event.ActionListener() {
@@ -1601,7 +1600,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(TahunTerbit);
-        TahunTerbit.setBounds(310, 410, 630, 23);
+        TahunTerbit.setBounds(320, 340, 630, 23);
 
         Penerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Penerbit.addActionListener(new java.awt.event.ActionListener() {
@@ -1610,15 +1609,15 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Penerbit);
-        Penerbit.setBounds(310, 380, 240, 23);
+        Penerbit.setBounds(320, 310, 240, 23);
 
         ISBN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(ISBN);
-        ISBN.setBounds(310, 350, 630, 23);
+        ISBN.setBounds(320, 280, 630, 23);
 
         JudulSeri.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(JudulSeri);
-        JudulSeri.setBounds(310, 520, 630, 23);
+        JudulSeri.setBounds(320, 450, 630, 23);
 
         TempatTerbit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TempatTerbit.addActionListener(new java.awt.event.ActionListener() {
@@ -1627,7 +1626,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(TempatTerbit);
-        TempatTerbit.setBounds(310, 610, 200, 23);
+        TempatTerbit.setBounds(320, 540, 200, 23);
 
         NoPanggil.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         NoPanggil.addActionListener(new java.awt.event.ActionListener() {
@@ -1636,36 +1635,34 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(NoPanggil);
-        NoPanggil.setBounds(310, 550, 630, 23);
+        NoPanggil.setBounds(320, 480, 630, 23);
 
         panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
+        jPanel1.add(img);
+        img.setBounds(1060, 140, 0, 0);
 
         javax.swing.GroupLayout panelImgLayout = new javax.swing.GroupLayout(panelImg);
         panelImg.setLayout(panelImgLayout);
         panelImgLayout.setHorizontalGroup(
             panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelImgLayout.createSequentialGroup()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 41, Short.MAX_VALUE))
+            .addGap(0, 160, Short.MAX_VALUE)
         );
         panelImgLayout.setVerticalGroup(
             panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelImgLayout.createSequentialGroup()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+            .addGap(0, 220, Short.MAX_VALUE)
         );
 
         jPanel1.add(panelImg);
-        panelImg.setBounds(1050, 210, 120, 190);
+        panelImg.setBounds(1060, 160, 120, 190);
 
-        attach.setText("Cover Buku");
+        attach.setText("Kembali");
         attach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attachActionPerformed(evt);
             }
         });
         jPanel1.add(attach);
-        attach.setBounds(1050, 410, 120, 23);
+        attach.setBounds(1060, 360, 120, 23);
 
         Bahasa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Bahasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Bahasa" }));
@@ -1675,7 +1672,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Bahasa);
-        Bahasa.setBounds(520, 580, 150, 21);
+        Bahasa.setBounds(530, 510, 150, 21);
 
         cbGMD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1683,12 +1680,12 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbGMD);
-        cbGMD.setBounds(310, 290, 150, 22);
+        cbGMD.setBounds(320, 220, 150, 22);
 
         lbl_ddc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_ddc.setText("Klasifikasi");
         jPanel1.add(lbl_ddc);
-        lbl_ddc.setBounds(110, 640, 90, 20);
+        lbl_ddc.setBounds(120, 570, 90, 20);
 
         DDC.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         DDC.addActionListener(new java.awt.event.ActionListener() {
@@ -1697,7 +1694,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DDC);
-        DDC.setBounds(310, 640, 630, 23);
+        DDC.setBounds(320, 570, 630, 23);
 
         cbPenerbit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Penerbit" }));
@@ -1707,7 +1704,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbPenerbit);
-        cbPenerbit.setBounds(560, 380, 150, 21);
+        cbPenerbit.setBounds(570, 310, 150, 21);
 
         cbTempat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTempat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tempat" }));
@@ -1717,20 +1714,20 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbTempat);
-        cbTempat.setBounds(520, 610, 150, 21);
+        cbTempat.setBounds(530, 540, 150, 21);
 
         lang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(lang);
-        lang.setBounds(310, 580, 200, 23);
+        lang.setBounds(320, 510, 200, 23);
 
         Pengarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Pengarang);
-        Pengarang.setBounds(310, 260, 240, 23);
+        Pengarang.setBounds(320, 190, 240, 23);
 
         lbl_pengarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_pengarang.setText("Pengarang");
         jPanel1.add(lbl_pengarang);
-        lbl_pengarang.setBounds(110, 260, 80, 20);
+        lbl_pengarang.setBounds(120, 190, 80, 20);
 
         cbPengarang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPengarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Pengarang" }));
@@ -1740,29 +1737,37 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbPengarang);
-        cbPengarang.setBounds(560, 260, 150, 21);
+        cbPengarang.setBounds(570, 190, 150, 21);
 
-        delete.setText("Delete");
+        delete.setText("Hapus");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
             }
         });
         jPanel1.add(delete);
-        delete.setBounds(1120, 660, 80, 23);
+        delete.setBounds(1040, 680, 80, 23);
+
+        attach1.setText("Kembali");
+        attach1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attach1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(attach1);
+        attach1.setBounds(120, 680, 80, 23);
+        jPanel1.add(img);
+        img.setBounds(1060, 140, 0, 0);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -2231,6 +2236,12 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void attach1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attach1ActionPerformed
+        Petugas_DataBuku obj = new Petugas_DataBuku();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_attach1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2281,6 +2292,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
     private javax.swing.JTextField TahunTerbit;
     private javax.swing.JTextField TempatTerbit;
     private javax.swing.JButton attach;
+    private javax.swing.JButton attach1;
     private javax.swing.JComboBox<String> cbGMD;
     private javax.swing.JComboBox<String> cbPenerbit;
     private javax.swing.JComboBox<String> cbPengarang;
@@ -2322,7 +2334,6 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTextField lang;
     private javax.swing.JLabel lbl_bahasa;
     private javax.swing.JLabel lbl_ddc;

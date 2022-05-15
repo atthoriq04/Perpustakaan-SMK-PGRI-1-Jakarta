@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -1189,6 +1192,11 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
                 "#", "NIS", "Nama", "Kelas", "Tanggal permintaan"
             }
         ));
+        req.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reqMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(req);
 
         jPanel2.add(jScrollPane1);
@@ -1672,6 +1680,51 @@ public class Petugas_KonfirmasiBebasPustaka extends javax.swing.JFrame {
     private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
+
+    private void reqMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reqMouseClicked
+            int i = req.getSelectedRow();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+            LocalDateTime now = LocalDateTime.now(); 
+            TableModel model = req.getModel() ;
+            String idt = model.getValueAt(i, 0).toString();
+            String tgl = model.getValueAt(i, 3).toString();
+            System.out.println(idt);
+            try{
+                        Statement stat = CC.createStatement();
+                        rst = stat.executeQuery("SELECT COUNT(*) FROM transaksi WHERE Nis = '"+ idt +"'  AND status = '1' OR status = '2' OR status = '3'");
+                        if(rst.next()){
+                            int num = rst.getInt("COUNT(*)");
+                            if(num <= 0){
+                               ResultSet rsj = stat.executeQuery("SELECT COUNT(*) FROM Denda INNER JOIN transaksi ON Denda.IdTransaksi = transaksi.IdTransaksi WHERE Nis = '"+ idt +"'  AND Denda.status = '1' OR Denda.status = '2'");
+                               if(rsj.next()){
+                                   int numlg = rsj.getInt("COUNT(*)");
+                                   if(numlg <= 0){
+                                     int opt = JOptionPane.showConfirmDialog(null, "Siswa Yang bersangkutan memenuhi Syarat, Cetak Surat Bebas Pustaka?" , "Update", JOptionPane.YES_NO_OPTION);
+                                        if(opt == 0){
+                                            stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('5','"+ idt +"','Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan','"+ dtf.format(now) +"','1' )");
+                                            stat.executeUpdate("Delete FROM reqbebaspustaka WHERE Nis = '"+ idt +"' AND TglPermintaan = '" + tgl + "' ");
+                                        }  
+                                   }else{
+                                       JOptionPane.showMessageDialog(null, "Siswa Yang bersangkutan Masih Memiliki Tanggungan Peminjaman Dan Denda");
+                                       stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('6','"+ idt +"','Silahkan Cek Kembali Status Peminjaman Dan Denda Anda','"+ dtf.format(now) +"','1' )");
+                                        stat.executeUpdate("Delete FROM reqbebaspustaka WHERE Nis = '"+ idt +"' AND TglPermintaan = '" + tgl + "' ");
+                                        
+                        
+                                   }
+                               }
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Siswa Yang bersangkutan Masih Memiliki Tanggungan Peminjaman");
+                                stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('6','"+ idt +"','Silahkan Cek Kembali Status Peminjaman Dan Denda Anda','"+ dtf.format(now) +"','1' )");
+                                stat.executeUpdate("Delete FROM reqbebaspustaka WHERE Nis = '"+ idt +"' AND TglPermintaan = '" + tgl + "' ");
+                                
+                        
+                            }
+                        }
+                        Datas();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_reqMouseClicked
 
     /**
      * @param args the command line arguments

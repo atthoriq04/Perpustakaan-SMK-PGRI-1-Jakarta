@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +43,16 @@ public class Katalog extends javax.swing.JFrame {
         initial();
         
     }
+    public String judul;
+    public String auth;
+    public String Jdl;
+    public String Cnn;
+    public String Eks;
+    public String pnls;
+    public String pnrbt;
+    public String thtbt;
+    public String gmd;
+    public String bhs;
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
     public void tampilNavbar(){
@@ -156,6 +168,34 @@ public class Katalog extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, e);
         }
     
+    }
+    public void getData(){
+        try{
+
+               Statement stat = CC.createStatement();
+               ResultSet rs = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE mst_author.author_name = '"+ auth +"' AND new_bliblio.Judul = '"+ judul +"'");
+               if(rs.next()){
+                    ResultSet rsa = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN mst_publisher ON new_bliblio.IdPublisher = mst_publisher.publisher_id INNER JOIN gmd ON new_bliblio.IdGMD = gmd.gmd_id INNER JOIN mst_language ON new_bliblio.IdLanguage = mst_language.language_id WHERE new_bliblio.call_number = '"+ rs.getString("new_bliblio.call_number") +"' LIMIT 1");
+                    if(rsa.next()){
+                        Jdl = rsa.getString("Judul");
+                        Cnn = rsa.getString("new_bliblio.call_number");
+                        pnrbt = rsa.getString("mst_publisher.publisher_id");
+                        pnls = rsa.getString("mst_author.author_name");
+                        gmd = rsa.getString("gmd.gmd_name");
+                        bhs = rsa.getString("mst_language.language_name");
+                        thtbt =  rsa.getString("new_bliblio.PublisherYear");
+                        ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
+                        if(rsb.next()){
+                            Eks = rsb.getString("COUNT(*)");
+                        }
+                        System.out.println(bhs);
+                    }
+               }else{
+
+                   }
+           }catch (Exception e){
+           e.printStackTrace();
+       }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -672,10 +712,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku1);
-        buku1.setBounds(25, 138, 153, 230);
+        buku1.setBounds(25, 138, 161, 238);
 
         buku2.setBackground(new java.awt.Color(255, 255, 255));
         buku2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku2MouseClicked(evt);
+            }
+        });
 
         toggle2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -710,10 +755,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku2);
-        buku2.setBounds(233, 138, 153, 230);
+        buku2.setBounds(233, 138, 161, 238);
 
         buku4.setBackground(new java.awt.Color(255, 255, 255));
         buku4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku4MouseClicked(evt);
+            }
+        });
 
         toggle4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -748,10 +798,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku4);
-        buku4.setBounds(668, 138, 153, 230);
+        buku4.setBounds(668, 138, 161, 238);
 
         buku3.setBackground(new java.awt.Color(255, 255, 255));
         buku3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku3MouseClicked(evt);
+            }
+        });
 
         toggle3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -786,10 +841,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku3);
-        buku3.setBounds(449, 138, 153, 230);
+        buku3.setBounds(449, 138, 161, 238);
 
         buku5.setBackground(new java.awt.Color(255, 255, 255));
         buku5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku5MouseClicked(evt);
+            }
+        });
 
         toggle5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -824,10 +884,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku5);
-        buku5.setBounds(877, 138, 153, 230);
+        buku5.setBounds(877, 138, 161, 238);
 
         buku6.setBackground(new java.awt.Color(255, 255, 255));
         buku6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku6MouseClicked(evt);
+            }
+        });
 
         toggle6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -862,10 +927,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku6);
-        buku6.setBounds(1087, 138, 153, 230);
+        buku6.setBounds(1087, 138, 161, 238);
 
         buku7.setBackground(new java.awt.Color(255, 255, 255));
         buku7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku7MouseClicked(evt);
+            }
+        });
 
         toggle7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -900,10 +970,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku7);
-        buku7.setBounds(25, 408, 153, 230);
+        buku7.setBounds(25, 408, 161, 238);
 
         buku8.setBackground(new java.awt.Color(255, 255, 255));
         buku8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku8MouseClicked(evt);
+            }
+        });
 
         toggle8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -938,10 +1013,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku8);
-        buku8.setBounds(233, 408, 153, 230);
+        buku8.setBounds(233, 408, 161, 238);
 
         buku9.setBackground(new java.awt.Color(255, 255, 255));
         buku9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku9MouseClicked(evt);
+            }
+        });
 
         toggle9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -976,10 +1056,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku9);
-        buku9.setBounds(449, 408, 153, 230);
+        buku9.setBounds(449, 408, 161, 238);
 
         buku10.setBackground(new java.awt.Color(255, 255, 255));
         buku10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku10MouseClicked(evt);
+            }
+        });
 
         toggle10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -1014,10 +1099,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku10);
-        buku10.setBounds(668, 408, 153, 230);
+        buku10.setBounds(668, 408, 161, 238);
 
         buku11.setBackground(new java.awt.Color(255, 255, 255));
         buku11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku11MouseClicked(evt);
+            }
+        });
 
         toggle11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -1052,10 +1142,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku11);
-        buku11.setBounds(877, 408, 153, 230);
+        buku11.setBounds(877, 408, 161, 238);
 
         buku12.setBackground(new java.awt.Color(255, 255, 255));
         buku12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        buku12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buku12MouseClicked(evt);
+            }
+        });
 
         toggle12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
 
@@ -1090,15 +1185,15 @@ public class Katalog extends javax.swing.JFrame {
         );
 
         jPanel1.add(buku12);
-        buku12.setBounds(1087, 408, 153, 230);
+        buku12.setBounds(1087, 408, 161, 238);
 
         previous.setText("Previous");
         jPanel1.add(previous);
-        previous.setBounds(520, 680, 80, 22);
+        previous.setBounds(520, 680, 80, 23);
 
         next.setText("Next");
         jPanel1.add(next);
-        next.setBounds(690, 680, 55, 22);
+        next.setBounds(690, 680, 55, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1120,8 +1215,22 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void buku1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku1MouseClicked
-        System.out.print(judul1.getText());
-        System.out.print(penulis1.getText());
+        judul = judul1.getText();
+        auth = penulis1.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_buku1MouseClicked
 
     private void PGRIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PGRIMouseClicked
@@ -1342,6 +1451,215 @@ public class Katalog extends javax.swing.JFrame {
     private void toLandingPageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseExited
         toLandingPage.setForeground(new java.awt.Color(0,0,0));
     }//GEN-LAST:event_toLandingPageMouseExited
+
+    private void buku2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku2MouseClicked
+        judul = judul2.getText();
+        auth = penulis2.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku2MouseClicked
+
+    private void buku3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku3MouseClicked
+        judul = judul3.getText();
+        auth = penulis3.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku3MouseClicked
+
+    private void buku4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku4MouseClicked
+        judul = judul4.getText();
+        auth = penulis4.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku4MouseClicked
+
+    private void buku5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku5MouseClicked
+        judul = judul5.getText();
+        auth = penulis5.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku5MouseClicked
+
+    private void buku6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku6MouseClicked
+        judul = judul6.getText();
+        auth = penulis6.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku6MouseClicked
+
+    private void buku7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku7MouseClicked
+        judul = judul7.getText();
+        auth = penulis7.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku7MouseClicked
+
+    private void buku8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku8MouseClicked
+        judul = judul8.getText();
+        auth = penulis8.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku8MouseClicked
+
+    private void buku9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku9MouseClicked
+        judul = judul9.getText();
+        auth = penulis9.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku9MouseClicked
+
+    private void buku10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku10MouseClicked
+        judul = judul10.getText();
+        auth = penulis10.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku10MouseClicked
+
+    private void buku11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku11MouseClicked
+        judul = judul11.getText();
+        auth = penulis11.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku11MouseClicked
+
+    private void buku12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku12MouseClicked
+        judul = judul12.getText();
+        auth = penulis12.getText();
+        getData();
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_buku12MouseClicked
 
     /**
      * @param args the command line arguments

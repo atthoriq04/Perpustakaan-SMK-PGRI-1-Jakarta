@@ -3,12 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_InputPenulis extends javax.swing.JFrame {
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
 
     /**
      * Creates new form Petugas_InputPenulis
@@ -16,7 +35,18 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
     public Petugas_InputPenulis() {
         initComponents();
     }
-
+    public void input(){
+        try {
+            Statement stat;
+            stat = CC.createStatement();
+            stat.executeUpdate("INSERT INTO mst_author(author_name) VALUES('"+ nama.getText() +"')");
+            JOptionPane.showMessageDialog(null, "Berhasil");
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_InputPenulis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +58,7 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        nama = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
@@ -42,9 +72,9 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
         jPanel3.add(jLabel3);
         jLabel3.setBounds(10, 50, 106, 31);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel3.add(jTextField3);
-        jTextField3.setBounds(150, 50, 490, 28);
+        nama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel3.add(nama);
+        nama.setBounds(150, 50, 490, 28);
 
         jButton4.setText("Batal");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +85,7 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
         jPanel3.add(jButton4);
         jButton4.setBounds(420, 130, 100, 30);
 
-        jButton5.setText("Pinjam");
+        jButton5.setText("Submit");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -84,7 +114,11 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        if(nama.getText().isEmpty()){
+        }else{
+         input();
+        }
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -127,6 +161,6 @@ public class Petugas_InputPenulis extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nama;
     // End of variables declaration//GEN-END:variables
 }

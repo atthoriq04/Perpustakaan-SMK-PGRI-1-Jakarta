@@ -4,19 +4,71 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Atthoriq
  */
 public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
-
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public PreparedStatement prst;
     /**
      * Creates new form Siswa_KonfirmasiPeminjaman
      */
     public Siswa_KonfirmasiPeminjaman() {
         initComponents();
     }
-
+    String cnn;
+    int nis = UserSession.GetUserId();
+    String bcd;
+     public int waktu = 0;
+    public void lamaPinjam(){
+        try{
+            Statement stat = CC.createStatement();
+            ResultSet rb = stat.executeQuery("SELECT * FROM pengaturan LIMIT 1");
+            if(rb.next()){
+                waktu = rb.getInt("LamaPinjam");
+            }
+        }catch(Exception e){
+        }
+    }
+     public void pinjam(){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+            LocalDateTime now = LocalDateTime.now(); 
+            LocalDateTime next = now.plusDays(waktu);
+        try {
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM item WHERE item_Code = '"+ bcd +"' AND 	call_number = '"+ cnn +"' AND NOT (location_id = '3' AND NOT location_id = '4')";
+            ResultSet rs = stat.executeQuery(sql);
+            if (rs.next())
+            {
+                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                   + bcd+"','"
+                   +nis+ "','"
+                   +dtf.format(now)+ "','"
+                   +dtf.format(next)+ "','1','Dipinjam')");
+                   stat.executeUpdate("UPDATE item SET location_Id = '3' WHERE item_Code = '"+ bcd +"' ");
+                    JOptionPane.showMessageDialog(null, "Data Peminjaman Dibuat");
+            }else{
+                JOptionPane.showMessageDialog(null, "No Eksemplar yang Dimasukan Salah");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Siswa_KonfirmasiPeminjamanLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +80,7 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        bar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -43,9 +95,9 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(20, 50, 108, 31);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(150, 50, 284, 28);
+        bar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jPanel1.add(bar);
+        bar.setBounds(150, 50, 284, 30);
 
         jButton1.setText("Scan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +154,9 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        bcd = bar.getText();
+        pinjam();
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -141,11 +195,11 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

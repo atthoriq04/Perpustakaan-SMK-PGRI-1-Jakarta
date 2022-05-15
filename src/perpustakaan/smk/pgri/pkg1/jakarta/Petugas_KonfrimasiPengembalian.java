@@ -104,7 +104,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
                     int opt = JOptionPane.showConfirmDialog(null, "Apakah Buku yang Dikembalikan benar?" , "Update", JOptionPane.YES_NO_OPTION);
                     if(opt == 0){
                      int Denda = Math.abs( rst.getInt("Date")) * ddn;
-                    stt.executeUpdate("INSERT INTO denda(IdTransaksi,jenis,Barang,Nominal,Status) VALUES('"+ idt +"','Tunai','-','"+ Denda +"','1' )");
+                    stt.executeUpdate("INSERT INTO denda(IdTransaksi,jenis,Barang,Nominal,Status,ket) VALUES('"+ idt +"','Tunai','-','"+ Denda +"','1', 'Keterlambatan Pengembalian' )");
                     stt.executeUpdate("UPDATE transaksi SET Status = '4', Keterangan = 'Selesai' WHERE IdTransaksi = '"+ idt +"' ");
                     stt.executeUpdate("UPDATE item SET location_Id = '2' WHERE item_Code = '"+ bcd +"' ");
                     stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('4','"+ nis +"','Anda Mendapat Denda Keterlambatan Pengembalian Buku(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
@@ -230,8 +230,6 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         kPengemb = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1197,17 +1195,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         jScrollPane1.setViewportView(kPengemb);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(110, 140, 1140, 580);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tangggal");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Sort By");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
+        jScrollPane1.setBounds(110, 130, 1140, 590);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1689,7 +1677,6 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1701,7 +1688,6 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

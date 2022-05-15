@@ -269,7 +269,7 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
             SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
             Date now = new Date();
              stt = CC.createStatement();
-            stt.executeUpdate("INSERT INTO denda(IdTransaksi,jenis,Barang,Nominal,Status) VALUES('"+ id.getText() +"','"+ Jenis +"','"+ barang +"','"+ Tunai +"','1' )");
+            stt.executeUpdate("INSERT INTO denda(IdTransaksi,jenis,Barang,Nominal,Status, ket) VALUES('"+ id.getText() +"','"+ Jenis +"','"+ barang +"','"+ Tunai +"','1','Menghilangkan Buku' )");
             stt.executeUpdate("UPDATE transaksi SET Status = '4', Keterangan = 'Buku Hilang' WHERE IdTransaksi = '"+ id.getText() +"' ");
             stt.executeUpdate("UPDATE item SET location_Id = '4' WHERE item_Code = '"+ brcd.getText() +"' ");
             stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('4','"+ NIS.getText() +"','Anda Mendapat Denda Merusak/Menghilangkan Buku(Kode Transaksi = "+ id.getText() +" )','"+ sdformat.format(now) +"','1' )");

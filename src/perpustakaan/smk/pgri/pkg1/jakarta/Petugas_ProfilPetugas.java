@@ -33,6 +33,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         CC = new koneksi().connect();
         userLogin();
         UserId();
+        ToPProfil.setBackground(new java.awt.Color(188,190,208));
     }
     public String Nik;
     private void userLogin(){
@@ -56,13 +57,13 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
                 String noHp = rs.getString("Petugas.NoHp");
                 String password = rs.getString("user.Password");
                 toUser.setText(user);
-                NamaP.setText(Nama);
-                NikP.setText(Nik);
-                Alamat.setText(alamat);
+                NamaP1.setText(Nama);
+                NikP1.setText(Nik);
+                Alamat1.setText(alamat);
                 Username.setText(user);
-                Password.setText(password);
+                Password1.setText(password);
                 Email.setText(email);
-                NoHP.setText(noHp);
+                NoHP1.setText(noHp);
             } else
             JOptionPane.showMessageDialog(this, "Ada Kesalahan");
         } catch (Exception e) {
@@ -139,28 +140,34 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         subMenuBlibliografi = new javax.swing.JPanel();
         toDataBuku = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         toInputBuku = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         toDataUsulan = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        Update = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        ToPTransaksi = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        ToPProfil = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        ToPBliblio = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        PanelPPetugas = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         Email = new javax.swing.JTextField();
         Username = new javax.swing.JTextField();
-        NoHP = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        Password = new javax.swing.JPasswordField();
-        jPanel6 = new javax.swing.JPanel();
-        NamaP = new javax.swing.JLabel();
-        NikP = new javax.swing.JLabel();
-        Alamat = new javax.swing.JLabel();
-        Update = new javax.swing.JButton();
+        NoHP1 = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        Password1 = new javax.swing.JPasswordField();
+        Alamat1 = new javax.swing.JLabel();
+        NamaP1 = new javax.swing.JLabel();
+        NikP1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -977,21 +984,28 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Data Buku");
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setText("Data Buku");
 
         javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
         toDataBuku.setLayout(toDataBukuLayout);
         toDataBukuLayout.setHorizontalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+            .addGap(0, 150, Short.MAX_VALUE)
+            .addGroup(toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(toDataBukuLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(43, Short.MAX_VALUE)))
         );
         toDataBukuLayout.setVerticalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addGap(0, 42, Short.MAX_VALUE)
+            .addGroup(toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(toDataBukuLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         subMenuBlibliografi.add(toDataBuku);
@@ -1105,22 +1119,115 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         jPanel3.add(subMenuBlibliografi);
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Profil");
-        jPanel3.add(jLabel1);
-        jLabel1.setBounds(110, 30, 170, 30);
+        Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Update);
+        Update.setBounds(1170, 690, 67, 23);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        jPanel7.setBackground(new java.awt.Color(229, 231, 238));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel7MouseExited(evt);
+            }
+        });
+        jPanel7.setLayout(null);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Password");
+        ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
+        ToPTransaksi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPTransaksi.setToolTipText("");
+        ToPTransaksi.setAutoscrolls(true);
+        ToPTransaksi.setName(""); // NOI18N
+        ToPTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseExited(evt);
+            }
+        });
+        ToPTransaksi.setLayout(null);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Email");
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel17.setText("Pengaturan Transaksi");
+        ToPTransaksi.add(jLabel17);
+        jLabel17.setBounds(20, 10, 160, 20);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Username");
+        jPanel7.add(ToPTransaksi);
+        ToPTransaksi.setBounds(420, 0, 200, 40);
+
+        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
+        ToPProfil.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPProfil.setToolTipText("");
+        ToPProfil.setAutoscrolls(true);
+        ToPProfil.setName(""); // NOI18N
+        ToPProfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseExited(evt);
+            }
+        });
+        ToPProfil.setLayout(null);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel15.setText("Pengaturan Profil");
+        ToPProfil.add(jLabel15);
+        jLabel15.setBounds(40, 10, 130, 20);
+
+        jPanel7.add(ToPProfil);
+        ToPProfil.setBounds(0, 0, 220, 40);
+
+        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
+        ToPBliblio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPBliblio.setToolTipText("");
+        ToPBliblio.setAutoscrolls(true);
+        ToPBliblio.setName(""); // NOI18N
+        ToPBliblio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseExited(evt);
+            }
+        });
+        ToPBliblio.setLayout(null);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel10.setText("Pengaturan Bliblio");
+        ToPBliblio.add(jLabel10);
+        jLabel10.setBounds(30, 10, 130, 20);
+
+        jPanel7.add(ToPBliblio);
+        ToPBliblio.setBounds(220, 0, 200, 40);
+
+        jPanel3.add(jPanel7);
+        jPanel7.setBounds(80, 0, 1200, 40);
+
+        PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
+        PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel35.setText("Password");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel36.setText("Email");
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel37.setText("Username");
 
         Email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Email.addActionListener(new java.awt.event.ActionListener() {
@@ -1136,101 +1243,100 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
 
-        NoHP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        NoHP.addActionListener(new java.awt.event.ActionListener() {
+        NoHP1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NoHP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoHPActionPerformed(evt);
+                NoHP1ActionPerformed(evt);
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel17.setText("No HP");
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel38.setText("No HP");
 
-        Password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Password.setText("jPasswordField1");
+        Password1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Password1.setText("jPasswordField1");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(260, 260, 260)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Username)
-                    .addComponent(Password, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                    .addComponent(Email)
-                    .addComponent(NoHP))
-                .addGap(316, 316, 316))
+        Alamat1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Alamat1.setText("Alamat");
+
+        NamaP1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NamaP1.setText("Nama");
+
+        NikP1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NikP1.setText("NIK");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel1.setText("Data Petugas");
+
+        javax.swing.GroupLayout PanelPPetugasLayout = new javax.swing.GroupLayout(PanelPPetugas);
+        PanelPPetugas.setLayout(PanelPPetugasLayout);
+        PanelPPetugasLayout.setHorizontalGroup(
+            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(Alamat1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(NikP1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NamaP1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                                .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(Password1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(NoHP1)
+                                    .addComponent(Email, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(294, 294, 294))))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PanelPPetugasLayout.setVerticalGroup(
+            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPPetugasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(NikP1)
+                .addGap(18, 18, 18)
+                .addComponent(NamaP1)
+                .addGap(18, 18, 18)
+                .addComponent(Alamat1)
+                .addGap(30, 30, 30)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
                     .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(Password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel36)
+                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(NoHP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(NoHP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
-        jPanel3.add(jPanel1);
-        jPanel1.setBounds(110, 290, 1120, 200);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(jPanel6);
-        jPanel6.setBounds(110, 100, 160, 170);
-
-        NamaP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        NamaP.setText("Nama");
-        jPanel3.add(NamaP);
-        NamaP.setBounds(330, 150, 56, 17);
-
-        NikP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        NikP.setText("NIK");
-        jPanel3.add(NikP);
-        NikP.setBounds(330, 110, 56, 17);
-
-        Alamat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Alamat.setText("Alamat");
-        jPanel3.add(Alamat);
-        Alamat.setBounds(330, 190, 380, 17);
-
-        Update.setText("Update");
-        Update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Update);
-        Update.setBounds(1170, 690, 67, 23);
+        jPanel3.add(PanelPPetugas);
+        PanelPPetugas.setBounds(390, 190, 600, 350);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1246,18 +1352,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmailActionPerformed
-
-    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsernameActionPerformed
-
-    private void NoHPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NoHPActionPerformed
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1584,8 +1678,8 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             
             String User = Username.getText();
             String eml = Email.getText();
-            String nohp = NoHP.getText();
-            String Pass = Password.getText();
+            String nohp = NoHP1.getText();
+            String Pass = Password1.getText();
             String Sql = "UPDATE Petugas JOIN User ON Petugas.Nik = User.Nis SET Petugas.NoHP='"+ nohp +"',Petugas.Email ='"+eml+"',User.Username = '"+User+"',User.Password = '" + Pass + "' WHERE Petugas.Nik = '"+ Nik +"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
@@ -1593,8 +1687,8 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Update Berhasil");
               Username.setText(User);
               Email.setText(eml);
-              NoHP.setText(nohp);
-              Password.setText(Pass);
+              NoHP1.setText(nohp);
+              Password1.setText(Pass);
 //            update.setEnabled(false);
 //            hapus.setEnabled(false);
          
@@ -1668,6 +1762,73 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MouseExited
+
+    private void ToPProfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseExited
+        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPProfilMouseExited
+
+    private void ToPBliblioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseExited
+        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPBliblioMouseExited
+
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameActionPerformed
+
+    private void NoHP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoHP1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoHP1ActionPerformed
+
+    private void ToPTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseExited
+       ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPTransaksiMouseExited
+
+    private void ToPProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseClicked
+        Petugas_ProfilPetugas obj = new Petugas_ProfilPetugas();
+        obj.setVisible(true);
+        this.dispose();
+        obj.pack();
+        obj.setLocationRelativeTo(null);
+        obj.setVisible(true);
+    }//GEN-LAST:event_ToPProfilMouseClicked
+
+    private void ToPBliblioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseClicked
+        Petugas_PengBlibli obj = new Petugas_PengBlibli();
+        obj.setVisible(true);
+        this.dispose();
+        obj.pack();
+        obj.setLocationRelativeTo(null);
+        obj.setVisible(true);
+    }//GEN-LAST:event_ToPBliblioMouseClicked
+
+    private void ToPTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseClicked
+        Petugas_PengaturanTransaksi obj = new Petugas_PengaturanTransaksi();
+        obj.setVisible(true);
+        this.dispose();
+        obj.pack();
+        obj.setLocationRelativeTo(null);
+        obj.setVisible(true);
+    }//GEN-LAST:event_ToPTransaksiMouseClicked
+
+    private void ToPProfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseEntered
+        ToPProfil.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPProfilMouseEntered
+
+    private void ToPBliblioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseEntered
+        ToPBliblio.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPBliblioMouseEntered
+
+    private void ToPTransaksiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseEntered
+       ToPTransaksi.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPTransaksiMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1704,12 +1865,16 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Alamat;
+    private javax.swing.JLabel Alamat1;
     private javax.swing.JTextField Email;
-    private javax.swing.JLabel NamaP;
-    private javax.swing.JLabel NikP;
-    private javax.swing.JTextField NoHP;
-    private javax.swing.JPasswordField Password;
+    private javax.swing.JLabel NamaP1;
+    private javax.swing.JLabel NikP1;
+    private javax.swing.JTextField NoHP1;
+    private javax.swing.JPanel PanelPPetugas;
+    private javax.swing.JPasswordField Password1;
+    private javax.swing.JPanel ToPBliblio;
+    private javax.swing.JPanel ToPProfil;
+    private javax.swing.JPanel ToPTransaksi;
     private javax.swing.JButton Update;
     private javax.swing.JTextField Username;
     private javax.swing.JPanel empty1;
@@ -1719,6 +1884,8 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1736,15 +1903,15 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

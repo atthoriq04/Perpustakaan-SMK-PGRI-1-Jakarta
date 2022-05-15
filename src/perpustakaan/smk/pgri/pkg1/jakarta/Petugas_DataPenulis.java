@@ -3,13 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author Atthoriq
  */
 public class Petugas_DataPenulis extends javax.swing.JFrame {
-
+    public ResultSet rst;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+    public static DefaultTableModel tmdl;
+    public PreparedStatement prst;
     /**
      * Creates new form DataPenulis
      */
@@ -21,10 +32,38 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
+        judul();
+        Datas();
     }
 
     private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
+    }
+   
+    public void judul() {
+            Object[] judul = {
+         "Id Penulis", "Nama"
+        };
+        tmdl = new DefaultTableModel(null, judul);
+        tPenulis.setModel(tmdl);}
+    public void Datas() {
+        String Kelas;
+        try {
+            stt = CC.createStatement();
+            tmdl.getDataVector().removeAllElements();
+            tmdl.fireTableDataChanged();
+            rst = stt.executeQuery("SELECT * FROM mst_author");
+            while(rst.next()){
+                Object[] data = {
+                    rst.getString("author_id"),
+                    rst.getString("author_name"),
+                    
+                    };
+            tmdl.addRow(data);
+            }
+            }catch(Exception e){
+          e.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,9 +144,7 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        tPenulis = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1055,7 +1092,7 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tPenulis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1066,20 +1103,10 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
                 "#", "Nama Penulis", "Jumlah Buku"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tPenulis);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tangggal");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(170, 100, 50, 15);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Sort By");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(110, 100, 50, 15);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
@@ -1152,6 +1179,7 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        Datas();
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1579,7 +1607,6 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1592,7 +1619,6 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1607,12 +1633,12 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
+    private javax.swing.JTable tPenulis;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;

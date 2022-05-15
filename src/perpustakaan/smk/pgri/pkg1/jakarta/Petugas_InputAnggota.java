@@ -1660,6 +1660,10 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         getId();
         inputAnggota();
         inputUser();
+        Nis.setText(null);
+        nama.setText(null);
+        alamat.setText(null);
+        ttl.setText(null);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cbTingkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTingkatActionPerformed

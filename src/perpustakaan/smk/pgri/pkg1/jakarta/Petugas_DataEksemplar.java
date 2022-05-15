@@ -1219,9 +1219,9 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(desk, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(desk, javax.swing.GroupLayout.PREFERRED_SIZE, 983, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 550, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1240,7 +1240,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
                     .addComponent(desk, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel9)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1);
@@ -1318,19 +1318,19 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-        // TODO add your handling code here:
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_jLabel4MouseEntered
 
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
-        // TODO add your handling code here:
+        jLabel4.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel4MouseExited
 
     private void jLabel28MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseEntered
-        // TODO add your handling code here:
+       jLabel28.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_jLabel28MouseEntered
 
     private void jLabel28MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseExited
-        // TODO add your handling code here:
+        jLabel28.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel28MouseExited
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

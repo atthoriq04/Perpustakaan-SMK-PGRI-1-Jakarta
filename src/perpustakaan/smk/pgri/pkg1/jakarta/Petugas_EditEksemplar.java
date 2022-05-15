@@ -321,6 +321,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cbLokasi = new javax.swing.JComboBox<>();
         submit1 = new javax.swing.JButton();
+        submit2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1295,14 +1296,14 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jPanel1.add(call_number);
         call_number.setBounds(310, 250, 630, 23);
 
-        submit.setText("Update");
+        submit.setText("Perbarui");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1100, 680, 70, 23);
+        submit.setBounds(1180, 680, 80, 23);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1412,14 +1413,23 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jPanel1.add(cbLokasi);
         cbLokasi.setBounds(500, 410, 110, 20);
 
-        submit1.setText("Delete");
+        submit1.setText("Hapus");
         submit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submit1ActionPerformed(evt);
             }
         });
         jPanel1.add(submit1);
-        submit1.setBounds(1190, 680, 70, 23);
+        submit1.setBounds(1090, 680, 70, 23);
+
+        submit2.setText("Kembali");
+        submit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submit2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit2);
+        submit2.setBounds(100, 680, 70, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1884,6 +1894,12 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void submit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit2ActionPerformed
+        Petugas_DataBuku obj = new Petugas_DataBuku();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1984,6 +2000,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit;
     private javax.swing.JButton submit1;
+    private javax.swing.JButton submit2;
     private com.toedter.calendar.JDateChooser tgl_penerima;
     private com.toedter.calendar.JDateChooser tgl_pesan;
     private javax.swing.JLabel toAdmin;

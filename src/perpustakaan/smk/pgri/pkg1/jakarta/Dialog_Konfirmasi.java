@@ -47,7 +47,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
            Statement stat = CC.createStatement();
            ResultSet rs = stat.executeQuery("SELECT * FROM Anggota WHERE Nis = '"+ Nis.getText() +"'");
            if(rs.next()){
-               ResultSet ra = stat.executeQuery("SELECT * FROM item WHERE item_Code = '"+ noEx.getText() +"' AND NOT location_id = '3' AND NOT location_id = '4'");
+               ResultSet ra = stat.executeQuery("SELECT * FROM item WHERE item_Code = '"+ noEx.getText() +"' AND NOT (location_id = '3' OR location_id = '4')");
                if(ra.next()){
                     stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
                    + noEx.getText()+"','"

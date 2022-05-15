@@ -224,6 +224,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         cbTingkat = new javax.swing.JComboBox<>();
         cbJurusan = new javax.swing.JComboBox<>();
         cbkelas = new javax.swing.JComboBox<>();
+        submit2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -1263,6 +1264,15 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         jPanel1.add(cbkelas);
         cbkelas.setBounds(660, 290, 90, 22);
 
+        submit2.setText("Kembali");
+        submit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submit2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit2);
+        submit2.setBounds(100, 680, 70, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1708,6 +1718,12 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_jPanel3MouseEntered
 
+    private void submit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit2ActionPerformed
+        Petugas_DataAnggota obj = new Petugas_DataAnggota();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1797,6 +1813,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
+    private javax.swing.JButton submit2;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;

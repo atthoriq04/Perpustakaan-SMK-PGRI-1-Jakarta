@@ -36,6 +36,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        sort.setVisible(false);
         userLogin();
         judul();
         Datas();
@@ -156,10 +157,13 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         transaksi = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        Active = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         export = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        sort = new javax.swing.JPanel();
+        tuntas = new javax.swing.JLabel();
+        btuntas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1122,13 +1126,18 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(110, 140, 1140, 580);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Belum Tuntas");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(170, 100, 90, 15);
+        Active.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Active.setText("Belum Tuntas");
+        jPanel1.add(Active);
+        Active.setBounds(170, 100, 90, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Filter");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+        });
         jPanel1.add(jLabel4);
         jLabel4.setBounds(110, 100, 160, 15);
 
@@ -1163,6 +1172,63 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(1110, 110, 140, 15);
 
+        sort.setBackground(new java.awt.Color(255, 255, 255));
+        sort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sortMouseEntered(evt);
+            }
+        });
+
+        tuntas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tuntas.setText("Tuntas");
+        tuntas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tuntasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tuntasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tuntasMouseExited(evt);
+            }
+        });
+
+        btuntas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btuntas.setText("Belum Tuntas");
+        btuntas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btuntasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btuntasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btuntasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sortLayout = new javax.swing.GroupLayout(sort);
+        sort.setLayout(sortLayout);
+        sortLayout.setHorizontalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sortLayout.createSequentialGroup()
+                .addGroup(sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btuntas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                    .addComponent(tuntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        sortLayout.setVerticalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addComponent(tuntas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btuntas)
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(sort);
+        sort.setBounds(170, 60, 90, 50);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1193,7 +1259,8 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
-        subMenuAdmin.setVisible(false);        // TODO add your handling code here:
+        subMenuAdmin.setVisible(false);  
+        sort.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
@@ -1587,6 +1654,44 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
+    private void tuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseClicked
+        sort.setVisible(false);
+        Active.setText(tuntas.getText());
+        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 4";
+        Datas();
+    }//GEN-LAST:event_tuntasMouseClicked
+
+    private void tuntasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseEntered
+        tuntas.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_tuntasMouseEntered
+
+    private void tuntasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseExited
+        tuntas.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_tuntasMouseExited
+
+    private void btuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btuntasMouseClicked
+        sort.setVisible(false);
+        Active.setText(btuntas.getText());
+        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 1";
+        Datas();
+    }//GEN-LAST:event_btuntasMouseClicked
+
+    private void btuntasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btuntasMouseEntered
+        btuntas.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_btuntasMouseEntered
+
+    private void btuntasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btuntasMouseExited
+        btuntas.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btuntasMouseExited
+
+    private void sortMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_sortMouseEntered
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1613,6 +1718,9 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Petugas_DataTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1623,6 +1731,8 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Active;
+    private javax.swing.JLabel btuntas;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel export;
@@ -1635,7 +1745,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1662,6 +1771,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JPanel sort;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -1697,5 +1807,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel toSriku;
     private javax.swing.JLabel toUser;
     private javax.swing.JTable transaksi;
+    private javax.swing.JLabel tuntas;
     // End of variables declaration//GEN-END:variables
 }
