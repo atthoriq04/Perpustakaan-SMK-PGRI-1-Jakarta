@@ -43,8 +43,13 @@ public class Siswa_Profil extends javax.swing.JFrame {
             Statement stt = CC.createStatement();
             rs = stt.executeQuery("SELECT COUNT(*) FROM notifikasi WHERE Nis = '"+ UserId +"' AND Status = 1");
             if(rs.next()){
-                no.setVisible(true);
-                no.setText("<html><B>(" +  rs.getString("COUNT(*)") + ")</B></html>");
+                if(rs.getInt("COUNT(*)") > 0){
+                    no.setVisible(true);
+                    no.setText("<html><B>(" +  rs.getInt("COUNT(*)") + ")</B></html>");
+                }else{
+                    no.setVisible(false);
+                    
+                }
             }
             
             }catch(Exception e){

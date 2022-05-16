@@ -338,7 +338,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel26.setText("Profil Petugas");
+        jLabel26.setText("Pengaturan");
 
         javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
         toProfilPetugas.setLayout(toProfilPetugasLayout);

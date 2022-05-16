@@ -547,8 +547,6 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         JudulSeri = new javax.swing.JTextField();
         TempatTerbit = new javax.swing.JTextField();
         NoPanggil = new javax.swing.JTextField();
-        panelImg = new javax.swing.JPanel();
-        img = new javax.swing.JLabel();
         attach = new javax.swing.JButton();
         Bahasa = new javax.swing.JComboBox<>();
         cbGMD = new javax.swing.JComboBox<>();
@@ -562,6 +560,8 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         cbPengarang = new javax.swing.JComboBox<>();
         delete = new javax.swing.JButton();
         attach1 = new javax.swing.JButton();
+        img1 = new javax.swing.JLabel();
+        panelImg = new javax.swing.JPanel();
         img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -730,7 +730,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel26.setText("Profil Petugas");
+        jLabel26.setText("Pengaturan");
 
         javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
         toProfilPetugas.setLayout(toProfilPetugasLayout);
@@ -1637,24 +1637,6 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         jPanel1.add(NoPanggil);
         NoPanggil.setBounds(320, 480, 630, 23);
 
-        panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
-        jPanel1.add(img);
-        img.setBounds(1060, 140, 0, 0);
-
-        javax.swing.GroupLayout panelImgLayout = new javax.swing.GroupLayout(panelImg);
-        panelImg.setLayout(panelImgLayout);
-        panelImgLayout.setHorizontalGroup(
-            panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        panelImgLayout.setVerticalGroup(
-            panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(panelImg);
-        panelImg.setBounds(1060, 160, 120, 190);
-
         attach.setText("Kembali");
         attach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1756,8 +1738,28 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         });
         jPanel1.add(attach1);
         attach1.setBounds(120, 680, 80, 23);
-        jPanel1.add(img);
-        img.setBounds(1060, 140, 0, 0);
+        jPanel1.add(img1);
+        img1.setBounds(1060, 140, 0, 0);
+
+        panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
+
+        javax.swing.GroupLayout panelImgLayout = new javax.swing.GroupLayout(panelImg);
+        panelImg.setLayout(panelImgLayout);
+        panelImgLayout.setHorizontalGroup(
+            panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelImgLayout.createSequentialGroup()
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 41, Short.MAX_VALUE))
+        );
+        panelImgLayout.setVerticalGroup(
+            panelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelImgLayout.createSequentialGroup()
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 33, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(panelImg);
+        panelImg.setBounds(1060, 160, 120, 190);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2301,6 +2303,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel img;
+    private javax.swing.JLabel img1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;

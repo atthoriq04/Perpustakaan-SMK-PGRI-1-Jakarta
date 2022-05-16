@@ -385,7 +385,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel29.setText("Data Petugas");
+        jLabel29.setText("Pengaturan");
 
         javax.swing.GroupLayout toDataPetugasLayout = new javax.swing.GroupLayout(toDataPetugas);
         toDataPetugas.setLayout(toDataPetugasLayout);

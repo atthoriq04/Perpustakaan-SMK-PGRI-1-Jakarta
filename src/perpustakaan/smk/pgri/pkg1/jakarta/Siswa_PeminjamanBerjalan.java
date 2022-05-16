@@ -45,8 +45,13 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
             Statement stt = CC.createStatement();
             rst = stt.executeQuery("SELECT COUNT(*) FROM notifikasi WHERE Nis = '"+ UserId +"' AND Status = 1");
             if(rst.next()){
-                no.setVisible(true);
-                no.setText("<html><B>(" +  rst.getString("COUNT(*)") + ")</B></html>");
+                if(rst.getInt("COUNT(*)") > 0){
+                    no.setVisible(true);
+                    no.setText("<html><B>(" +  rst.getInt("COUNT(*)") + ")</B></html>");
+                }else{
+                    no.setVisible(false);
+                    
+                }
             }
             
             }catch(Exception e){

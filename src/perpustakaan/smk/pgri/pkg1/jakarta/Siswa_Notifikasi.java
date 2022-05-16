@@ -9,12 +9,15 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -312,6 +315,13 @@ public class Siswa_Notifikasi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            Statement stt = CC.createStatement();
+             stt.executeUpdate("UPDATE notifikasi SET status = '2' WHERE Nis = '"+ UserId +"'");
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
