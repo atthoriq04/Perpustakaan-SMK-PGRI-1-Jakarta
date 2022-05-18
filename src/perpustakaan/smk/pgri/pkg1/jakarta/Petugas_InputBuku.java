@@ -4,8 +4,13 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import com.opencsv.CSVReader;
 import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +18,10 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -30,6 +37,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     Connection CC = null;
     PreparedStatement pst = null;
     public Statement stt;
+    public Statement stt1;
     public Petugas_InputBuku() {
         initComponents();
         CC = new koneksi().connect();
@@ -392,6 +400,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     }
     public void initial(){
          inputData.setSelected(false);
+           jLabel2.setEnabled(false);
+        jButton1.setEnabled(false);
         Judul.setEnabled(false);
         lbl_judul.setEnabled(false);
         lbl_pengarang.setEnabled(false);
@@ -425,6 +435,255 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         attach.setEnabled(false);
         submit.setEnabled(false);
     }
+    public String lineText = null;
+
+    public File excelFile;
+    public void readCSV(){
+        String name;
+        JFileChooser excelFileChooser = new JFileChooser();
+        excelFileChooser.setDialogTitle("Select Excel File");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm", "csv");
+        excelFileChooser.setFileFilter(fnef);
+        int excelChooser = excelFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            excelFile = excelFileChooser.getSelectedFile();
+            name = excelFileChooser.getSelectedFile().getName();
+            filename.setText(name);
+            JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
+           
+        }
+
+    }
+    public String csvCN;
+   public int rsId;
+   public int rsGMD;
+   public int rsPublisher;
+   public int rsLang;
+   public int rsPlace;
+   public int rsAuthor;
+ public String g,p,l,pl,a;
+  
+
+  public String value[];
+  public void insertCSV(){
+      try{
+//          BufferedReader read = new BufferedReader (new FileReader(excelFile));
+          CSVReader reader = new CSVReader(new FileReader(excelFile));
+          String data[];
+          reader.readNext();
+          while((value = reader.readNext())!=null){
+              try{
+                  readGMDExcel();
+                  readPublisherExcel();
+                  readLanguageExcel();
+                  readPlaceExcel();
+                  readAuthorExcel();
+                  
+                  stt = CC.createStatement();           
+                   String Date;
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+                        LocalDateTime now = LocalDateTime.now();  
+                        Date = dtf.format(now);  
+                  sql="INSERT INTO new_bliblio (new_bliblio.Judul, new_bliblio.IdGMD, new_bliblio.Edisi, new_bliblio.isbn_issn, new_bliblio.IdPublisher, new_bliblio.PublisherYear,new_bliblio.Notes,new_bliblio.SeriesTitle, new_bliblio.call_number, new_bliblio.IdLanguage, new_bliblio.TempatTerbit, new_bliblio.Klasifikasi,new_bliblio.abstrak,new_bliblio.image,new_bliblio.penanggung, new_bliblio.author_id,new_bliblio.subjek,new_bliblio.input_date, new_bliblio.last_update)\n" +
+"                   VALUES('"+value[0]+"',"+rsGMD+",'"+value[2]+"','"+value[3]+"',"+rsPublisher+",'"+value[5]+"','"+value[6]+"','"+value[7]+"','"+value[8]+"',"+rsLang+","+rsPlace+",'"+value[11]+"','"+value[12]+"','"+value[13]+"','"+value[14]+"',"+rsAuthor+",'"+value[16]+"','"+Date+"','"+Date+"')";
+                  stt.executeUpdate(sql);
+                  stt.close();
+                  readIdBliblio();
+                   stt1 = CC.createStatement();   
+                  String sql1 = "INSERT INTO Item (Item.biblio_id,Item.call_number,Item.item_code, Item.input_date, Item.last_update)" +
+"                   VALUES("+rsId+",'"+value[8]+"','"+value[17]+"','"+Date+"','"+Date+"')";
+                  
+                  stt1.executeUpdate(sql1);
+                  stt1.close();
+              }catch(Exception e){
+                   JOptionPane.showMessageDialog(null, e);
+                 System.err.println(e);
+              }
+          }
+          JOptionPane.showMessageDialog(null, "Data Berhasil DI import!!");
+      }catch(Exception e){
+       JOptionPane.showMessageDialog(null, e);
+                 System.err.println(e);
+      }
+  }
+  public void readIdBliblio(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT * FROM new_bliblio WHERE call_number='"+value[8]+"'";
+            System.out.println(value[8]);
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+               int result = rs.getInt("IdBliblio");
+               rsId=result;
+           }
+            System.out.println(rsId);
+      }catch(Exception e ){
+          JOptionPane.showMessageDialog(null, e);
+      }
+  }
+ 
+  public String csvGMD[];
+  public void readGMDExcel(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT gmd_id, gmd_name FROM gmd WHERE gmd_name = '"+value[1]+"'";
+            System.out.println(value[1]); 
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              int result = rs.getInt("gmd.gmd_id");
+               rsGMD=result;   
+              
+          }else{
+               String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String SQL = "INSERT INTO gmd (gmd_name,input_date,last_update) VALUES('"+value[1]+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT gmd.gmd_id, gmd_name FROM gmd WHERE gmd_name = '"+value[1]+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                int result1 = rsa.getInt("gmd_id");
+                rsGMD=result1; 
+            }
+           }
+       }catch (Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        
+    }
+
+  public String CSVPublisher;
+  public void readPublisherExcel(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT publisher_id, publisher_name FROM mst_publisher WHERE publisher_name = '"+value[4]+"'";
+            System.out.println(value[4]);
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              int result = rs.getInt("mst_publisher.publisher_id");
+              rsPublisher=result;       
+          }else{
+             String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String SQL = "INSERT INTO mst_publisher (publisher_name,input_date,last_update) VALUES('"+value[4]+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_publisher.publisher_id, publisher_name FROM mst_publisher WHERE publisher_name = '"+value[4]+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                int result1 = rsa.getInt("publisher_id");
+                rsPublisher = result1; 
+            }
+           }
+       }catch (Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        
+    }
+
+  public String CSVLang;
+  public void readLanguageExcel(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT language_id, language_name FROM mst_language WHERE language_name = '"+value[9]+"'";
+           System.out.println(value[9]);
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              int result = rs.getInt("mst_language.language_id");
+              rsLang=result;
+          }else{
+             String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String SQL = "INSERT INTO mst_language (language_name,input_date,last_update) VALUES('"+value[9]+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_language.language_id, language_name FROM mst_language WHERE language_name = '"+value[9]+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                int result1 = rsa.getInt("language_id");
+                rsLang=result1;
+            }
+           }
+       }catch (Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        
+    }
+
+  public String CSVPlace;
+  public void readPlaceExcel(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT place_id, place_name FROM mst_place WHERE place_name ='"+value[10]+"'";
+           System.out.println(value[10]);
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              int result = rs.getInt("mst_place.place_id");
+              rsPlace=result;
+          }else{
+             String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String SQL = "INSERT INTO mst_place (place_name,input_date,last_update) VALUES('"+value[10]+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_place.place_id, place_name FROM mst_place WHERE place_name ='"+value[10]+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                int result1 = rsa.getInt("place_id");
+               rsPlace=result1;
+            }
+           }
+       }catch (Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        
+    }
+
+  public String CSVAuthor;
+  public void readAuthorExcel(){
+      try{
+           Statement stat = CC.createStatement();
+           sql = "SELECT author_id, author_name FROM mst_author WHERE author_name = '"+value[15]+"'";
+           System.out.println(value[13]);
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+              int result = rs.getInt("mst_author.author_id");
+              rsAuthor=result;   
+          }else{
+             String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);  
+             stt = CC.createStatement();
+             String SQL = "INSERT INTO mst_author (author_name,input_date,last_update) VALUES('"+value[15]+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+             stt.close();
+             String Check = "SELECT mst_author.author_id, author_name FROM mst_author WHERE author_name = '"+value[15]+"'";
+            ResultSet rsa = stat.executeQuery(Check);
+            if(rsa.next()){
+                int result1 = rsa.getInt("author_id");
+               rsAuthor=result1; 
+            }
+           }
+       }catch (Exception e){
+        JOptionPane.showMessageDialog(null, e);
+       }
+        
+    }
+
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -543,6 +802,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         Pengarang = new javax.swing.JTextField();
         lbl_pengarang = new javax.swing.JLabel();
         cbPengarang = new javax.swing.JComboBox<>();
+        filename = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -710,7 +970,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel26.setText("Pengaturan");
+        jLabel26.setText("Profil Petugas");
 
         javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
         toProfilPetugas.setLayout(toProfilPetugasLayout);
@@ -761,7 +1021,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -795,7 +1055,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -1043,7 +1303,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1077,7 +1337,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1111,7 +1371,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1145,7 +1405,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1411,7 +1671,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1445,7 +1705,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1498,7 +1758,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importData);
-        importData.setBounds(100, 100, 120, 25);
+        importData.setBounds(100, 100, 120, 21);
 
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1509,7 +1769,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(100, 170, 120, 25);
+        inputData.setBounds(100, 170, 120, 21);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Pilih data");
@@ -1517,8 +1777,13 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jLabel2.setBounds(110, 130, 70, 17);
 
         jButton1.setText("Pilih");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
-        jButton1.setBounds(180, 130, 60, 23);
+        jButton1.setBounds(180, 130, 60, 22);
 
         lbl_judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judul.setText("Judul");
@@ -1562,7 +1827,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1170, 650, 80, 23);
+        submit.setBounds(1170, 650, 80, 22);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1677,7 +1942,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(attach);
-        attach.setBounds(1050, 410, 120, 23);
+        attach.setBounds(1050, 410, 120, 22);
 
         Bahasa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Bahasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Bahasa" }));
@@ -1754,6 +2019,10 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jPanel1.add(cbPengarang);
         cbPengarang.setBounds(560, 260, 150, 21);
 
+        filename.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(filename);
+        filename.setBounds(250, 130, 360, 20);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1777,6 +2046,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private void importDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importDataActionPerformed
         // TODO add your handling code here:
         inputData.setSelected(false);
+         jLabel2.setEnabled(true);
+        jButton1.setEnabled(true);
         Judul.setEnabled(false);
         lbl_judul.setEnabled(false);
         lbl_pengarang.setEnabled(false);
@@ -1807,12 +2078,14 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC.setEnabled(false);
         lbl_ddc.setEnabled(false);
         attach.setEnabled(false);
-        submit.setEnabled(false);
+        submit.setEnabled(true);
     }//GEN-LAST:event_importDataActionPerformed
 
     private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
         // TODO add your handling code here:\
         importData.setSelected(false);
+        jLabel2.setEnabled(false);
+        jButton1.setEnabled(false);
         Judul.setEnabled(true);
         lbl_judul.setEnabled(true);
         lbl_pengarang.setEnabled(true);
@@ -2203,12 +2476,16 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
+        if(inputData.isSelected()){
         setIndex1();
         setIndex2();
         setIndex3();
         setIndex4();
         insertData();
         reset();
+        }else if(importData.isSelected()){
+         insertCSV();
+        }
     }//GEN-LAST:event_submitActionPerformed
 
     private void cbPenerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPenerbitActionPerformed
@@ -2296,6 +2573,11 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        readCSV();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2321,6 +2603,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Petugas_InputBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -2351,6 +2636,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTempat;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
+    private javax.swing.JLabel filename;
     private javax.swing.JLabel img;
     private javax.swing.JRadioButton importData;
     private javax.swing.JRadioButton inputData;

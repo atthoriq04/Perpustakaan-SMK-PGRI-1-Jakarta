@@ -193,7 +193,8 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
 "                     Item.order_date='"+pesan+"',\n" +
 "                     Item.source="+select+",\n" +
 "                     Item.price="+harga+",\n" +
-"                     item.invoice='"+factur+"' WHERE Item.item_id="+id+"";
+"                     item.invoice='"+factur+"',\n"+
+"                     item.last_upadte='"+Date+"' WHERE Item.item_id="+id+"";
              stt.executeUpdate(sql);
              JOptionPane.showMessageDialog(null, "Data Eksemplar Berhasil Di Update !!");
               stt.close();

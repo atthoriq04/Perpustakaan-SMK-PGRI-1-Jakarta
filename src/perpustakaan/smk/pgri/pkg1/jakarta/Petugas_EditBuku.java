@@ -175,7 +175,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
            stt = CC.createStatement();
            sql = "UPDATE new_bliblio SET IdGMD ="+value2+",Judul ='"+value1+"',author_id="+Penulis+", Edisi='"+value3+"', isbn_issn='"+value4+"', IdPublisher="+value5+","
                    + "PublisherYear='"+value6+"',Notes='"+value7+"',SeriesTitle='"+value8+"', call_number='"+value9+"',IdLanguage="+value10+", TempatTerbit="+value11+","
-                   + "Klasifikasi = '"+value12+"', image='"+gmbar+"' WHERE IdBliblio ="+id+"";
+                   + "Klasifikasi = '"+value12+"', image='"+gmbar+"', last_upadte='"+Date+"' WHERE IdBliblio ="+id+"";
                   
            stt.executeUpdate(sql);
            JOptionPane.showMessageDialog(null, "Data Buku Berhasil Di Update !!");

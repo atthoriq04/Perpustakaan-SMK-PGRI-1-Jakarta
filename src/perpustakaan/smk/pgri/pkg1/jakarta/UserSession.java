@@ -16,6 +16,7 @@ public class UserSession {
     public static int Publisher,Place;
     private static String nis,nama,kelas,alamat;
     private static String call_numb,Judul,fisik;
+
     public static void setUserLogin(String userLogin) {
         UserSession.userLogin = userLogin;
     }
@@ -41,6 +42,7 @@ public class UserSession {
        UserSession.Place = Place;
    }
     
+    
     public static String getUserLogin() {
         return userLogin;
     }
@@ -65,5 +67,6 @@ public class UserSession {
       public static String getFisik(){
         return fisik;
     }
+
 }
     
