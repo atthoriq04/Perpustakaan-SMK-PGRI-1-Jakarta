@@ -43,6 +43,9 @@ public class Katalog extends javax.swing.JFrame {
         initial();
         
     }
+    
+    int from = 0;
+    public String formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
     public String judul;
     public String auth;
     public String Jdl;
@@ -55,6 +58,27 @@ public class Katalog extends javax.swing.JFrame {
     public String bhs;
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
+    private void check(int fc){
+       try {
+            int Next = fc + 12;
+            Statement stt = CC.createStatement();
+            rs = stt.executeQuery(formula+"LIMIT "+ next +", 12");
+            if(rs.next()){
+                next.setVisible(true);
+            }else{
+                next.setVisible(false);
+            } 
+            int Back = fc - 12;
+            if(Back < 0){
+                back.setVisible(false);
+            }else{
+                back.setVisible(true);
+            }
+            
+            }catch(Exception e){
+          e.printStackTrace();
+        }
+    }
     public void tampilNavbar(){
             
         if( UserId == 0){
@@ -75,7 +99,7 @@ public class Katalog extends javax.swing.JFrame {
          JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
          JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
          JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
-         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT 0, 12",
+         PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 12",
         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
 
@@ -229,7 +253,6 @@ public class Katalog extends javax.swing.JFrame {
         toOut = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         buku1 = new javax.swing.JPanel();
         toggle1 = new javax.swing.JToggleButton();
@@ -279,8 +302,8 @@ public class Katalog extends javax.swing.JFrame {
         toggle12 = new javax.swing.JToggleButton();
         judul12 = new javax.swing.JLabel();
         penulis12 = new javax.swing.JLabel();
-        previous = new javax.swing.JToggleButton();
-        next = new javax.swing.JToggleButton();
+        next = new javax.swing.JLabel();
+        back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -653,17 +676,18 @@ public class Katalog extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(923, 78, 267, 32);
+        jTextField1.setBounds(900, 70, 340, 32);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Buku Terakhir");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(25, 77, 148, 29);
-
-        jButton1.setBackground(new java.awt.Color(2, 117, 216));
-        jPanel1.add(jButton1);
-        jButton1.setBounds(1200, 77, 48, 33);
+        jLabel2.setBounds(25, 77, 147, 29);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(204, 204, 204));
@@ -1187,13 +1211,37 @@ public class Katalog extends javax.swing.JFrame {
         jPanel1.add(buku12);
         buku12.setBounds(1087, 408, 161, 238);
 
-        previous.setText("Previous");
-        jPanel1.add(previous);
-        previous.setBounds(520, 680, 80, 23);
-
-        next.setText("Next");
+        next.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        next.setText(">");
+        next.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nextMouseExited(evt);
+            }
+        });
         jPanel1.add(next);
-        next.setBounds(690, 680, 55, 23);
+        next.setBounds(640, 680, 12, 17);
+
+        back.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        back.setText("<");
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
+            }
+        });
+        jPanel1.add(back);
+        back.setBounds(620, 680, 12, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1661,6 +1709,40 @@ public class Katalog extends javax.swing.JFrame {
         obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_buku12MouseClicked
 
+    private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
+        //from = from + 2;
+        initial();
+        //check(from);
+    }//GEN-LAST:event_nextMouseClicked
+
+    private void nextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseEntered
+        next.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_nextMouseEntered
+
+    private void nextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseExited
+        next.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_nextMouseExited
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        //from = from - 2;
+        initial();
+        //check(from);
+    }//GEN-LAST:event_backMouseClicked
+
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        back.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_backMouseEntered
+
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        back.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_backMouseExited
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+       formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
+       initial();
+       check(from);
+    }//GEN-LAST:event_jTextField1KeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1702,6 +1784,7 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JPanel PanelUmum;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
+    private javax.swing.JLabel back;
     private javax.swing.JPanel buku1;
     private javax.swing.JPanel buku10;
     private javax.swing.JPanel buku11;
@@ -1714,7 +1797,6 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JPanel buku7;
     private javax.swing.JPanel buku8;
     private javax.swing.JPanel buku9;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
@@ -1731,7 +1813,7 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel judul7;
     private javax.swing.JLabel judul8;
     private javax.swing.JLabel judul9;
-    private javax.swing.JToggleButton next;
+    private javax.swing.JLabel next;
     private javax.swing.JLabel penulis1;
     private javax.swing.JLabel penulis10;
     private javax.swing.JLabel penulis11;
@@ -1744,7 +1826,6 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel penulis7;
     private javax.swing.JLabel penulis8;
     private javax.swing.JLabel penulis9;
-    private javax.swing.JToggleButton previous;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;

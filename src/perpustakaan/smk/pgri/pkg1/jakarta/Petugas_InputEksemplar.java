@@ -7,10 +7,13 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -142,7 +145,6 @@ public int bliblio;
         ResultSet rs = stat.executeQuery(sql);
         if(rs.next()){
          String value = rs.getString("location_name");
-         pub = index;
         }else{
          String Date;
              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
@@ -1861,13 +1863,21 @@ public int bliblio;
     }//GEN-LAST:event_hadiahActionPerformed
 
     private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
-        // TODO add your handling code here:
-        setValueLocation();
+        try {
+            stt = CC.createStatement();
+            cbLokasi.getSelectedItem();
+            ResultSet rs = stt.executeQuery("SELECT location_id FROM mst_location WHERE location_name = '"+ cbLokasi.getSelectedItem() +"'");
+            if(rs.next()){
+                pub = rs.getInt("location_id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_InputEksemplar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_cbLokasiActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-        setIndexLocation();
         insertData();
         Petugas_DataEksemplar a = new Petugas_DataEksemplar();
         a.setVisible(true);

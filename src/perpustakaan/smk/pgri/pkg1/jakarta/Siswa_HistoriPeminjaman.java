@@ -728,7 +728,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
             }
         });
         jPanel19.add(back);
-        back.setBounds(570, 620, 12, 17);
+        back.setBounds(570, 620, 11, 17);
 
         next.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         next.setText(">");
@@ -744,7 +744,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
             }
         });
         jPanel19.add(next);
-        next.setBounds(590, 620, 12, 17);
+        next.setBounds(590, 620, 11, 17);
 
         jPanel1.add(jPanel19);
         jPanel19.setBounds(52, 70, 1170, 650);
