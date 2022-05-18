@@ -1,8 +1,10 @@
+package perpustakaan.smk.pgri.pkg1.jakarta;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package perpustakaan.smk.pgri.pkg1.jakarta;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -164,6 +166,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuku = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -456,7 +459,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -490,7 +493,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel2.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -738,7 +741,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -772,7 +775,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -806,7 +809,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -840,7 +843,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel2.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1111,7 +1114,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1145,7 +1148,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1249,7 +1252,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 112, 207));
-        jLabel5.setText("Export Data");
+        jLabel5.setText("Export Data Buku");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -1262,7 +1265,24 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(1090, 100, 70, 15);
+        jLabel5.setBounds(1070, 100, 100, 15);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 112, 207));
+        jLabel6.setText("Import Data Eksemplar");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel6MouseExited(evt);
+            }
+        });
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(930, 100, 124, 15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1914,6 +1934,20 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        Petugas_ImportEksemplar obj = new Petugas_ImportEksemplar();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel6MouseEntered
+
+    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel6MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1939,6 +1973,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Petugas_DataBuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -1977,6 +2012,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

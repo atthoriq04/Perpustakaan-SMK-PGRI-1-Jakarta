@@ -159,7 +159,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         transaksi = new javax.swing.JTable();
         Active = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        export = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         sort = new javax.swing.JPanel();
         tuntas = new javax.swing.JLabel();
@@ -387,7 +386,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -421,7 +420,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -669,7 +668,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -703,7 +702,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -737,7 +736,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -771,7 +770,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1037,7 +1036,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1071,7 +1070,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1140,20 +1139,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel4);
         jLabel4.setBounds(110, 100, 160, 15);
-
-        export.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        export.setForeground(new java.awt.Color(0, 112, 207));
-        export.setText("Export");
-        export.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exportMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exportMouseExited(evt);
-            }
-        });
-        jPanel1.add(export);
-        export.setBounds(1020, 110, 70, 15);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 112, 207));
@@ -1245,14 +1230,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMouseEntered
-        export.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_exportMouseEntered
-
-    private void exportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMouseExited
-        export.setForeground(new java.awt.Color(0, 112, 207));
-    }//GEN-LAST:event_exportMouseExited
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1735,7 +1712,6 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel btuntas;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
-    private javax.swing.JLabel export;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

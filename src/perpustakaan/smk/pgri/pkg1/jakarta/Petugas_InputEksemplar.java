@@ -71,7 +71,7 @@ public class Petugas_InputEksemplar extends javax.swing.JFrame {
          jLabel3.setEnabled(false);
          price.setEnabled(false);
          jLabel4.setEnabled(false);
-         faktur.setEnabled(false);
+         tgl_fktur.setEnabled(false);
          submit.setEnabled(false);
         call_number.setText(UserSession.getCallNumb());
      }
@@ -96,10 +96,12 @@ public class Petugas_InputEksemplar extends javax.swing.JFrame {
        try{
            Statement stat = CC.createStatement();
            sql = "SELECT mst_location.location_id, location_name FROM mst_location WHERE NOT location_id = '3' AND NOT location_id ='4'";
+           //sql = "SELECT mst_location.location_id, location_name FROM mst_location";
            ResultSet rs = stat.executeQuery(sql);
            while(rs.next()){
            String result = rs.getString("mst_location.location_name");
                cbLokasi.addItem(result);
+               
            }
            rs.last();
            int jumlah = rs.getRow();
@@ -128,6 +130,8 @@ public int bliblio;
         Statement stat = CC.createStatement();
         sql = "SELECT * FROM mst_location WHERE location_id ="+index+"";
         ResultSet rs = stat.executeQuery(sql);
+//        System.out.println(index);
+        System.out.println(index);
         if(rs.next()){
          String value = rs.getString("location_name");
          lokasi.setText(value);
@@ -146,7 +150,7 @@ public int bliblio;
         if(rs.next()){
          String value = rs.getString("location_name");
         }else{
-         String Date;
+            String Date;
              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
              LocalDateTime now = LocalDateTime.now();  
              Date = dtf.format(now);
@@ -159,7 +163,7 @@ public int bliblio;
             String Check = "SELECT mst_location.location_id, mst_location.location_name FROM mst_location WHERE location_name = '"+name+"'";
             ResultSet rsa = stat.executeQuery(Check);
             if(rsa.next()){
-                pub= rsa.getInt("mst_location.locaiton_id");
+                pub= rsa.getInt("mst_location.location_id");
             }
              stt.close();
         }
@@ -179,7 +183,7 @@ public int bliblio;
              String terima = sdf.format(tgl_penerima.getDate());
              int lokasi = pub;
              String pesan = sdf.format(tgl_pesan.getDate());
-             String factur = faktur.getText();
+             String factur = sdf.format(tgl_fktur.getDate());
              int harga = 0;
              if (beli.isSelected()){
                  String a = price.getText();
@@ -199,7 +203,7 @@ public int bliblio;
              if(rs.next()){
               a = rs.getInt("new_bliblio.IdBliblio");
              }
-             sql = "INSERT INTO item (biblio_id,item_code,call_number,coll_type_id,inventory_code,received_date,location_id,order_date,source,price,invoice,input_date,last_update)VALUES"
+             sql = "INSERT INTO item (biblio_id,item_code,call_number,coll_type_id,inventory_code,received_date,location_id,order_date,source,price,invoice_date,input_date,last_update)VALUES"
                      + "("+a+",'"+code+"','"+noCall+"',"+coll+",'"+inven+"','"+terima+"',"+pub+",'"+pesan+"','"+select+"',"+harga+",'"+factur+"','"+Date+"','"+Date+"')";
              stt.executeUpdate(sql);
              JOptionPane.showMessageDialog(null, "Data Eksemplar Berhasil Ditambahkan !!");
@@ -306,7 +310,6 @@ public int bliblio;
         lbl_hadiah = new javax.swing.JLabel();
         lbl_pesan = new javax.swing.JLabel();
         lbl_faktur = new javax.swing.JLabel();
-        faktur = new javax.swing.JTextField();
         koleksi = new javax.swing.JComboBox<>();
         tgl_penerima = new com.toedter.calendar.JDateChooser();
         tgl_pesan = new com.toedter.calendar.JDateChooser();
@@ -316,6 +319,7 @@ public int bliblio;
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbLokasi = new javax.swing.JComboBox<>();
+        tgl_fktur = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -534,7 +538,7 @@ public int bliblio;
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -568,7 +572,7 @@ public int bliblio;
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -816,7 +820,7 @@ public int bliblio;
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -850,7 +854,7 @@ public int bliblio;
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -884,7 +888,7 @@ public int bliblio;
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -918,7 +922,7 @@ public int bliblio;
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1184,7 +1188,7 @@ public int bliblio;
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1218,7 +1222,7 @@ public int bliblio;
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1271,7 +1275,7 @@ public int bliblio;
             }
         });
         jPanel1.add(importData);
-        importData.setBounds(100, 100, 120, 25);
+        importData.setBounds(100, 100, 120, 21);
 
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1282,7 +1286,7 @@ public int bliblio;
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(100, 170, 120, 25);
+        inputData.setBounds(100, 170, 120, 21);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Pilih data");
@@ -1291,7 +1295,7 @@ public int bliblio;
 
         jButton1.setText("Pilih");
         jPanel1.add(jButton1);
-        jButton1.setBounds(180, 130, 60, 23);
+        jButton1.setBounds(180, 130, 60, 22);
 
         lbl_barcode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_barcode.setText("Barcode");
@@ -1328,7 +1332,7 @@ public int bliblio;
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1190, 680, 70, 23);
+        submit.setBounds(1190, 680, 70, 22);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1375,15 +1379,6 @@ public int bliblio;
         jPanel1.add(lbl_faktur);
         lbl_faktur.setBounds(110, 530, 130, 20);
 
-        faktur.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        faktur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fakturActionPerformed(evt);
-            }
-        });
-        jPanel1.add(faktur);
-        faktur.setBounds(310, 530, 630, 23);
-
         jPanel1.add(koleksi);
         koleksi.setBounds(310, 290, 170, 22);
 
@@ -1393,7 +1388,7 @@ public int bliblio;
 
         tgl_pesan.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_pesan);
-        tgl_pesan.setBounds(310, 440, 630, 30);
+        tgl_pesan.setBounds(310, 450, 630, 30);
 
         hadiah.setText("Hadiah / Hibah");
         hadiah.addActionListener(new java.awt.event.ActionListener() {
@@ -1402,7 +1397,7 @@ public int bliblio;
             }
         });
         jPanel1.add(hadiah);
-        hadiah.setBounds(310, 490, 110, 23);
+        hadiah.setBounds(310, 490, 110, 20);
 
         beli.setText("Beli");
         beli.addActionListener(new java.awt.event.ActionListener() {
@@ -1411,7 +1406,7 @@ public int bliblio;
             }
         });
         jPanel1.add(beli);
-        beli.setBounds(450, 490, 50, 23);
+        beli.setBounds(450, 490, 50, 20);
 
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1419,7 +1414,7 @@ public int bliblio;
             }
         });
         jPanel1.add(price);
-        price.setBounds(540, 490, 90, 20);
+        price.setBounds(540, 490, 90, 22);
 
         jLabel3.setText("Rp");
         jPanel1.add(jLabel3);
@@ -1429,14 +1424,18 @@ public int bliblio;
         jPanel1.add(jLabel4);
         jLabel4.setBounds(640, 490, 10, 20);
 
-        cbLokasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Lokoasi" }));
+        cbLokasi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Lokasi" }));
         cbLokasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbLokasiActionPerformed(evt);
             }
         });
         jPanel1.add(cbLokasi);
-        cbLokasi.setBounds(500, 410, 200, 20);
+        cbLokasi.setBounds(500, 410, 200, 22);
+
+        tgl_fktur.setDateFormatString("yyyy-MM-dd");
+        jPanel1.add(tgl_fktur);
+        tgl_fktur.setBounds(310, 520, 630, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1494,7 +1493,7 @@ public int bliblio;
          tgl_pesan.setEnabled(true);
          beli.setEnabled(true);
          hadiah.setEnabled(true);
-         faktur.setEnabled(true);
+         tgl_fktur.setEnabled(true);
          submit.setEnabled(true);
     }//GEN-LAST:event_inputDataActionPerformed
 
@@ -1521,14 +1520,10 @@ public int bliblio;
          beli.setEnabled(false);
          hadiah.setEnabled(false);
          price.setEnabled(false);
-         faktur.setEnabled(false);
+         tgl_fktur.setEnabled(false);
          submit.setEnabled(false);
      
     }//GEN-LAST:event_importDataActionPerformed
-
-    private void fakturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fakturActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fakturActionPerformed
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -1865,15 +1860,39 @@ public int bliblio;
     private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
         try {
             stt = CC.createStatement();
-            cbLokasi.getSelectedItem();
-            ResultSet rs = stt.executeQuery("SELECT location_id FROM mst_location WHERE location_name = '"+ cbLokasi.getSelectedItem() +"'");
+            String value = cbLokasi.getSelectedItem().toString();
+            ResultSet rs = stt.executeQuery("SELECT location_id FROM mst_location WHERE location_name = '"+cbLokasi.getSelectedItem()+"'");   
+ 
             if(rs.next()){
                 pub = rs.getInt("location_id");
+       
+                lokasi.setText(value);
+                System.out.println(value);
+            }else{
+              String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);
+             stt = CC.createStatement();
+          
+             String name = lokasi.getText();
+             System.out.println(name);
+             String SQL = "INSERT INTO mst_location (location_name,input_date,last_update) VALUES"
+                     + "('"+name+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+            
+            String Check = "SELECT mst_location.location_id, mst_location.location_name FROM mst_location WHERE location_name = '"+name+"'";
+            ResultSet rsa = stt.executeQuery(Check);
+            if(rsa.next()){
+                pub= rsa.getInt("mst_location.location_id");
+            }
+             stt.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Petugas_InputEksemplar.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //setValueLocation();
     }//GEN-LAST:event_cbLokasiActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
@@ -1996,7 +2015,6 @@ public int bliblio;
     private javax.swing.JComboBox<String> cbLokasi;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
-    private javax.swing.JTextField faktur;
     private javax.swing.JRadioButton hadiah;
     private javax.swing.JRadioButton importData;
     private javax.swing.JRadioButton inputData;
@@ -2055,6 +2073,7 @@ public int bliblio;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit;
+    private com.toedter.calendar.JDateChooser tgl_fktur;
     private com.toedter.calendar.JDateChooser tgl_penerima;
     private com.toedter.calendar.JDateChooser tgl_pesan;
     private javax.swing.JLabel toAdmin;
