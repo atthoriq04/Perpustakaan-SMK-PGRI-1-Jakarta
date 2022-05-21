@@ -5,11 +5,18 @@
         <group>
             <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputEksemplar.java</file>
             <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_ImportEksemplar.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditJurusan.java</file>
             <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputBuku.java</file>
-            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataBuku.java</file>
-            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputAnggota.java</file>
-            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataTransaksi.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataAnggota.java</file>
             <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditBuku.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditEksemplar.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputKelas.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Dialog_Konfirmasi.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataBuku.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditKelas.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputAnggota.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Katalog.java</file>
+            <file>file:/D:/Dera/Kuliah/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataTransaksi.java</file>
         </group>
     </open-files>
 </project-private>

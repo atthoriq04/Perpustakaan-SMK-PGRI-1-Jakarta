@@ -58,14 +58,16 @@ public class Petugas_ImportEksemplar extends javax.swing.JFrame {
                String name;
         JFileChooser excelFileChooser = new JFileChooser();
         excelFileChooser.setDialogTitle("Select Excel File");
-        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm", "csv");
-        excelFileChooser.setFileFilter(fnef);
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("CSV (Comma delimited)(*.csv)","csv");
+         excelFileChooser.setFileFilter(fnef);
+         excelFileChooser.setAcceptAllFileFilterUsed(false);
         int excelChooser = excelFileChooser.showOpenDialog(null);
         if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            
             excelFile = excelFileChooser.getSelectedFile();
             name = excelFileChooser.getSelectedFile().getName();
             filename.setText(name);
-            JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
+            //JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
            
         }
     }

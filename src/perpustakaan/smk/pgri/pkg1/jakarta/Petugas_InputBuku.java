@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,6 +148,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         file = f.getAbsolutePath();
+        System.out.println(f.getAbsolutePath());
         Image getAbsolutePath = null;
         ImageIcon icon = new ImageIcon(file);
         Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
@@ -442,8 +444,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         String name;
         JFileChooser excelFileChooser = new JFileChooser();
         excelFileChooser.setDialogTitle("Select Excel File");
-        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm", "csv");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("CSV (Comma delimited)(*.csv)","csv");
         excelFileChooser.setFileFilter(fnef);
+        excelFileChooser.setAcceptAllFileFilterUsed(false);
         int excelChooser = excelFileChooser.showOpenDialog(null);
         if (excelChooser == JFileChooser.APPROVE_OPTION) {
             excelFile = excelFileChooser.getSelectedFile();

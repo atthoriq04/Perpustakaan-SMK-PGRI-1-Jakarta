@@ -6,14 +6,29 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
  */
 
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import com.opencsv.CSVWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
 /**
  *
@@ -78,6 +93,71 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
           }catch(Exception e){
               JOptionPane.showMessageDialog(null, e);
           }
+    }
+
+    public String ext;
+    public File csv;
+    public void chooseDir() throws IOException, SQLException{
+        JFileChooser f = new JFileChooser();
+         f.setFileSelectionMode(JFileChooser.FILES_ONLY); 
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("CSV (Comma delimited)(*.csv)","csv");
+         f.setFileFilter(fnef);
+         f.setAcceptAllFileFilterUsed(false);
+         int excelChooser = f.showSaveDialog(null);
+            if (excelChooser == JFileChooser.APPROVE_OPTION) {
+                csv=f.getSelectedFile();
+                ext =".csv";
+                if(!f.getSelectedFile().getName().endsWith(ext)){
+                    csv=new File(csv+ext);
+    
+                }
+                exportCSV();
+            //JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
+              System.out.println(csv);
+        }
+         
+    }
+
+    private void exportCSV() throws SQLException, IOException{
+        try{
+         String[] entries = {"Judul","GMD","Edisi","ISBN","Penerbit","Tahun Terbit","Deskripsi Fisik","Judul Seri","No. Panggil","Bahasa","Tempat terbit","Klasifikasi","Abstrak/Catatan","Foto","Pernyataan tanggung jawab","Penulis","Subjek","Exemplar(barcode) \t"};
+         CSVPrinter printer = new CSVPrinter(new FileWriter(csv),CSVFormat.EXCEL.withHeader(entries));
+        PreparedStatement stmt = CC.prepareStatement("SELECT * FROM new_bliblio INNER JOIN gmd ON new_bliblio.IdGMD=gmd.gmd_id "
+                    + "INNER JOIN mst_publisher ON mst_publisher.publisher_id=new_bliblio.IdPublisher "
+                    + "INNER JOIN mst_language ON mst_language.language_id=new_bliblio.IdLanguage "
+                    + "INNER JOIN mst_place ON mst_place.place_id=new_bliblio.TempatTerbit "
+                    + "INNER JOIN Item ON Item.biblio_id=new_bliblio.IdBliblio "
+                    + "INNER JOIN mst_author ON mst_author.author_id=new_bliblio.author_id", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+          ResultSet rs = stmt.executeQuery();
+          ResultSetMetaData Mdata = (ResultSetMetaData) rs.getMetaData();
+          String data[] = new String[18];
+          while(rs.next()){
+           data[0] = rs.getString("Judul");
+           data[1] = rs.getString("gmd.gmd_name");
+           data[2] = rs.getString("Edisi");;
+           data[3] = rs.getString("isbn_issn");
+           data[4] = rs.getString("mst_publisher.publisher_name");
+           data[5] = rs.getString("PublisherYear");
+           data[6] = rs.getString("Notes");
+           data[7] = rs.getString("SeriesTitle");
+           data[8] = rs.getString("call_number");
+           data[9] = rs.getString("mst_language.language_name");
+           data[10] = rs.getString("mst_place.place_name");
+           data[11] = rs.getString("Klasifikasi");
+           data[12] = rs.getString("abstrak");
+           data[13] = rs.getString("image");
+           data[14] = rs.getString("penanggung");
+           data[15] = rs.getString("mst_author.author_name");
+           data[16] = rs.getString("subjek");
+           data[17] = rs.getString("Item.item_code");
+           printer.printRecord(data);
+          }
+        printer.flush();
+         printer.close();
+         JOptionPane.showMessageDialog(null, "Data Berhasil Di Export");
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1385,8 +1465,13 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_tblBukuMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Petugas_NaikKelas obj = new Petugas_NaikKelas();
-        obj.setVisible(true);
+        try {
+            chooseDir();
+        } catch (IOException ex) {
+            Logger.getLogger(Petugas_DataBuku.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_DataBuku.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
