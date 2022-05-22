@@ -5,10 +5,13 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.Image;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputFilter.Config;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +19,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -67,12 +74,13 @@ public class Siswa_Profil extends javax.swing.JFrame {
           e.printStackTrace();
         }
      }
+       public String photo;
      private void UserId(){
         //toUser.setText(UserSession.getUserLogin());
         try {
         Statement stat = CC.createStatement();
           
-           String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.TingkatKelas,kelas.IdJurusan,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp,anggota.Expired \n" +
+           String sql = "SELECT anggota.Nama,anggota.Nis,anggota.Alamat,kelas.TingkatKelas,kelas.IdJurusan,kelas.kelas,anggota.TTL,user.Username,anggota.email,anggota.NoHp,anggota.Expired,anggota.Profiles \n" +
 "FROM user INNER JOIN anggota ON user.Nis=anggota.Nis \n" +
 "INNER JOIN kelas ON anggota.IdKelas=Kelas.IdKelas \n" +
 "INNER JOIN jurusan ON kelas.IdJurusan=jurusan.IdJurusan WHERE anggota.Nis='"+UserId+"'";
@@ -91,6 +99,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 String Email = rs.getString("anggota.email");
                 String NoHp = rs.getString("anggota.NoHp");
                 String expire = rs.getString("anggota.Expired");
+                String pro = rs.getString("anggota.Profiles");
+                System.out.println(pro);
+                InputStream stream = getClass().getResourceAsStream("/Uploads/Profiles/"+pro+"");
+                ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
                 nama.setText(Nama);
                 nis.setText(Nis);
                 alamat.setText(Alamat);
@@ -100,11 +113,13 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 email.setText(Email);
                 nohp.setText(NoHp);
                 expired.setText(expire);
-          
+                img.setIcon(icon);
+                 
             } else
             JOptionPane.showMessageDialog(this, "Ada Kesalahan");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }
 //     public String img,file;
@@ -119,7 +134,99 @@ public class Siswa_Profil extends javax.swing.JFrame {
 //        Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
 //        img.setIcon(icon);
 //    }
- 
+     public File f,destinationFile,file;
+ public void attach(){
+     try{
+        JFileChooser imgFileChooser = new JFileChooser();
+        imgFileChooser.setDialogTitle("Select Images File");
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("Images File","jpeg","jpg","png");
+         imgFileChooser.setFileFilter(fnef);
+         imgFileChooser.setAcceptAllFileFilterUsed(false);
+        int excelChooser = imgFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            f = imgFileChooser.getSelectedFile();
+            ImageIcon icon = new ImageIcon(f.toString());
+            Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+            img.setIcon(icon);
+            
+        }
+        }catch(Exception e){
+             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error Upload");
+        }
+ }
+ public void uploadToDir() throws IOException{
+            String filename = f.getAbsolutePath();
+            String newpath = "src/Uploads/Profiles/";
+            File directory = new File(newpath);
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+            File sourceFile = null;
+            File destinationFile = null;
+            String extension = filename.substring(filename.lastIndexOf('.')+1);
+            sourceFile = new File(filename);
+            Date tanggal_update = new Date();
+            String tampilan = "yyyyMMddhhmmss";
+            SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+            String tanggal = String.valueOf(fm.format(tanggal_update));
+            String resultNew = newpath+"/newImage" + tanggal.toString()+ "." +extension;
+            destinationFile = new File(resultNew);
+            Files.copy(sourceFile.toPath(), destinationFile.toPath());
+           System.out.println(destinationFile.getName());
+            file = destinationFile;
+            try{
+            String User = username.getText();
+            String Email = email.getText();
+            String NoHP = nohp.getText();
+            String foto = destinationFile.getAbsoluteFile().getName();
+            //System.out.println(destinationFile.getAbsoluteFile().getName());
+            String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
+"            SET user.Username = '"+User+"',\n" +
+"            anggota.Email='"+Email+"',\n" +
+"            anggota.NoHp='"+NoHP+"',anggota.Profiles ='"+foto+"' Where anggota.Nis = 99283" ;
+                pst = CC.prepareStatement(Sql);
+                pst.execute();
+                pst.close();
+              JOptionPane.showMessageDialog(null, "Update Berhasil");
+              username.setText(User);
+              email.setText(Email);
+              nohp.setText(NoHP);
+              System.out.println(foto);
+//            update.setEnabled(false);
+//            hapus.setEnabled(false);
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+ }
+ public void updateId(){
+     try{
+            
+            String User = username.getText();
+            String Email = email.getText();
+            String NoHP = nohp.getText();
+            String foto = file.getName();
+            System.out.println(foto);
+            String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
+            "SET user.Username = '"+User+"',\n" +
+            "anggota.Email='"+Email+"',\n" +
+            "anggota.NoHp='"+NoHP+"', anggota.Profiles ='"+foto+"' Where anggota.Nis = '"+nis.getText()+"'" ;
+                pst = CC.prepareStatement(Sql);
+                pst.execute();
+                pst.close();
+              JOptionPane.showMessageDialog(null, "Update Berhasil");
+              username.setText(User);
+              email.setText(Email);
+              nohp.setText(NoHP);
+              System.out.println(foto);
+//            update.setEnabled(false);
+//            hapus.setEnabled(false);
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -607,28 +714,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-         try{
-            
-            String User = username.getText();
-            String Email = email.getText();
-            String NoHP = nohp.getText();
-            String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
-            "SET user.Username = '"+User+"',\n" +
-            "anggota.Email='"+Email+"',\n" +
-            "anggota.NoHp='"+NoHP+"', anggota.Profiles ='"+photo+"' Where anggota.Nis = '"+nis.getText()+"'" ;
-                pst = CC.prepareStatement(Sql);
-                pst.execute();
-                pst.close();
-              JOptionPane.showMessageDialog(null, "Update Berhasil");
-              username.setText(User);
-              email.setText(Email);
-              nohp.setText(NoHP);
-//            update.setEnabled(false);
-//            hapus.setEnabled(false);
-         
-        }catch(Exception e){
-            e.printStackTrace();
+        try {
+            // TODO add your handling code here:
+            uploadToDir();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -805,44 +895,10 @@ public class Siswa_Profil extends javax.swing.JFrame {
         SubUser.setVisible(true);
         SubSirk.setVisible(false);
     }//GEN-LAST:event_toUserMouseEntered
- public String photo;
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try{
-        JFileChooser imgFileChooser = new JFileChooser();
-        imgFileChooser.setDialogTitle("Select Images File");
-         FileNameExtensionFilter fnef = new FileNameExtensionFilter("Images File","jpeg","jpg","png");
-         imgFileChooser.setFileFilter(fnef);
-         imgFileChooser.setAcceptAllFileFilterUsed(false);
-        int excelChooser = imgFileChooser.showOpenDialog(null);
-        if (excelChooser == JFileChooser.APPROVE_OPTION) {
-            File  f = imgFileChooser.getSelectedFile();
-            ImageIcon icon = new ImageIcon(f.toString());
-            Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
-            img.setIcon(icon);
-            String filename = f.getAbsolutePath();
-            String newpath = "src/Uploads/Profiles/";
-            File directory = new File(newpath);
-            if(!directory.exists()){
-                directory.mkdirs();
-            }
-            File sourceFile = null;
-            File destinationFile = null;
-            String extension = filename.substring(filename.lastIndexOf('.')+1);
-            sourceFile = new File(filename);
-            Date tanggal_update = new Date();
-            String tampilan = "yyyyMMddhhmmss";
-            SimpleDateFormat fm = new SimpleDateFormat(tampilan);
-            String tanggal = String.valueOf(fm.format(tanggal_update));
-            destinationFile = new File(newpath+"/newImage" + tanggal.toString()+ "." +extension);
-            Files.copy(sourceFile.toPath(), destinationFile.toPath());
-            System.out.println(destinationFile.getName());
-            String photo = destinationFile.getName();
-        }
-        }catch(Exception e){
-             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error Upload");
-        }
+        attach();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
