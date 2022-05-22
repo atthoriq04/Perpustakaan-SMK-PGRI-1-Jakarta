@@ -4,11 +4,22 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -89,12 +100,26 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 email.setText(Email);
                 nohp.setText(NoHp);
                 expired.setText(expire);
+          
             } else
             JOptionPane.showMessageDialog(this, "Ada Kesalahan");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+//     public String img,file;
+//     private void attach(){
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.showOpenDialog(null);
+//        File f = chooser.getSelectedFile();
+//        file = f.getAbsolutePath();
+//        System.out.println(f.getAbsolutePath());
+//        Image getAbsolutePath = null;
+//        ImageIcon icon = new ImageIcon(file);
+//        Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+//        img.setIcon(icon);
+//    }
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +132,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        img = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -158,11 +184,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2);
@@ -200,6 +226,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Unggah Foto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
         jButton1.setBounds(33, 424, 240, 34);
 
@@ -245,7 +276,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1200, 680, 67, 23);
+        jButton2.setBounds(1200, 680, 72, 22);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +285,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1041, 680, 140, 23);
+        jButton3.setBounds(1041, 680, 140, 22);
 
         nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(nohp);
@@ -554,7 +585,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1278, 20);
+        jPanel14.setBounds(0, 11, 1274, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -585,7 +616,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
             "SET user.Username = '"+User+"',\n" +
             "anggota.Email='"+Email+"',\n" +
-            "anggota.NoHp='"+NoHP+"' Where anggota.Nis = '"+nis.getText()+"'" ;
+            "anggota.NoHp='"+NoHP+"', anggota.Profiles ='"+photo+"' Where anggota.Nis = '"+nis.getText()+"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
                 pst.close();
@@ -601,6 +632,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        Siswa_UbahPassword obj = new Siswa_UbahPassword();
        obj.setVisible(true);
@@ -773,6 +805,45 @@ public class Siswa_Profil extends javax.swing.JFrame {
         SubUser.setVisible(true);
         SubSirk.setVisible(false);
     }//GEN-LAST:event_toUserMouseEntered
+ public String photo;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+        JFileChooser imgFileChooser = new JFileChooser();
+        imgFileChooser.setDialogTitle("Select Images File");
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("Images File","jpeg","jpg","png");
+         imgFileChooser.setFileFilter(fnef);
+         imgFileChooser.setAcceptAllFileFilterUsed(false);
+        int excelChooser = imgFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            File  f = imgFileChooser.getSelectedFile();
+            ImageIcon icon = new ImageIcon(f.toString());
+            Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+            img.setIcon(icon);
+            String filename = f.getAbsolutePath();
+            String newpath = "src/Uploads/Profiles/";
+            File directory = new File(newpath);
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+            File sourceFile = null;
+            File destinationFile = null;
+            String extension = filename.substring(filename.lastIndexOf('.')+1);
+            sourceFile = new File(filename);
+            Date tanggal_update = new Date();
+            String tampilan = "yyyyMMddhhmmss";
+            SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+            String tanggal = String.valueOf(fm.format(tanggal_update));
+            destinationFile = new File(newpath+"/newImage" + tanggal.toString()+ "." +extension);
+            Files.copy(sourceFile.toPath(), destinationFile.toPath());
+            System.out.println(destinationFile.getName());
+            String photo = destinationFile.getName();
+        }
+        }catch(Exception e){
+             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error Upload");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -816,6 +887,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel alamat;
     private javax.swing.JTextField email;
     private javax.swing.JLabel expired;
+    private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -850,4 +922,5 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel ttl;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
 }
