@@ -781,7 +781,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -815,7 +815,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -1063,7 +1063,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1097,7 +1097,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1131,7 +1131,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1165,7 +1165,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1431,7 +1431,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1465,7 +1465,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1551,7 +1551,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1140, 680, 80, 23);
+        submit.setBounds(1140, 680, 80, 22);
 
         lbl_isbn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_isbn.setText("ISBN");
@@ -1637,14 +1637,14 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
         jPanel1.add(NoPanggil);
         NoPanggil.setBounds(320, 480, 630, 23);
 
-        attach.setText("Kembali");
+        attach.setText("Upload");
         attach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attachActionPerformed(evt);
             }
         });
         jPanel1.add(attach);
-        attach.setBounds(1060, 360, 120, 23);
+        attach.setBounds(1060, 360, 120, 22);
 
         Bahasa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Bahasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Bahasa" }));
@@ -1728,7 +1728,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(delete);
-        delete.setBounds(1040, 680, 80, 23);
+        delete.setBounds(1040, 680, 80, 22);
 
         attach1.setText("Kembali");
         attach1.addActionListener(new java.awt.event.ActionListener() {
@@ -1737,7 +1737,7 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(attach1);
-        attach1.setBounds(120, 680, 80, 23);
+        attach1.setBounds(120, 680, 80, 22);
         jPanel1.add(img1);
         img1.setBounds(1060, 140, 0, 0);
 

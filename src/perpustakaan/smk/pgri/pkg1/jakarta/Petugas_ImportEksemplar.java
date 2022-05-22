@@ -240,8 +240,8 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
         jLabel1 = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         clear = new javax.swing.JButton();
-        filename = new javax.swing.JLabel();
         browse = new javax.swing.JButton();
+        filename = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -271,10 +271,6 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
         jPanel1.add(clear);
         clear.setBounds(70, 180, 80, 22);
 
-        filename.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(filename);
-        filename.setBounds(40, 80, 260, 20);
-
         browse.setText("Browse");
         browse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,7 +278,9 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
             }
         });
         jPanel1.add(browse);
-        browse.setBounds(310, 80, 72, 22);
+        browse.setBounds(10, 80, 72, 22);
+        jPanel1.add(filename);
+        filename.setBounds(100, 80, 230, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

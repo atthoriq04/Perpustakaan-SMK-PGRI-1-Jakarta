@@ -291,10 +291,7 @@ public int bliblio;
         toDataUsulan = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        importData = new javax.swing.JRadioButton();
         inputData = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         lbl_barcode = new javax.swing.JLabel();
         lbl_noPanggil = new javax.swing.JLabel();
         lbl_koleksi = new javax.swing.JLabel();
@@ -1266,17 +1263,6 @@ public int bliblio;
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
-        importData.setBackground(new java.awt.Color(255, 255, 255));
-        importData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        importData.setText("Import Data");
-        importData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importDataActionPerformed(evt);
-            }
-        });
-        jPanel1.add(importData);
-        importData.setBounds(100, 100, 120, 21);
-
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputData.setText("Input Data ");
@@ -1287,15 +1273,6 @@ public int bliblio;
         });
         jPanel1.add(inputData);
         inputData.setBounds(100, 170, 120, 21);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Pilih data");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(110, 130, 70, 17);
-
-        jButton1.setText("Pilih");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(180, 130, 60, 22);
 
         lbl_barcode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_barcode.setText("Barcode");
@@ -1474,7 +1451,7 @@ public int bliblio;
 
     private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
         // TODO add your handling code here:
-        importData.setSelected(false);
+        //importData.setSelected(false);
          lbl_barcode.setEnabled(true);
          lbl_noPanggil.setEnabled(true);
          lbl_koleksi.setEnabled(true);
@@ -1496,34 +1473,6 @@ public int bliblio;
          tgl_fktur.setEnabled(true);
          submit.setEnabled(true);
     }//GEN-LAST:event_inputDataActionPerformed
-
-    private void importDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importDataActionPerformed
-        // TODO add your handling code here:
-        inputData.setSelected(false);
-         lbl_barcode.setEnabled(false);
-         lbl_noPanggil.setEnabled(false);
-         lbl_koleksi.setEnabled(false);
-         lbl_inventaris.setEnabled(false);
-         lbl_tgl.setEnabled(false);
-         Lokasi.setEnabled(false);
-         cbLokasi.setEnabled(false);
-         lbl_pesan.setEnabled(false);
-         lbl_hadiah.setEnabled(false);
-         lbl_faktur.setEnabled(false);
-         barcode.setEnabled(false);
-         call_number.setEnabled(false);
-         koleksi.setEnabled(false);
-         inventaris.setEnabled(false);
-         tgl_penerima.setEnabled(false);
-         lokasi.setEnabled(false);
-         tgl_pesan.setEnabled(false);
-         beli.setEnabled(false);
-         hadiah.setEnabled(false);
-         price.setEnabled(false);
-         tgl_fktur.setEnabled(false);
-         submit.setEnabled(false);
-     
-    }//GEN-LAST:event_importDataActionPerformed
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
         subMenuBlibliografi.setVisible(false);
@@ -2016,10 +1965,8 @@ public int bliblio;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JRadioButton hadiah;
-    private javax.swing.JRadioButton importData;
     private javax.swing.JRadioButton inputData;
     private javax.swing.JTextField inventaris;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -2028,7 +1975,6 @@ public int bliblio;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

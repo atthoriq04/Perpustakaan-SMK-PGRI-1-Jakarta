@@ -4,14 +4,24 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
 
 /**
@@ -78,6 +88,64 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
               
           }
       }
+    public String ext;
+    public File csv;
+    public void chooseDir() throws IOException, SQLException{
+        JFileChooser f = new JFileChooser();
+         f.setFileSelectionMode(JFileChooser.FILES_ONLY); 
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("CSV (Comma delimited)(*.csv)","csv");
+         f.setFileFilter(fnef);
+         f.setAcceptAllFileFilterUsed(false);
+         int excelChooser = f.showSaveDialog(null);
+            if (excelChooser == JFileChooser.APPROVE_OPTION) {
+                csv=f.getSelectedFile();
+                ext =".csv";
+                if(!f.getSelectedFile().getName().endsWith(ext)){
+                    csv=new File(csv+ext);
+    
+                }
+                exportCSV();
+            //JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
+              System.out.println(csv);
+        }
+         
+    }
+    private void exportCSV() throws SQLException, IOException{
+        try{
+         String[] entries = {"NO URUT", "NIS", "NAMA" ,"JK", "KELAS", "ALAMAT","Tempat,Tanggal Lahir\t"};
+         CSVPrinter printer = new CSVPrinter(new FileWriter(csv),CSVFormat.EXCEL.withHeader(entries));
+        PreparedStatement stmt = CC.prepareStatement("", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+          ResultSet rs = stmt.executeQuery();
+          ResultSetMetaData Mdata = (ResultSetMetaData) rs.getMetaData();
+          String data[] = new String[18];
+          while(rs.next()){
+           data[0] = rs.getString("Judul");
+           data[1] = rs.getString("gmd.gmd_name");
+           data[2] = rs.getString("Edisi");;
+           data[3] = rs.getString("isbn_issn");
+           data[4] = rs.getString("mst_publisher.publisher_name");
+           data[5] = rs.getString("PublisherYear");
+           data[6] = rs.getString("Notes");
+           data[7] = rs.getString("SeriesTitle");
+           data[8] = rs.getString("call_number");
+           data[9] = rs.getString("mst_language.language_name");
+           data[10] = rs.getString("mst_place.place_name");
+           data[11] = rs.getString("Klasifikasi");
+           data[12] = rs.getString("abstrak");
+           data[13] = rs.getString("image");
+           data[14] = rs.getString("penanggung");
+           data[15] = rs.getString("mst_author.author_name");
+           data[16] = rs.getString("subjek");
+           data[17] = rs.getString("Item.item_code");
+           printer.printRecord(data);
+          }
+        printer.flush();
+         printer.close();
+         JOptionPane.showMessageDialog(null, "Data Berhasil Di Export");
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1310,7 +1378,8 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        
+        Petugas_ExportAnggota obj = new Petugas_ExportAnggota();
+        obj.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
