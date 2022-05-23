@@ -48,6 +48,7 @@ public class Katalog extends javax.swing.JFrame {
         SubUser.setVisible(false);
         SubSirk.setVisible(false);
         initial();
+        check(from);
         
     }
     
@@ -67,9 +68,9 @@ public class Katalog extends javax.swing.JFrame {
     String UserLogin = UserSession.getUserLogin();
     private void check(int fc){
        try {
-            int Next = fc + 12;
+           int Next = fc + 12;
             Statement stt = CC.createStatement();
-            rs = stt.executeQuery(formula+"LIMIT "+ next +", 12");
+            rs = stt.executeQuery(formula+"LIMIT "+ Next +", 12");
             if(rs.next()){
                 next.setVisible(true);
             }else{
@@ -156,7 +157,6 @@ public class Katalog extends javax.swing.JFrame {
                   Author[rowindex].setText(rs.getString("mst_author.author_name"));
                   cnn =rs.getString("new_bliblio.call_number");
                   img();
-                  System.out.println(cvr);
                   InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
                   ImageIcon icon = new ImageIcon(ImageIO.read(stream));
                   Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
@@ -281,7 +281,6 @@ public class Katalog extends javax.swing.JFrame {
         toOut = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
         buku1 = new javax.swing.JPanel();
         toggle1 = new javax.swing.JToggleButton();
         judul1 = new javax.swing.JLabel();
@@ -715,13 +714,7 @@ public class Katalog extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Buku Terakhir");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(25, 77, 147, 29);
-
-        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel31.setText("Kategori");
-        jPanel1.add(jLabel31);
-        jLabel31.setBounds(267, 77, 88, 29);
+        jLabel2.setBounds(25, 77, 220, 29);
 
         buku1.setBackground(new java.awt.Color(255, 255, 255));
         buku1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1752,7 +1745,9 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_nextMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        from = from - 12;
+       if(from<=12){
+           from = from-12;
+       }
         initial();
         check(from);
     }//GEN-LAST:event_backMouseClicked
@@ -1767,7 +1762,7 @@ public class Katalog extends javax.swing.JFrame {
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
        
-       formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
+       formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR mst_author.author_name LIKE '%" + jTextField1.getText() + "%'";
        initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased
@@ -1827,7 +1822,6 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JPanel buku8;
     private javax.swing.JPanel buku9;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel judul1;
