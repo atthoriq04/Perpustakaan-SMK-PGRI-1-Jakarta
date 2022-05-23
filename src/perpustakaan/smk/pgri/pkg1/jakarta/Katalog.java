@@ -1738,9 +1738,9 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buku12MouseClicked
 
     private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
-        //from = from + 2;
+        from = from + 12;
         initial();
-        //check(from);
+        check(from);
     }//GEN-LAST:event_nextMouseClicked
 
     private void nextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseEntered
@@ -1752,9 +1752,9 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_nextMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        //from = from - 2;
+        from = from - 12;
         initial();
-        //check(from);
+        check(from);
     }//GEN-LAST:event_backMouseClicked
 
     private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
@@ -1766,6 +1766,7 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseExited
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+       
        formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
        initial();
        check(from);
