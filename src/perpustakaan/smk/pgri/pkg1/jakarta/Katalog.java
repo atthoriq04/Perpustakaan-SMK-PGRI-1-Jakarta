@@ -6,15 +6,20 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +38,8 @@ public class Katalog extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = new koneksi().connect();
     PreparedStatement pst = null;
+    
+    public Statement stt;
     public Katalog() {
         initComponents();
          PanelLog.setVisible(false);
@@ -45,7 +52,7 @@ public class Katalog extends javax.swing.JFrame {
     }
     
     int from = 0;
-    public String formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
+    public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
     public String judul;
     public String auth;
     public String Jdl;
@@ -90,25 +97,39 @@ public class Katalog extends javax.swing.JFrame {
             toUser.setText(UserLogin);
         }
     }
-    public String sql,img;
+    public String sql,img, cnn,cvr;
     int rows,col,limit;
-    
+    public String rsImg[];
+    public void img(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
+            if(rs.next()){
+                cvr = rs.getString("image");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void initial(){
         try{
          JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
          JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
          JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
          JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
+         String[]rsim = null;
          PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 12",
         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
-
+         
         ResultSet rs = stmt.executeQuery();
         ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
         int numberOfColumns = rsmd.getColumnCount();
         rs.first();
        int rowcount = 0;
             do {
+                   
                     rowcount++;
                 } while (rs.next());
             rs.first();
@@ -122,6 +143,10 @@ public class Katalog extends javax.swing.JFrame {
              //end of iterate panel     
             Object array2D[][] = new Object[rowcount][];
             do {
+                Object[] data = {
+                    rs.getString("image"),
+
+                };
                  array2D[rowindex] = new Object[numberOfColumns];
                   for (int i = 0; i < numberOfColumns; i++) {
                     array2D[rowindex][i] = rs.getObject(i + 1);
@@ -129,10 +154,13 @@ public class Katalog extends javax.swing.JFrame {
                   buku[rowindex].setVisible(true);
                   Judul[rowindex].setText(rs.getString("Judul"));
                   Author[rowindex].setText(rs.getString("mst_author.author_name"));
-//                 Image getAbsolutePath = null;
-                 ImageIcon icon = new ImageIcon(rs.getString("image"));
-                 Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
-                 img[rowindex].setIcon(icon);
+                  cnn =rs.getString("new_bliblio.call_number");
+                  img();
+                  System.out.println(cvr);
+                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                  img[rowindex].setIcon(icon);
                   
                 //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
              rowindex++;

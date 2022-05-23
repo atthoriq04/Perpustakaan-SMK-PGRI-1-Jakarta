@@ -11,15 +11,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -142,21 +149,51 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
    }
    
 
-   public String file;
+   public File f,file;
     private void attach(){
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        file = f.getAbsolutePath();
-        System.out.println(f.getAbsolutePath());
-        Image getAbsolutePath = null;
-        ImageIcon icon = new ImageIcon(file);
-        Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
-        img.setIcon(icon);
+       try{
+        JFileChooser imgFileChooser = new JFileChooser();
+        imgFileChooser.setDialogTitle("Select Images File");
+         FileNameExtensionFilter fnef = new FileNameExtensionFilter("Images File","jpeg","jpg","png");
+         imgFileChooser.setFileFilter(fnef);
+         imgFileChooser.setAcceptAllFileFilterUsed(false);
+        int excelChooser = imgFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            f = imgFileChooser.getSelectedFile();
+            ImageIcon icon = new ImageIcon(f.toString());
+            Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+            img.setIcon(icon);
+            
+        }
+        }catch(Exception e){
+             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error Upload");
+        }
     }
    public int pub,place,language,auth;
-   public void insertData(){
-       String value1 = Judul.getText();
+   public void insertData() throws IOException{
+       if(img.getIcon()!=null){
+       String filename = f.getAbsolutePath();
+            String newpath = "src/Uploads/Books/";
+            File directory = new File(newpath);
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+            File sourceFile = null;
+            File destinationFile = null;
+            String extension = filename.substring(filename.lastIndexOf('.')+1);
+            sourceFile = new File(filename);
+            Date tanggal_update = new Date();
+            String tampilan = "yyyyMMddhhmmss";
+            SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+            String tanggal = String.valueOf(fm.format(tanggal_update));
+            String resultNew = newpath+"/newImage" + tanggal.toString()+ "." +extension;
+            destinationFile = new File(resultNew);
+            Files.copy(sourceFile.toPath(), destinationFile.toPath());
+           System.out.println(destinationFile.getName());
+            file = destinationFile;
+       
+            String value1 = Judul.getText();
            int value2 = cbGMD.getSelectedIndex()+1;
            String value3 = Edisi.getText();
            String value4 = ISBN.getText();
@@ -168,16 +205,14 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
            int value10 = language;
            int value11 = place;
            String value12 = DDC.getText();
-           String gmbar = file;
+           String gmbar = file.getName();  
+           System.out.println(file.getName());
            int Penulis = auth;
-           if (gmbar == null){
-               gmbar = "D:\\Collage\\Smester 8\\Project\\Perpustakaan-SMK-PGRI-1-Jakarta\\src\\perpustakaan\\smk\\pgri\\pkg1\\jakarta\\Button\\Cover.png";
-           }
-           gmbar = gmbar.replace("\\","\\\\");
             String Date;
              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
              LocalDateTime now = LocalDateTime.now();  
              Date = dtf.format(now);
+       
        try{
            
            stt = CC.createStatement();
@@ -191,6 +226,41 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
        
        }catch(Exception e){
            JOptionPane.showMessageDialog(null, e);
+       }
+       }else{
+            String value1 = Judul.getText();
+           int value2 = cbGMD.getSelectedIndex()+1;
+           String value3 = Edisi.getText();
+           String value4 = ISBN.getText();
+           int value5 = pub;
+           String value6 = TahunTerbit.getText();
+           String value7 = Deskripsi.getText();
+           String value8 = JudulSeri.getText();
+           String value9 = NoPanggil.getText();
+           int value10 = language;
+           int value11 = place;
+           String value12 = DDC.getText();
+           String gmbar = "Default.png";  
+           int Penulis = auth;
+            String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);
+       
+       try{
+           
+           stt = CC.createStatement();
+           sql = "INSERT INTO new_bliblio (IdGMD,Judul,author_id,Edisi,isbn_issn,IdPublisher,PublisherYear,Notes,SeriesTitle,call_number,"
+                   + "IdLanguage,TempatTerbit,Klasifikasi,image,input_date,last_update)VALUES("+value2+",'"+value1+"',"+Penulis+",'"+value3+"','"+value4+"',"
+                   + ""+value5+",'"+value6+"','"+value7+"','"+value8+"','"+value9+"',"+value10+","+value11+",'"+value12+"','"+gmbar+"','"+Date+"','"+Date+"')";
+                  
+           stt.executeUpdate(sql);
+           JOptionPane.showMessageDialog(null, "Data Buku Berhasil Ditambahkan !!");
+           stt.close();
+       
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+       }
        }
    }
    private void reset(){
@@ -452,7 +522,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             excelFile = excelFileChooser.getSelectedFile();
             name = excelFileChooser.getSelectedFile().getName();
             filename.setText(name);
-            JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
+            //JOptionPane.showMessageDialog(null, "Import Data Berhasil Ditambahkan, Silahkan Tekan Submit Untuk Menyimpan !!");
            
         }
 
@@ -474,7 +544,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
           CSVReader reader = new CSVReader(new FileReader(excelFile));
           String data[];
           reader.readNext();
+          String a = null;
           while((value = reader.readNext())!=null){
+//              value=a.split(";");
               try{
                   readGMDExcel();
                   readPublisherExcel();
@@ -488,7 +560,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
                         LocalDateTime now = LocalDateTime.now();  
                         Date = dtf.format(now);  
                   sql="INSERT INTO new_bliblio (new_bliblio.Judul, new_bliblio.IdGMD, new_bliblio.Edisi, new_bliblio.isbn_issn, new_bliblio.IdPublisher, new_bliblio.PublisherYear,new_bliblio.Notes,new_bliblio.SeriesTitle, new_bliblio.call_number, new_bliblio.IdLanguage, new_bliblio.TempatTerbit, new_bliblio.Klasifikasi,new_bliblio.abstrak,new_bliblio.image,new_bliblio.penanggung, new_bliblio.author_id,new_bliblio.subjek,new_bliblio.input_date, new_bliblio.last_update)\n" +
-"                   VALUES('"+value[0]+"',"+rsGMD+",'"+value[2]+"','"+value[3]+"',"+rsPublisher+",'"+value[5]+"','"+value[6]+"','"+value[7]+"','"+value[8]+"',"+rsLang+","+rsPlace+",'"+value[11]+"','"+value[12]+"','"+value[13]+"','"+value[14]+"',"+rsAuthor+",'"+value[16]+"','"+Date+"','"+Date+"')";
+"                   VALUES('"+value[0]+"',"+rsGMD+",'"+value[2]+"','"+value[3]+"',"+rsPublisher+",'"+value[5]+"','"+value[6]+"','"+value[7]+"','"+value[8]+"',"+rsLang+","+rsPlace+",'"+value[11]+"','"+value[12]+"','Default.png','"+value[14]+"',"+rsAuthor+",'"+value[16]+"','"+Date+"','"+Date+"')";
                   stt.executeUpdate(sql);
                   stt.close();
                   readIdBliblio();
@@ -2484,7 +2556,11 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         setIndex2();
         setIndex3();
         setIndex4();
-        insertData();
+            try {
+                insertData();
+            } catch (IOException ex) {
+                Logger.getLogger(Petugas_InputBuku.class.getName()).log(Level.SEVERE, null, ex);
+            }
         reset();
         }else if(importData.isSelected()){
          insertCSV();
