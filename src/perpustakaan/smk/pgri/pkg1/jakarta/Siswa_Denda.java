@@ -155,13 +155,13 @@ public class Siswa_Denda extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel17.setText("User");
         jPanel12.add(jLabel17);
-        jLabel17.setBounds(1286, 11, 32, 20);
+        jLabel17.setBounds(1286, 11, 33, 20);
 
         jLabel21.setBackground(new java.awt.Color(255, 255, 255));
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel21.setText("Tanggungan Denda");
         jPanel12.add(jLabel21);
-        jLabel21.setBounds(25, 86, 207, 29);
+        jLabel21.setBounds(25, 86, 450, 29);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Nama");

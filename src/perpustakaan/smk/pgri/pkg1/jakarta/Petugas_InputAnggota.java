@@ -189,12 +189,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
             String no= record.get(0);
-             nisn = record.get("NIS");
-             name = record.get("NAMA");
-             jk= record.get("JK");
-             kls = record.get("KELAS");
-             address = record.get("ALAMAT");
-             date = record.get("Tempat,Tanggal Lahir");
+             nisn = record.get(1);
+             name = record.get(2);
+             jk= record.get(3);
+             kls = record.get(4);
+             address = record.get(5);
+             date = record.get(6);
              try{
                cekKelas();
                cekNis();
@@ -219,8 +219,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
                 LocalDateTime now = LocalDateTime.now().plusYears(1);
                 Date = dtf.format(now); 
-                sql="INSERT INTO anggota(Nis,Nama,IdKelas,JK,Email,Alamat,NoHp,TTL,Expired) VALUES("+ nisn + ",'"+name+"',"
-                        + ""+rsKls+",'"+jk+"','Alamat@email.Siswa','"+address+"','000088889999','"+date+"','"+Date+"')";
+                sql="INSERT INTO anggota(Nis,Nama,IdKelas,JK,Email,Alamat,NoHp,TTL,Expired,Profiles) VALUES("+ nisn + ",'"+name+"',"
+                        + ""+rsKls+",'"+jk+"','Alamat@email.Siswa','"+address+"','000088889999','"+date+"','"+Date+"','Default.png')";
                 stt.executeUpdate(sql);
                 String sql2="INSERT INTO user(Nis,Username,Password)VALUES('"+nisn+"','"+nisn+"','"+nisn+"')";
                 stt.executeUpdate(sql2);

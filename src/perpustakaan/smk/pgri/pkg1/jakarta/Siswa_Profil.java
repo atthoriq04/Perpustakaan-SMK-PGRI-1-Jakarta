@@ -383,7 +383,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1200, 680, 72, 22);
+        jButton2.setBounds(1200, 680, 69, 23);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -392,7 +392,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1041, 680, 140, 22);
+        jButton3.setBounds(1041, 680, 140, 23);
 
         nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(nohp);
@@ -692,7 +692,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1274, 20);
+        jPanel14.setBounds(0, 11, 1278, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

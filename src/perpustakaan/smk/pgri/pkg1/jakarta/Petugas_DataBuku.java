@@ -2026,11 +2026,11 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        // TODO add your handling code here:
+        jLabel6.setForeground(new java.awt.Color(0,112,207));
     }//GEN-LAST:event_jLabel6MouseEntered
 
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        // TODO add your handling code here:
+        jLabel6.setForeground(new java.awt.Color(0,0,0));
     }//GEN-LAST:event_jLabel6MouseExited
 
     /**
