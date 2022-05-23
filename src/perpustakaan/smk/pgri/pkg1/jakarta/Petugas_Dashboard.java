@@ -5,18 +5,29 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -44,6 +55,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         judul();
         Datas();
         initial();
+        showBarChart();
         getall();
     }
     private void getall(){
@@ -65,6 +77,121 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
              Logger.getLogger(Petugas_Dashboard.class.getName()).log(Level.SEVERE, null, ex);
              
          }
+    }
+    public String sql1,sql2,sql3,sql4,sql5,sql6,sql7,sql8,sql9,sql10,sql11,sql12;
+    public ResultSet rs1,rs2,rs3,rs4,rs5,rs6,rs7,rs8,rs9,rs10,rs11,rs12;
+    public Statement stat1,stat2,stat3,stat4,stat5,stat6,stat7,stat8,stat9,stat10,stat11,stat12;
+    public int value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12;
+     public void showBarChart(){
+        try{
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        String[] months = new String[] { "Januari", "Februari", "Maret", "April" ,"Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" };
+//   
+//        for (int i = 0; i < months.length; i++) {
+        stat1 = CC.createStatement();
+        stat2 = CC.createStatement();
+        stat3 = CC.createStatement();
+        stat4 = CC.createStatement();
+        stat5 = CC.createStatement();
+        stat6 = CC.createStatement();
+        stat7 = CC.createStatement();
+        stat8 = CC.createStatement();
+        stat9 = CC.createStatement();
+        stat10 = CC.createStatement();
+        stat11 = CC.createStatement();
+        stat12 = CC.createStatement();
+        sql1 = "SELECT COUNT(*) AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-1-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs1 = stat1.executeQuery(sql1);
+        sql2 = "SELECT COUNT(*) AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-2-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs2 = stat2.executeQuery(sql2);
+        sql3 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-3-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs3 = stat3.executeQuery(sql3);
+        sql4 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-4-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs4 = stat4.executeQuery(sql4);
+        sql5 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-5-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs5 = stat5.executeQuery(sql5);
+        sql6 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-6-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs6 = stat6.executeQuery(sql6);
+        sql7 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-7-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs7 = stat7.executeQuery(sql7);
+        sql8 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-8-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs8 = stat8.executeQuery(sql8);
+        sql9 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-9-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs9 = stat9.executeQuery(sql9);
+        sql10 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-10-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs10 = stat10.executeQuery(sql10);
+        sql11 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-11-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs11 = stat11.executeQuery(sql11);
+        sql12 = "SELECT COUNT(*)  AS total FROM transaksi WHERE Status= 4 AND MONTH(TanggalPinjam) = MONTH('2022-12-1') AND YEAR(TanggalPinjam) = YEAR(CURRENT_DATE())";
+        rs12 = stat12.executeQuery(sql12);  
+        if(rs1.next()){
+            value1=rs1.getInt("total");
+        }
+         if(rs2.next()){
+            value2=rs2.getInt("total");
+        }
+          if(rs3.next()){
+            value3=rs3.getInt("total");
+        }
+           if(rs4.next()){
+            value4=rs4.getInt("total");
+        }
+            if(rs5.next()){
+            value5=rs5.getInt("total");
+        }
+             if(rs6.next()){
+            value6=rs6.getInt("total");
+        }
+              if(rs7.next()){
+            value7=rs7.getInt("total");
+        }
+               if(rs8.next()){
+            value8=rs8.getInt("total");
+        }
+                if(rs9.next()){
+            value9=rs9.getInt("total");
+        }
+                 if(rs10.next()){
+            value10=rs10.getInt("total");
+        }
+                  if(rs11.next()){
+            value1=rs11.getInt("total");
+        }
+                   if(rs12.next()){
+            value12=rs12.getInt("total");
+        }
+        dataset.setValue(value1, "Amount", "Januari");
+        dataset.setValue(value2, "Amount", "Februari");
+        dataset.setValue(value3, "Amount", "Maret");
+        dataset.setValue(value4, "Amount", "April");
+        dataset.setValue(value5, "Amount", "Mei");
+        dataset.setValue(value6, "Amount", "Juni");
+        dataset.setValue(value7, "Amount", "Juli");
+        dataset.setValue(value8, "Amount", "Agustus");
+        dataset.setValue(value9, "Amount", "September");
+        dataset.setValue(value10, "Amount", "Oktober");
+        dataset.setValue(value11, "Amount", "November");
+        dataset.setValue(value12, "Amount", "Desember");
+       System.out.println(value4);
+        JFreeChart chart = ChartFactory.createBarChart("Jumlah Peminjaman","Perbulan","Jumlah", 
+                dataset, PlotOrientation.VERTICAL, false,true,false);
+        
+        CategoryPlot categoryPlot = chart.getCategoryPlot();
+        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
+        categoryPlot.setBackgroundPaint(Color.WHITE);
+        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+        Color clr3 = new Color(204,0,51);
+        renderer.setSeriesPaint(0, clr3);
+         
+        ChartPanel barpChartPanel = new ChartPanel(chart);
+        chartPin.removeAll();
+        chartPin.add(barpChartPanel, BorderLayout.CENTER);
+        chartPin.validate();
+        
+        }catch(Exception e){
+            
+        }
+        
     }
     private void initial(){
         try{
@@ -235,7 +362,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         toBebasPustaka = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        chartPin = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         sr3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -671,7 +798,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -705,7 +832,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -818,7 +945,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -852,7 +979,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 480, 150, 120);
@@ -1075,7 +1202,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1109,7 +1236,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1140,7 +1267,7 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1174,27 +1301,16 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 300, 150, 210);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1128, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel5);
-        jPanel5.setBounds(110, 200, 1130, 280);
+        chartPin.setBackground(new java.awt.Color(255, 255, 255));
+        chartPin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        chartPin.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(chartPin);
+        chartPin.setBounds(110, 200, 1130, 280);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -1798,6 +1914,7 @@ subMenuBlibliografi.setVisible(true);        // TODO add your handling code here
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Pengunjungharian;
+    private javax.swing.JPanel chartPin;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel1;
@@ -1842,7 +1959,6 @@ subMenuBlibliografi.setVisible(true);        // TODO add your handling code here
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
