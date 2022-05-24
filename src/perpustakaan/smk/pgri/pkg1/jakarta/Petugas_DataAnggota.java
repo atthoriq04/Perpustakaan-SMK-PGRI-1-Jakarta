@@ -947,8 +947,8 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

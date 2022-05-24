@@ -263,11 +263,11 @@ public int bliblio;
         toDataAnggota = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         toInputAnggota = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         toDataKelas = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         toDataJurusan = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         toBebasPustaka = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         subMenuSirkulasi = new javax.swing.JPanel();
@@ -283,13 +283,13 @@ public int bliblio;
         jLabel28 = new javax.swing.JLabel();
         subMenuBlibliografi = new javax.swing.JPanel();
         toDataBuku = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         toInputBuku = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         toDataUsulan = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         inputData = new javax.swing.JRadioButton();
         lbl_barcode = new javax.swing.JLabel();
@@ -535,7 +535,7 @@ public int bliblio;
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -569,7 +569,7 @@ public int bliblio;
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -799,8 +799,8 @@ public int bliblio;
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("Input Anggota");
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel13.setText("Input Anggota");
 
         javax.swing.GroupLayout toInputAnggotaLayout = new javax.swing.GroupLayout(toInputAnggota);
         toInputAnggota.setLayout(toInputAnggotaLayout);
@@ -808,16 +808,16 @@ public int bliblio;
             toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toInputAnggotaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         toInputAnggotaLayout.setVerticalGroup(
             toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -833,8 +833,8 @@ public int bliblio;
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel14.setText("Data Kelas");
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel32.setText("Data Kelas");
 
         javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
         toDataKelas.setLayout(toDataKelasLayout);
@@ -842,16 +842,16 @@ public int bliblio;
             toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataKelasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         toDataKelasLayout.setVerticalGroup(
             toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -867,8 +867,8 @@ public int bliblio;
             }
         });
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel35.setText("Data Jurusan");
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel33.setText("Data Jurusan");
 
         javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
         toDataJurusan.setLayout(toDataJurusanLayout);
@@ -876,16 +876,16 @@ public int bliblio;
             toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataJurusanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         toDataJurusanLayout.setVerticalGroup(
             toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -919,7 +919,7 @@ public int bliblio;
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -955,8 +955,8 @@ public int bliblio;
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1130,8 +1130,8 @@ public int bliblio;
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("Data Buku");
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setText("Data Buku");
 
         javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
         toDataBuku.setLayout(toDataBukuLayout);
@@ -1139,12 +1139,15 @@ public int bliblio;
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         toDataBukuLayout.setVerticalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toDataBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         subMenuBlibliografi.add(toDataBuku);
@@ -1185,7 +1188,7 @@ public int bliblio;
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1219,7 +1222,7 @@ public int bliblio;
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1235,8 +1238,8 @@ public int bliblio;
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Usulan Buku");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
 
         javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
         toDataUsulan.setLayout(toDataUsulanLayout);
@@ -1244,12 +1247,12 @@ public int bliblio;
             toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataUsulanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         toDataUsulanLayout.setVerticalGroup(
             toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         subMenuBlibliografi.add(toDataUsulan);
@@ -1272,7 +1275,7 @@ public int bliblio;
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(100, 170, 120, 21);
+        inputData.setBounds(100, 170, 120, 25);
 
         lbl_barcode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_barcode.setText("Barcode");
@@ -1309,7 +1312,7 @@ public int bliblio;
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1190, 680, 70, 22);
+        submit.setBounds(1190, 660, 70, 23);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1374,7 +1377,7 @@ public int bliblio;
             }
         });
         jPanel1.add(hadiah);
-        hadiah.setBounds(310, 490, 110, 20);
+        hadiah.setBounds(310, 490, 110, 23);
 
         beli.setText("Beli");
         beli.addActionListener(new java.awt.event.ActionListener() {
@@ -1383,7 +1386,7 @@ public int bliblio;
             }
         });
         jPanel1.add(beli);
-        beli.setBounds(450, 490, 50, 20);
+        beli.setBounds(450, 490, 50, 23);
 
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1391,7 +1394,7 @@ public int bliblio;
             }
         });
         jPanel1.add(price);
-        price.setBounds(540, 490, 90, 22);
+        price.setBounds(540, 490, 90, 20);
 
         jLabel3.setText("Rp");
         jPanel1.add(jLabel3);
@@ -1408,7 +1411,7 @@ public int bliblio;
             }
         });
         jPanel1.add(cbLokasi);
-        cbLokasi.setBounds(500, 410, 200, 22);
+        cbLokasi.setBounds(500, 410, 200, 20);
 
         tgl_fktur.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_fktur);
@@ -1543,6 +1546,76 @@ public int bliblio;
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
 
     }//GEN-LAST:event_jPanel3MouseExited
+
+    private void beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliActionPerformed
+        // TODO add your handling code here:
+        hadiah.setSelected(false);
+        price.setEnabled(true);
+        jLabel3.setEnabled(true);
+        jLabel4.setEnabled(true);
+       //String a = price.getText();
+        //harga = Integer.parseInt(a);
+        select = 1;
+    }//GEN-LAST:event_beliActionPerformed
+
+    private void hadiahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hadiahActionPerformed
+        // TODO add your handling code here:
+        beli.setSelected(false);
+        price.setEnabled(false);
+        jLabel3.setEnabled(false);
+        jLabel4.setEnabled(false);
+        select = 2;
+    }//GEN-LAST:event_hadiahActionPerformed
+
+    private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
+        try {
+            stt = CC.createStatement();
+            String value = cbLokasi.getSelectedItem().toString();
+            ResultSet rs = stt.executeQuery("SELECT location_id FROM mst_location WHERE location_name = '"+cbLokasi.getSelectedItem()+"'");   
+ 
+            if(rs.next()){
+                pub = rs.getInt("location_id");
+       
+                lokasi.setText(value);
+                System.out.println(value);
+            }else{
+              String Date;
+             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+             LocalDateTime now = LocalDateTime.now();  
+             Date = dtf.format(now);
+             stt = CC.createStatement();
+          
+             String name = lokasi.getText();
+             System.out.println(name);
+             String SQL = "INSERT INTO mst_location (location_name,input_date,last_update) VALUES"
+                     + "('"+name+"','"+Date+"','"+Date+"')";
+             stt.executeUpdate(SQL);
+            
+            String Check = "SELECT mst_location.location_id, mst_location.location_name FROM mst_location WHERE location_name = '"+name+"'";
+            ResultSet rsa = stt.executeQuery(Check);
+            if(rsa.next()){
+                pub= rsa.getInt("mst_location.location_id");
+            }
+             stt.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_InputEksemplar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //setValueLocation();
+    }//GEN-LAST:event_cbLokasiActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // TODO add your handling code here:
+        insertData();
+        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceActionPerformed
 
     private void toProfilPetugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseClicked
         Petugas_ProfilPetugas obj = new Petugas_ProfilPetugas();
@@ -1786,76 +1859,6 @@ public int bliblio;
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
-    private void beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliActionPerformed
-        // TODO add your handling code here:
-        hadiah.setSelected(false);
-        price.setEnabled(true);
-        jLabel3.setEnabled(true);
-        jLabel4.setEnabled(true);
-       //String a = price.getText();
-        //harga = Integer.parseInt(a);
-        select = 1;
-    }//GEN-LAST:event_beliActionPerformed
-
-    private void hadiahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hadiahActionPerformed
-        // TODO add your handling code here:
-        beli.setSelected(false);
-        price.setEnabled(false);
-        jLabel3.setEnabled(false);
-        jLabel4.setEnabled(false);
-        select = 2;
-    }//GEN-LAST:event_hadiahActionPerformed
-
-    private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
-        try {
-            stt = CC.createStatement();
-            String value = cbLokasi.getSelectedItem().toString();
-            ResultSet rs = stt.executeQuery("SELECT location_id FROM mst_location WHERE location_name = '"+cbLokasi.getSelectedItem()+"'");   
- 
-            if(rs.next()){
-                pub = rs.getInt("location_id");
-       
-                lokasi.setText(value);
-                System.out.println(value);
-            }else{
-              String Date;
-             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-             LocalDateTime now = LocalDateTime.now();  
-             Date = dtf.format(now);
-             stt = CC.createStatement();
-          
-             String name = lokasi.getText();
-             System.out.println(name);
-             String SQL = "INSERT INTO mst_location (location_name,input_date,last_update) VALUES"
-                     + "('"+name+"','"+Date+"','"+Date+"')";
-             stt.executeUpdate(SQL);
-            
-            String Check = "SELECT mst_location.location_id, mst_location.location_name FROM mst_location WHERE location_name = '"+name+"'";
-            ResultSet rsa = stt.executeQuery(Check);
-            if(rsa.next()){
-                pub= rsa.getInt("mst_location.location_id");
-            }
-             stt.close();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Petugas_InputEksemplar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //setValueLocation();
-    }//GEN-LAST:event_cbLokasiActionPerformed
-
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        insertData();
-        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
-        a.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_submitActionPerformed
-
-    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_priceActionPerformed
-
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -1912,14 +1915,14 @@ public int bliblio;
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataUsulanMouseExited
 
+    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
+        subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
+
     private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
-
-    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
-       subMenuBlibliografi.setVisible(true);
-    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
     /**
      * @param args the command line arguments
@@ -1968,10 +1971,10 @@ public int bliblio;
     private javax.swing.JRadioButton inputData;
     private javax.swing.JTextField inventaris;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1987,9 +1990,9 @@ public int bliblio;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

@@ -6,6 +6,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.Image;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +49,7 @@ public class Katalog extends javax.swing.JFrame {
         SubUser.setVisible(false);
         SubSirk.setVisible(false);
         initial();
+        check(from);
         
     }
     
@@ -63,13 +65,15 @@ public class Katalog extends javax.swing.JFrame {
     public String thtbt;
     public String gmd;
     public String bhs;
+    
+    public String g;
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
     private void check(int fc){
        try {
             int Next = fc + 12;
             Statement stt = CC.createStatement();
-            rs = stt.executeQuery(formula+"LIMIT "+ next +", 12");
+            rs = stt.executeQuery(formula+"LIMIT "+ Next +", 12");
             if(rs.next()){
                 next.setVisible(true);
             }else{
@@ -170,57 +174,7 @@ public class Katalog extends javax.swing.JFrame {
              e.printStackTrace();
         }
     }
-    private void onceclick(){
-         try{
-         JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
-         JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
-         JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
-         JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
-         int offset = 12;
-         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT 12",
-        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
-            );
-
-        ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
-        int numberOfColumns = rsmd.getColumnCount();
-        rs.first();
-       int rowcount = 0;
-            do {
-                    rowcount++;
-                } while (rs.next());
-            rs.first();
-           
-            int rowindex = 0; // initial rowindex
-            // iterate panel default false
-                 int panel;
-                   for (panel=0;panel<12;panel++){
-                       buku[panel].setVisible(false);
-                   }
-             //end of iterate panel     
-            Object array2D[][] = new Object[rowcount][];
-            do {
-                 array2D[rowindex] = new Object[numberOfColumns];
-                  for (int i = 0; i < numberOfColumns; i++) {
-                    array2D[rowindex][i] = rs.getObject(i + 1);
-                    }
-                  buku[rowindex].setVisible(true);
-                  Judul[rowindex].setText(rs.getString("Judul"));
-                  Author[rowindex].setText(rs.getString("mst_author.author_name"));
-//                 Image getAbsolutePath = null;
-                 ImageIcon icon = new ImageIcon(rs.getString("image"));
-                 Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
-                 img[rowindex].setIcon(icon);
-                  
-                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
-             rowindex++;
-                } while (rs.next());              
-        
-        }catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
-        }
-    
-    }
+   
     public void getData(){
         try{
 
@@ -236,6 +190,7 @@ public class Katalog extends javax.swing.JFrame {
                         gmd = rsa.getString("gmd.gmd_name");
                         bhs = rsa.getString("mst_language.language_name");
                         thtbt =  rsa.getString("new_bliblio.PublisherYear");
+                        g = rsa.getString("new_bliblio.image");
                         ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
                         if(rsb.next()){
                             Eks = rsb.getString("COUNT(*)");
@@ -745,10 +700,10 @@ public class Katalog extends javax.swing.JFrame {
             buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul1)
-                    .addComponent(penulis1))
+                    .addComponent(penulis1)
+                    .addComponent(judul1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku1Layout.setVerticalGroup(
@@ -788,10 +743,10 @@ public class Katalog extends javax.swing.JFrame {
             buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul2)
-                    .addComponent(penulis2))
+                    .addComponent(penulis2)
+                    .addComponent(judul2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku2Layout.setVerticalGroup(
@@ -831,10 +786,10 @@ public class Katalog extends javax.swing.JFrame {
             buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul4)
-                    .addComponent(penulis4))
+                    .addComponent(penulis4)
+                    .addComponent(judul4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku4Layout.setVerticalGroup(
@@ -874,10 +829,10 @@ public class Katalog extends javax.swing.JFrame {
             buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul3)
-                    .addComponent(penulis3))
+                    .addComponent(penulis3)
+                    .addComponent(judul3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku3Layout.setVerticalGroup(
@@ -917,10 +872,10 @@ public class Katalog extends javax.swing.JFrame {
             buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul5)
-                    .addComponent(penulis5))
+                    .addComponent(penulis5)
+                    .addComponent(judul5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku5Layout.setVerticalGroup(
@@ -960,10 +915,10 @@ public class Katalog extends javax.swing.JFrame {
             buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul6)
-                    .addComponent(penulis6))
+                    .addComponent(penulis6)
+                    .addComponent(judul6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku6Layout.setVerticalGroup(
@@ -1003,10 +958,10 @@ public class Katalog extends javax.swing.JFrame {
             buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul7)
-                    .addComponent(penulis7))
+                    .addComponent(penulis7)
+                    .addComponent(judul7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku7Layout.setVerticalGroup(
@@ -1046,10 +1001,10 @@ public class Katalog extends javax.swing.JFrame {
             buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle8, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul8)
-                    .addComponent(penulis8))
+                    .addComponent(penulis8)
+                    .addComponent(judul8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku8Layout.setVerticalGroup(
@@ -1089,10 +1044,10 @@ public class Katalog extends javax.swing.JFrame {
             buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle9, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul9)
-                    .addComponent(penulis9))
+                    .addComponent(penulis9)
+                    .addComponent(judul9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku9Layout.setVerticalGroup(
@@ -1132,10 +1087,10 @@ public class Katalog extends javax.swing.JFrame {
             buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle10, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul10)
-                    .addComponent(penulis10))
+                    .addComponent(penulis10)
+                    .addComponent(judul10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku10Layout.setVerticalGroup(
@@ -1175,10 +1130,10 @@ public class Katalog extends javax.swing.JFrame {
             buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle11, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul11)
-                    .addComponent(penulis11))
+                    .addComponent(penulis11)
+                    .addComponent(judul11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku11Layout.setVerticalGroup(
@@ -1218,10 +1173,10 @@ public class Katalog extends javax.swing.JFrame {
             buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toggle12, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul12)
-                    .addComponent(penulis12))
+                    .addComponent(penulis12)
+                    .addComponent(judul12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku12Layout.setVerticalGroup(
@@ -1303,6 +1258,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1541,6 +1506,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1560,6 +1535,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1579,6 +1564,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1598,6 +1593,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1617,6 +1622,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1636,6 +1651,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1655,6 +1680,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1674,6 +1709,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1693,6 +1738,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1712,6 +1767,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1732,6 +1797,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
         obj.setVisible(true);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.pack();
         this.dispose();
         obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

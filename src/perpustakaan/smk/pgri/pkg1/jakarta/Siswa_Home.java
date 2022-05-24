@@ -4,10 +4,19 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -17,9 +26,7 @@ public class Siswa_Home extends javax.swing.JFrame {
      ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
-    /**
-     * Creates new form Siswa_Home
-     */
+    public Statement stt;
     public Siswa_Home() {
         initComponents();
         SubUser.setVisible(false);
@@ -29,6 +36,8 @@ public class Siswa_Home extends javax.swing.JFrame {
         hakakses();
         no.setVisible(false);
         jumlahnotif();
+         initial();
+        
     }
     private void userLogin(){
     toUser.setText(UserSession.getUserLogin());
@@ -46,7 +55,74 @@ public class Siswa_Home extends javax.swing.JFrame {
         }
     
         }
-     
+     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
+    public int from = 0;
+    public String sql,img, cnn,cvr;
+    int rows,col,limit;
+    public void img(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
+            if(rs.next()){
+                cvr = rs.getString("image");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void initial(){
+        try{
+         JToggleButton[]img = {img1,img2,img3,img4,img5};
+         String[]rsim = null;
+         PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 5",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+         
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                   
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panel;
+                   for (panel=0;panel<5;panel++){
+                       img[rowindex].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                Object[] data = {
+                    rs.getString("image"),
+
+                };
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  cnn =rs.getString("new_bliblio.call_number");
+                  img();
+                  img[rowindex].setVisible(true);
+                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                  img[rowindex].setIcon(icon);
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
      public void jumlahnotif(){
          try {
             ;
@@ -78,11 +154,11 @@ public class Siswa_Home extends javax.swing.JFrame {
         kGradientPanel2 = new keeptoo.KGradientPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jToggleButton10 = new javax.swing.JToggleButton();
-        jToggleButton11 = new javax.swing.JToggleButton();
-        jToggleButton12 = new javax.swing.JToggleButton();
-        jToggleButton13 = new javax.swing.JToggleButton();
-        jToggleButton14 = new javax.swing.JToggleButton();
+        img2 = new javax.swing.JToggleButton();
+        img3 = new javax.swing.JToggleButton();
+        img4 = new javax.swing.JToggleButton();
+        img5 = new javax.swing.JToggleButton();
+        img1 = new javax.swing.JToggleButton();
         lihatKatalog2 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
@@ -113,37 +189,37 @@ public class Siswa_Home extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
         jLabel11.setText("Perpustakaan SMK PGRI 1 Jakarta ");
         kGradientPanel2.add(jLabel11);
-        jLabel11.setBounds(35, 163, 633, 47);
+        jLabel11.setBounds(35, 163, 627, 47);
 
         jLabel12.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
         jLabel12.setText("Literasi Mencerdaskan");
         kGradientPanel2.add(jLabel12);
-        jLabel12.setBounds(35, 228, 223, 26);
+        jLabel12.setBounds(35, 228, 280, 26);
 
-        jToggleButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton10);
-        jToggleButton10.setBounds(193, 442, 140, 220);
+        img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        kGradientPanel2.add(img2);
+        img2.setBounds(193, 442, 140, 220);
 
-        jToggleButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton11);
-        jToggleButton11.setBounds(351, 442, 140, 220);
+        img3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        kGradientPanel2.add(img3);
+        img3.setBounds(351, 442, 140, 220);
 
-        jToggleButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton12);
-        jToggleButton12.setBounds(509, 442, 140, 220);
+        img4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        kGradientPanel2.add(img4);
+        img4.setBounds(509, 442, 140, 220);
 
-        jToggleButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        jToggleButton13.addActionListener(new java.awt.event.ActionListener() {
+        img5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton13ActionPerformed(evt);
+                img5ActionPerformed(evt);
             }
         });
-        kGradientPanel2.add(jToggleButton13);
-        jToggleButton13.setBounds(667, 442, 140, 220);
+        kGradientPanel2.add(img5);
+        img5.setBounds(667, 442, 140, 220);
 
-        jToggleButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton14);
-        jToggleButton14.setBounds(35, 442, 140, 220);
+        img1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        kGradientPanel2.add(img1);
+        img1.setBounds(35, 442, 140, 220);
 
         lihatKatalog2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 1.png"))); // NOI18N
         lihatKatalog2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -458,9 +534,9 @@ public class Siswa_Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton13ActionPerformed
+    private void img5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton13ActionPerformed
+    }//GEN-LAST:event_img5ActionPerformed
 
     private void lihatKatalog2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalog2MouseEntered
         lihatKatalog2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 2.png")));
@@ -682,14 +758,14 @@ public class Siswa_Home extends javax.swing.JFrame {
     private javax.swing.JLabel PGRI;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
+    private javax.swing.JToggleButton img1;
+    private javax.swing.JToggleButton img2;
+    private javax.swing.JToggleButton img3;
+    private javax.swing.JToggleButton img4;
+    private javax.swing.JToggleButton img5;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JToggleButton jToggleButton10;
-    private javax.swing.JToggleButton jToggleButton11;
-    private javax.swing.JToggleButton jToggleButton12;
-    private javax.swing.JToggleButton jToggleButton13;
-    private javax.swing.JToggleButton jToggleButton14;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JButton lihatKatalog2;
     private javax.swing.JLabel no;

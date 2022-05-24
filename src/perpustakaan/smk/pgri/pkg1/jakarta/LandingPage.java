@@ -6,7 +6,27 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
+import javax.swing.border.Border;import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.Image;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -17,12 +37,83 @@ public class LandingPage extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    ResultSet rs = null;
+    Connection CC = new koneksi().connect();
+    PreparedStatement pst = null;
+    public Statement stt;
     public LandingPage() {
         initComponents();
-        
+        initial();
         
     }
+    public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
+    public int from = 0;
+    public String sql,img, cnn,cvr;
+    int rows,col,limit;
+    public void img(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
+            if(rs.next()){
+                cvr = rs.getString("image");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void initial(){
+        try{
+         JToggleButton[]img = {img1,img2,img3,img4,img5};
+         String[]rsim = null;
+         PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 5",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+         
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                   
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panel;
+                   for (panel=0;panel<5;panel++){
+                       img[rowindex].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                Object[] data = {
+                    rs.getString("image"),
 
+                };
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  cnn =rs.getString("new_bliblio.call_number");
+                  img();
+                  img[rowindex].setVisible(true);
+                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                  img[rowindex].setIcon(icon);
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,12 +126,12 @@ public class LandingPage extends javax.swing.JFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jToggleButton6 = new javax.swing.JToggleButton();
-        jToggleButton7 = new javax.swing.JToggleButton();
-        jToggleButton8 = new javax.swing.JToggleButton();
-        jToggleButton9 = new javax.swing.JToggleButton();
+        img2 = new javax.swing.JToggleButton();
+        img3 = new javax.swing.JToggleButton();
+        img4 = new javax.swing.JToggleButton();
+        img5 = new javax.swing.JToggleButton();
         lihatKatalog = new javax.swing.JButton();
-        jToggleButton10 = new javax.swing.JToggleButton();
+        img1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         toLogin = new javax.swing.JLabel();
         toKunjungan = new javax.swing.JLabel();
@@ -54,25 +145,47 @@ public class LandingPage extends javax.swing.JFrame {
         kGradientPanel1.setkGradientFocus(300);
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
         kGradientPanel1.setkTransparentControls(false);
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
         jLabel3.setText("Perpustakaan SMK PGRI 1 Jakarta ");
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 168, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
         jLabel2.setText("Literasi Mencerdaskan");
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 233, 324, -1));
 
-        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-
-        jToggleButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-
-        jToggleButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-
-        jToggleButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
+        img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton9ActionPerformed(evt);
+                img2ActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(img2, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 442, 140, 220));
+
+        img3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img3ActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(img3, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 442, 140, 220));
+
+        img4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img4ActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(img4, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 442, 140, 220));
+
+        img5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img5ActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(img5, new org.netbeans.lib.awtextra.AbsoluteConstraints(667, 442, 140, 220));
 
         lihatKatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 1.png"))); // NOI18N
         lihatKatalog.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,13 +201,19 @@ public class LandingPage extends javax.swing.JFrame {
                 lihatKatalogActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(lihatKatalog, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 297, 242, 53));
+        lihatKatalog.setBorderPainted(false);
+        lihatKatalog.setContentAreaFilled(false);
+        lihatKatalog.setFocusPainted(false);
+        lihatKatalog.setOpaque(false);
 
-        jToggleButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        jToggleButton10.addActionListener(new java.awt.event.ActionListener() {
+        img1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton10ActionPerformed(evt);
+                img1ActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 442, 140, 220));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -182,54 +301,7 @@ public class LandingPage extends javax.swing.JFrame {
                 .addComponent(toLandingPage))
         );
 
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(lihatKatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(473, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(38, 38, 38)
-                .addComponent(lihatKatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
-        );
-
-        lihatKatalog.setBorderPainted(false);
-        lihatKatalog.setContentAreaFilled(false);
-        lihatKatalog.setFocusPainted(false);
-        lihatKatalog.setOpaque(false);
+        kGradientPanel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 1280, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,16 +313,16 @@ public class LandingPage extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
+    private void img5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton9ActionPerformed
+    }//GEN-LAST:event_img5ActionPerformed
 
     private void lihatKatalogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalogMouseEntered
         lihatKatalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 2.png")));
@@ -266,11 +338,11 @@ public class LandingPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lihatKatalogActionPerformed
 
-    private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton10ActionPerformed
+    private void img1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img1ActionPerformed
        Detail obj = new Detail();
        obj.setVisible(true);
        this.dispose();
-    }//GEN-LAST:event_jToggleButton10ActionPerformed
+    }//GEN-LAST:event_img1ActionPerformed
 
     private void toLandingPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseEntered
         toLandingPage.setForeground(new java.awt.Color(0,72,181));
@@ -328,6 +400,18 @@ public class LandingPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
 
+    private void img2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img2ActionPerformed
+
+    private void img3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img3ActionPerformed
+
+    private void img4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,14 +449,14 @@ public class LandingPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton img1;
+    private javax.swing.JToggleButton img2;
+    private javax.swing.JToggleButton img3;
+    private javax.swing.JToggleButton img4;
+    private javax.swing.JToggleButton img5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JToggleButton jToggleButton10;
-    private javax.swing.JToggleButton jToggleButton6;
-    private javax.swing.JToggleButton jToggleButton7;
-    private javax.swing.JToggleButton jToggleButton8;
-    private javax.swing.JToggleButton jToggleButton9;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton lihatKatalog;
     private javax.swing.JLabel toKunjungan;

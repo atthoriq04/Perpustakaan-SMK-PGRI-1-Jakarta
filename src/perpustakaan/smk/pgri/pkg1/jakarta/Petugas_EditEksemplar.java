@@ -246,13 +246,15 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         empty1 = new javax.swing.JPanel();
         toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
-        subMenuAdmin = new javax.swing.JPanel();
-        toProfilPetugas = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        toDataPetugas = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        toLogin = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
+        subMenuBlibliografi = new javax.swing.JPanel();
+        toDataBuku = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        toInputBuku = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        toDataPenulis = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        toDataUsulan = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         subMenuLaporan = new javax.swing.JPanel();
         toLapPeminjaman = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
@@ -264,17 +266,6 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         toLapDenda = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        subMenuAnggota = new javax.swing.JPanel();
-        toDataAnggota = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        toInputAnggota = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        toDataKelas = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        toDataJurusan = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        toBebasPustaka = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
         subMenuSirkulasi = new javax.swing.JPanel();
         toDataTransaksi = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
@@ -286,15 +277,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         toKonfDenda1 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        subMenuBlibliografi = new javax.swing.JPanel();
-        toDataBuku = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        toInputBuku = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        toDataPenulis = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        toDataUsulan = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        subMenuAdmin = new javax.swing.JPanel();
+        toProfilPetugas = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        toDataPetugas = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        toLogin = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        subMenuAnggota = new javax.swing.JPanel();
+        toDataAnggota = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        toInputAnggota = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        toDataKelas = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        toDataJurusan = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        toBebasPustaka = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lbl_barcode = new javax.swing.JLabel();
         lbl_noPanggil = new javax.swing.JLabel();
@@ -467,118 +467,161 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 0, 80, 720);
 
-        subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+        subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuAdminMouseExited(evt);
+                subMenuBlibliografiMouseExited(evt);
             }
         });
-        subMenuAdmin.setLayout(null);
+        subMenuBlibliografi.setLayout(null);
 
-        toProfilPetugas.setBackground(new java.awt.Color(229, 231, 238));
-        toProfilPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toProfilPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+        toDataBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toDataBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataBuku.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseClicked(evt);
+                toDataBukuMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseEntered(evt);
+                toDataBukuMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseExited(evt);
+                toDataBukuMouseExited(evt);
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel26.setText("Pengaturan");
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setText("Data Buku");
 
-        javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
-        toProfilPetugas.setLayout(toProfilPetugasLayout);
-        toProfilPetugasLayout.setHorizontalGroup(
-            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toProfilPetugasLayout.createSequentialGroup()
+        javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
+        toDataBuku.setLayout(toDataBukuLayout);
+        toDataBukuLayout.setHorizontalGroup(
+            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        toDataBukuLayout.setVerticalGroup(
+            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toDataBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        toProfilPetugasLayout.setVerticalGroup(
-            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
 
-        subMenuAdmin.add(toProfilPetugas);
-        toProfilPetugas.setBounds(0, 0, 150, 40);
+        subMenuBlibliografi.add(toDataBuku);
+        toDataBuku.setBounds(0, 0, 150, 40);
 
-        toDataPetugas.setBackground(new java.awt.Color(229, 231, 238));
-        toDataPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+        toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseClicked(evt);
+                toInputBukuMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseEntered(evt);
+                toInputBukuMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseExited(evt);
+                toInputBukuMouseExited(evt);
             }
         });
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel29.setText("Data Petugas");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel9.setText("Input Buku");
 
-        javax.swing.GroupLayout toDataPetugasLayout = new javax.swing.GroupLayout(toDataPetugas);
-        toDataPetugas.setLayout(toDataPetugasLayout);
-        toDataPetugasLayout.setHorizontalGroup(
-            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataPetugasLayout.createSequentialGroup()
+        javax.swing.GroupLayout toInputBukuLayout = new javax.swing.GroupLayout(toInputBuku);
+        toInputBuku.setLayout(toInputBukuLayout);
+        toInputBukuLayout.setHorizontalGroup(
+            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        toInputBukuLayout.setVerticalGroup(
+            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        toDataPetugasLayout.setVerticalGroup(
-            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
 
-        subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        subMenuBlibliografi.add(toInputBuku);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
-        toLogin.setBackground(new java.awt.Color(229, 231, 238));
-        toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
+        toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataPenulis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toLoginMouseClicked(evt);
+                toDataPenulisMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLoginMouseEntered(evt);
+                toDataPenulisMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLoginMouseExited(evt);
+                toDataPenulisMouseExited(evt);
             }
         });
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel31.setText("Log Out");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("Data Penulis");
 
-        javax.swing.GroupLayout toLoginLayout = new javax.swing.GroupLayout(toLogin);
-        toLogin.setLayout(toLoginLayout);
-        toLoginLayout.setHorizontalGroup(
-            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLoginLayout.createSequentialGroup()
+        javax.swing.GroupLayout toDataPenulisLayout = new javax.swing.GroupLayout(toDataPenulis);
+        toDataPenulis.setLayout(toDataPenulisLayout);
+        toDataPenulisLayout.setHorizontalGroup(
+            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataPenulisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
-        toLoginLayout.setVerticalGroup(
-            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        toDataPenulisLayout.setVerticalGroup(
+            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
-        subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        subMenuBlibliografi.add(toDataPenulis);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
-        jPanel1.add(subMenuAdmin);
-        subMenuAdmin.setBounds(80, 490, 150, 120);
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
+
+        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
+        toDataUsulan.setLayout(toDataUsulanLayout);
+        toDataUsulanLayout.setHorizontalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataUsulanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        toDataUsulanLayout.setVerticalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataUsulan);
+        toDataUsulan.setBounds(0, 120, 150, 43);
+
+        jPanel1.add(subMenuBlibliografi);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         subMenuLaporan.setBackground(new java.awt.Color(229, 231, 238));
         subMenuLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -749,187 +792,6 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jPanel1.add(subMenuLaporan);
         subMenuLaporan.setBounds(80, 400, 200, 210);
 
-        subMenuAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuAnggotaMouseExited(evt);
-            }
-        });
-        subMenuAnggota.setLayout(null);
-
-        toDataAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        toDataAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseExited(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel12.setText("Data Anggota");
-
-        javax.swing.GroupLayout toDataAnggotaLayout = new javax.swing.GroupLayout(toDataAnggota);
-        toDataAnggota.setLayout(toDataAnggotaLayout);
-        toDataAnggotaLayout.setHorizontalGroup(
-            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataAnggotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataAnggotaLayout.setVerticalGroup(
-            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataAnggota);
-        toDataAnggota.setBounds(0, 0, 150, 40);
-
-        toInputAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        toInputAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toInputAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseExited(evt);
-            }
-        });
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("Input Anggota");
-
-        javax.swing.GroupLayout toInputAnggotaLayout = new javax.swing.GroupLayout(toInputAnggota);
-        toInputAnggota.setLayout(toInputAnggotaLayout);
-        toInputAnggotaLayout.setHorizontalGroup(
-            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputAnggotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toInputAnggotaLayout.setVerticalGroup(
-            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
-
-        toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
-        toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataKelas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseExited(evt);
-            }
-        });
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel14.setText("Data Kelas");
-
-        javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
-        toDataKelas.setLayout(toDataKelasLayout);
-        toDataKelasLayout.setHorizontalGroup(
-            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataKelasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataKelasLayout.setVerticalGroup(
-            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
-
-        toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
-        toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseExited(evt);
-            }
-        });
-
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel35.setText("Data Jurusan");
-
-        javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
-        toDataJurusan.setLayout(toDataJurusanLayout);
-        toDataJurusanLayout.setHorizontalGroup(
-            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataJurusanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataJurusanLayout.setVerticalGroup(
-            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
-
-        toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
-        toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toBebasPustaka.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseExited(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel16.setText("Bebas Pustaka");
-
-        javax.swing.GroupLayout toBebasPustakaLayout = new javax.swing.GroupLayout(toBebasPustaka);
-        toBebasPustaka.setLayout(toBebasPustakaLayout);
-        toBebasPustakaLayout.setHorizontalGroup(
-            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toBebasPustakaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toBebasPustakaLayout.setVerticalGroup(
-            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
-
-        jPanel1.add(subMenuAnggota);
-        subMenuAnggota.setBounds(80, 310, 150, 210);
-
         subMenuSirkulasi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuSirkulasi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -961,8 +823,8 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1111,158 +973,299 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         jPanel1.add(subMenuSirkulasi);
         subMenuSirkulasi.setBounds(80, 220, 250, 200);
 
-        subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                subMenuBlibliografiMouseEntered(evt);
-            }
+        subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuBlibliografiMouseExited(evt);
+                subMenuAdminMouseExited(evt);
             }
         });
-        subMenuBlibliografi.setLayout(null);
+        subMenuAdmin.setLayout(null);
 
-        toDataBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toDataBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+        toProfilPetugas.setBackground(new java.awt.Color(229, 231, 238));
+        toProfilPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toProfilPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseClicked(evt);
+                toProfilPetugasMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseEntered(evt);
+                toProfilPetugasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseExited(evt);
+                toProfilPetugasMouseExited(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("Data Buku");
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel26.setText("Pengaturan");
 
-        javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
-        toDataBuku.setLayout(toDataBukuLayout);
-        toDataBukuLayout.setHorizontalGroup(
-            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataBukuLayout.createSequentialGroup()
+        javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
+        toProfilPetugas.setLayout(toProfilPetugasLayout);
+        toProfilPetugasLayout.setHorizontalGroup(
+            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toProfilPetugasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        toDataBukuLayout.setVerticalGroup(
-            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuBlibliografi.add(toDataBuku);
-        toDataBuku.setBounds(0, 0, 150, 40);
-
-        toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseExited(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel9.setText("Input Buku");
-
-        javax.swing.GroupLayout toInputBukuLayout = new javax.swing.GroupLayout(toInputBuku);
-        toInputBuku.setLayout(toInputBukuLayout);
-        toInputBukuLayout.setHorizontalGroup(
-            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        toInputBukuLayout.setVerticalGroup(
-            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
         );
+        toProfilPetugasLayout.setVerticalGroup(
+            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
 
-        subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        subMenuAdmin.add(toProfilPetugas);
+        toProfilPetugas.setBounds(0, 0, 150, 40);
 
-        toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
-        toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataPenulis.addMouseListener(new java.awt.event.MouseAdapter() {
+        toDataPetugas.setBackground(new java.awt.Color(229, 231, 238));
+        toDataPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseClicked(evt);
+                toDataPetugasMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseEntered(evt);
+                toDataPetugasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseExited(evt);
+                toDataPetugasMouseExited(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel8.setText("Data Penulis");
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel29.setText("Data Petugas");
 
-        javax.swing.GroupLayout toDataPenulisLayout = new javax.swing.GroupLayout(toDataPenulis);
-        toDataPenulis.setLayout(toDataPenulisLayout);
-        toDataPenulisLayout.setHorizontalGroup(
-            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataPenulisLayout.createSequentialGroup()
+        javax.swing.GroupLayout toDataPetugasLayout = new javax.swing.GroupLayout(toDataPetugas);
+        toDataPetugas.setLayout(toDataPetugasLayout);
+        toDataPetugasLayout.setHorizontalGroup(
+            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataPetugasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        toDataPenulisLayout.setVerticalGroup(
-            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        toDataPetugasLayout.setVerticalGroup(
+            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
-        subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        subMenuAdmin.add(toDataPetugas);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
-        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
-        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+        toLogin.setBackground(new java.awt.Color(229, 231, 238));
+        toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseClicked(evt);
+                toLoginMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseEntered(evt);
+                toLoginMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseExited(evt);
+                toLoginMouseExited(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Usulan Buku");
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel31.setText("Log Out");
 
-        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
-        toDataUsulan.setLayout(toDataUsulanLayout);
-        toDataUsulanLayout.setHorizontalGroup(
-            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataUsulanLayout.createSequentialGroup()
+        javax.swing.GroupLayout toLoginLayout = new javax.swing.GroupLayout(toLogin);
+        toLogin.setLayout(toLoginLayout);
+        toLoginLayout.setHorizontalGroup(
+            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        toDataUsulanLayout.setVerticalGroup(
-            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        toLoginLayout.setVerticalGroup(
+            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
-        subMenuBlibliografi.add(toDataUsulan);
-        toDataUsulan.setBounds(0, 120, 150, 43);
+        subMenuAdmin.add(toLogin);
+        toLogin.setBounds(0, 80, 150, 40);
 
-        jPanel1.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(80, 140, 150, 170);
+        jPanel1.add(subMenuAdmin);
+        subMenuAdmin.setBounds(80, 490, 150, 120);
+
+        subMenuAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuAnggotaMouseExited(evt);
+            }
+        });
+        subMenuAnggota.setLayout(null);
+
+        toDataAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        toDataAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel12.setText("Data Anggota");
+
+        javax.swing.GroupLayout toDataAnggotaLayout = new javax.swing.GroupLayout(toDataAnggota);
+        toDataAnggota.setLayout(toDataAnggotaLayout);
+        toDataAnggotaLayout.setHorizontalGroup(
+            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataAnggotaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataAnggotaLayout.setVerticalGroup(
+            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataAnggota);
+        toDataAnggota.setBounds(0, 0, 150, 40);
+
+        toInputAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        toInputAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toInputAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseExited(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel13.setText("Input Anggota");
+
+        javax.swing.GroupLayout toInputAnggotaLayout = new javax.swing.GroupLayout(toInputAnggota);
+        toInputAnggota.setLayout(toInputAnggotaLayout);
+        toInputAnggotaLayout.setHorizontalGroup(
+            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputAnggotaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toInputAnggotaLayout.setVerticalGroup(
+            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toInputAnggota);
+        toInputAnggota.setBounds(0, 40, 150, 40);
+
+        toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
+        toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataKelas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseExited(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel32.setText("Data Kelas");
+
+        javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
+        toDataKelas.setLayout(toDataKelasLayout);
+        toDataKelasLayout.setHorizontalGroup(
+            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataKelasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataKelasLayout.setVerticalGroup(
+            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataKelas);
+        toDataKelas.setBounds(0, 80, 150, 40);
+
+        toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseExited(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel33.setText("Data Jurusan");
+
+        javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
+        toDataJurusan.setLayout(toDataJurusanLayout);
+        toDataJurusanLayout.setHorizontalGroup(
+            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataJurusanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataJurusanLayout.setVerticalGroup(
+            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataJurusan);
+        toDataJurusan.setBounds(0, 120, 150, 40);
+
+        toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
+        toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toBebasPustaka.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseExited(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel16.setText("Bebas Pustaka");
+
+        javax.swing.GroupLayout toBebasPustakaLayout = new javax.swing.GroupLayout(toBebasPustaka);
+        toBebasPustaka.setLayout(toBebasPustakaLayout);
+        toBebasPustakaLayout.setHorizontalGroup(
+            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toBebasPustakaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toBebasPustakaLayout.setVerticalGroup(
+            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toBebasPustaka);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
+
+        jPanel1.add(subMenuAnggota);
+        subMenuAnggota.setBounds(80, 310, 150, 210);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Edit Eksemplar");
@@ -1304,7 +1307,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1180, 680, 80, 23);
+        submit.setBounds(1180, 660, 80, 23);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1421,7 +1424,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit1);
-        submit1.setBounds(1090, 680, 70, 23);
+        submit1.setBounds(1090, 660, 70, 23);
 
         submit2.setText("Kembali");
         submit2.addActionListener(new java.awt.event.ActionListener() {
@@ -1430,7 +1433,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit2);
-        submit2.setBounds(100, 680, 70, 23);
+        submit2.setBounds(100, 660, 110, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1540,6 +1543,59 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
 
     }//GEN-LAST:event_jPanel3MouseExited
+
+    private void beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliActionPerformed
+        // TODO add your handling code here:
+        hadiah.setSelected(false);
+        price.setEnabled(true);
+        jLabel3.setEnabled(true);
+        jLabel4.setEnabled(true);
+       //String a = price.getText();
+        //harga = Integer.parseInt(a);
+        select = 1;
+    }//GEN-LAST:event_beliActionPerformed
+
+    private void hadiahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hadiahActionPerformed
+        // TODO add your handling code here:
+        beli.setSelected(false);
+        price.setEnabled(false);
+        jLabel3.setEnabled(false);
+        jLabel4.setEnabled(false);
+        select = 2;
+    }//GEN-LAST:event_hadiahActionPerformed
+
+    private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
+        // TODO add your handling code here:
+        setValueLocation();
+    }//GEN-LAST:event_cbLokasiActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // TODO add your handling code here:
+        setIndexLocation();
+        updateData();
+        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
+        a.setValueLabel();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceActionPerformed
+
+    private void submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit1ActionPerformed
+        // TODO add your handling code here:
+        Delete();
+        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit1ActionPerformed
+
+    private void submit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit2ActionPerformed
+        Petugas_DataBuku obj = new Petugas_DataBuku();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit2ActionPerformed
 
     private void toProfilPetugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseClicked
         Petugas_ProfilPetugas obj = new Petugas_ProfilPetugas();
@@ -1783,53 +1839,6 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
-    private void beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliActionPerformed
-        // TODO add your handling code here:
-        hadiah.setSelected(false);
-        price.setEnabled(true);
-        jLabel3.setEnabled(true);
-        jLabel4.setEnabled(true);
-       //String a = price.getText();
-        //harga = Integer.parseInt(a);
-        select = 1;
-    }//GEN-LAST:event_beliActionPerformed
-
-    private void hadiahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hadiahActionPerformed
-        // TODO add your handling code here:
-        beli.setSelected(false);
-        price.setEnabled(false);
-        jLabel3.setEnabled(false);
-        jLabel4.setEnabled(false);
-        select = 2;
-    }//GEN-LAST:event_hadiahActionPerformed
-
-    private void cbLokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLokasiActionPerformed
-        // TODO add your handling code here:
-        setValueLocation();
-    }//GEN-LAST:event_cbLokasiActionPerformed
-
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        setIndexLocation();
-        updateData();
-        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
-        a.setValueLabel();
-        a.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_submitActionPerformed
-
-    private void priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_priceActionPerformed
-
-    private void submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit1ActionPerformed
-        // TODO add your handling code here:
-        Delete();
-        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
-        a.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_submit1ActionPerformed
-
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -1886,20 +1895,14 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataUsulanMouseExited
 
-    private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
-
-        subMenuBlibliografi.setVisible(false);
-    }//GEN-LAST:event_subMenuBlibliografiMouseExited
-
     private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
-    private void submit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit2ActionPerformed
-        Petugas_DataBuku obj = new Petugas_DataBuku();
-        obj.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_submit2ActionPerformed
+    private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
+
+        subMenuBlibliografi.setVisible(false);
+    }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
     /**
      * @param args the command line arguments
@@ -1949,10 +1952,10 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
     private javax.swing.JRadioButton hadiah;
     private javax.swing.JTextField inventaris;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1968,9 +1971,9 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

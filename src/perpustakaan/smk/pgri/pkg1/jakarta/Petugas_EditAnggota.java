@@ -866,8 +866,8 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1218,7 +1218,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1040, 680, 120, 23);
+        jButton2.setBounds(1040, 660, 120, 23);
 
         jButton3.setText("Submit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1227,7 +1227,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1190, 680, 70, 23);
+        jButton3.setBounds(1190, 660, 70, 23);
 
         kls.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         kls.setText("jLabel2");
@@ -1271,7 +1271,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit2);
-        submit2.setBounds(100, 680, 70, 23);
+        submit2.setBounds(100, 660, 90, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -186,10 +186,6 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         empty1 = new javax.swing.JPanel();
         toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
-        sort = new javax.swing.JPanel();
-        nPanggil = new javax.swing.JLabel();
-        judul = new javax.swing.JLabel();
-        Tanggal = new javax.swing.JLabel();
         subMenuAdmin = new javax.swing.JPanel();
         toProfilPetugas = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -214,9 +210,9 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         toInputAnggota = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         toDataKelas = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         toDataJurusan = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         toBebasPustaka = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         subMenuSirkulasi = new javax.swing.JPanel();
@@ -232,13 +228,17 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         subMenuBlibliografi = new javax.swing.JPanel();
         toDataBuku = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         toInputBuku = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         toDataPenulis = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         toDataUsulan = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        sort = new javax.swing.JPanel();
+        nPanggil = new javax.swing.JLabel();
+        judul = new javax.swing.JLabel();
+        Tanggal = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Active = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -391,80 +391,6 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         jPanel2.add(jPanel3);
         jPanel3.setBounds(0, 0, 80, 720);
 
-        sort.setBackground(new java.awt.Color(255, 255, 255));
-        sort.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                sortMouseExited(evt);
-            }
-        });
-
-        nPanggil.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nPanggil.setText("No Panggil");
-        nPanggil.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nPanggilMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                nPanggilMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                nPanggilMouseExited(evt);
-            }
-        });
-
-        judul.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        judul.setText("Judul");
-        judul.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                judulMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                judulMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                judulMouseExited(evt);
-            }
-        });
-
-        Tanggal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Tanggal.setText("Tanggal");
-        Tanggal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TanggalMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TanggalMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TanggalMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout sortLayout = new javax.swing.GroupLayout(sort);
-        sort.setLayout(sortLayout);
-        sortLayout.setHorizontalGroup(
-            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sortLayout.createSequentialGroup()
-                .addGroup(sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(judul, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 40, Short.MAX_VALUE))
-            .addComponent(nPanggil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        sortLayout.setVerticalGroup(
-            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sortLayout.createSequentialGroup()
-                .addComponent(nPanggil)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(judul)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Tanggal)
-                .addContainerGap())
-        );
-
-        jPanel2.add(sort);
-        sort.setBounds(170, 40, 90, 60);
-
         subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
         subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -539,7 +465,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -573,7 +499,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel2.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -821,7 +747,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -837,8 +763,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel14.setText("Data Kelas");
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel32.setText("Data Kelas");
 
         javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
         toDataKelas.setLayout(toDataKelasLayout);
@@ -846,16 +772,16 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataKelasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         toDataKelasLayout.setVerticalGroup(
             toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -871,8 +797,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("Data Jurusan");
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel33.setText("Data Jurusan");
 
         javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
         toDataJurusan.setLayout(toDataJurusanLayout);
@@ -880,16 +806,16 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataJurusanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         toDataJurusanLayout.setVerticalGroup(
             toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -923,7 +849,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel2.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -959,8 +885,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1134,8 +1060,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("Data Buku");
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setText("Data Buku");
 
         javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
         toDataBuku.setLayout(toDataBukuLayout);
@@ -1143,12 +1069,15 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         toDataBukuLayout.setVerticalGroup(
             toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toDataBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         subMenuBlibliografi.add(toDataBuku);
@@ -1170,11 +1099,6 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel9.setText("Input Buku");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel9MouseEntered(evt);
-            }
-        });
 
         javax.swing.GroupLayout toInputBukuLayout = new javax.swing.GroupLayout(toInputBuku);
         toInputBuku.setLayout(toInputBukuLayout);
@@ -1194,7 +1118,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1228,7 +1152,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1244,8 +1168,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Usulan Buku");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
 
         javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
         toDataUsulan.setLayout(toDataUsulanLayout);
@@ -1253,12 +1177,12 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataUsulanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         toDataUsulanLayout.setVerticalGroup(
             toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         subMenuBlibliografi.add(toDataUsulan);
@@ -1266,6 +1190,80 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
 
         jPanel2.add(subMenuBlibliografi);
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
+
+        sort.setBackground(new java.awt.Color(255, 255, 255));
+        sort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sortMouseExited(evt);
+            }
+        });
+
+        nPanggil.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nPanggil.setText("No Panggil");
+        nPanggil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nPanggilMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nPanggilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nPanggilMouseExited(evt);
+            }
+        });
+
+        judul.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        judul.setText("Judul");
+        judul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                judulMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                judulMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                judulMouseExited(evt);
+            }
+        });
+
+        Tanggal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Tanggal.setText("Tanggal");
+        Tanggal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TanggalMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TanggalMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TanggalMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sortLayout = new javax.swing.GroupLayout(sort);
+        sort.setLayout(sortLayout);
+        sortLayout.setHorizontalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addGroup(sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(judul, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 40, Short.MAX_VALUE))
+            .addComponent(nPanggil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        sortLayout.setVerticalGroup(
+            sortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sortLayout.createSequentialGroup()
+                .addComponent(nPanggil)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(judul)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Tanggal)
+                .addContainerGap())
+        );
+
+        jPanel2.add(sort);
+        sort.setBounds(170, 40, 90, 60);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Data Buku");
@@ -1362,7 +1360,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(930, 100, 124, 15);
+        jLabel6.setBounds(930, 100, 121, 15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1557,6 +1555,170 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
 
     }//GEN-LAST:event_jPanel3MouseExited
+
+    private void nPanggilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseClicked
+        sort.setVisible(false);
+        Active.setText(nPanggil.getText());
+       DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
+          model.addColumn("No Panggil");
+          model.addColumn("Judul Buku");
+          model.addColumn("GMD");
+          model.addColumn("Edisi");
+          model.addColumn("ISBN");
+          model.addColumn("Penulis");
+          model.addColumn("Penerbit");
+          model.addColumn("Tahun Terbit");
+          model.addColumn("Judul Seri");
+          model.addColumn("Bahasa");
+          
+          try{
+              Statement stat = CC.createStatement();
+              int no = 1;
+              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY call_Number ASC";
+              ResultSet rs = stat.executeQuery(SQL);
+              while(rs.next()){
+                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
+                rs.getString("new_bliblio.Judul"),
+                rs.getString("gmd.gmd_name"),
+                rs.getString("new_bliblio.Edisi"),
+                rs.getString("new_bliblio.isbn_issn"),
+                rs.getString("mst_author.author_name"),
+                rs.getString("mst_publisher.publisher_name"),
+                rs.getString("new_bliblio.PublisherYear"),
+                rs.getString("new_bliblio.SeriesTitle"),
+                rs.getString("mst_language.language_name")});
+                tblBuku.setModel(model);
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+    }//GEN-LAST:event_nPanggilMouseClicked
+
+    private void nPanggilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseEntered
+        nPanggil.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_nPanggilMouseEntered
+
+    private void nPanggilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseExited
+        nPanggil.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_nPanggilMouseExited
+
+    private void judulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseClicked
+        sort.setVisible(false);
+        Active.setText(judul.getText());
+        DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
+          model.addColumn("No Panggil");
+          model.addColumn("Judul Buku");
+          model.addColumn("GMD");
+          model.addColumn("Edisi");
+          model.addColumn("ISBN");
+          model.addColumn("Penulis");
+          model.addColumn("Penerbit");
+          model.addColumn("Tahun Terbit");
+          model.addColumn("Judul Seri");
+          model.addColumn("Bahasa");
+          
+          try{
+              Statement stat = CC.createStatement();
+              int no = 1;
+              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY Judul ASC";
+              ResultSet rs = stat.executeQuery(SQL);
+              while(rs.next()){
+                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
+                rs.getString("new_bliblio.Judul"),
+                rs.getString("gmd.gmd_name"),
+                rs.getString("new_bliblio.Edisi"),
+                rs.getString("new_bliblio.isbn_issn"),
+                rs.getString("mst_author.author_name"),
+                rs.getString("mst_publisher.publisher_name"),
+                rs.getString("new_bliblio.PublisherYear"),
+                rs.getString("new_bliblio.SeriesTitle"),
+                rs.getString("mst_language.language_name")});
+                tblBuku.setModel(model);
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+    }//GEN-LAST:event_judulMouseClicked
+
+    private void judulMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseEntered
+        judul.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_judulMouseEntered
+
+    private void judulMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseExited
+        judul.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_judulMouseExited
+
+    private void TanggalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseClicked
+        sort.setVisible(false);
+        Active.setText(Tanggal.getText());
+        DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
+          model.addColumn("No Panggil");
+          model.addColumn("Judul Buku");
+          model.addColumn("GMD");
+          model.addColumn("Edisi");
+          model.addColumn("ISBN");
+          model.addColumn("Penulis");
+          model.addColumn("Penerbit");
+          model.addColumn("Tahun Terbit");
+          model.addColumn("Judul Seri");
+          model.addColumn("Bahasa");
+          
+          try{
+              Statement stat = CC.createStatement();
+              int no = 1;
+              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY IdBliblio ASC";
+              ResultSet rs = stat.executeQuery(SQL);
+              while(rs.next()){
+                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
+                rs.getString("new_bliblio.Judul"),
+                rs.getString("gmd.gmd_name"),
+                rs.getString("new_bliblio.Edisi"),
+                rs.getString("new_bliblio.isbn_issn"),
+                rs.getString("mst_author.author_name"),
+                rs.getString("mst_publisher.publisher_name"),
+                rs.getString("new_bliblio.PublisherYear"),
+                rs.getString("new_bliblio.SeriesTitle"),
+                rs.getString("mst_language.language_name")});
+                tblBuku.setModel(model);
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+    }//GEN-LAST:event_TanggalMouseClicked
+
+    private void TanggalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseEntered
+        // [0,112,207]
+        Tanggal.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_TanggalMouseEntered
+
+    private void TanggalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseExited
+        Tanggal.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_TanggalMouseExited
+
+    private void sortMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseExited
+
+    }//GEN-LAST:event_sortMouseExited
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+        sort.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        Petugas_ImportEksemplar obj = new Petugas_ImportEksemplar();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+        jLabel6.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_jLabel6MouseEntered
+
+    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+        jLabel6.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jLabel6MouseExited
 
     private void toProfilPetugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseClicked
         Petugas_ProfilPetugas obj = new Petugas_ProfilPetugas();
@@ -1856,182 +2018,14 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataUsulanMouseExited
 
-    private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
-
-        subMenuBlibliografi.setVisible(false);
-    }//GEN-LAST:event_subMenuBlibliografiMouseExited
-
-    private void nPanggilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseClicked
-        sort.setVisible(false);
-        Active.setText(nPanggil.getText());
-       DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY call_Number ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
-    }//GEN-LAST:event_nPanggilMouseClicked
-
-    private void nPanggilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseEntered
-        nPanggil.setForeground(new java.awt.Color(0,112,207));
-    }//GEN-LAST:event_nPanggilMouseEntered
-
-    private void nPanggilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseExited
-        nPanggil.setForeground(new java.awt.Color(0,0,0));
-    }//GEN-LAST:event_nPanggilMouseExited
-
-    private void judulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseClicked
-        sort.setVisible(false);
-        Active.setText(judul.getText());
-        DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY Judul ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
-    }//GEN-LAST:event_judulMouseClicked
-
-    private void judulMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseEntered
-        judul.setForeground(new java.awt.Color(0,112,207));
-    }//GEN-LAST:event_judulMouseEntered
-
-    private void judulMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseExited
-        judul.setForeground(new java.awt.Color(0,0,0));
-    }//GEN-LAST:event_judulMouseExited
-
-    private void TanggalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseClicked
-        sort.setVisible(false);
-        Active.setText(Tanggal.getText());
-        DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY IdBliblio ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
-    }//GEN-LAST:event_TanggalMouseClicked
-
-    private void TanggalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseEntered
-        // [0,112,207]
-        Tanggal.setForeground(new java.awt.Color(0,112,207));
-    }//GEN-LAST:event_TanggalMouseEntered
-
-    private void TanggalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseExited
-        Tanggal.setForeground(new java.awt.Color(0,0,0));
-    }//GEN-LAST:event_TanggalMouseExited
-
-    private void sortMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sortMouseExited
-
-    }//GEN-LAST:event_sortMouseExited
-
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-        sort.setVisible(true);
-    }//GEN-LAST:event_jLabel4MouseEntered
-
-    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel9MouseEntered
-
     private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
         subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
-        Petugas_ImportEksemplar obj = new Petugas_ImportEksemplar();
-        obj.setVisible(true);
-    }//GEN-LAST:event_jLabel6MouseClicked
+    private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        jLabel6.setForeground(new java.awt.Color(0,112,207));
-    }//GEN-LAST:event_jLabel6MouseEntered
-
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        jLabel6.setForeground(new java.awt.Color(0,0,0));
-    }//GEN-LAST:event_jLabel6MouseExited
+        subMenuBlibliografi.setVisible(false);
+    }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
     /**
      * @param args the command line arguments
@@ -2075,11 +2069,10 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -2095,10 +2088,11 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;

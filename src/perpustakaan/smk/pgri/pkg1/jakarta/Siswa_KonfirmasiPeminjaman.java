@@ -81,7 +81,6 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         bar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -93,20 +92,11 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("No Eksemplar");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 50, 108, 31);
+        jLabel1.setBounds(20, 50, 109, 31);
 
         bar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jPanel1.add(bar);
-        bar.setBounds(150, 50, 284, 30);
-
-        jButton1.setText("Scan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(440, 50, 81, 31);
+        bar.setBounds(150, 50, 370, 30);
 
         jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -144,10 +134,6 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
@@ -196,7 +182,6 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

@@ -103,12 +103,10 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         PASS = new javax.swing.JPasswordField();
         NIS = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -118,15 +116,6 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
-
-        jButton1.setText("Scan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(440, 130, 81, 31);
 
         jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -149,21 +138,12 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Password");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 70, 74, 31);
+        jLabel2.setBounds(20, 70, 75, 31);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("NIS");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(20, 10, 29, 31);
-
-        jButton5.setText("Scan");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton5);
-        jButton5.setBounds(440, 10, 81, 31);
 
         PASS.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel1.add(PASS);
@@ -171,16 +151,16 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
 
         NIS.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jPanel1.add(NIS);
-        NIS.setBounds(150, 10, 284, 30);
+        NIS.setBounds(150, 10, 370, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("No Eksemplar");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 130, 108, 31);
+        jLabel4.setBounds(20, 130, 109, 31);
 
         IdEx.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jPanel1.add(IdEx);
-        IdEx.setBounds(150, 130, 284, 30);
+        IdEx.setBounds(150, 130, 370, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,10 +178,6 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -214,10 +190,6 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,10 +230,8 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
     private javax.swing.JTextField IdEx;
     private javax.swing.JTextField NIS;
     private javax.swing.JPasswordField PASS;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
