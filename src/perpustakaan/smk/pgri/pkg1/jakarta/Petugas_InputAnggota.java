@@ -372,6 +372,19 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         cbTingkat = new javax.swing.JComboBox<>();
         cbJurusan = new javax.swing.JComboBox<>();
         filename = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        lbl_ttl1 = new javax.swing.JLabel();
+        ttl1 = new javax.swing.JTextField();
+        nis1 = new javax.swing.JLabel();
+        Nis1 = new javax.swing.JTextField();
+        Nama1 = new javax.swing.JLabel();
+        nama1 = new javax.swing.JTextField();
+        nama2 = new javax.swing.JTextField();
+        Nama2 = new javax.swing.JLabel();
+        nis2 = new javax.swing.JLabel();
+        Nis2 = new javax.swing.JTextField();
+        Nama3 = new javax.swing.JLabel();
+        nama3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1327,7 +1340,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importData);
-        importData.setBounds(750, 110, 120, 25);
+        importData.setBounds(110, 90, 120, 25);
 
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1338,12 +1351,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(110, 110, 120, 25);
+        inputData.setBounds(110, 170, 120, 25);
 
         labelImport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelImport.setText("Pilih data");
         jPanel1.add(labelImport);
-        labelImport.setBounds(760, 170, 70, 20);
+        labelImport.setBounds(120, 130, 70, 20);
 
         importChose.setText("Pilih");
         importChose.addActionListener(new java.awt.event.ActionListener() {
@@ -1352,38 +1365,38 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importChose);
-        importChose.setBounds(840, 170, 60, 23);
+        importChose.setBounds(200, 130, 60, 23);
 
         lbl_alamat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
         jPanel1.add(lbl_alamat);
-        lbl_alamat.setBounds(130, 360, 70, 20);
+        lbl_alamat.setBounds(130, 420, 70, 20);
 
         nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nis.setText("NIS");
         jPanel1.add(nis);
-        nis.setBounds(130, 170, 80, 20);
+        nis.setBounds(130, 230, 80, 20);
 
         Nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Nama.setText("Nama");
         jPanel1.add(Nama);
-        Nama.setBounds(130, 230, 70, 20);
+        Nama.setBounds(130, 290, 70, 20);
 
         lbl_kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_kelas.setText("Kelas");
         jPanel1.add(lbl_kelas);
-        lbl_kelas.setBounds(130, 290, 70, 20);
+        lbl_kelas.setBounds(130, 350, 70, 20);
 
         alamat.setColumns(20);
         alamat.setRows(5);
         jScrollPane1.setViewportView(alamat);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(200, 360, 390, 110);
+        jScrollPane1.setBounds(250, 420, 390, 110);
 
         Nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Nis);
-        Nis.setBounds(200, 170, 390, 23);
+        Nis.setBounds(250, 230, 390, 23);
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nama.addActionListener(new java.awt.event.ActionListener() {
@@ -1392,7 +1405,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(nama);
-        nama.setBounds(200, 230, 390, 23);
+        nama.setBounds(250, 290, 390, 23);
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
@@ -1411,12 +1424,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbkelas);
-        cbkelas.setBounds(500, 290, 90, 22);
+        cbkelas.setBounds(550, 350, 90, 22);
 
         lbl_ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lbl_ttl.setText("TTL");
+        lbl_ttl.setText("Tempat Lahir");
         jPanel1.add(lbl_ttl);
-        lbl_ttl.setBounds(130, 500, 70, 20);
+        lbl_ttl.setBounds(120, 560, 90, 20);
 
         ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ttl.addActionListener(new java.awt.event.ActionListener() {
@@ -1425,7 +1438,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ttl);
-        ttl.setBounds(200, 500, 390, 23);
+        ttl.setBounds(250, 560, 390, 23);
 
         cbTingkat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTingkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tingkat" }));
@@ -1435,7 +1448,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbTingkat);
-        cbTingkat.setBounds(200, 290, 90, 22);
+        cbTingkat.setBounds(250, 350, 90, 22);
 
         cbJurusan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurusan" }));
@@ -1445,12 +1458,88 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbJurusan);
-        cbJurusan.setBounds(300, 290, 190, 22);
+        cbJurusan.setBounds(350, 350, 190, 22);
 
         filename.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         filename.setText("filename");
         jPanel1.add(filename);
-        filename.setBounds(920, 170, 210, 20);
+        filename.setBounds(280, 130, 210, 20);
+        jPanel1.add(jSeparator8);
+        jSeparator8.setBounds(80, 160, 1200, 10);
+
+        lbl_ttl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_ttl1.setText("Tanggal Lahir");
+        jPanel1.add(lbl_ttl1);
+        lbl_ttl1.setBounds(120, 620, 100, 20);
+
+        ttl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ttl1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttl1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ttl1);
+        ttl1.setBounds(250, 620, 390, 23);
+
+        nis1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nis1.setText("NIS");
+        jPanel1.add(nis1);
+        nis1.setBounds(730, 230, 80, 20);
+
+        Nis1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(Nis1);
+        Nis1.setBounds(850, 230, 390, 23);
+
+        Nama1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nama1.setText("Nama");
+        jPanel1.add(Nama1);
+        Nama1.setBounds(730, 290, 70, 20);
+
+        nama1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nama1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nama1);
+        nama1.setBounds(850, 290, 390, 23);
+
+        nama2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nama2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nama2);
+        nama2.setBounds(850, 410, 390, 23);
+
+        Nama2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nama2.setText("Nama");
+        jPanel1.add(Nama2);
+        Nama2.setBounds(730, 410, 70, 20);
+
+        nis2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nis2.setText("NIS");
+        jPanel1.add(nis2);
+        nis2.setBounds(730, 350, 80, 20);
+
+        Nis2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(Nis2);
+        Nis2.setBounds(850, 350, 390, 23);
+
+        Nama3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nama3.setText("Nama");
+        jPanel1.add(Nama3);
+        Nama3.setBounds(730, 470, 70, 20);
+
+        nama3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nama3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nama3);
+        nama3.setBounds(850, 470, 390, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1942,6 +2031,22 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
    
     }//GEN-LAST:event_importChoseActionPerformed
 
+    private void ttl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttl1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttl1ActionPerformed
+
+    private void nama1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama1ActionPerformed
+
+    private void nama2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama2ActionPerformed
+
+    private void nama3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1979,7 +2084,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nama;
+    private javax.swing.JLabel Nama1;
+    private javax.swing.JLabel Nama2;
+    private javax.swing.JLabel Nama3;
     private javax.swing.JTextField Nis;
+    private javax.swing.JTextField Nis1;
+    private javax.swing.JTextField Nis2;
     private javax.swing.JTextArea alamat;
     private javax.swing.JComboBox<String> cbJurusan;
     private javax.swing.JComboBox<String> cbTingkat;
@@ -2023,12 +2133,19 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JLabel labelImport;
     private javax.swing.JLabel lbl_alamat;
     private javax.swing.JLabel lbl_kelas;
     private javax.swing.JLabel lbl_ttl;
+    private javax.swing.JLabel lbl_ttl1;
     private javax.swing.JTextField nama;
+    private javax.swing.JTextField nama1;
+    private javax.swing.JTextField nama2;
+    private javax.swing.JTextField nama3;
     private javax.swing.JLabel nis;
+    private javax.swing.JLabel nis1;
+    private javax.swing.JLabel nis2;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
@@ -2065,5 +2182,6 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel toSriku;
     private javax.swing.JLabel toUser;
     private javax.swing.JTextField ttl;
+    private javax.swing.JTextField ttl1;
     // End of variables declaration//GEN-END:variables
 }

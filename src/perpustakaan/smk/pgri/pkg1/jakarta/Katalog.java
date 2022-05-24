@@ -669,7 +669,7 @@ public class Katalog extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Buku Terakhir");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(25, 77, 147, 29);
+        jLabel2.setBounds(25, 77, 240, 29);
 
         buku1.setBackground(new java.awt.Color(255, 255, 255));
         buku1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1835,7 +1835,7 @@ public class Katalog extends javax.swing.JFrame {
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
        
-       formula = "SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
+       formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
        initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased
