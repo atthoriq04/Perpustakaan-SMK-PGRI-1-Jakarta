@@ -112,7 +112,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 username.setText(user);
                 email.setText(Email);
                 nohp.setText(NoHp);
-                expired.setText(expire);
+                tgl.setText(expire);
                 img.setIcon(icon);
                  
             } else
@@ -268,7 +268,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toProf = new javax.swing.JLabel();
         toNotif = new javax.swing.JLabel();
         toOut = new javax.swing.JLabel();
-        expired = new javax.swing.JLabel();
+        tgl = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
@@ -276,6 +276,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toBebpus = new javax.swing.JLabel();
         toUser = new javax.swing.JLabel();
         no = new javax.swing.JLabel();
+        expired1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -585,11 +586,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(SubUser);
         SubUser.setBounds(1200, 40, 80, 80);
 
-        expired.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        expired.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        expired.setText("Expired");
-        jPanel1.add(expired);
-        expired.setBounds(40, 470, 230, 17);
+        tgl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tgl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tgl.setText("Expired");
+        jPanel1.add(tgl);
+        tgl.setBounds(40, 490, 230, 17);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -693,6 +694,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         jPanel1.add(jPanel14);
         jPanel14.setBounds(0, 11, 1278, 20);
+
+        expired1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        expired1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        expired1.setText("Aktif Hingga");
+        jPanel1.add(expired1);
+        expired1.setBounds(40, 470, 230, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -942,7 +949,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JPanel SubUser;
     private javax.swing.JLabel alamat;
     private javax.swing.JTextField email;
-    private javax.swing.JLabel expired;
+    private javax.swing.JLabel expired1;
     private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -964,6 +971,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel nis;
     private javax.swing.JLabel no;
     private javax.swing.JTextField nohp;
+    private javax.swing.JLabel tgl;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;
