@@ -236,7 +236,6 @@ public class Katalog extends javax.swing.JFrame {
         toOut = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
         buku1 = new javax.swing.JPanel();
         toggle1 = new javax.swing.JToggleButton();
         judul1 = new javax.swing.JLabel();
@@ -671,12 +670,6 @@ public class Katalog extends javax.swing.JFrame {
         jLabel2.setText("Buku Terakhir");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(25, 77, 147, 29);
-
-        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel31.setText("Kategori");
-        jPanel1.add(jLabel31);
-        jLabel31.setBounds(267, 77, 88, 29);
 
         buku1.setBackground(new java.awt.Color(255, 255, 255));
         buku1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -1902,7 +1895,6 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JPanel buku8;
     private javax.swing.JPanel buku9;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel judul1;
