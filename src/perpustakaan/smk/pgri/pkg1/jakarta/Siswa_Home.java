@@ -37,13 +37,27 @@ public class Siswa_Home extends javax.swing.JFrame {
         no.setVisible(false);
         jumlahnotif();
          initial();
+         getProfile();
         
     }
     private void userLogin(){
     toUser.setText(UserSession.getUserLogin());
     }
     int UserId = UserSession.GetUserId();
-    
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+                Profil.setText(rs.getString("Profil"));
+                Tagline.setText(rs.getString("Tagline"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
      private void hakakses() {
     String user=toUser.getText();
         if(user.equals(3) || user.equals(3)){
@@ -152,8 +166,8 @@ public class Siswa_Home extends javax.swing.JFrame {
     private void initComponents() {
 
         kGradientPanel2 = new keeptoo.KGradientPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        Profil = new javax.swing.JLabel();
+        Tagline = new javax.swing.JLabel();
         img2 = new javax.swing.JToggleButton();
         img3 = new javax.swing.JToggleButton();
         img4 = new javax.swing.JToggleButton();
@@ -186,15 +200,15 @@ public class Siswa_Home extends javax.swing.JFrame {
         kGradientPanel2.setkTransparentControls(false);
         kGradientPanel2.setLayout(null);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
-        jLabel11.setText("Perpustakaan SMK PGRI 1 Jakarta ");
-        kGradientPanel2.add(jLabel11);
-        jLabel11.setBounds(35, 163, 627, 47);
+        Profil.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        Profil.setText("Perpustakaan SMK PGRI 1 Jakarta ");
+        kGradientPanel2.add(Profil);
+        Profil.setBounds(35, 163, 633, 47);
 
-        jLabel12.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
-        jLabel12.setText("Literasi Mencerdaskan");
-        kGradientPanel2.add(jLabel12);
-        jLabel12.setBounds(35, 228, 280, 26);
+        Tagline.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
+        Tagline.setText("Literasi Mencerdaskan");
+        kGradientPanel2.add(Tagline);
+        Tagline.setBounds(35, 228, 280, 26);
 
         img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
         kGradientPanel2.add(img2);
@@ -343,7 +357,7 @@ public class Siswa_Home extends javax.swing.JFrame {
         );
 
         kGradientPanel2.add(jPanel14);
-        jPanel14.setBounds(0, 11, 1278, 20);
+        jPanel14.setBounds(0, 11, 1280, 20);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -756,15 +770,15 @@ public class Siswa_Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PGRI;
+    private javax.swing.JLabel Profil;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
+    private javax.swing.JLabel Tagline;
     private javax.swing.JToggleButton img1;
     private javax.swing.JToggleButton img2;
     private javax.swing.JToggleButton img3;
     private javax.swing.JToggleButton img4;
     private javax.swing.JToggleButton img5;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel14;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JButton lihatKatalog2;

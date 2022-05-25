@@ -50,6 +50,7 @@ public class Katalog extends javax.swing.JFrame {
         SubSirk.setVisible(false);
         initial();
         check(from);
+        getProfile();
         
     }
     
@@ -69,6 +70,19 @@ public class Katalog extends javax.swing.JFrame {
     public String g;
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+                toLandingPage.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void check(int fc){
        try {
             int Next = fc + 12;

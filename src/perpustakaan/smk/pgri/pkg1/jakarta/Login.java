@@ -9,9 +9,12 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,9 +29,23 @@ public class Login extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
+    Statement stt;
     public Login() {
         initComponents();
         CC = new koneksi().connect();
+        getProfile();
+    }
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                Profil.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void login(){
@@ -118,7 +135,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         login = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        Profil = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
 
@@ -228,8 +245,8 @@ public class Login extends javax.swing.JFrame {
         login.setFocusPainted(false);
         login.setOpaque(false);
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
-        jLabel4.setText("SMK PGRI 1 Jakarta ");
+        Profil.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        Profil.setText("SMK PGRI 1 Jakarta ");
 
         jButton1.setBackground(new java.awt.Color(229, 231, 238));
         jButton1.setForeground(new java.awt.Color(229, 231, 238));
@@ -259,7 +276,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(163, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(Profil)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(67, 67, 67)
                                 .addComponent(jToggleButton1)))
@@ -275,7 +292,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(159, 159, 159)
                 .addComponent(jToggleButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(Profil)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -376,12 +393,12 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Password;
+    private javax.swing.JLabel Profil;
     private javax.swing.JTextField Username;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -7,11 +7,14 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.TableModel;
 /**
@@ -37,6 +40,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         Datas();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
     int UserId = UserSession.GetUserId();
     public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE (transaksi.Nis = '"+ UserId +"') AND (denda.Status = '1' OR denda.Status='2' )ORDER BY transaksi.IdTransaksi";
@@ -46,6 +50,18 @@ public class Siswa_Denda extends javax.swing.JFrame {
         };
         tmdl = new DefaultTableModel(null, judul);
         TDen.setModel(tmdl);
+    }
+     public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From profile");
+            if(rst.next()){
+                PGRI.setText(rst.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
      public void jumlahnotif(){
          try {

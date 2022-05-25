@@ -9,12 +9,15 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -34,6 +37,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = new koneksi().connect();
     PreparedStatement pst = null;
+    Statement stt;
     public Siswa_HistoriPeminjaman() {
         initComponents();
          SubSirk.setVisible(false);
@@ -43,10 +47,23 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
         initial();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
     int from = 0;
     int rows,col,limit;
     int UserId = UserSession.GetUserId();
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void jumlahnotif(){
          try {
             ;

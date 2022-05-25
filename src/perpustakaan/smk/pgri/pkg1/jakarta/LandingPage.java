@@ -44,6 +44,7 @@ public class LandingPage extends javax.swing.JFrame {
     public LandingPage() {
         initComponents();
         initial();
+        getProfile();
         
     }
     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
@@ -57,6 +58,20 @@ public class LandingPage extends javax.swing.JFrame {
             rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
             if(rs.next()){
                 cvr = rs.getString("image");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                toLandingPage.setText(rs.getString("Profil"));
+                Profil.setText(rs.getString("Profil"));
+                Tagline.setText(rs.getString("Tagline"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,8 +139,8 @@ public class LandingPage extends javax.swing.JFrame {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Profil = new javax.swing.JLabel();
+        Tagline = new javax.swing.JLabel();
         img2 = new javax.swing.JToggleButton();
         img3 = new javax.swing.JToggleButton();
         img4 = new javax.swing.JToggleButton();
@@ -137,6 +152,7 @@ public class LandingPage extends javax.swing.JFrame {
         toKunjungan = new javax.swing.JLabel();
         toTentang = new javax.swing.JLabel();
         toLandingPage = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,13 +163,13 @@ public class LandingPage extends javax.swing.JFrame {
         kGradientPanel1.setkTransparentControls(false);
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
-        jLabel3.setText("Perpustakaan SMK PGRI 1 Jakarta ");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 168, -1, -1));
+        Profil.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        Profil.setText("SMK PGRI 1 Jakarta");
+        kGradientPanel1.add(Profil, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
-        jLabel2.setText("Literasi Mencerdaskan");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 233, 324, -1));
+        Tagline.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
+        Tagline.setText("Literasi Mencerdaskan");
+        kGradientPanel1.add(Tagline, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 233, 324, -1));
 
         img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
         img2.addActionListener(new java.awt.event.ActionListener() {
@@ -303,6 +319,10 @@ public class LandingPage extends javax.swing.JFrame {
 
         kGradientPanel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 1280, -1));
 
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        jLabel4.setText("Perpustakaan");
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 168, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -449,13 +469,14 @@ public class LandingPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Profil;
+    private javax.swing.JLabel Tagline;
     private javax.swing.JToggleButton img1;
     private javax.swing.JToggleButton img2;
     private javax.swing.JToggleButton img3;
     private javax.swing.JToggleButton img4;
     private javax.swing.JToggleButton img5;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton lihatKatalog;

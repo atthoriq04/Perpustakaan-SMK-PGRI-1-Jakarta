@@ -148,13 +148,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         toDataUsulan = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         Update = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        ToPTransaksi = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        ToPProfil = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        ToPBliblio = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         PanelPPetugas = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
@@ -168,6 +161,17 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         NamaP1 = new javax.swing.JLabel();
         NikP1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        ToPTransaksi = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        ToPProfil = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        ToPBliblio = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        ToPSistem = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        ToPAnggota = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -389,7 +393,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 154, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -423,7 +427,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 154, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -671,7 +675,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 152, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -705,7 +709,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 152, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -739,7 +743,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 152, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -773,7 +777,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1042,7 +1046,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 47);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1076,7 +1080,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 152, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1122,96 +1126,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
         jPanel3.add(Update);
-        Update.setBounds(1170, 690, 67, 23);
-
-        jPanel7.setBackground(new java.awt.Color(229, 231, 238));
-        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel7MouseExited(evt);
-            }
-        });
-        jPanel7.setLayout(null);
-
-        ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
-        ToPTransaksi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        ToPTransaksi.setToolTipText("");
-        ToPTransaksi.setAutoscrolls(true);
-        ToPTransaksi.setName(""); // NOI18N
-        ToPTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ToPTransaksiMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ToPTransaksiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ToPTransaksiMouseExited(evt);
-            }
-        });
-        ToPTransaksi.setLayout(null);
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel17.setText("Pengaturan Transaksi");
-        ToPTransaksi.add(jLabel17);
-        jLabel17.setBounds(20, 10, 160, 20);
-
-        jPanel7.add(ToPTransaksi);
-        ToPTransaksi.setBounds(420, 0, 200, 40);
-
-        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
-        ToPProfil.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        ToPProfil.setToolTipText("");
-        ToPProfil.setAutoscrolls(true);
-        ToPProfil.setName(""); // NOI18N
-        ToPProfil.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ToPProfilMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ToPProfilMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ToPProfilMouseExited(evt);
-            }
-        });
-        ToPProfil.setLayout(null);
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("Pengaturan Profil");
-        ToPProfil.add(jLabel15);
-        jLabel15.setBounds(40, 10, 130, 20);
-
-        jPanel7.add(ToPProfil);
-        ToPProfil.setBounds(0, 0, 220, 40);
-
-        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
-        ToPBliblio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        ToPBliblio.setToolTipText("");
-        ToPBliblio.setAutoscrolls(true);
-        ToPBliblio.setName(""); // NOI18N
-        ToPBliblio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ToPBliblioMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ToPBliblioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ToPBliblioMouseExited(evt);
-            }
-        });
-        ToPBliblio.setLayout(null);
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Pengaturan Bliblio");
-        ToPBliblio.add(jLabel10);
-        jLabel10.setBounds(30, 10, 130, 20);
-
-        jPanel7.add(ToPBliblio);
-        ToPBliblio.setBounds(220, 0, 200, 40);
-
-        jPanel3.add(jPanel7);
-        jPanel7.setBounds(80, 0, 1200, 40);
+        Update.setBounds(1170, 690, 71, 25);
 
         PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
         PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
@@ -1333,6 +1248,147 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
 
         jPanel3.add(PanelPPetugas);
         PanelPPetugas.setBounds(390, 190, 600, 350);
+
+        jPanel7.setBackground(new java.awt.Color(229, 231, 238));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel7MouseExited(evt);
+            }
+        });
+        jPanel7.setLayout(null);
+
+        ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
+        ToPTransaksi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPTransaksi.setToolTipText("");
+        ToPTransaksi.setAutoscrolls(true);
+        ToPTransaksi.setName(""); // NOI18N
+        ToPTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPTransaksiMouseExited(evt);
+            }
+        });
+        ToPTransaksi.setLayout(null);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel17.setText("Pengaturan Transaksi");
+        ToPTransaksi.add(jLabel17);
+        jLabel17.setBounds(20, 10, 160, 20);
+
+        jPanel7.add(ToPTransaksi);
+        ToPTransaksi.setBounds(420, 0, 200, 40);
+
+        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
+        ToPProfil.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPProfil.setToolTipText("");
+        ToPProfil.setAutoscrolls(true);
+        ToPProfil.setName(""); // NOI18N
+        ToPProfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPProfilMouseExited(evt);
+            }
+        });
+        ToPProfil.setLayout(null);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel15.setText("Pengaturan Profil");
+        ToPProfil.add(jLabel15);
+        jLabel15.setBounds(40, 10, 130, 20);
+
+        jPanel7.add(ToPProfil);
+        ToPProfil.setBounds(0, 0, 220, 40);
+
+        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
+        ToPBliblio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPBliblio.setToolTipText("");
+        ToPBliblio.setAutoscrolls(true);
+        ToPBliblio.setName(""); // NOI18N
+        ToPBliblio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPBliblioMouseExited(evt);
+            }
+        });
+        ToPBliblio.setLayout(null);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel10.setText("Pengaturan Bliblio");
+        ToPBliblio.add(jLabel10);
+        jLabel10.setBounds(30, 10, 130, 20);
+
+        jPanel7.add(ToPBliblio);
+        ToPBliblio.setBounds(220, 0, 200, 40);
+
+        ToPSistem.setBackground(new java.awt.Color(229, 231, 238));
+        ToPSistem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPSistem.setToolTipText("");
+        ToPSistem.setAutoscrolls(true);
+        ToPSistem.setName(""); // NOI18N
+        ToPSistem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseExited(evt);
+            }
+        });
+        ToPSistem.setLayout(null);
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel34.setText("Pengaturan Sistem");
+        ToPSistem.add(jLabel34);
+        jLabel34.setBounds(30, 10, 140, 20);
+
+        jPanel7.add(ToPSistem);
+        ToPSistem.setBounds(820, 0, 200, 40);
+
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        ToPAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPAnggota.setToolTipText("");
+        ToPAnggota.setAutoscrolls(true);
+        ToPAnggota.setName(""); // NOI18N
+        ToPAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPAnggotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPAnggotaMouseExited(evt);
+            }
+        });
+        ToPAnggota.setLayout(null);
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel30.setText("Pengaturan Anggota");
+        ToPAnggota.add(jLabel30);
+        jLabel30.setBounds(20, 10, 160, 20);
+
+        jPanel7.add(ToPAnggota);
+        ToPAnggota.setBounds(620, 0, 200, 40);
+
+        jPanel3.add(jPanel7);
+        jPanel7.setBounds(80, 0, 1200, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1758,18 +1814,6 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
-    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel7MouseExited
-
-    private void ToPProfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseExited
-        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_ToPProfilMouseExited
-
-    private void ToPBliblioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseExited
-        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_ToPBliblioMouseExited
-
     private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailActionPerformed
@@ -1782,8 +1826,21 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NoHP1ActionPerformed
 
+    private void ToPTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseClicked
+        Petugas_PengaturanTransaksi obj = new Petugas_PengaturanTransaksi();
+        obj.setVisible(true);
+        this.dispose();
+        obj.pack();
+        obj.setLocationRelativeTo(null);
+        obj.setVisible(true);
+    }//GEN-LAST:event_ToPTransaksiMouseClicked
+
+    private void ToPTransaksiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseEntered
+        ToPTransaksi.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPTransaksiMouseEntered
+
     private void ToPTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseExited
-       ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
+
     }//GEN-LAST:event_ToPTransaksiMouseExited
 
     private void ToPProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseClicked
@@ -1795,6 +1852,14 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_ToPProfilMouseClicked
 
+    private void ToPProfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseEntered
+        ToPProfil.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPProfilMouseEntered
+
+    private void ToPProfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseExited
+        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPProfilMouseExited
+
     private void ToPBliblioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseClicked
         Petugas_PengBlibli obj = new Petugas_PengBlibli();
         obj.setVisible(true);
@@ -1804,26 +1869,45 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_ToPBliblioMouseClicked
 
-    private void ToPTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseClicked
-        Petugas_PengaturanTransaksi obj = new Petugas_PengaturanTransaksi();
-        obj.setVisible(true);
-        this.dispose();
-        obj.pack();
-        obj.setLocationRelativeTo(null);
-        obj.setVisible(true);
-    }//GEN-LAST:event_ToPTransaksiMouseClicked
-
-    private void ToPProfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseEntered
-        ToPProfil.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_ToPProfilMouseEntered
-
     private void ToPBliblioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseEntered
         ToPBliblio.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_ToPBliblioMouseEntered
 
-    private void ToPTransaksiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseEntered
-       ToPTransaksi.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_ToPTransaksiMouseEntered
+    private void ToPBliblioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseExited
+        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPBliblioMouseExited
+
+    private void ToPSistemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseClicked
+        Petugas_PengaturanSistem obj = new Petugas_PengaturanSistem();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ToPSistemMouseClicked
+
+    private void ToPSistemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseEntered
+        ToPSistem.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPSistemMouseEntered
+
+    private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPSistemMouseExited
+
+    private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked
+        Petugas_PengaturanAnggota obj = new Petugas_PengaturanAnggota();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ToPAnggotaMouseClicked
+
+    private void ToPAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseEntered
+        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPAnggotaMouseEntered
+
+    private void ToPAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseExited
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPAnggotaMouseExited
+
+    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MouseExited
 
     /**
      * @param args the command line arguments
@@ -1868,8 +1952,10 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JTextField NoHP1;
     private javax.swing.JPanel PanelPPetugas;
     private javax.swing.JPasswordField Password1;
+    private javax.swing.JPanel ToPAnggota;
     private javax.swing.JPanel ToPBliblio;
     private javax.swing.JPanel ToPProfil;
+    private javax.swing.JPanel ToPSistem;
     private javax.swing.JPanel ToPTransaksi;
     private javax.swing.JButton Update;
     private javax.swing.JTextField Username;
@@ -1896,9 +1982,11 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;

@@ -8,11 +8,14 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Atthoriq
@@ -29,9 +32,21 @@ public class Kunjungan extends javax.swing.JFrame {
     public PreparedStatement prst;
     public Kunjungan() {
         initComponents();
+        getProfile();
         
         
         
+    }public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From profile");
+            if(rst.next()){
+                toLandingPage.setText(rst.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

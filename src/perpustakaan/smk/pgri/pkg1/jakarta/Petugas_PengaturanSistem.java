@@ -6,7 +6,10 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -33,8 +36,34 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
-        
-        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
+        get();
+        ToPSistem.setBackground(new java.awt.Color(188,190,208));
+    }
+    
+    public void get(){
+        try {
+            Statement stat = CC.createStatement();
+            String SQL = "SELECT * FROM profile";
+            ResultSet rs = stat.executeQuery(SQL);
+            if(rs.next()){
+                Profil.setText(rs.getString("Profil"));
+                Tagline.setText(rs.getString("Tagline"));
+                Tentang1.setText(rs.getString("Tentang1"));
+                Tentang2.setText(rs.getString("Tentang2"));
+                Tentang3.setText(rs.getString("Tentang1"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_PengaturanSistem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void edit(){
+        try {
+            Statement stat = CC.createStatement();
+            stat.executeUpdate("UPDATE profile SET  Profil= '"+ Profil.getText() +"' , Tagline= '"+ Tagline.getText() +"', Tentang3= '"+ Tentang1.getText() +"', Tentang2= '"+ Tentang2.getText() +"', Tentang3= '"+ Tentang3.getText() +"' ");       
+             JOptionPane.showMessageDialog(null, "berhasil");
+        } catch (SQLException ex) {
+            Logger.getLogger(Petugas_PengaturanSistem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -114,8 +143,8 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         toDataUsulan = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         PanelPPetugas = new javax.swing.JPanel();
-        durasi = new javax.swing.JTextField();
-        durasi1 = new javax.swing.JTextField();
+        Profil = new javax.swing.JTextField();
+        Tentang3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -123,10 +152,10 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Tentang1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        durasi5 = new javax.swing.JTextField();
+        Tentang2 = new javax.swing.JTextArea();
+        Tagline = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         ToPTransaksi = new javax.swing.JPanel();
@@ -359,7 +388,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 154, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -393,7 +422,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 154, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -641,7 +670,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 152, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -675,7 +704,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 152, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -709,7 +738,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 152, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -743,7 +772,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1016,7 +1045,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 47);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1050,7 +1079,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 152, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1093,11 +1122,11 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
         PanelPPetugas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        durasi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        PanelPPetugas.add(durasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 480, -1));
+        Profil.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        PanelPPetugas.add(Profil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 480, -1));
 
-        durasi1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        PanelPPetugas.add(durasi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 480, -1));
+        Tentang3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        PanelPPetugas.add(Tentang3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 480, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Pengaturan Sistem ");
@@ -1123,20 +1152,20 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         jLabel7.setText("Tentang Perpustakaan");
         PanelPPetugas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        Tentang1.setColumns(20);
+        Tentang1.setRows(5);
+        jScrollPane1.setViewportView(Tentang1);
 
         PanelPPetugas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 479, -1));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        Tentang2.setColumns(20);
+        Tentang2.setRows(5);
+        jScrollPane2.setViewportView(Tentang2);
 
         PanelPPetugas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 479, -1));
 
-        durasi5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        PanelPPetugas.add(durasi5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 480, -1));
+        Tagline.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        PanelPPetugas.add(Tagline, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 480, -1));
 
         jButton1.setText("Edit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -1254,9 +1283,9 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         ToPSistem.setLayout(null);
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel34.setText("Pengaturan Anggota");
+        jLabel34.setText("Pengaturan Sistem");
         ToPSistem.add(jLabel34);
-        jLabel34.setBounds(20, 10, 160, 20);
+        jLabel34.setBounds(30, 10, 140, 20);
 
         jPanel7.add(ToPSistem);
         ToPSistem.setBounds(820, 0, 200, 40);
@@ -1740,15 +1769,17 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPBliblioMouseExited
 
     private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked
-        // TODO add your handling code here:
+        Petugas_PengaturanAnggota obj = new Petugas_PengaturanAnggota();
+        obj.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ToPAnggotaMouseClicked
 
     private void ToPAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseEntered
-        // TODO add your handling code here:
+        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_ToPAnggotaMouseEntered
 
     private void ToPAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseExited
-        // TODO add your handling code here:
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPAnggotaMouseExited
 
     private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
@@ -1764,19 +1795,26 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseEntered
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+           if(Profil.getText().isEmpty() || Tagline.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Harap Isi Data yang Kosong");
+           }else{
+           edit();
+           get();
+           }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ToPSistemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseClicked
-        // TODO add your handling code here:
+        Petugas_PengaturanSistem obj = new Petugas_PengaturanSistem();
+        obj.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ToPSistemMouseClicked
 
     private void ToPSistemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseEntered
-        // TODO add your handling code here:
+        ToPSistem.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_ToPSistemMouseEntered
 
     private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
-        // TODO add your handling code here:
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPSistemMouseExited
 
     /**
@@ -1816,14 +1854,16 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPPetugas;
+    private javax.swing.JTextField Profil;
+    private javax.swing.JTextField Tagline;
+    private javax.swing.JTextArea Tentang1;
+    private javax.swing.JTextArea Tentang2;
+    private javax.swing.JTextField Tentang3;
     private javax.swing.JPanel ToPAnggota;
     private javax.swing.JPanel ToPBliblio;
     private javax.swing.JPanel ToPProfil;
     private javax.swing.JPanel ToPSistem;
     private javax.swing.JPanel ToPTransaksi;
-    private javax.swing.JTextField durasi;
-    private javax.swing.JTextField durasi1;
-    private javax.swing.JTextField durasi5;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JButton jButton1;
@@ -1873,8 +1913,6 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

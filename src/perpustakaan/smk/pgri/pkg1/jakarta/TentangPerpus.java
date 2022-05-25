@@ -4,6 +4,15 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author Atthoriq
@@ -13,10 +22,28 @@ public class TentangPerpus extends javax.swing.JFrame {
     /**
      * Creates new form TentangPerpus
      */
+    
+         ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
+    Statement stt;
     public TentangPerpus() {
         initComponents();
+        CC = new koneksi().connect();
+        getProfile();
     }
-
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                toLandingPage.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

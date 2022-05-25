@@ -4,6 +4,14 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Atthoriq
@@ -13,6 +21,11 @@ public class Detail extends javax.swing.JFrame {
     /**
      * Creates new form Detail
      */
+    ResultSet rs = null;
+    Connection CC = new koneksi().connect();
+    PreparedStatement pst = null;
+    
+    public Statement stt;
     public Detail() {
         initComponents();
         PanelLog.setVisible(false);
@@ -20,6 +33,7 @@ public class Detail extends javax.swing.JFrame {
          tampilNavbar();
         SubUser.setVisible(false);
         SubSirk.setVisible(false);
+        getProfile();
     }
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
@@ -32,6 +46,19 @@ public class Detail extends javax.swing.JFrame {
             PanelUmum.setVisible(false);
             PanelLog.setVisible(true);
             toUser.setText(UserLogin);
+        }
+    }
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+                toLandingPage.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

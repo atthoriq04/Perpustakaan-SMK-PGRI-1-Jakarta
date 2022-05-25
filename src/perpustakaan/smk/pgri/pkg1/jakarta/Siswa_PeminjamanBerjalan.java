@@ -7,11 +7,14 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.TableModel;
 /**
@@ -37,8 +40,21 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
         getData();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
     int UserId = UserSession.GetUserId();
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From profile");
+            if(rst.next()){
+                PGRI.setText(rst.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void jumlahnotif(){
          try {
             ;

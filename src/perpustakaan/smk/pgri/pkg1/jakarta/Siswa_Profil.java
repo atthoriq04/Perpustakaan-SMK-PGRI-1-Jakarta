@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
+    Statement stt;
     public Siswa_Profil() {
         initComponents();
         CC = new koneksi().connect();
@@ -49,8 +51,20 @@ public class Siswa_Profil extends javax.swing.JFrame {
         UserId();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
-
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }

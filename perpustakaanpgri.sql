@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 24, 2022 at 04:10 PM
+-- Generation Time: May 25, 2022 at 08:20 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.16
 
@@ -38,7 +38,7 @@ CREATE TABLE `adjust` (
 --
 
 INSERT INTO `adjust` (`idAdjust`, `tName`, `Status`) VALUES
-(1, 'add1', 0),
+(1, 'add1', 1),
 (2, 'add2', 0),
 (3, 'add3', 0),
 (4, 'add4', 0),
@@ -73,44 +73,44 @@ CREATE TABLE `anggota` (
 --
 
 INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `add1`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
-(13218, 'ADHITYA RIZKY ARDIANSYAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13219, 'ADITHYA PRAYOGA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13220, 'ADITIYA MAULANA SIDIQ', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13221, 'AGUNG PRIAMBODO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13222, 'ALDI RACHMAN SYAHPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13223, 'ALFI HUSNI BAHANAN', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13224, 'AR RAIHAN GHIFARI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13225, 'AZ ZAHRA MAYANG ARUM', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13226, 'DELVIAN CAESAR LEE', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13227, 'EDRIAN SYAHPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13228, 'FAJAR PRATAMA PRAJA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13229, 'GALANG PUTRA DHIVA PRATAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13230, 'HEZEKIEL BEKKAT LAMTAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13231, 'JONATHAN CHRISTIAN IMANUEL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13232, 'MAHENDRA RAFLI ATHILLAH AZIZ', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13233, 'MEDIUS HOLY HISTORIMAN MUANLEY', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13234, 'MIFTA SAYYIDINA RABBANI', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13235, 'MUHAMAD ALFIANSYAHCH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13236, 'MUHAMAD FATONI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13237, 'MUHAMMAD ADRYAN', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13238, 'MUHAMMAD DAUD ASFA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13239, 'MUHAMMAD FAJAR RIVALDI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13240, 'MUHAMMAD RAFLI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13241, 'MUHAMMAD RENDI FAHREZA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13242, 'MUKHSIN RAMDANI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13243, 'NAZHMI THUFAIL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13244, 'PRASOJO LINUWEH SRI KUNCORO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13245, 'PUTRI ZAHIRAH GHINAYA', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13246, 'RACHMAT SYARIF GUSTIANDI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13247, 'RADITYA YOGA PRATAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13248, 'RAFFI SYAWAL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13249, 'RAFLI IBRAHIM', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13250, 'RAIVAN NUGRAHA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13251, 'RANDY ROBUN DZATRYASTO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13252, 'RAYSHAL RADITYA SAPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13253, 'RIZKA INDRIANTI', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13254, 'SULTHON ABDULFATTAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23'),
-(13255, 'VANESA PRAYSILIA RADJA', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', '', '', '', '', '', '2023-05-23');
+(13218, 'ADHITYA RIZKY ARDIANSYAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13219, 'ADITHYA PRAYOGA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13220, 'ADITIYA MAULANA SIDIQ', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13221, 'AGUNG PRIAMBODO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13222, 'ALDI RACHMAN SYAHPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13223, 'ALFI HUSNI BAHANAN', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13224, 'AR RAIHAN GHIFARI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13225, 'AZ ZAHRA MAYANG ARUM', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13226, 'DELVIAN CAESAR LEE', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13227, 'EDRIAN SYAHPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13228, 'FAJAR PRATAMA PRAJA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13229, 'GALANG PUTRA DHIVA PRATAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13230, 'HEZEKIEL BEKKAT LAMTAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13231, 'JONATHAN CHRISTIAN IMANUEL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13232, 'MAHENDRA RAFLI ATHILLAH AZIZ', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13233, 'MEDIUS HOLY HISTORIMAN MUANLEY', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13234, 'MIFTA SAYYIDINA RABBANI', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13235, 'MUHAMAD ALFIANSYAHCH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13236, 'MUHAMAD FATONI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13237, 'MUHAMMAD ADRYAN', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13238, 'MUHAMMAD DAUD ASFA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13239, 'MUHAMMAD FAJAR RIVALDI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13240, 'MUHAMMAD RAFLI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13241, 'MUHAMMAD RENDI FAHREZA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13242, 'MUKHSIN RAMDANI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13243, 'NAZHMI THUFAIL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13244, 'PRASOJO LINUWEH SRI KUNCORO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13245, 'PUTRI ZAHIRAH GHINAYA', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13246, 'RACHMAT SYARIF GUSTIANDI', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13247, 'RADITYA YOGA PRATAMA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13248, 'RAFFI SYAWAL', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13249, 'RAFLI IBRAHIM', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13250, 'RAIVAN NUGRAHA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13251, 'RANDY ROBUN DZATRYASTO', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13252, 'RAYSHAL RADITYA SAPUTRA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13253, 'RIZKA INDRIANTI', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13254, 'SULTHON ABDULFATTAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23'),
+(13255, 'VANESA PRAYSILIA RADJA', 1, 'P', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, '', '', '2023-05-23');
 
 -- --------------------------------------------------------
 
@@ -5759,6 +5759,13 @@ CREATE TABLE `profile` (
   `Tentang3` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`id`, `Profil`, `Tagline`, `Tentang1`, `Tentang2`, `Tentang3`) VALUES
+(1, 'SMK PGRI 2 Jakarta', 'Perpustakaan Mencerdaskan', '', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -6194,7 +6201,7 @@ ALTER TABLE `pengunjung`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reqbebaspustaka`

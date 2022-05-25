@@ -3,11 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -33,10 +42,89 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        initial();
         
         ToPAnggota.setBackground(new java.awt.Color(188,190,208));
     }
+    public int aValue1,aValue2,aValue3,aValue4,aValue5;
+    public String Name1,Name2,Name3,Name4,Name5;
+    String[]Names = { Name1,Name2,Name3,Name4,Name5 };
+    private void initial(){
+        try{
+         JTextField[]tName = {field1,field2,field3,field4,field5};
+         JCheckBox[]Aktivasi = {aktif1,aktif2,aktif3,aktif4,aktif5};
+         int[]aValue = {aValue1,aValue2,aValue3,aValue4, aValue5};
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
 
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    };
+                  tName[rowindex].setText(rs.getString("tName"));
+                  Names[rowindex] = rs.getString("tName");
+                  if(rs.getInt("Status") > 0){
+                      aValue[rowindex] = 1;
+                      Aktivasi[rowindex].setSelected(true);
+                      
+                  }else{
+                      aValue[rowindex] = 0;
+                      Aktivasi[rowindex].setSelected(false);
+                  }
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
+    private String strap;
+    private void updateName(String strap, String ids){
+         int opt = JOptionPane.showConfirmDialog(null, "seluruh baris data di dalam kolom akan Dihapus ini jika nama kolom diganti, Apakah Anda yakin?" , "Update", JOptionPane.YES_NO_OPTION);
+                 if(opt == 0){
+        try {
+            Statement stat = CC.createStatement();
+            stat.executeUpdate("UPDATE anggota SET "+ids+" = null");
+            stat.executeUpdate("ALTER TABLE `anggota` CHANGE `"+ ids +"` `"+ strap +"` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
+            stat.executeUpdate("UPDATE adjust SET tName = '"+ strap +"' WHERE tName  = '"+ids+"'");       
+            JOptionPane.showMessageDialog(null, "berhasil");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
+    }
+    }
+    private void updateStatus(String ids){
+        int opt = JOptionPane.showConfirmDialog(null, "Kolom ini akan diaktifkan, Anda Yakin?" , "Update", JOptionPane.YES_NO_OPTION);
+                 if(opt == 0){
+        try {
+            Statement stat = CC.createStatement();
+            stat.executeUpdate("UPDATE adjust SET status = '1' WHERE tName = '"+ids+"'");       
+            JOptionPane.showMessageDialog(null, "berhasil");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,23 +201,6 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         toDataUsulan = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        PanelPPetugas = new javax.swing.JPanel();
-        durasi = new javax.swing.JTextField();
-        durasi1 = new javax.swing.JTextField();
-        durasi2 = new javax.swing.JTextField();
-        durasi3 = new javax.swing.JTextField();
-        durasi4 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         ToPTransaksi = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -137,8 +208,28 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         ToPBliblio = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        ToPSistem = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
         ToPAnggota = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
+        PanelPPetugas = new javax.swing.JPanel();
+        field1 = new javax.swing.JTextField();
+        field2 = new javax.swing.JTextField();
+        field3 = new javax.swing.JTextField();
+        field4 = new javax.swing.JTextField();
+        field5 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        aktif1 = new javax.swing.JCheckBox();
+        aktif2 = new javax.swing.JCheckBox();
+        aktif3 = new javax.swing.JCheckBox();
+        aktif4 = new javax.swing.JCheckBox();
+        aktif5 = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -359,7 +450,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 154, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -393,7 +484,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 154, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -641,7 +732,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 152, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -675,7 +766,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 152, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -709,7 +800,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 152, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -743,7 +834,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1016,7 +1107,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 47);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1050,7 +1141,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 152, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1088,173 +1179,6 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
 
         jPanel3.add(subMenuBlibliografi);
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
-
-        PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
-        PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
-
-        durasi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        durasi1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        durasi2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        durasi3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        durasi4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Pengaturan Aktivasi Field Anggota");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Nama Field");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Nama Field");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Nama Field");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Nama Field");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("Nama Field");
-
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setText("Aktif");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox2.setText("Aktif");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox3.setText("Aktif");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox4.setText("Aktif");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox5.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox5.setText("Aktif");
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PanelPPetugasLayout = new javax.swing.GroupLayout(PanelPPetugas);
-        PanelPPetugas.setLayout(PanelPPetugasLayout);
-        PanelPPetugasLayout.setHorizontalGroup(
-            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(durasi, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(17, 17, 17)
-                        .addComponent(durasi1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(17, 17, 17)
-                        .addComponent(durasi2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox3))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(17, 17, 17)
-                        .addComponent(durasi3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox4))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(17, 17, 17)
-                        .addComponent(durasi4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox5))))
-        );
-        PanelPPetugasLayout.setVerticalGroup(
-            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(durasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(durasi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox2))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel4))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(durasi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox3))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel5))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(durasi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox4))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel7))
-                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(durasi4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox5)))
-        );
-
-        jPanel3.add(PanelPPetugas);
-        PanelPPetugas.setBounds(370, 230, 580, 330);
 
         jPanel7.setBackground(new java.awt.Color(229, 231, 238));
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1342,6 +1266,32 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         jPanel7.add(ToPBliblio);
         ToPBliblio.setBounds(220, 0, 200, 40);
 
+        ToPSistem.setBackground(new java.awt.Color(229, 231, 238));
+        ToPSistem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        ToPSistem.setToolTipText("");
+        ToPSistem.setAutoscrolls(true);
+        ToPSistem.setName(""); // NOI18N
+        ToPSistem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ToPSistemMouseExited(evt);
+            }
+        });
+        ToPSistem.setLayout(null);
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel34.setText("Pengaturan Sistem");
+        ToPSistem.add(jLabel34);
+        jLabel34.setBounds(30, 10, 140, 20);
+
+        jPanel7.add(ToPSistem);
+        ToPSistem.setBounds(820, 0, 200, 40);
+
         ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
         ToPAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         ToPAnggota.setToolTipText("");
@@ -1370,6 +1320,212 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
 
         jPanel3.add(jPanel7);
         jPanel7.setBounds(80, 0, 1200, 40);
+
+        PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
+        PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+
+        field1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        field1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                field1KeyPressed(evt);
+            }
+        });
+
+        field2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        field2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                field2KeyPressed(evt);
+            }
+        });
+
+        field3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        field3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                field3KeyPressed(evt);
+            }
+        });
+
+        field4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        field4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                field4KeyPressed(evt);
+            }
+        });
+
+        field5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        field5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                field5KeyPressed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Pengaturan Aktivasi Field Anggota");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Nama Field");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Nama Field");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Nama Field");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Nama Field");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("Nama Field");
+
+        aktif1.setBackground(new java.awt.Color(255, 255, 255));
+        aktif1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        aktif1.setText("Aktif");
+        aktif1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktif1ActionPerformed(evt);
+            }
+        });
+
+        aktif2.setBackground(new java.awt.Color(255, 255, 255));
+        aktif2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        aktif2.setText("Aktif");
+        aktif2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktif2ActionPerformed(evt);
+            }
+        });
+
+        aktif3.setBackground(new java.awt.Color(255, 255, 255));
+        aktif3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        aktif3.setText("Aktif");
+        aktif3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktif3ActionPerformed(evt);
+            }
+        });
+
+        aktif4.setBackground(new java.awt.Color(255, 255, 255));
+        aktif4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        aktif4.setText("Aktif");
+        aktif4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktif4ActionPerformed(evt);
+            }
+        });
+
+        aktif5.setBackground(new java.awt.Color(255, 255, 255));
+        aktif5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        aktif5.setText("Aktif");
+        aktif5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktif5ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Edit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelPPetugasLayout = new javax.swing.GroupLayout(PanelPPetugas);
+        PanelPPetugas.setLayout(PanelPPetugasLayout);
+        PanelPPetugasLayout.setHorizontalGroup(
+            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(field1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aktif1))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(17, 17, 17)
+                        .addComponent(field2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aktif2))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(17, 17, 17)
+                        .addComponent(field3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aktif3))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(17, 17, 17)
+                        .addComponent(field4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aktif4))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(17, 17, 17)
+                        .addComponent(field5, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(aktif5))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPPetugasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+        PanelPPetugasLayout.setVerticalGroup(
+            PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aktif1)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(field1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(field2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aktif2))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel4))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(field3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aktif3))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel5))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(field4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aktif4))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel7))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(field5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aktif5))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(PanelPPetugas);
+        PanelPPetugas.setBounds(370, 230, 580, 350);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Nama Field");
@@ -1769,6 +1925,83 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        subMenuBlibliografi.setVisible(false);
+        subMenuSirkulasi.setVisible(false);
+        subMenuAnggota.setVisible(false);
+        subMenuLaporan.setVisible(false);
+        subMenuAdmin.setVisible(false);
+    }//GEN-LAST:event_jPanel3MouseEntered
+
+    private void aktif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif1ActionPerformed
+        updateStatus(Names[0]);
+        initial();
+    }//GEN-LAST:event_aktif1ActionPerformed
+
+    private void aktif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif2ActionPerformed
+        updateStatus(Names[1]);
+        initial();
+    }//GEN-LAST:event_aktif2ActionPerformed
+
+    private void aktif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif3ActionPerformed
+       updateStatus(Names[2]);
+        initial();
+    }//GEN-LAST:event_aktif3ActionPerformed
+
+    private void aktif4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif4ActionPerformed
+        updateStatus(Names[3]);
+        initial();
+    }//GEN-LAST:event_aktif4ActionPerformed
+
+    private void aktif5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif5ActionPerformed
+       updateStatus(Names[4]);
+        initial();
+    }//GEN-LAST:event_aktif5ActionPerformed
+
+    private void field1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            updateName(field1.getText(),Names[0]);
+            initial();
+        }
+    }//GEN-LAST:event_field1KeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println(aValue1);
+        System.out.println(aValue2);
+        System.out.println(aValue3);
+        System.out.println(aValue4);
+        System.out.println(aValue5);
+        initial();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void field2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field2KeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           updateName(field2.getText(),Names[1]);
+            initial();
+         }
+    }//GEN-LAST:event_field2KeyPressed
+
+    private void field3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field3KeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           updateName(field3.getText(),Names[2]);
+            initial();
+         }
+    }//GEN-LAST:event_field3KeyPressed
+
+    private void field4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field4KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            updateName(field4.getText(),Names[3]);
+            initial();
+         }
+    }//GEN-LAST:event_field4KeyPressed
+
+    private void field5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field5KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            updateName(field5.getText(),Names[4]);
+            initial();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_field5KeyPressed
+
     private void ToPTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseClicked
         Petugas_PengaturanTransaksi obj = new Petugas_PengaturanTransaksi();
         obj.setVisible(true);
@@ -1820,49 +2053,37 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPBliblioMouseExited
 
-    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel7MouseExited
+    private void ToPSistemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseClicked
+        Petugas_PengaturanSistem obj = new Petugas_PengaturanSistem();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ToPSistemMouseClicked
 
-    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
-        subMenuBlibliografi.setVisible(false);
-        subMenuSirkulasi.setVisible(false);
-        subMenuAnggota.setVisible(false);
-        subMenuLaporan.setVisible(false);
-        subMenuAdmin.setVisible(false);
-    }//GEN-LAST:event_jPanel3MouseEntered
+    private void ToPSistemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseEntered
+        ToPSistem.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_ToPSistemMouseEntered
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
-
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
+    private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_ToPSistemMouseExited
 
     private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked
-        // TODO add your handling code here:
+        Petugas_PengaturanAnggota obj = new Petugas_PengaturanAnggota();
+        obj.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ToPAnggotaMouseClicked
 
     private void ToPAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseEntered
-        // TODO add your handling code here:
+        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_ToPAnggotaMouseEntered
 
     private void ToPAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseExited
-        // TODO add your handling code here:
+        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPAnggotaMouseExited
+
+    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MouseExited
 
     /**
      * @param args the command line arguments
@@ -1904,19 +2125,21 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel ToPAnggota;
     private javax.swing.JPanel ToPBliblio;
     private javax.swing.JPanel ToPProfil;
+    private javax.swing.JPanel ToPSistem;
     private javax.swing.JPanel ToPTransaksi;
-    private javax.swing.JTextField durasi;
-    private javax.swing.JTextField durasi1;
-    private javax.swing.JTextField durasi2;
-    private javax.swing.JTextField durasi3;
-    private javax.swing.JTextField durasi4;
+    private javax.swing.JCheckBox aktif1;
+    private javax.swing.JCheckBox aktif2;
+    private javax.swing.JCheckBox aktif3;
+    private javax.swing.JCheckBox aktif4;
+    private javax.swing.JCheckBox aktif5;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JTextField field1;
+    private javax.swing.JTextField field2;
+    private javax.swing.JTextField field3;
+    private javax.swing.JTextField field4;
+    private javax.swing.JTextField field5;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1944,6 +2167,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
