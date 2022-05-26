@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -21,6 +22,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Atthoriq
@@ -35,6 +37,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     public Statement stt;
     public static DefaultTableModel tmdl;
     public PreparedStatement prst;
+
     public Petugas_PengaturanAnggota() {
         initComponents();
         subMenuBlibliografi.setVisible(false);
@@ -43,88 +46,96 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         initial();
-        
-        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
+
+        ToPAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }
-    public int aValue1,aValue2,aValue3,aValue4,aValue5;
-    public String Name1,Name2,Name3,Name4,Name5;
-    String[]Names = { Name1,Name2,Name3,Name4,Name5 };
-    private void initial(){
-        try{
-         JTextField[]tName = {field1,field2,field3,field4,field5};
-         JCheckBox[]Aktivasi = {aktif1,aktif2,aktif3,aktif4,aktif5};
-         int[]aValue = {aValue1,aValue2,aValue3,aValue4, aValue5};
-         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust",
-        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+    public int aValue1, aValue2, aValue3, aValue4, aValue5;
+    public String Name1, Name2, Name3, Name4, Name5;
+    String[] Names = {Name1, Name2, Name3, Name4, Name5};
+
+    private void initial() {
+        try {
+            JTextField[] tName = {field1, field2, field3, field4, field5};
+            JCheckBox[] Aktivasi = {aktif1, aktif2, aktif3, aktif4, aktif5};
+            int[] aValue = {aValue1, aValue2, aValue3, aValue4, aValue5};
+            PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust",
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
 
-        ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
-        int numberOfColumns = rsmd.getColumnCount();
-        rs.first();
-       int rowcount = 0;
-            do {
-                    rowcount++;
-                } while (rs.next());
+            ResultSet rs = stmt.executeQuery();
+            ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+            int numberOfColumns = rsmd.getColumnCount();
             rs.first();
-           
+            int rowcount = 0;
+            do {
+                rowcount++;
+            } while (rs.next());
+            rs.first();
+
             int rowindex = 0; // initial rowindex
             // iterate panel default false
-             //end of iterate panel     
+            //end of iterate panel     
             Object array2D[][] = new Object[rowcount][];
             do {
-                 array2D[rowindex] = new Object[numberOfColumns];
-                  for (int i = 0; i < numberOfColumns; i++) {
+                array2D[rowindex] = new Object[numberOfColumns];
+                for (int i = 0; i < numberOfColumns; i++) {
                     array2D[rowindex][i] = rs.getObject(i + 1);
-                    };
-                  tName[rowindex].setText(rs.getString("tName"));
-                  Names[rowindex] = rs.getString("tName");
-                  if(rs.getInt("Status") > 0){
-                      aValue[rowindex] = 1;
-                      Aktivasi[rowindex].setSelected(true);
-                      
-                  }else{
-                      aValue[rowindex] = 0;
-                      Aktivasi[rowindex].setSelected(false);
-                  }
-                  
+                };
+                tName[rowindex].setText(rs.getString("tName"));
+                Names[rowindex] = rs.getString("tName");
+                if (rs.getInt("Status") > 0) {
+                    aValue[rowindex] = 1;
+                    Aktivasi[rowindex].setSelected(true);
+
+                } else {
+                    aValue[rowindex] = 0;
+                    Aktivasi[rowindex].setSelected(false);
+                }
+
                 //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
-             rowindex++;
-                } while (rs.next());              
-        
-        }catch(Exception e){
-             e.printStackTrace();
+                rowindex++;
+            } while (rs.next());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private String strap;
-    private void updateName(String strap, String ids){
-         int opt = JOptionPane.showConfirmDialog(null, "seluruh baris data di dalam kolom akan Dihapus ini jika nama kolom diganti, Apakah Anda yakin?" , "Update", JOptionPane.YES_NO_OPTION);
-                 if(opt == 0){
-        try {
-            Statement stat = CC.createStatement();
-            stat.executeUpdate("UPDATE anggota SET "+ids+" = null");
-            stat.executeUpdate("ALTER TABLE `anggota` CHANGE `"+ ids +"` `"+ strap +"` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
-            stat.executeUpdate("UPDATE adjust SET tName = '"+ strap +"' WHERE tName  = '"+ids+"'");       
-            JOptionPane.showMessageDialog(null, "berhasil");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+
+    private void updateName(String strap, String ids) {
+        int opt = JOptionPane.showConfirmDialog(null, "seluruh baris data di dalam kolom akan Dihapus ini jika nama kolom diganti, Apakah Anda yakin?", "Update", JOptionPane.YES_NO_OPTION);
+        if (opt == 0) {
+            try {
+                String straps = strap.replaceAll("\\s+","");
+                String id = ids.replaceAll("\\s+","");
+                System.out.println(straps);
+                System.out.println(id);
+                Statement stat = CC.createStatement();
+                stat.executeUpdate("UPDATE anggota SET " + id + " = null");
+                stat.executeUpdate("ALTER TABLE `anggota` CHANGE `" + id + "` `" + straps + "` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
+                stat.executeUpdate("UPDATE adjust SET tName = '" + strap + "' WHERE tName  = '" + ids + "'");
+                JOptionPane.showMessageDialog(null, "berhasil");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
         }
-    
     }
-    }
-    private void updateStatus(String ids){
-        int opt = JOptionPane.showConfirmDialog(null, "Kolom ini akan diaktifkan, Anda Yakin?" , "Update", JOptionPane.YES_NO_OPTION);
-                 if(opt == 0){
-        try {
-            Statement stat = CC.createStatement();
-            stat.executeUpdate("UPDATE adjust SET status = '1' WHERE tName = '"+ids+"'");       
-            JOptionPane.showMessageDialog(null, "berhasil");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+
+    private void updateStatus(String ids, int value) {
+        int opt = JOptionPane.showConfirmDialog(null, "Kolom ini akan diaktifkan, Anda Yakin?", "Update", JOptionPane.YES_NO_OPTION);
+        if (opt == 0) {
+            try {
+                Statement stat = CC.createStatement();
+                stat.executeUpdate("UPDATE adjust SET status = '"+value +"' WHERE tName = '" + ids + "'");
+                JOptionPane.showMessageDialog(null, "berhasil");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
         }
-    
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -229,7 +240,6 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         aktif3 = new javax.swing.JCheckBox();
         aktif4 = new javax.swing.JCheckBox();
         aktif5 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1422,13 +1432,6 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Edit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelPPetugasLayout = new javax.swing.GroupLayout(PanelPPetugas);
         PanelPPetugas.setLayout(PanelPPetugasLayout);
         PanelPPetugasLayout.setHorizontalGroup(
@@ -1466,11 +1469,8 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(field5, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(aktif5))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPPetugasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap())
+                        .addComponent(aktif5)))
+                .addGap(15, 15, 15))
         );
         PanelPPetugasLayout.setVerticalGroup(
             PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1519,13 +1519,11 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(field5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(aktif5))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         jPanel3.add(PanelPPetugas);
-        PanelPPetugas.setBounds(370, 230, 580, 350);
+        PanelPPetugas.setBounds(370, 230, 580, 340);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Nama Field");
@@ -1625,7 +1623,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toProfilPetugasMouseClicked
 
     private void toProfilPetugasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseEntered
-        toProfilPetugas.setBackground(new java.awt.Color(188,190,208));
+        toProfilPetugas.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toProfilPetugasMouseEntered
 
     private void toProfilPetugasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseExited
@@ -1639,7 +1637,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataPetugasMouseClicked
 
     private void toDataPetugasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataPetugasMouseEntered
-        toDataPetugas.setBackground(new java.awt.Color(188,190,208));
+        toDataPetugas.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataPetugasMouseEntered
 
     private void toDataPetugasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataPetugasMouseExited
@@ -1653,7 +1651,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toLoginMouseClicked
 
     private void toLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseEntered
-        toLogin.setBackground(new java.awt.Color(188,190,208));
+        toLogin.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLoginMouseEntered
 
     private void toLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseExited
@@ -1665,7 +1663,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_subMenuAdminMouseExited
 
     private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
-        toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
+        toLapPeminjaman.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLapPeminjamanMouseEntered
 
     private void toLapPeminjamanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseExited
@@ -1677,7 +1675,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toLapBukuMouseClicked
 
     private void toLapBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseEntered
-        toLapBuku.setBackground(new java.awt.Color(188,190,208));
+        toLapBuku.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLapBukuMouseEntered
 
     private void toLapBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseExited
@@ -1685,7 +1683,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toLapBukuMouseExited
 
     private void toLapAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseEntered
-        toLapAnggota.setBackground(new java.awt.Color(188,190,208));
+        toLapAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLapAnggotaMouseEntered
 
     private void toLapAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseExited
@@ -1693,7 +1691,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toLapAnggotaMouseExited
 
     private void toLapPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseEntered
-        toLapPengembalian.setBackground(new java.awt.Color(188,190,208));
+        toLapPengembalian.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLapPengembalianMouseEntered
 
     private void toLapPengembalianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseExited
@@ -1701,7 +1699,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toLapPengembalianMouseExited
 
     private void toLapDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseEntered
-        toLapDenda.setBackground(new java.awt.Color(188,190,208));
+        toLapDenda.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toLapDendaMouseEntered
 
     private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
@@ -1719,7 +1717,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataAnggotaMouseClicked
 
     private void toDataAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataAnggotaMouseEntered
-        toDataAnggota.setBackground(new java.awt.Color(188,190,208));
+        toDataAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataAnggotaMouseEntered
 
     private void toDataAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataAnggotaMouseExited
@@ -1733,7 +1731,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toInputAnggotaMouseClicked
 
     private void toInputAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputAnggotaMouseEntered
-        toInputAnggota.setBackground(new java.awt.Color(188,190,208));
+        toInputAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toInputAnggotaMouseEntered
 
     private void toInputAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputAnggotaMouseExited
@@ -1747,7 +1745,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataKelasMouseClicked
 
     private void toDataKelasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataKelasMouseEntered
-        toDataKelas.setBackground(new java.awt.Color(188,190,208));
+        toDataKelas.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataKelasMouseEntered
 
     private void toDataKelasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataKelasMouseExited
@@ -1761,7 +1759,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataJurusanMouseClicked
 
     private void toDataJurusanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataJurusanMouseEntered
-        toDataJurusan.setBackground(new java.awt.Color(188,190,208));
+        toDataJurusan.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataJurusanMouseEntered
 
     private void toDataJurusanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataJurusanMouseExited
@@ -1775,7 +1773,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toBebasPustakaMouseClicked
 
     private void toBebasPustakaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebasPustakaMouseEntered
-        toBebasPustaka.setBackground(new java.awt.Color(188,190,208));
+        toBebasPustaka.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toBebasPustakaMouseEntered
 
     private void toBebasPustakaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebasPustakaMouseExited
@@ -1793,7 +1791,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataTransaksiMouseClicked
 
     private void toDataTransaksiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataTransaksiMouseEntered
-        toDataTransaksi.setBackground(new java.awt.Color(188,190,208));
+        toDataTransaksi.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataTransaksiMouseEntered
 
     private void toDataTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataTransaksiMouseExited
@@ -1807,7 +1805,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toPengembalianBukuMouseClicked
 
     private void toPengembalianBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toPengembalianBukuMouseEntered
-        toPengembalianBuku.setBackground(new java.awt.Color(188,190,208));
+        toPengembalianBuku.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toPengembalianBukuMouseEntered
 
     private void toPengembalianBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toPengembalianBukuMouseExited
@@ -1821,7 +1819,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDendaMouseClicked
 
     private void toDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseEntered
-        toDenda.setBackground(new java.awt.Color(188,190,208));
+        toDenda.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDendaMouseEntered
 
     private void toDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDendaMouseExited
@@ -1835,7 +1833,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toKonfDendaMouseClicked
 
     private void toKonfDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDendaMouseEntered
-        toKonfDenda.setBackground(new java.awt.Color(188,190,208));
+        toKonfDenda.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toKonfDendaMouseEntered
 
     private void toKonfDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDendaMouseExited
@@ -1849,7 +1847,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toKonfDenda1MouseClicked
 
     private void toKonfDenda1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDenda1MouseEntered
-        toKonfDenda1.setBackground(new java.awt.Color(188,190,208));
+        toKonfDenda1.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toKonfDenda1MouseEntered
 
     private void toKonfDenda1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toKonfDenda1MouseExited
@@ -1867,7 +1865,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataBukuMouseClicked
 
     private void toDataBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseEntered
-        toDataBuku.setBackground(new java.awt.Color(188,190,208));
+        toDataBuku.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataBukuMouseEntered
 
     private void toDataBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseExited
@@ -1881,7 +1879,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toInputBukuMouseClicked
 
     private void toInputBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputBukuMouseEntered
-        toInputBuku.setBackground(new java.awt.Color(188,190,208));
+        toInputBuku.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toInputBukuMouseEntered
 
     private void toInputBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toInputBukuMouseExited
@@ -1895,7 +1893,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataPenulisMouseClicked
 
     private void toDataPenulisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataPenulisMouseEntered
-        toDataPenulis.setBackground(new java.awt.Color(188,190,208));
+        toDataPenulis.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataPenulisMouseEntered
 
     private void toDataPenulisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataPenulisMouseExited
@@ -1909,7 +1907,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataUsulanMouseClicked
 
     private void toDataUsulanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseEntered
-        toDataUsulan.setBackground(new java.awt.Color(188,190,208));
+        toDataUsulan.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_toDataUsulanMouseEntered
 
     private void toDataUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataUsulanMouseExited
@@ -1934,71 +1932,135 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseEntered
 
     private void aktif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif1ActionPerformed
-        updateStatus(Names[0]);
+        
+        
+        if(aktif1.isSelected()) {
+            updateStatus(Names[0],1);
+        }else{
+           updateStatus(Names[0],0);
+        }
         initial();
     }//GEN-LAST:event_aktif1ActionPerformed
 
     private void aktif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif2ActionPerformed
-        updateStatus(Names[1]);
+        if(aktif2.isSelected()){
+            updateStatus(Names[1],1);
+        }else{
+            updateStatus(Names[1],0);
+        }
         initial();
     }//GEN-LAST:event_aktif2ActionPerformed
 
     private void aktif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif3ActionPerformed
-       updateStatus(Names[2]);
+        if(aktif2.isSelected()){
+            updateStatus(Names[2],1);
+        }else{
+            updateStatus(Names[2],0);
+        }
         initial();
     }//GEN-LAST:event_aktif3ActionPerformed
 
     private void aktif4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif4ActionPerformed
-        updateStatus(Names[3]);
+        if(aktif2.isSelected()){
+            updateStatus(Names[3],1);
+        }else{
+            updateStatus(Names[3],0);
+        }
         initial();
     }//GEN-LAST:event_aktif4ActionPerformed
 
     private void aktif5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktif5ActionPerformed
-       updateStatus(Names[4]);
+        if(aktif2.isSelected()){
+            updateStatus(Names[4],1);
+        }else{
+            updateStatus(Names[4],1);
+        }
         initial();
     }//GEN-LAST:event_aktif5ActionPerformed
 
     private void field1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field1KeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            updateName(field1.getText(),Names[0]);
-            initial();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (field1.getText().equals(field2.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field1.getText().equals(field3.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field1.getText().equals(field4.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field1.getText().equals(field5.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else {
+                updateName(field1.getText(), Names[0]);
+                initial();
+            }
         }
     }//GEN-LAST:event_field1KeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(aValue1);
-        System.out.println(aValue2);
-        System.out.println(aValue3);
-        System.out.println(aValue4);
-        System.out.println(aValue5);
-        initial();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void field2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field2KeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           updateName(field2.getText(),Names[1]);
-            initial();
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (field2.getText().equals(field1.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field2.getText().equals(field3.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field2.getText().equals(field4.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field2.getText().equals(field5.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else {
+                updateName(field2.getText(), Names[1]);
+                initial();
+            }
+
+        }
     }//GEN-LAST:event_field2KeyPressed
 
     private void field3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field3KeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           updateName(field3.getText(),Names[2]);
-            initial();
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (field3.getText().equals(field1.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field3.getText().equals(field2.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field3.getText().equals(field4.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field3.getText().equals(field5.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else {
+                updateName(field3.getText(), Names[2]);
+                initial();
+            }
+        }
     }//GEN-LAST:event_field3KeyPressed
 
     private void field4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field4KeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            updateName(field4.getText(),Names[3]);
-            initial();
-         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (field4.getText().equals(field1.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field4.getText().equals(field2.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field4.getText().equals(field3.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field4.getText().equals(field5.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else {
+                updateName(field4.getText(), Names[3]);
+                initial();
+            }
+        }
     }//GEN-LAST:event_field4KeyPressed
 
     private void field5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field5KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            updateName(field5.getText(),Names[4]);
-            initial();
+            if (field5.getText().equals(field1.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field5.getText().equals(field2.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field5.getText().equals(field3.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else if (field5.getText().equals(field4.getText())) {
+                JOptionPane.showMessageDialog(null, "Data Yang Dimasukkan Tidak Bisa Sama");
+            } else {
+                updateName(field5.getText(), Names[4]);
+                initial();
+            }
         }        // TODO add your handling code here:
     }//GEN-LAST:event_field5KeyPressed
 
@@ -2012,7 +2074,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPTransaksiMouseClicked
 
     private void ToPTransaksiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseEntered
-        ToPTransaksi.setBackground(new java.awt.Color(188,190,208));
+        ToPTransaksi.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_ToPTransaksiMouseEntered
 
     private void ToPTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseExited
@@ -2029,7 +2091,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPProfilMouseClicked
 
     private void ToPProfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseEntered
-        ToPProfil.setBackground(new java.awt.Color(188,190,208));
+        ToPProfil.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_ToPProfilMouseEntered
 
     private void ToPProfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseExited
@@ -2046,7 +2108,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPBliblioMouseClicked
 
     private void ToPBliblioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseEntered
-        ToPBliblio.setBackground(new java.awt.Color(188,190,208));
+        ToPBliblio.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_ToPBliblioMouseEntered
 
     private void ToPBliblioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseExited
@@ -2060,7 +2122,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPSistemMouseClicked
 
     private void ToPSistemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseEntered
-        ToPSistem.setBackground(new java.awt.Color(188,190,208));
+        ToPSistem.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_ToPSistemMouseEntered
 
     private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
@@ -2074,7 +2136,7 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPAnggotaMouseClicked
 
     private void ToPAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseEntered
-        ToPAnggota.setBackground(new java.awt.Color(188,190,208));
+        ToPAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }//GEN-LAST:event_ToPAnggotaMouseEntered
 
     private void ToPAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseExited
@@ -2139,7 +2201,6 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     private javax.swing.JTextField field3;
     private javax.swing.JTextField field4;
     private javax.swing.JTextField field5;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

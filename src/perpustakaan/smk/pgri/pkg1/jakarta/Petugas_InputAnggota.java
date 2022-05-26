@@ -5,6 +5,7 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,6 +22,9 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -53,7 +57,53 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         userLogin();
         initial();
         falseIn();
+        getAdd();
         
+    }
+    private void getAdd(){
+        try{
+         JTextField[]form = {add1,add2,add3,add4,add5};
+         JLabel[]label = {label1,label2,label3,label4,label5};
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust WHERE status = 1",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panelq;
+                   for (panelq =0;panelq <5;panelq++){
+                       label[panelq].setVisible(false);
+                       form[panelq].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  label[rowindex].setVisible(true);
+                  label[rowindex].setText(rs.getString("tName"));
+                  form[rowindex].setVisible(true);
+                  
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
     }
     private void falseIn(){
         add1.setVisible(false);
@@ -1509,7 +1559,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         label1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label1.setText("NIS");
         jPanel1.add(label1);
-        label1.setBounds(730, 230, 80, 20);
+        label1.setBounds(730, 230, 130, 20);
 
         add1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(add1);
@@ -1518,7 +1568,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         label2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label2.setText("Nama");
         jPanel1.add(label2);
-        label2.setBounds(730, 290, 70, 20);
+        label2.setBounds(730, 290, 130, 20);
 
         add2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         add2.addActionListener(new java.awt.event.ActionListener() {
@@ -1541,12 +1591,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         label4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label4.setText("Nama");
         jPanel1.add(label4);
-        label4.setBounds(730, 410, 70, 20);
+        label4.setBounds(730, 410, 130, 20);
 
         label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label3.setText("NIS");
         jPanel1.add(label3);
-        label3.setBounds(730, 350, 80, 20);
+        label3.setBounds(730, 350, 130, 20);
 
         add3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(add3);
@@ -1555,7 +1605,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         label5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label5.setText("Nama");
         jPanel1.add(label5);
-        label5.setBounds(730, 470, 70, 20);
+        label5.setBounds(730, 470, 130, 20);
 
         add5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         add5.addActionListener(new java.awt.event.ActionListener() {
@@ -1979,7 +2029,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ttlActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-     if(inputData.isSelected()){
+
+        if(inputData.isSelected()){
         getId();
         inputAnggota();
         inputUser();
