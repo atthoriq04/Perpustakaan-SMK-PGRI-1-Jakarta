@@ -3,13 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanSistem.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanTransaksi.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengBlibli.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_ProfilPetugas.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Siswa_HistoriPeminjaman.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanAnggota.java</file>
-            <file>file:/C:/Users/thori/OneDrive/Champhionship/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputAnggota.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_Dashboard.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataJurusan.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_KonfirmasiDenda.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_DataAnggota.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/LandingPage.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/TentangPerpus.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Katalog.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/DDC.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_InputAnggota.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_EditAnggota.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanSistem.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanTransaksi.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_TambahDenda.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Petugas_PengaturanAnggota.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Detail.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/koneksi.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Siswa_KonfirmasiPeminjamanLogin.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Siswa_PeminjamanBerjalan.java</file>
+            <file>file:/C:/Users/thori/Documents/GitHub/Perpustakaan-SMK-PGRI-1-Jakarta/src/perpustakaan/smk/pgri/pkg1/jakarta/Dialog_Konfirmasi.java</file>
         </group>
     </open-files>
 </project-private>

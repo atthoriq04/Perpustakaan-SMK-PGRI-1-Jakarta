@@ -13,8 +13,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -52,6 +56,49 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
+      String a,b,c,d,e,f,g,h,i,j;
+      int k,l,m,n,o;
+      String[]label = {a,b,c,d,e};
+      String[]table = {e,f,g,h,i};
+      int[]Status = {k,l,m,n,o};
+      public void initial(){
+          try{
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust ",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                    label[rowindex] = rs.getString("tname");
+                    Status[rowindex] = rs.getInt("status");
+                    table[rowindex] = (rs.getString("tName").replaceAll("\\s+",""));
+                    SOP(label[rowindex]+" "+ table[rowindex] );
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+      }
       public void showtable(){
           DefaultTableModel model = new DefaultTableModel() ;
           model.addColumn("No.");
@@ -231,7 +278,6 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         tblanggota = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         active = new javax.swing.JLabel();
@@ -1288,7 +1334,7 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jTextField1);
-        jTextField1.setBounds(990, 30, 200, 30);
+        jTextField1.setBounds(990, 30, 260, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
@@ -1306,10 +1352,6 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel3);
         jLabel3.setBounds(1020, 100, 80, 15);
-
-        jButton1.setText("jButton1");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1200, 30, 40, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sort By");
@@ -1394,22 +1436,42 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
         jLabel5.setForeground(new java.awt.Color(0, 112, 207));
     }//GEN-LAST:event_jLabel5MouseExited
-
+    public void SOP(String a){
+    System.out.println(a);
+    }
     private void tblanggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblanggotaMouseClicked
         Petugas_EditAnggota obj = new Petugas_EditAnggota();
         int i = tblanggota.getSelectedRow();
         TableModel model = tblanggota.getModel() ;
         String Nis = model.getValueAt(i, 1).toString();
-        String Nama = model.getValueAt(i, 3).toString();
-        String Kelas = model.getValueAt(i, 2).toString();
-        String Alamat = model.getValueAt(i, 5).toString();
-        obj.nis.setText(Nis);
-        obj.nama.setText(Nama);
-        obj.kls.setText(Kelas);
-        obj.alamat.setText(Alamat);
-        obj.setVisible(true);
-        obj.pack();
-        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        try {
+            Statement stat = CC.createStatement();
+             String SQL = "SELECT * FROM anggota INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas WHERE Nis = "+ Nis ;
+              ResultSet rs = stat.executeQuery(SQL);
+              if(rs.next()){
+                  initial();
+                  String Jkelamin;
+                  obj.nis.setText(rs.getString("Nis"));
+                  obj.nama.setText(rs.getString("Nama"));
+                  obj.kls.setText(rs.getString("TingkatKelas")+" "+rs.getString("IdJurusan")+" "+rs.getString("kelas"));
+                  obj.alamat.setText(rs.getString("Alamat"));
+                  if(rs.getString("JK").equals("L")){Jkelamin = "Laki-Laki";}else{Jkelamin = "Perempuan";}
+                  obj.label6.setText(Jkelamin);
+                  obj.ttl.setText(rs.getString("ttl"));
+                  obj.ttl.setText(rs.getString("ttl"));
+                  obj.add1.setText(rs.getString(table[0]));
+                  obj.add2.setText(rs.getString(table[1]));
+                  obj.add3.setText(rs.getString(table[2]));
+                  obj.add4.setText(rs.getString(table[3]));
+                  obj.add5.setText(rs.getString(table[4]));
+                  obj.email.setText(rs.getString("Email"));
+                  obj.telepon.setText(rs.getString("NoHp"));
+                  obj.setVisible(true);
+              }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         this.dispose();
     }//GEN-LAST:event_tblanggotaMouseClicked
 
@@ -1993,7 +2055,6 @@ public class Petugas_DataAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel active;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,6 +57,19 @@ public class Detail extends javax.swing.JFrame {
             if(rs.next()){
                 PGRI.setText(rs.getString("Profil"));
                 toLandingPage.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    int jumlah;
+    public void rule(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From pengaturan");
+            if(rs.next()){
+                jumlah = rs.getInt("MaxPinjam");
             }
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -673,12 +687,26 @@ public class Detail extends javax.swing.JFrame {
             obj.setLocationRelativeTo(null);
             obj.setVisible(true);
         }else{
-            Siswa_KonfirmasiPeminjaman obj = new Siswa_KonfirmasiPeminjaman();
-            obj.cnn = dCN.getText();
-            obj.setVisible(true);
-            obj.pack();
-            obj.setLocationRelativeTo(null);
-            obj.setVisible(true);
+            rule();
+            try {
+               stt = CC.createStatement();
+               rs = stt.executeQuery("SELECT COUNT(nis) FROM transaksi WHERE nis = "+ UserId +" AND NOT Status = 4");
+               if(rs.next()){
+                   if(rs.getInt("COUNT(nis)") < jumlah){
+                        Siswa_KonfirmasiPeminjaman obj = new Siswa_KonfirmasiPeminjaman();
+                        obj.cnn = dCN.getText();
+                        obj.setVisible(true);
+                        obj.pack();
+                        obj.setLocationRelativeTo(null);
+                        obj.setVisible(true);
+                   }else{
+                       JOptionPane.showMessageDialog(null, "Anda Sudah Melebihi Batas Meminjam, Silahkan Datang kembali setelah mengembalikan Buku");
+                        System.out.print("Julah");
+                   }
+               }
+           } catch (SQLException ex) {
+               Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed

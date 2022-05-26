@@ -36,9 +36,22 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
         initComponents();
         denda.setEnabled(false);
     }
-    String Tunai = "0";
+    int Tunai = 0;
     String barang = "-";
     String Jenis;
+    int jumlah;
+    public void rule(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From pengaturan");
+            if(rst.next()){
+                jumlah = rst.getInt("DendaHilang");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -297,11 +310,13 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(Jenis.equals("Tunai")){
-            Tunai = denda.getText();
+            rule();
+            Tunai = jumlah;
         }else{
             barang = denda.getText();
         }
         process();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -309,7 +324,6 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tunaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tunaiActionPerformed
-        denda.setEnabled(true);
         Jenis = "Tunai";
         non.setEnabled(false);
     }//GEN-LAST:event_tunaiActionPerformed

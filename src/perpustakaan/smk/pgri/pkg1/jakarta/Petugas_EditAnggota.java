@@ -4,11 +4,14 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -35,11 +38,33 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         cbkelas.setEnabled(false);
         nis.setEnabled(false);
         userLogin();
+        toogle(false);
+        getAdd();
+        telepon.setEditable(false);
+        email.setEditable(false);
     }
    public String sql;
    
     private void userLogin(){
     toUser.setText(UserSession.getUserLogin());
+    }
+    
+    public void toogle(boolean f){
+        nis.setEditable(f);
+        nama.setEditable(f);
+        cbTingkat.setVisible(f);
+        cbJurusan.setVisible(f);
+        cbkelas.setVisible(f);
+        alamat.setEditable(f);
+        ttl.setEditable(f);
+        jkaname.setVisible(f);
+        add1.setEditable(f);
+        add2.setEditable(f);
+        add3.setEditable(f);
+        add4.setEditable(f);
+        add5.setEditable(f);
+        jButton2.setEnabled(f);
+        jButton3.setEnabled(f);
     }
    
    public void readCB(){
@@ -98,6 +123,53 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
        }
     
     }
+    private void getAdd(){
+        try{
+         JTextField[]form = {add1,add2,add3,add4,add5};
+         JLabel[]label = {label1,label2,label3,label4,label5};
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust ",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panelq;
+                   for (panelq =0;panelq <5;panelq++){
+                       label[panelq].setVisible(false);
+                       form[panelq].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  if(rs.getInt("Status")>0){
+                    label[rowindex].setVisible(true);
+                    form[rowindex].setVisible(true);
+                  }
+                    label[rowindex].setText(rs.getString("tName"));
+                  
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
    public void refreshData(){
        try{
            Statement stat = CC.createStatement();
@@ -116,14 +188,28 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
        }catch(Exception e){
        }
    }
-   
+   public void SOP(String a){
+       System.out.println(a);
+   }
    public void updateData(){
        try{
             String ns = nis.getText();
             String nm = nama.getText();
             String ks = kls.getText();
             String al = alamat.getText();
-           sql = "UPDATE anggota SET anggota.Nama ='"+nm+"', anggota.IdKelas="+value+", anggota.Alamat='"+al+"' WHERE Nis ="+ns+"";
+            String tl = ttl.getText();
+            String ad1 = label1.getText().replaceAll("\\s+","");
+            String ad2 = label2.getText().replaceAll("\\s+","");
+            String ad3 = label3.getText().replaceAll("\\s+","");
+            String ad4 = label4.getText().replaceAll("\\s+","");
+            String ad5 = label5.getText().replaceAll("\\s+","");
+            char jk = jkaname.getSelectedItem().toString().charAt(0);
+           if(value<1){
+               sql = "UPDATE anggota SET anggota.Nama ='"+nm+"', anggota.ttl='"+ tl +"', anggota.Alamat='"+al+"', anggota.jk ='"+ jk +"', anggota."+ad1+" = '"+ add1.getText() +"', anggota."+ad2+" = '"+ add2.getText() +"', anggota."+ad3+" = '"+ add3.getText() +"', anggota."+ad4+" = '"+ add4.getText() +"', anggota."+ad5+" = '"+ add5.getText() +"' WHERE Nis ="+ns+"";
+           
+           }else{
+            sql = "UPDATE anggota SET anggota.Nama ='"+nm+"', anggota.IdKelas="+value+", anggota.ttl='"+ tl +"', anggota.Alamat='"+al+"', anggota.jk ='"+ jk +"', anggota."+ad1+" = '"+ add1.getText() +"', anggota."+ad2+" = '"+ add2.getText() +"', anggota."+ad3+" = '"+ add3.getText() +"', anggota."+ad4+" = '"+ add4.getText() +"', anggota."+ad5+" = '"+ add5.getText() +"' WHERE Nis ="+ns+"";
+            }
            pst = CC.prepareStatement(sql);
            pst.execute();
            JOptionPane.showMessageDialog(null, "Data Anggota Berhasil Terupdate");
@@ -225,6 +311,26 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         cbJurusan = new javax.swing.JComboBox<>();
         cbkelas = new javax.swing.JComboBox<>();
         submit2 = new javax.swing.JButton();
+        add1 = new javax.swing.JTextField();
+        label1 = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
+        add2 = new javax.swing.JTextField();
+        label3 = new javax.swing.JLabel();
+        add3 = new javax.swing.JTextField();
+        label4 = new javax.swing.JLabel();
+        add4 = new javax.swing.JTextField();
+        add5 = new javax.swing.JTextField();
+        label5 = new javax.swing.JLabel();
+        jkaname = new javax.swing.JComboBox<>();
+        JK = new javax.swing.JLabel();
+        lbl_ttl = new javax.swing.JLabel();
+        ttl = new javax.swing.JTextField();
+        tt = new javax.swing.JRadioButton();
+        label6 = new javax.swing.JLabel();
+        telepon = new javax.swing.JTextField();
+        label7 = new javax.swing.JLabel();
+        label8 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -1167,40 +1273,40 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Edit Anggota");
+        jLabel1.setText("Profil Anggota");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Alamat");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(130, 360, 70, 20);
+        jLabel3.setBounds(110, 340, 70, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("NIS");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(130, 170, 80, 20);
+        jLabel4.setBounds(110, 150, 80, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Nama");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(130, 230, 70, 20);
+        jLabel5.setBounds(110, 210, 70, 20);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Kelas");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(130, 290, 70, 20);
+        jLabel6.setBounds(110, 270, 70, 20);
 
         alamat.setColumns(20);
         alamat.setRows(5);
         jScrollPane1.setViewportView(alamat);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(200, 360, 550, 110);
+        jScrollPane1.setBounds(230, 340, 500, 90);
 
         nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(nis);
-        nis.setBounds(200, 170, 550, 23);
+        nis.setBounds(230, 150, 500, 23);
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nama.addActionListener(new java.awt.event.ActionListener() {
@@ -1209,7 +1315,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(nama);
-        nama.setBounds(200, 230, 550, 23);
+        nama.setBounds(230, 210, 500, 23);
 
         jButton2.setText("Hapus Anggota");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -1218,7 +1324,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1040, 660, 120, 23);
+        jButton2.setBounds(1040, 650, 120, 23);
 
         jButton3.setText("Submit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1227,12 +1333,12 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(1190, 660, 70, 23);
+        jButton3.setBounds(1190, 650, 70, 23);
 
         kls.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         kls.setText("jLabel2");
         jPanel1.add(kls);
-        kls.setBounds(200, 290, 70, 20);
+        kls.setBounds(230, 270, 70, 20);
 
         cbTingkat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTingkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tingkat" }));
@@ -1242,7 +1348,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbTingkat);
-        cbTingkat.setBounds(270, 290, 110, 22);
+        cbTingkat.setBounds(300, 270, 110, 22);
 
         cbJurusan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurusan" }));
@@ -1252,7 +1358,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbJurusan);
-        cbJurusan.setBounds(390, 290, 260, 22);
+        cbJurusan.setBounds(420, 270, 240, 22);
 
         cbkelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas" }));
@@ -1262,7 +1368,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbkelas);
-        cbkelas.setBounds(660, 290, 90, 22);
+        cbkelas.setBounds(670, 270, 60, 22);
 
         submit2.setText("Kembali");
         submit2.addActionListener(new java.awt.event.ActionListener() {
@@ -1271,7 +1377,131 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit2);
-        submit2.setBounds(100, 660, 90, 23);
+        submit2.setBounds(100, 650, 90, 23);
+
+        add1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(add1);
+        add1.setBounds(900, 270, 350, 23);
+
+        label1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label1.setText("NIS");
+        jPanel1.add(label1);
+        label1.setBounds(770, 270, 130, 20);
+
+        label2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label2.setText("Nama");
+        jPanel1.add(label2);
+        label2.setBounds(770, 330, 130, 20);
+
+        add2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add2);
+        add2.setBounds(900, 330, 350, 23);
+        add2.getAccessibleContext().setAccessibleDescription("");
+
+        label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label3.setText("NIS");
+        jPanel1.add(label3);
+        label3.setBounds(770, 390, 130, 20);
+
+        add3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(add3);
+        add3.setBounds(900, 390, 350, 23);
+
+        label4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label4.setText("Nama");
+        jPanel1.add(label4);
+        label4.setBounds(770, 450, 130, 20);
+
+        add4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add4);
+        add4.setBounds(900, 450, 350, 23);
+
+        add5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add5);
+        add5.setBounds(900, 510, 350, 23);
+
+        label5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label5.setText("Nama");
+        jPanel1.add(label5);
+        label5.setBounds(770, 510, 130, 20);
+
+        jkaname.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jkaname.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan", " " }));
+        jkaname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jkanameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jkaname);
+        jkaname.setBounds(310, 450, 90, 22);
+
+        JK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JK.setText("Jenis Kelamin");
+        jPanel1.add(JK);
+        JK.setBounds(100, 450, 90, 20);
+
+        lbl_ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_ttl.setText("TTL");
+        jPanel1.add(lbl_ttl);
+        lbl_ttl.setBounds(100, 510, 90, 20);
+
+        ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ttl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttlActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ttl);
+        ttl.setBounds(230, 510, 500, 23);
+
+        tt.setBackground(new java.awt.Color(255, 255, 255));
+        tt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tt.setText("Edit Data");
+        tt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tt);
+        tt.setBounds(110, 100, 93, 23);
+
+        label6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label6.setText("Laki-Laki");
+        jPanel1.add(label6);
+        label6.setBounds(230, 450, 80, 20);
+
+        telepon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(telepon);
+        telepon.setBounds(900, 210, 350, 23);
+
+        label7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label7.setText("No Telepon");
+        jPanel1.add(label7);
+        label7.setBounds(770, 210, 130, 20);
+
+        label8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label8.setText("Alamat Email");
+        jPanel1.add(label8);
+        label8.setBounds(770, 150, 130, 20);
+
+        email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(email);
+        email.setBounds(900, 150, 350, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1634,7 +1864,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        getId();
         updateData();
-        refreshData();
+        //refreshData();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cbTingkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTingkatActionPerformed
@@ -1724,6 +1954,34 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_submit2ActionPerformed
 
+    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add2ActionPerformed
+
+    private void add4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add4ActionPerformed
+
+    private void add5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add5ActionPerformed
+
+    private void jkanameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkanameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jkanameActionPerformed
+
+    private void ttlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttlActionPerformed
+
+    private void ttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttActionPerformed
+        if(tt.isSelected()){
+        toogle(true);}
+        else{
+        toogle(false);
+        }
+    }//GEN-LAST:event_ttActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1760,10 +2018,17 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JK;
+    public javax.swing.JTextField add1;
+    public javax.swing.JTextField add2;
+    public javax.swing.JTextField add3;
+    public javax.swing.JTextField add4;
+    public javax.swing.JTextField add5;
     public javax.swing.JTextArea alamat;
     private javax.swing.JComboBox<String> cbJurusan;
     private javax.swing.JComboBox<String> cbTingkat;
     private javax.swing.JComboBox<String> cbkelas;
+    public javax.swing.JTextField email;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
     private javax.swing.JButton jButton2;
@@ -1805,7 +2070,17 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JComboBox<String> jkaname;
     public javax.swing.JLabel kls;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel label5;
+    public javax.swing.JLabel label6;
+    protected javax.swing.JLabel label7;
+    public javax.swing.JLabel label8;
+    private javax.swing.JLabel lbl_ttl;
     public javax.swing.JTextField nama;
     public javax.swing.JTextField nis;
     private javax.swing.JPanel subMenuAdmin;
@@ -1814,6 +2089,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit2;
+    public javax.swing.JTextField telepon;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;
@@ -1843,5 +2119,7 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel toProfilPetugas;
     private javax.swing.JLabel toSriku;
     private javax.swing.JLabel toUser;
+    private javax.swing.JRadioButton tt;
+    public javax.swing.JTextField ttl;
     // End of variables declaration//GEN-END:variables
 }

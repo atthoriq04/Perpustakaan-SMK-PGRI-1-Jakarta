@@ -120,10 +120,9 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
                 String kelas = rs.getString("Kelas.TingkatKelas")+" "+rs.getString("Kelas.IdJurusan")+" "+rs.getString("Kelas.Kelas");
                 Nama.setText(rs.getString("anggota.Nama"));
                 Kelas.setText(kelas);
-            } else
-            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+            } 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }
 

@@ -123,7 +123,13 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
     }
 
     private void updateStatus(String ids, int value) {
-        int opt = JOptionPane.showConfirmDialog(null, "Kolom ini akan diaktifkan, Anda Yakin?", "Update", JOptionPane.YES_NO_OPTION);
+        String asa;
+        if(value <1 ){
+            asa = "Nonaktifkan";
+        }else{
+            asa = "aktifkan";
+        }
+        int opt = JOptionPane.showConfirmDialog(null, "Kolom ini akan di"+asa+", Anda Yakin?", "Update", JOptionPane.YES_NO_OPTION);
         if (opt == 0) {
             try {
                 Statement stat = CC.createStatement();

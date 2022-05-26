@@ -68,6 +68,19 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         }
         
     }
+    int jumlah;
+    public void rule(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From pengaturan");
+            if(rs.next()){
+                jumlah = rs.getInt("MaxPinjam");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void pinjam(){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
             LocalDateTime now = LocalDateTime.now(); 
@@ -183,11 +196,27 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cek();
+       
+            rule();
+             cek();
         if(nis>0){
-            bcd = IdEx.getText();
-            pinjam();
+             try {
+            stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT COUNT(nis) FROM transaksi WHERE nis = "+ nis +" AND NOT Status = 4");
+            if(rs.next()){
+            if(rs.getInt("COUNT(nis)") < jumlah){
+                bcd = IdEx.getText();
+                pinjam();
+            }else{
+                JOptionPane.showMessageDialog(null, "Anda Sudah Melebihi Batas Meminjam, Silahkan Datang kembali setelah mengembalikan Buku");
+                System.out.print("Julah");
+            }}
+             } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        }
+       
+        
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
