@@ -51,6 +51,7 @@ public class Katalog extends javax.swing.JFrame {
         initial();
         check(from);
         getProfile();
+        kategori.setVisible(false);
         
     }
     
@@ -199,7 +200,7 @@ public class Katalog extends javax.swing.JFrame {
                     if(rsa.next()){
                         Jdl = rsa.getString("Judul");
                         Cnn = rsa.getString("new_bliblio.call_number");
-                        pnrbt = rsa.getString("mst_publisher.publisher_id");
+                        pnrbt = rsa.getString("mst_publisher.publisher_name");
                         pnls = rsa.getString("mst_author.author_name");
                         gmd = rsa.getString("gmd.gmd_name");
                         bhs = rsa.getString("mst_language.language_name");
@@ -300,10 +301,16 @@ public class Katalog extends javax.swing.JFrame {
         penulis12 = new javax.swing.JLabel();
         next = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+        kategori = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(null);
 
         PanelUmum.setBackground(new java.awt.Color(255, 255, 255));
@@ -667,6 +674,11 @@ public class Katalog extends javax.swing.JFrame {
         SubUser.setBounds(1200, 40, 80, 80);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextField1MouseEntered(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -707,10 +719,10 @@ public class Katalog extends javax.swing.JFrame {
             buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis1)
-                    .addComponent(judul1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku1Layout.setVerticalGroup(
@@ -750,10 +762,10 @@ public class Katalog extends javax.swing.JFrame {
             buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis2)
-                    .addComponent(judul2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku2Layout.setVerticalGroup(
@@ -793,10 +805,10 @@ public class Katalog extends javax.swing.JFrame {
             buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis4)
-                    .addComponent(judul4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku4Layout.setVerticalGroup(
@@ -836,10 +848,10 @@ public class Katalog extends javax.swing.JFrame {
             buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis3)
-                    .addComponent(judul3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku3Layout.setVerticalGroup(
@@ -879,10 +891,10 @@ public class Katalog extends javax.swing.JFrame {
             buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(judul5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toggle5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(penulis5)
-                    .addComponent(judul5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(penulis5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku5Layout.setVerticalGroup(
@@ -891,7 +903,7 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(toggle5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(judul5)
+                .addComponent(judul5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(penulis5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -922,10 +934,10 @@ public class Katalog extends javax.swing.JFrame {
             buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis6)
-                    .addComponent(judul6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku6Layout.setVerticalGroup(
@@ -965,10 +977,10 @@ public class Katalog extends javax.swing.JFrame {
             buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis7)
-                    .addComponent(judul7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku7Layout.setVerticalGroup(
@@ -1008,10 +1020,10 @@ public class Katalog extends javax.swing.JFrame {
             buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle8, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis8)
-                    .addComponent(judul8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku8Layout.setVerticalGroup(
@@ -1051,10 +1063,10 @@ public class Katalog extends javax.swing.JFrame {
             buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle9, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis9)
-                    .addComponent(judul9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku9Layout.setVerticalGroup(
@@ -1094,10 +1106,10 @@ public class Katalog extends javax.swing.JFrame {
             buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle10, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis10)
-                    .addComponent(judul10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul10, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku10Layout.setVerticalGroup(
@@ -1137,10 +1149,10 @@ public class Katalog extends javax.swing.JFrame {
             buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle11, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis11)
-                    .addComponent(judul11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku11Layout.setVerticalGroup(
@@ -1180,10 +1192,10 @@ public class Katalog extends javax.swing.JFrame {
             buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buku12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle12, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(penulis12)
-                    .addComponent(judul12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(judul12, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku12Layout.setVerticalGroup(
@@ -1232,6 +1244,19 @@ public class Katalog extends javax.swing.JFrame {
         });
         jPanel1.add(back);
         back.setBounds(620, 680, 12, 17);
+
+        kategori.setBackground(new java.awt.Color(255, 255, 255));
+        kategori.setText("Pencarian Kategori");
+        kategori.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kategoriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                kategoriMouseExited(evt);
+            }
+        });
+        jPanel1.add(kategori);
+        kategori.setBounds(1100, 100, 130, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1318,8 +1343,20 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toUsulanMouseExited
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+        try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
@@ -1848,11 +1885,29 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseExited
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-       
-       formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR image LIKE '%" + jTextField1.getText() + "%'";
-       initial();
+        if(kategori.isSelected()){     
+            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN ddc_db ON new_bliblio.klasifikasi = ddc_db.clas WHERE About LIKE '%" + jTextField1.getText() + "%'"; 
+        }else{
+            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'"; 
+       }initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseEntered
+       kategori.setVisible(true);
+    }//GEN-LAST:event_jTextField1MouseEntered
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+       kategori.setVisible(false);
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void kategoriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kategoriMouseEntered
+        kategori.setVisible(true);
+    }//GEN-LAST:event_kategoriMouseEntered
+
+    private void kategoriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kategoriMouseExited
+       kategori.setVisible(false);
+    }//GEN-LAST:event_kategoriMouseExited
 
     /**
      * @param args the command line arguments
@@ -1923,6 +1978,7 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel judul7;
     private javax.swing.JLabel judul8;
     private javax.swing.JLabel judul9;
+    private javax.swing.JRadioButton kategori;
     private javax.swing.JLabel next;
     private javax.swing.JLabel penulis1;
     private javax.swing.JLabel penulis10;

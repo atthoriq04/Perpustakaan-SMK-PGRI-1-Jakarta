@@ -47,15 +47,18 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
             ResultSet rb = stat.executeQuery("SELECT * FROM pengaturan LIMIT 1");
             if(rb.next()){
                 denda.setText(rb.getString("DendaHarian"));
+                denda1.setText(rb.getString("DendaHilang"));
                 durasi.setText(rb.getString("LamaPinjam"));
+                max.setText(rb.getString("MaxPinjam"));
             }
         }catch(Exception e){
+            e.printStackTrace();
         }
     }
     public void update(){
         try{
              Statement stat = CC.createStatement();
-             stat.executeUpdate("UPDATE pengaturan SET  LamaPinjam = '"+ durasi.getText() +"' , idPengaturan = '"+ denda.getText() +"' ");       
+             stat.executeUpdate("UPDATE pengaturan SET  LamaPinjam = '"+ durasi.getText() +"' , DendaHarian = '"+ denda.getText() +"', DendaHilang = '"+ denda1.getText() +"' , MaxPinjam = '"+ max.getText() +"'");       
              JOptionPane.showMessageDialog(null, "berhasil");
         }catch(Exception e){
         }
@@ -143,6 +146,10 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         durasi = new javax.swing.JTextField();
         denda = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        denda1 = new javax.swing.JTextField();
+        max = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         ToPTransaksi = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -373,7 +380,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 154, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -407,7 +414,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 154, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -655,7 +662,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 152, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -689,7 +696,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 152, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -723,7 +730,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 152, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -757,7 +764,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 152, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1030,7 +1037,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 47);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1064,7 +1071,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 152, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1110,7 +1117,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         jLabel1.setText("Lama Waktu Peminjaman (hari)");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Denda Keterlambatan/Hari Rp.");
+        jLabel2.setText("Maksimal Peminjaman/Transaksi");
 
         durasi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -1128,23 +1135,50 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
             }
         });
 
+        denda1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        denda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                denda1ActionPerformed(evt);
+            }
+        });
+
+        max.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        max.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maxActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Denda Menghilangkan buku Rp.");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Denda Keterlambatan/Hari Rp.");
+
         javax.swing.GroupLayout PanelPPetugasLayout = new javax.swing.GroupLayout(PanelPPetugas);
         PanelPPetugas.setLayout(PanelPPetugasLayout);
         PanelPPetugasLayout.setHorizontalGroup(
             PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPPetugasLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(denda, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(durasi, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPPetugasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPPetugasLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(PanelPPetugasLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(denda, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(durasi, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(denda1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(max, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 60, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelPPetugasLayout.setVerticalGroup(
@@ -1154,17 +1188,25 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
                 .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(durasi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(denda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                    .addComponent(denda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(denda1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(PanelPPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(max, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
 
         jPanel3.add(PanelPPetugas);
-        PanelPPetugas.setBounds(310, 260, 730, 220);
+        PanelPPetugas.setBounds(310, 240, 710, 280);
 
         jPanel7.setBackground(new java.awt.Color(229, 231, 238));
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1319,6 +1361,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -1781,7 +1824,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPSistemMouseEntered
 
     private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
-        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        ToPSistem.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPSistemMouseExited
 
     private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked
@@ -1801,6 +1844,14 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel7MouseExited
+
+    private void denda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denda1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_denda1ActionPerformed
+
+    private void maxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1845,6 +1896,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     private javax.swing.JPanel ToPSistem;
     private javax.swing.JPanel ToPTransaksi;
     private javax.swing.JTextField denda;
+    private javax.swing.JTextField denda1;
     private javax.swing.JTextField durasi;
     private javax.swing.JPanel empty1;
     private javax.swing.JPanel empty2;
@@ -1871,11 +1923,13 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
@@ -1888,6 +1942,7 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JTextField max;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;

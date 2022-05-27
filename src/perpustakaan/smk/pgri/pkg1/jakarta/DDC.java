@@ -3,7 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
-
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.Image;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import javax.swing.table.DefaultTableModel;
+/**
 /**
  *
  * @author Atthoriq
@@ -13,8 +29,101 @@ public class DDC extends javax.swing.JFrame {
     /**
      * Creates new form DDC
      */
+    public ResultSet rs;
+    Connection CC = new koneksi().connect();
+    public Statement stt;
+     public DefaultTableModel tmdl;
+    public PreparedStatement prst;
     public DDC() {
         initComponents();
+        check(from);
+        initial();
+    }
+     int from = 0;
+    public String formula = "SELECT * FROM ddc_db";
+    public String judul,Pengarang,gmd,edisi,isbn,penerbit,tempatterbit,deskripsifisik,judulseri,tahunterbit,bahasa;
+    private void check(int fc){
+       try {
+            int Next = fc + 12;
+            Statement stt = CC.createStatement();
+            rs = stt.executeQuery(formula+" LIMIT "+ Next +", 12");
+            if(rs.next()){
+                next.setVisible(true);
+            }else{
+                next.setVisible(false);
+            } 
+            int Back = fc - 12;
+            if(Back < 0){
+                back.setVisible(false);
+            }else{
+                back.setVisible(true);
+            }
+            
+            }catch(Exception e){
+          e.printStackTrace();
+        }
+    }
+    private void set(String clas){
+            Petugas_InputBuku obj = new Petugas_InputBuku();
+            obj.Judul.setText(judul);
+            obj.Pengarang.setText(Pengarang);
+            obj.Edisi.setText(edisi);
+            obj.ISBN.setText(isbn);
+            obj.Penerbit.setText(penerbit);
+            obj.TahunTerbit.setText(tahunterbit);
+            obj.Deskripsi.setText(deskripsifisik);
+            obj.JudulSeri.setText(judulseri);
+            obj.NoPanggil.setText(clas);
+            obj.lang.setText(bahasa);
+            obj.TempatTerbit.setText(tempatterbit);
+            obj.DDC.setText(clas);
+            obj.setVisible(true);
+            this.dispose();
+    }
+     private void initial(){
+        try{
+         JPanel[]buku = {panel1,panel2,panel3,panel4,panel5};
+         JLabel[]Judul = {DDC1,DDC2,DDC3,DDC4,DDC5};
+         JLabel[]Author = {About1,About2,About3,About4,About5};
+         String[]rsim = null;
+         PreparedStatement stmt = CC.prepareStatement(formula+" LIMIT "+ from +", 5",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+         
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                   
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panel;
+                   for (panel=0;panel<5;panel++){
+                       buku[panel].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  buku[rowindex].setVisible(true);
+                  Judul[rowindex].setText(rs.getString("clas"));
+                  Author[rowindex].setText("<html>"+rs.getString("About")+"</html>");
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
     }
 
     /**
@@ -39,12 +148,14 @@ public class DDC extends javax.swing.JFrame {
         panel3 = new javax.swing.JPanel();
         DDC3 = new javax.swing.JLabel();
         About3 = new javax.swing.JLabel();
-        Panel4 = new javax.swing.JPanel();
+        panel4 = new javax.swing.JPanel();
         DDC4 = new javax.swing.JLabel();
         About4 = new javax.swing.JLabel();
         panel5 = new javax.swing.JPanel();
         DDC5 = new javax.swing.JLabel();
         About5 = new javax.swing.JLabel();
+        next = new javax.swing.JLabel();
+        back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,148 +185,116 @@ public class DDC extends javax.swing.JFrame {
 
         panel2.setBackground(new java.awt.Color(255, 255, 255));
         panel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        panel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel2MouseClicked(evt);
+            }
+        });
+        panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DDC2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DDC2.setText("jLabel2");
+        panel2.add(DDC2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 1, 886, -1));
 
         About2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         About2.setText("jLabel2");
-
-        javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
-        panel2.setLayout(panel2Layout);
-        panel2Layout.setHorizontalGroup(
-            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DDC2, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-                    .addComponent(About2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel2Layout.setVerticalGroup(
-            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2Layout.createSequentialGroup()
-                .addComponent(DDC2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(About2)
-                .addGap(0, 51, Short.MAX_VALUE))
-        );
+        panel2.add(About2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, 886, -1));
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
         panel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        panel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel1MouseClicked(evt);
+            }
+        });
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DDC1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DDC1.setText("jLabel2");
+        panel1.add(DDC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 1, 886, -1));
 
         About1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         About1.setText("jLabel2");
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DDC1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(About1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addComponent(DDC1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(About1)
-                .addGap(0, 52, Short.MAX_VALUE))
-        );
+        panel1.add(About1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, 886, -1));
 
         panel3.setBackground(new java.awt.Color(255, 255, 255));
         panel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        panel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel3MouseClicked(evt);
+            }
+        });
+        panel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DDC3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DDC3.setText("jLabel2");
+        panel3.add(DDC3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 1, 886, -1));
 
         About3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         About3.setText("jLabel2");
+        panel3.add(About3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, 886, -1));
 
-        javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
-        panel3.setLayout(panel3Layout);
-        panel3Layout.setHorizontalGroup(
-            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DDC3, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-                    .addComponent(About3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel3Layout.setVerticalGroup(
-            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel3Layout.createSequentialGroup()
-                .addComponent(DDC3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(About3)
-                .addGap(0, 51, Short.MAX_VALUE))
-        );
-
-        Panel4.setBackground(new java.awt.Color(255, 255, 255));
-        Panel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        panel4.setBackground(new java.awt.Color(255, 255, 255));
+        panel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        panel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel4MouseClicked(evt);
+            }
+        });
+        panel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DDC4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DDC4.setText("jLabel2");
+        panel4.add(DDC4, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 1, 886, -1));
 
         About4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         About4.setText("jLabel2");
-
-        javax.swing.GroupLayout Panel4Layout = new javax.swing.GroupLayout(Panel4);
-        Panel4.setLayout(Panel4Layout);
-        Panel4Layout.setHorizontalGroup(
-            Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DDC4, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-                    .addComponent(About4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        Panel4Layout.setVerticalGroup(
-            Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel4Layout.createSequentialGroup()
-                .addComponent(DDC4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(About4)
-                .addGap(0, 51, Short.MAX_VALUE))
-        );
+        panel4.add(About4, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, 886, -1));
 
         panel5.setBackground(new java.awt.Color(255, 255, 255));
         panel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
+        panel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel5MouseClicked(evt);
+            }
+        });
+        panel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DDC5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DDC5.setText("jLabel2");
+        panel5.add(DDC5, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 1, 886, -1));
 
         About5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         About5.setText("jLabel2");
+        panel5.add(About5, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, 886, -1));
 
-        javax.swing.GroupLayout panel5Layout = new javax.swing.GroupLayout(panel5);
-        panel5.setLayout(panel5Layout);
-        panel5Layout.setHorizontalGroup(
-            panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DDC5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-                    .addComponent(About5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel5Layout.setVerticalGroup(
-            panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel5Layout.createSequentialGroup()
-                .addComponent(DDC5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(About5)
-                .addGap(0, 51, Short.MAX_VALUE))
-        );
+        next.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        next.setText(">");
+        next.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nextMouseExited(evt);
+            }
+        });
+
+        back.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        back.setText("<");
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -224,27 +303,37 @@ public class DDC extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Panel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(440, 440, 440)
+                .addComponent(back)
+                .addGap(8, 8, 8)
+                .addComponent(next)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1);
@@ -262,6 +351,7 @@ public class DDC extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -269,8 +359,59 @@ public class DDC extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        
+        from = 0;
+        formula = "SELECT * FROM ddc_db WHERE about LIKE '%"+ jTextField1.getText() +"%'";
+        initial();
+        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
+        from = from + 12;
+        initial();
+        check(from);
+    }//GEN-LAST:event_nextMouseClicked
+
+    private void nextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseEntered
+        next.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_nextMouseEntered
+
+    private void nextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseExited
+        next.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_nextMouseExited
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        from = from - 12;
+        initial();
+        check(from);
+    }//GEN-LAST:event_backMouseClicked
+
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        back.setForeground(new java.awt.Color(0, 112, 207));
+    }//GEN-LAST:event_backMouseEntered
+
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        back.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_backMouseExited
+
+    private void panel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseClicked
+        set(DDC1.getText());
+    }//GEN-LAST:event_panel1MouseClicked
+
+    private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
+        set(DDC2.getText());
+    }//GEN-LAST:event_panel2MouseClicked
+
+    private void panel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseClicked
+       set(DDC3.getText());
+    }//GEN-LAST:event_panel3MouseClicked
+
+    private void panel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseClicked
+      set(DDC4.getText());
+    }//GEN-LAST:event_panel4MouseClicked
+
+    private void panel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel5MouseClicked
+        set(DDC5.getText());
+    }//GEN-LAST:event_panel5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -318,15 +459,16 @@ public class DDC extends javax.swing.JFrame {
     private javax.swing.JLabel DDC3;
     private javax.swing.JLabel DDC4;
     private javax.swing.JLabel DDC5;
-    private javax.swing.JPanel Panel4;
+    private javax.swing.JLabel back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel next;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
+    private javax.swing.JPanel panel4;
     private javax.swing.JPanel panel5;
     // End of variables declaration//GEN-END:variables
 }

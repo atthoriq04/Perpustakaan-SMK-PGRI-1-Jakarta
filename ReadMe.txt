@@ -1,11 +1,8 @@
 TO Do List
-- DDC
-- Tambah Hapus Jurusan
-- Edit Aturan Transaksi
-- Security Option
-- Logo Sekolah
-- Foto Perpustakaan
+- Logo Sekolah Ukuran Foto([259, 235])
+- Foto Perpustakaan Ukuran (412,270),([412, 342])
 
 Error List
+- Error Radio Button Denda
 - Error foto ubah profil
 - 

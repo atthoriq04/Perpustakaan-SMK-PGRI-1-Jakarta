@@ -38,6 +38,18 @@ public class Detail extends javax.swing.JFrame {
     }
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
+    public void ref(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ dCN.getText() +"'AND NOT location_id = '3' AND NOT location_id = '4'");
+            if(rs.next()){
+                dSisa.setText(rs.getString("COUNT(*)"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void tampilNavbar(){
             
         if( UserId == 0){
@@ -151,6 +163,11 @@ public class Detail extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
 
         dCN.setBackground(new java.awt.Color(255, 255, 255));
         dCN.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -685,6 +702,7 @@ public class Detail extends javax.swing.JFrame {
             obj.setVisible(true);
             obj.pack();
             obj.setLocationRelativeTo(null);
+            obj.setDefaultCloseOperation(obj.DISPOSE_ON_CLOSE);
             obj.setVisible(true);
         }else{
             rule();
@@ -698,6 +716,7 @@ public class Detail extends javax.swing.JFrame {
                         obj.setVisible(true);
                         obj.pack();
                         obj.setLocationRelativeTo(null);
+                        obj.setDefaultCloseOperation(obj.DISPOSE_ON_CLOSE);
                         obj.setVisible(true);
                    }else{
                        JOptionPane.showMessageDialog(null, "Anda Sudah Melebihi Batas Meminjam, Silahkan Datang kembali setelah mengembalikan Buku");
@@ -804,8 +823,20 @@ public class Detail extends javax.swing.JFrame {
     }//GEN-LAST:event_toUsulanMouseExited
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+         try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
@@ -935,6 +966,10 @@ public class Detail extends javax.swing.JFrame {
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+      ref();
+    }//GEN-LAST:event_jPanel2MouseEntered
 
     /**
      * @param args the command line arguments

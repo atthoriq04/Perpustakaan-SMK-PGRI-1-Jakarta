@@ -151,7 +151,7 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Password");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 70, 75, 31);
+        jLabel2.setBounds(20, 70, 74, 31);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("NIS");
@@ -169,7 +169,7 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("No Eksemplar");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 130, 109, 31);
+        jLabel4.setBounds(20, 130, 108, 31);
 
         IdEx.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jPanel1.add(IdEx);
@@ -189,6 +189,7 @@ public class Siswa_KonfirmasiPeminjamanLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

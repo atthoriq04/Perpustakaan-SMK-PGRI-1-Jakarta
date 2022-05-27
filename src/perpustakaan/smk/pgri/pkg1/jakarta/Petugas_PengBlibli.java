@@ -678,7 +678,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 152, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -712,7 +712,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 152, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -746,7 +746,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 152, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -780,7 +780,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 152, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -859,7 +859,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 154, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -893,7 +893,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 154, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -985,7 +985,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 47);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1019,7 +1019,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 152, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1430,7 +1430,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         jPanel3.add(PanelPPetugas2);
-        PanelPPetugas2.setBounds(260, 70, 902, 287);
+        PanelPPetugas2.setBounds(260, 70, 900, 287);
 
         jPanel7.setBackground(new java.awt.Color(229, 231, 238));
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1565,7 +1565,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel30.setText("Pengaturan Anggota");
         ToPAnggota.add(jLabel30);
-        jLabel30.setBounds(20, 10, 160, 20);
+        jLabel30.setBounds(30, 10, 150, 20);
 
         jPanel7.add(ToPAnggota);
         ToPAnggota.setBounds(620, 0, 200, 40);
@@ -1585,6 +1585,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void toAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseEntered
@@ -2084,7 +2085,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPTransaksiMouseEntered
 
     private void ToPTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseExited
-
+        ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPTransaksiMouseExited
 
     private void ToPProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseClicked
@@ -2118,7 +2119,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPBliblioMouseEntered
 
     private void ToPBliblioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseExited
-        ToPBliblio.setBackground(new java.awt.Color(229, 231, 238));
+        
     }//GEN-LAST:event_ToPBliblioMouseExited
 
     private void ToPSistemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseClicked
@@ -2132,7 +2133,7 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPSistemMouseEntered
 
     private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
-        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        ToPSistem.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPSistemMouseExited
 
     private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked

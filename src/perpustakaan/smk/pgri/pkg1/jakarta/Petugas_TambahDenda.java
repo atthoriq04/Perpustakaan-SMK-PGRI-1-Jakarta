@@ -290,7 +290,9 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
             rst = stt.executeQuery(sql);
             if(rst.next()){
                 stt.executeUpdate("INSERT INTO bukuTidakTersedia(Barcode,IdDenda,Tanggal) VALUES('"+ brcd.getText() +"','"+ rst.getInt("IdDenda") +"','"+ sdformat.format(now) +"')");
+                JOptionPane.showMessageDialog(null, "Denda Berhasil Ditambahkan");
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Petugas_TambahDenda.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -324,8 +324,7 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
             } else {
                 NaikKelas();
             }
-            //
-            //this.dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

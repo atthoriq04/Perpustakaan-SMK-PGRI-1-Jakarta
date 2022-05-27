@@ -1840,7 +1840,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPTransaksiMouseEntered
 
     private void ToPTransaksiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPTransaksiMouseExited
-
+        ToPTransaksi.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPTransaksiMouseExited
 
     private void ToPProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseClicked
@@ -1857,7 +1857,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPProfilMouseEntered
 
     private void ToPProfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPProfilMouseExited
-        ToPProfil.setBackground(new java.awt.Color(229, 231, 238));
+
     }//GEN-LAST:event_ToPProfilMouseExited
 
     private void ToPBliblioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPBliblioMouseClicked
@@ -1888,7 +1888,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     }//GEN-LAST:event_ToPSistemMouseEntered
 
     private void ToPSistemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPSistemMouseExited
-        ToPAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        ToPSistem.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_ToPSistemMouseExited
 
     private void ToPAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ToPAnggotaMouseClicked

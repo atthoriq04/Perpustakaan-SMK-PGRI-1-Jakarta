@@ -506,6 +506,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_ddc.setEnabled(false);
         attach.setEnabled(false);
         submit.setEnabled(false);
+        submit1.setEnabled(false);
     }
     public String lineText = null;
 
@@ -848,6 +849,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         Deskripsi = new javax.swing.JTextArea();
         Judul = new javax.swing.JTextField();
         Edisi = new javax.swing.JTextField();
+        submit1 = new javax.swing.JButton();
         submit = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JSeparator();
         lbl_isbn = new javax.swing.JLabel();
@@ -1898,6 +1900,15 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jPanel1.add(Edisi);
         Edisi.setBounds(310, 320, 630, 23);
 
+        submit1.setText("ddc");
+        submit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submit1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit1);
+        submit1.setBounds(610, 640, 80, 23);
+
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1991,7 +2002,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(NoPanggil);
-        NoPanggil.setBounds(310, 550, 630, 23);
+        NoPanggil.setBounds(310, 550, 290, 23);
 
         panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
 
@@ -2052,7 +2063,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DDC);
-        DDC.setBounds(310, 640, 630, 23);
+        DDC.setBounds(310, 640, 290, 23);
 
         cbPenerbit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Penerbit" }));
@@ -2151,7 +2162,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC.setEnabled(false);
         lbl_ddc.setEnabled(false);
         attach.setEnabled(false);
-        submit.setEnabled(true);
+        submit.setEnabled(true);    submit1.setEnabled(false);
+    
     }//GEN-LAST:event_importDataActionPerformed
 
     private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
@@ -2190,7 +2202,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC.setEnabled(true);
         lbl_ddc.setEnabled(true);
         attach.setEnabled(true);
-        submit.setEnabled(true);
+        submit.setEnabled(true);    submit1.setEnabled(true);
+    
     }//GEN-LAST:event_inputDataActionPerformed
 
     private void EdisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdisiActionPerformed
@@ -2655,6 +2668,21 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
+    private void submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit1ActionPerformed
+        DDC ob = new DDC();
+        ob.judul = Judul.getText();
+        ob.Pengarang = Pengarang.getText();
+        ob.edisi = Edisi.getText();
+        ob.isbn = ISBN.getText();
+        ob.tahunterbit = TahunTerbit.getText();
+        ob.deskripsifisik = Deskripsi.getText();
+        ob.judulseri = JudulSeri.getText();
+        ob.bahasa = lang.getText();
+        ob.tempatterbit = TempatTerbit.getText();
+        ob.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2695,17 +2723,17 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Bahasa;
-    private javax.swing.JTextField DDC;
-    private javax.swing.JTextArea Deskripsi;
-    private javax.swing.JTextField Edisi;
-    private javax.swing.JTextField ISBN;
-    private javax.swing.JTextField Judul;
-    private javax.swing.JTextField JudulSeri;
-    private javax.swing.JTextField NoPanggil;
-    private javax.swing.JTextField Penerbit;
-    private javax.swing.JTextField Pengarang;
-    private javax.swing.JTextField TahunTerbit;
-    private javax.swing.JTextField TempatTerbit;
+    public javax.swing.JTextField DDC;
+    public javax.swing.JTextArea Deskripsi;
+    public javax.swing.JTextField Edisi;
+    public javax.swing.JTextField ISBN;
+    public javax.swing.JTextField Judul;
+    public javax.swing.JTextField JudulSeri;
+    public javax.swing.JTextField NoPanggil;
+    public javax.swing.JTextField Penerbit;
+    public javax.swing.JTextField Pengarang;
+    public javax.swing.JTextField TahunTerbit;
+    public javax.swing.JTextField TempatTerbit;
     private javax.swing.JButton attach;
     private javax.swing.JComboBox<String> cbGMD;
     private javax.swing.JComboBox<String> cbPenerbit;
@@ -2753,7 +2781,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JTextField lang;
+    public javax.swing.JTextField lang;
     private javax.swing.JLabel lbl_bahasa;
     private javax.swing.JLabel lbl_ddc;
     private javax.swing.JLabel lbl_edisi;
@@ -2774,6 +2802,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit;
+    private javax.swing.JButton submit1;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;

@@ -744,7 +744,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toLogin.setBounds(0, 80, 150, 40);
 
         jPanel1.add(subMenuAdmin);
-        subMenuAdmin.setBounds(950, 500, 150, 120);
+        subMenuAdmin.setBounds(80, 490, 150, 120);
 
         subMenuLaporan.setBackground(new java.awt.Color(229, 231, 238));
         subMenuLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -913,7 +913,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toLapDenda.setBounds(0, 160, 210, 40);
 
         jPanel1.add(subMenuLaporan);
-        subMenuLaporan.setBounds(950, 410, 200, 210);
+        subMenuLaporan.setBounds(80, 400, 200, 210);
 
         subMenuAnggota.setBackground(new java.awt.Color(229, 231, 238));
         subMenuAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1094,7 +1094,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel1.add(subMenuAnggota);
-        subMenuAnggota.setBounds(950, 320, 150, 210);
+        subMenuAnggota.setBounds(80, 310, 150, 210);
 
         subMenuSirkulasi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuSirkulasi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1275,7 +1275,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toKonfDenda1.setBounds(0, 160, 300, 40);
 
         jPanel1.add(subMenuSirkulasi);
-        subMenuSirkulasi.setBounds(950, 230, 250, 200);
+        subMenuSirkulasi.setBounds(80, 220, 250, 200);
 
         subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
         subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1428,7 +1428,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         toDataUsulan.setBounds(0, 120, 150, 43);
 
         jPanel1.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(950, 150, 150, 170);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Tambah Anggota Baru");
@@ -2083,7 +2083,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         if(inputData.isSelected()){
         getId();
         inputAnggota();
-        //inputUser();
+        inputUser();
         Nis.setText(null);
         nama.setText(null);
         alamat.setText(null);

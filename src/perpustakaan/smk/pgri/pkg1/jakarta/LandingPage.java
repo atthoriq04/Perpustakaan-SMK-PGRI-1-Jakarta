@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.Image;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -49,6 +51,7 @@ public class LandingPage extends javax.swing.JFrame {
     }
     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
     public int from = 0;
+    String a,b,c,d,e;
     public String sql,img, cnn,cvr;
     int rows,col,limit;
     public void img(){
@@ -77,6 +80,7 @@ public class LandingPage extends javax.swing.JFrame {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    String[]cn = {a,b,c,d,e};
     private void initial(){
         try{
          JToggleButton[]img = {img1,img2,img3,img4,img5};
@@ -120,6 +124,7 @@ public class LandingPage extends javax.swing.JFrame {
                   ImageIcon icon = new ImageIcon(ImageIO.read(stream));
                   Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
                   img[rowindex].setIcon(icon);
+                  cn[rowindex] = rs.getString("call_number");
                   
                 //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
              rowindex++;
@@ -128,6 +133,71 @@ public class LandingPage extends javax.swing.JFrame {
         }catch(Exception e){
              e.printStackTrace();
         }
+    }
+    public String judul;
+    public String auth;
+    public String Jdl;
+    public String Cnn;
+    public String Eks;
+    public String pnls;
+    public String pnrbt;
+    public String thtbt;
+    public String gmd;
+    public String bhs;
+    public String g;
+    public void getData(String cnu){
+        try{
+
+               Statement stat = CC.createStatement();
+               ResultSet rs = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE call_number = '"+ cnu +"'");
+               if(rs.next()){
+                    ResultSet rsa = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN mst_publisher ON new_bliblio.IdPublisher = mst_publisher.publisher_id INNER JOIN gmd ON new_bliblio.IdGMD = gmd.gmd_id INNER JOIN mst_language ON new_bliblio.IdLanguage = mst_language.language_id WHERE new_bliblio.call_number = '"+ rs.getString("new_bliblio.call_number") +"' LIMIT 1");
+                    if(rsa.next()){
+                        Jdl = rsa.getString("Judul");
+                        Cnn = rsa.getString("new_bliblio.call_number");
+                        pnrbt = rsa.getString("mst_publisher.publisher_name");
+                        pnls = rsa.getString("mst_author.author_name");
+                        gmd = rsa.getString("gmd.gmd_name");
+                        bhs = rsa.getString("mst_language.language_name");
+                        thtbt =  rsa.getString("new_bliblio.PublisherYear");
+                        g = rsa.getString("new_bliblio.image");
+                        ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
+                        if(rsb.next()){
+                            Eks = rsb.getString("COUNT(*)");
+                        }
+                        System.out.println(bhs);
+                    }
+               }else{
+
+                   }
+           }catch (Exception e){
+           e.printStackTrace();
+       }
+    }
+    public void Throw(){
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -341,7 +411,8 @@ public class LandingPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void img5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img5ActionPerformed
-        // TODO add your handling code here:
+        getData(cn[4]);
+        Throw();
     }//GEN-LAST:event_img5ActionPerformed
 
     private void lihatKatalogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalogMouseEntered
@@ -359,9 +430,8 @@ public class LandingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_lihatKatalogActionPerformed
 
     private void img1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img1ActionPerformed
-       Detail obj = new Detail();
-       obj.setVisible(true);
-       this.dispose();
+      getData(cn[0]);
+      Throw();
     }//GEN-LAST:event_img1ActionPerformed
 
     private void toLandingPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseEntered
@@ -421,15 +491,18 @@ public class LandingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_toLoginMouseClicked
 
     private void img2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img2ActionPerformed
-        // TODO add your handling code here:
+       getData(cn[1]);
+        Throw();
     }//GEN-LAST:event_img2ActionPerformed
 
     private void img3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img3ActionPerformed
-        // TODO add your handling code here:
+       getData(cn[2]);
+        Throw();
     }//GEN-LAST:event_img3ActionPerformed
 
     private void img4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img4ActionPerformed
-        // TODO add your handling code here:
+        getData(cn[3]);
+        Throw();
     }//GEN-LAST:event_img4ActionPerformed
 
     /**

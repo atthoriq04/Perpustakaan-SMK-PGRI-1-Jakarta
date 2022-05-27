@@ -344,7 +344,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel12.setText("Username");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(407, 397, 110, 23);
+        jLabel12.setBounds(410, 390, 110, 23);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Unggah Foto");
@@ -359,12 +359,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel13.setText("Email");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(407, 447, 100, 23);
+        jLabel13.setBounds(410, 440, 100, 23);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel14.setText("No HP");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(407, 498, 90, 23);
+        jLabel14.setBounds(410, 490, 90, 23);
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         nama.setText("Nama");
@@ -398,7 +398,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1200, 680, 69, 23);
+        jButton2.setBounds(1200, 680, 67, 23);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -411,7 +411,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(nohp);
-        nohp.setBounds(660, 490, 350, 30);
+        nohp.setBounds(660, 480, 350, 30);
 
         username.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -420,11 +420,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(username);
-        username.setBounds(660, 390, 350, 30);
+        username.setBounds(660, 380, 350, 30);
 
         email.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(email);
-        email.setBounds(660, 440, 350, 30);
+        email.setBounds(660, 430, 350, 30);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -896,10 +896,22 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private void toUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseExited
         toUsulan.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toUsulanMouseExited
-
+    
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+        try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered

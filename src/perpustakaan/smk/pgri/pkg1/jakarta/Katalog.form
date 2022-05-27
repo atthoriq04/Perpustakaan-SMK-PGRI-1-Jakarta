@@ -39,6 +39,9 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseEntered"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -486,6 +489,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField1MouseEntered"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyReleased"/>
           </Events>
@@ -535,10 +539,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle1" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul1" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -611,10 +615,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle2" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul2" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -687,10 +691,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle4" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul4" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -763,10 +767,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle3" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -839,10 +843,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="judul5" min="-2" pref="117" max="-2" attributes="0"/>
                           <Component id="toggle5" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul5" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -854,7 +858,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="toggle5" min="-2" pref="162" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="judul5" min="-2" max="-2" attributes="0"/>
+                      <Component id="judul5" min="-2" pref="15" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="penulis5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -915,10 +919,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle6" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis6" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul6" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul6" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -991,10 +995,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle7" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul7" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul7" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1067,10 +1071,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle8" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis8" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul8" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul8" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1143,10 +1147,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle9" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis9" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul9" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul9" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1219,10 +1223,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle10" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis10" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul10" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul10" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1295,10 +1299,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle11" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis11" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul11" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul11" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1371,10 +1375,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="toggle12" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="penulis12" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="judul12" alignment="0" max="32767" attributes="0"/>
+                          <Component id="judul12" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -1453,6 +1457,23 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="620" y="680" width="12" height="17"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="kategori">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Pencarian Kategori"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kategoriMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kategoriMouseExited"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1100" y="100" width="130" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
