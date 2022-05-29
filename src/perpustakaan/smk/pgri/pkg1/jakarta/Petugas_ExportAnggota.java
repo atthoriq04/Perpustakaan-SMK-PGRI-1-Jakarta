@@ -51,6 +51,7 @@ public class Petugas_ExportAnggota extends javax.swing.JFrame {
         initComponents();
         CC = new koneksi().connect();
         cbReadKls();
+        getAdd();
     }
 
     /**
@@ -103,15 +104,65 @@ public class Petugas_ExportAnggota extends javax.swing.JFrame {
          
     }
     
-    private void exportCSV() throws SQLException, IOException{
+
+   public String label1,label2,label3,label4,label5;
+   public String[]label = {label1,label2,label3,label4,label5};
+     public void getAdd(){
+          int rowindex = 0;
         try{
-         String[] entries = {"NO URUT","NIS","NAMA","JK","KELAS","ALAMAT", "Tempat,Tanggal Lahir \t"};
-         CSVPrinter printer = new CSVPrinter(new FileWriter(csv),CSVFormat.EXCEL.withHeader(entries));
+        
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust ",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            // initial rowindex
+            // iterate panel default false
+             
+                  
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  if(rs.getInt("Status")>0){
+                   label[rowindex] = rs.getString("tName");            //label[rowindex].setVisible(true);
+                    //form[rowindex].setVisible(true);
+                    //label[rowindex] = rs.getString("tName");
+                  }
+                    label[rowindex] = rs.getString("tName");;
+                   
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+       
+    }
+    public void exportCSV() throws SQLException, IOException{
+                
+        try{
+         String a = "Tempat,Tanggal Lahir \t";
+         String[] entries = {"NO URUT","NIS","NAMA","JK","KELAS","ALAMAT",a,label[0],label[1],label[2],label[3],label[4]};
+         CSVPrinter printer = new CSVPrinter(new FileWriter(csv),CSVFormat.EXCEL.withHeader(entries).withIgnoreEmptyLines());
         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM anggota WHERE IdKelas="+rsKls+"", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
           ResultSet rs = stmt.executeQuery();
           ResultSetMetaData Mdata = (ResultSetMetaData) rs.getMetaData();
           int count = 0;
-          String data[] = new String[7];
+          String data[] = new String[12];
           while(rs.next()){
            count++;
            String co = Integer.toString(count);
@@ -122,6 +173,11 @@ public class Petugas_ExportAnggota extends javax.swing.JFrame {
            data[4] = cbkls.getSelectedItem().toString();
            data[5] = rs.getString("alamat");
            data[6] = rs.getString("TTL");
+           data[7] = rs.getString(label[0].replaceAll(" ",""));
+           data[8] = rs.getString(label[1].replaceAll(" ",""));
+           data[9] = rs.getString(label[2].replaceAll(" ",""));
+           data[10] = rs.getString(label[3].replaceAll(" ",""));
+           data[11] = rs.getString(label[4].replaceAll(" ",""));
            printer.printRecord(data);
           }
         printer.flush();

@@ -4,6 +4,9 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -27,14 +32,16 @@ public class TentangPerpus extends javax.swing.JFrame {
     Connection CC = null;
     PreparedStatement pst = null;
     Statement stt;
-    public TentangPerpus() {
+    public TentangPerpus() throws IOException {
         initComponents();
         CC = new koneksi().connect();
         getProfile();
         
         }
     
-    public void getProfile(){
+    public void getProfile() throws IOException{
+        String pro1=null;
+        String pro2=null;
         try {
             
              stt = CC.createStatement();
@@ -45,7 +52,18 @@ public class TentangPerpus extends javax.swing.JFrame {
                 hp.setText(rs.getString("Tentang2"));
                 mail.setText(rs.getString("Tentang3"));
                 medsos.setText(rs.getString("SMedia"));
+                pro1=rs.getString("foto1");
+                pro2=rs.getString("foto2");
             }
+            
+             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
+             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+             imgFoto1.setIcon(icon1);
+             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
+             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+             imgFoto2.setIcon(icon2);
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,6 +79,7 @@ public class TentangPerpus extends javax.swing.JFrame {
 
         jPanel9 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
+        imgFoto2 = new javax.swing.JLabel();
         jLabel71 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         toLogin = new javax.swing.JLabel();
@@ -68,6 +87,7 @@ public class TentangPerpus extends javax.swing.JFrame {
         toTentang = new javax.swing.JLabel();
         toLandingPage = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
+        imgFoto1 = new javax.swing.JLabel();
         tentang = new javax.swing.JLabel();
         jLabel72 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -88,11 +108,11 @@ public class TentangPerpus extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -186,16 +206,17 @@ public class TentangPerpus extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(229, 231, 238));
         jPanel14.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel14.setPreferredSize(new java.awt.Dimension(412, 270));
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(imgFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
+            .addComponent(imgFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         tentang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -313,7 +334,12 @@ public class TentangPerpus extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+             try {
+                 obj = new Login();
+             } catch (IOException ex) {
+                 Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+             }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -341,7 +367,12 @@ public class TentangPerpus extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseExited
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+             try {
+                 obj = new TentangPerpus();
+             } catch (IOException ex) {
+                 Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+             }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked
@@ -398,13 +429,19 @@ public class TentangPerpus extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TentangPerpus().setVisible(true);
+                try {
+                    new TentangPerpus().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel hp;
+    private javax.swing.JLabel imgFoto1;
+    private javax.swing.JLabel imgFoto2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

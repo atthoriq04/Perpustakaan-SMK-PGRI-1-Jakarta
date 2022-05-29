@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -21,11 +24,11 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
     /**
      * Creates new form Usulan_Buku
      */
-    public Siswa_Usulan_Buku() {
+    public Siswa_Usulan_Buku() throws IOException {
         checkLogin();
     }
     int UserId = UserSession.GetUserId();
-    public void checkLogin(){
+    public void checkLogin() throws IOException{
         if( UserId <= 0){
              this.dispose();
              Login obj = new Login();
@@ -301,7 +304,11 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Siswa_Usulan_Buku().setVisible(true);
+                try {
+                    new Siswa_Usulan_Buku().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Siswa_Usulan_Buku.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

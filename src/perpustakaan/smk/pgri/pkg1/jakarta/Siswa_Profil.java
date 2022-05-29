@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputFilter.Config;
+//import java.io.ObjectInputFilter.Config;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,7 +88,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
           e.printStackTrace();
         }
      }
-       public String photo;
+       public String pro;
      private void UserId(){
         //toUser.setText(UserSession.getUserLogin());
         try {
@@ -113,11 +113,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 String Email = rs.getString("anggota.email");
                 String NoHp = rs.getString("anggota.NoHp");
                 String expire = rs.getString("anggota.Expired");
-                String pro = rs.getString("anggota.Profiles");
-                System.out.println(pro);
-                InputStream stream = getClass().getResourceAsStream("/Uploads/Profiles/"+pro+"");
-                ImageIcon icon = new ImageIcon(ImageIO.read(stream));
-                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+                pro = rs.getString("anggota.Profiles");
+                //System.out.println(pro);
+//                InputStream stream = getClass().getResourceAsStream("/Uploads/Profiles/"+pro+"");
+//                ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
                 nama.setText(Nama);
                 nis.setText(Nis);
                 alamat.setText(Alamat);
@@ -126,11 +126,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 username.setText(user);
                 email.setText(Email);
                 nohp.setText(NoHp);
-                tgl.setText(expire);
-                img.setIcon(icon);
-                 
-            } else
-            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+                tgl.setText(expire);    
+            }
+                //InputStream stream = getClass().getResourceAsStream("Uploads/Profiles/"+pro+"");
+                ImageIcon icon = new ImageIcon(ImageIO.read(Siswa_Profil.class.getResourceAsStream("/Uploads/Profiles/"+pro+"")));
+               Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+               img.setIcon(icon);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             e.printStackTrace();
@@ -170,6 +171,8 @@ public class Siswa_Profil extends javax.swing.JFrame {
         }
  }
  public void uploadToDir() throws IOException{
+            String foto=null;
+            if(f!=null){
             String filename = f.getAbsolutePath();
             String newpath = "src/Uploads/Profiles/";
             File directory = new File(newpath);
@@ -187,18 +190,21 @@ public class Siswa_Profil extends javax.swing.JFrame {
             String resultNew = newpath+"/newImage" + tanggal.toString()+ "." +extension;
             destinationFile = new File(resultNew);
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
-           System.out.println(destinationFile.getName());
+           //System.out.println(destinationFile.getName());
             file = destinationFile;
+            foto = destinationFile.getAbsoluteFile().getName();
+            }else{
+                foto = pro;
+            }
+            System.out.println(foto);
             try{
             String User = username.getText();
             String Email = email.getText();
             String NoHP = nohp.getText();
-            String foto = destinationFile.getAbsoluteFile().getName();
-            //System.out.println(destinationFile.getAbsoluteFile().getName());
             String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
 "            SET user.Username = '"+User+"',\n" +
 "            anggota.Email='"+Email+"',\n" +
-"            anggota.NoHp='"+NoHP+"',anggota.Profiles ='"+foto+"' Where anggota.Nis = 99283" ;
+"            anggota.NoHp='"+NoHP+"',anggota.Profiles ='"+foto+"' Where anggota.Nis = '"+nis.getText()+"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
                 pst.close();
@@ -206,7 +212,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
               username.setText(User);
               email.setText(Email);
               nohp.setText(NoHP);
-              System.out.println(foto);
+              //System.out.println(foto);
 //            update.setEnabled(false);
 //            hapus.setEnabled(false);
          
@@ -838,7 +844,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -883,7 +894,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+        try {
+            obj = new Siswa_Usulan_Buku();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -911,6 +927,8 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_toBebpusMouseClicked
 

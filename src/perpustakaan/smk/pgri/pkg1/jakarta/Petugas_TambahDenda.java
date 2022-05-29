@@ -301,9 +301,10 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     
     }
     private void nonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonActionPerformed
-         denda.setEnabled(true);
+        tunai.setSelected(false);
+        denda.setEnabled(true);
          Jenis = "NonTunai";
-         tunai.setEnabled(false);
+         //tunai.setEnabled(false);
     }//GEN-LAST:event_nonActionPerformed
 
     private void dendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dendaActionPerformed
@@ -326,8 +327,10 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tunaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tunaiActionPerformed
+        non.setSelected(false);
         Jenis = "Tunai";
-        non.setEnabled(false);
+        denda.setEnabled(false);
+        //non.setEnabled(false);
     }//GEN-LAST:event_tunaiActionPerformed
 
     /**

@@ -473,7 +473,12 @@ public class LandingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_toLandingPageMouseClicked
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+        try {
+            obj = new TentangPerpus();
+        } catch (IOException ex) {
+            Logger.getLogger(LandingPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked
@@ -485,7 +490,12 @@ public class LandingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseClicked
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-       Login obj = new Login();
+       Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(LandingPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked

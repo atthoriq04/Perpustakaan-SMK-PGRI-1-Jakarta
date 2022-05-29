@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -22,13 +25,13 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
     public ResultSet rs;
     Connection CC = new koneksi().connect();
     public Statement stt;
-    public Siswa_BebasPustaka() {
+    public Siswa_BebasPustaka() throws IOException {
         checkLogin();
         
         
     }
     int UserId = UserSession.GetUserId();
-    public void checkLogin(){
+    public void checkLogin() throws IOException{
         if( UserId <= 0){
              Login obj = new Login();
              obj.setVisible(true);
@@ -242,7 +245,11 @@ public class Siswa_BebasPustaka extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Siswa_BebasPustaka().setVisible(true);
+                try {
+                    new Siswa_BebasPustaka().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Siswa_BebasPustaka.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

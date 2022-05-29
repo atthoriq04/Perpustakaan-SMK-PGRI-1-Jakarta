@@ -5,6 +5,7 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -329,7 +330,12 @@ public class Kunjungan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Kunjungan.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -357,7 +363,12 @@ public class Kunjungan extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseExited
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+        try {
+            obj = new TentangPerpus();
+        } catch (IOException ex) {
+            Logger.getLogger(Kunjungan.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked

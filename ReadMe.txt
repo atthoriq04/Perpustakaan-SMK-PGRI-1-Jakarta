@@ -1,8 +1,13 @@
 TO Do List
-- Logo Sekolah Ukuran Foto([259, 235])
-- Foto Perpustakaan Ukuran (412,270),([412, 342])
+- Logo Sekolah Ukuran Foto([259, 235])(Done)
+- Foto Perpustakaan Ukuran (412,270),([412, 342])(Done)
+- Laporan (Done)
+
 
 Error List
-- Error Radio Button Denda
-- Error foto ubah profil
-- 
+- Error Radio Button Denda (Fixed)
+- Error foto ubah profil (Fixed)
+
+
+Report need  jdk 1.8 
+Link : https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html

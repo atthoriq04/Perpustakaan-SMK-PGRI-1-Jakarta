@@ -4,6 +4,7 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -599,7 +600,12 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+         try {
+             obj = new Login();
+         } catch (IOException ex) {
+             Logger.getLogger(Siswa_PeminjamanBerjalan.class.getName()).log(Level.SEVERE, null, ex);
+         }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -684,7 +690,12 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+         try {
+             obj = new Siswa_Usulan_Buku();
+         } catch (IOException ex) {
+             Logger.getLogger(Siswa_PeminjamanBerjalan.class.getName()).log(Level.SEVERE, null, ex);
+         }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -712,7 +723,9 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        } catch (IOException ex) {
+             Logger.getLogger(Siswa_PeminjamanBerjalan.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered

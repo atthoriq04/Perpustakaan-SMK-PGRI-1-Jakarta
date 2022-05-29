@@ -77,7 +77,7 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
          Reader in = new FileReader(excelFile);
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
-             barcode = record.get(0);
+             barcode = record.get(0).replaceAll("[<>]", "");
              cn = record.get("No. Panggil");
              TK = record.get("Tipe Koleksi");
              Inven = record.get("No. Inventaris");
@@ -105,7 +105,7 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
     private void checkData(){
         try {
             Statement stat = CC.createStatement();
-            sql="SELECT * FROM Item WHERE item_code='"+barcode+"'";
+            sql="SELECT * FROM Item WHERE item_code='"+barcode.replaceAll("[<>]", "")+"'";
             System.out.println(cn);
             ResultSet rs = stat.executeQuery(sql);
             if(rs.next()){
@@ -118,7 +118,7 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
                 String update="UPDATE Item SET call_number = '"+cn+"',coll_type_id="+rsColl+","
                         + "inventory_code='"+Inven+"',received_date='"+tgltrima+"',"
                         + "location_id="+rsLok+",order_date='"+tgl_psn+"',"
-                        + "source="+rsSor+",price="+harga+",invoice_date='"+tglfktur+"',input_date='"+Date+"',last_update='"+Date+"'WHERE item_code='"+barcode+"'";
+                        + "source="+rsSor+",price="+harga+",invoice_date='"+tglfktur+"',input_date='"+Date+"',last_update='"+Date+"'WHERE item_code='"+barcode.replaceAll("[<>]", "")+"'";
                 stt.executeUpdate(update);
             }else{
                 getLokId();
@@ -128,7 +128,7 @@ public int rsColl,rsLok,rsSor,harga,rsBliId;
                 Date = dtf.format(now);  
                 stt = CC.createStatement();
                 String Insert="INSERT INTO Item(biblio_id,call_number,coll_type_id,item_code,inventory_code,received_date,location_id,order_date,source,price,invoice_date,input_date,last_update)"
-                        + "VALUES("+rsBliId+",'"+cn+"',"+rsColl+",'"+barcode+"','"+Inven+"','"+tgltrima+"',"+rsLok+",'"+tgl_psn+"',"+rsSor+","+harga+",'"+tglfktur+"','"+Date+"','"+Date+"')";
+                        + "VALUES("+rsBliId+",'"+cn+"',"+rsColl+",'"+barcode.replaceAll("[<>]", "")+"','"+Inven+"','"+tgltrima+"',"+rsLok+",'"+tgl_psn+"',"+rsSor+","+harga+",'"+tglfktur+"','"+Date+"','"+Date+"')";
                 stt.executeUpdate(Insert);
              
             }

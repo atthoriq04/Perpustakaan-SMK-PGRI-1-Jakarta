@@ -6,6 +6,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -270,7 +271,12 @@ public class Reset_Password extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Login obj = new Login();
+        Login obj = null;
+         try {
+             obj = new Login();
+         } catch (IOException ex) {
+             Logger.getLogger(Reset_Password.class.getName()).log(Level.SEVERE, null, ex);
+         }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
