@@ -256,14 +256,18 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         getPreviousData();
-        update();
+         int opt = JOptionPane.showConfirmDialog(null, "Apakah Data sudah Benar?" , "Update", JOptionPane.YES_NO_OPTION);
+        if(opt==0){
+        update();}
         this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         getPreviousData();
-        delete();
+         int opt = JOptionPane.showConfirmDialog(null, "Apakah Data sudah Benar?" , "Update", JOptionPane.YES_NO_OPTION);
+        if(opt==0){
+        delete();}
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
