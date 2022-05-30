@@ -4,10 +4,22 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -17,9 +29,7 @@ public class Siswa_Home extends javax.swing.JFrame {
      ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
-    /**
-     * Creates new form Siswa_Home
-     */
+    public Statement stt;
     public Siswa_Home() {
         initComponents();
         SubUser.setVisible(false);
@@ -29,12 +39,28 @@ public class Siswa_Home extends javax.swing.JFrame {
         hakakses();
         no.setVisible(false);
         jumlahnotif();
+         initial();
+         getProfile();
+        
     }
     private void userLogin(){
     toUser.setText(UserSession.getUserLogin());
     }
     int UserId = UserSession.GetUserId();
-    
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+                Profil.setText(rs.getString("Profil"));
+                Tagline.setText(rs.getString("Tagline"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
      private void hakakses() {
     String user=toUser.getText();
         if(user.equals(3) || user.equals(3)){
@@ -46,7 +72,142 @@ public class Siswa_Home extends javax.swing.JFrame {
         }
     
         }
-     
+     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
+    public int from = 0;
+    public String sql,img, cnn,cvr;
+    int rows,col,limit;
+    public void img(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
+            if(rs.next()){
+                cvr = rs.getString("image");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    String a,b,c,d,e;
+    String[]cn = {a,b,c,d,e};
+    private void initial(){
+        try{
+         JToggleButton[]img = {img1,img2,img3,img4,img5};
+         String[]rsim = null;
+         PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 5",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+         
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                   
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panel;
+                   for (panel=0;panel<5;panel++){
+                       img[rowindex].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                Object[] data = {
+                    rs.getString("image"),
+
+                };
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  cnn =rs.getString("new_bliblio.call_number");
+                  img();
+                  img[rowindex].setVisible(true);
+                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                  img[rowindex].setIcon(icon);
+                  cn[rowindex] = rs.getString("call_number");
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
+    public String judul;
+    public String auth;
+    public String Jdl;
+    public String Cnn;
+    public String Eks;
+    public String pnls;
+    public String pnrbt;
+    public String thtbt;
+    public String gmd;
+    public String bhs;
+    public String g;
+    public void getData(String cnu){
+        try{
+
+               Statement stat = CC.createStatement();
+               ResultSet rs = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE call_number = '"+ cnu +"'");
+               if(rs.next()){
+                    ResultSet rsa = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN mst_publisher ON new_bliblio.IdPublisher = mst_publisher.publisher_id INNER JOIN gmd ON new_bliblio.IdGMD = gmd.gmd_id INNER JOIN mst_language ON new_bliblio.IdLanguage = mst_language.language_id WHERE new_bliblio.call_number = '"+ rs.getString("new_bliblio.call_number") +"' LIMIT 1");
+                    if(rsa.next()){
+                        Jdl = rsa.getString("Judul");
+                        Cnn = rsa.getString("new_bliblio.call_number");
+                        pnrbt = rsa.getString("mst_publisher.publisher_name");
+                        pnls = rsa.getString("mst_author.author_name");
+                        gmd = rsa.getString("gmd.gmd_name");
+                        bhs = rsa.getString("mst_language.language_name");
+                        thtbt =  rsa.getString("new_bliblio.PublisherYear");
+                        g = rsa.getString("new_bliblio.image");
+                        ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
+                        if(rsb.next()){
+                            Eks = rsb.getString("COUNT(*)");
+                        }
+                        System.out.println(bhs);
+                    }
+               }else{
+
+                   }
+           }catch (Exception e){
+           e.printStackTrace();
+       }
+    }
+    public void Throw(){
+        Detail obj = new Detail();
+        obj.dJudul.setText(Jdl);
+        obj.dCN.setText(Cnn);
+        obj.dSisa.setText(Eks);
+        obj.dPenerbit.setText(pnrbt);
+        obj.dTahun.setText(thtbt);
+        obj.dPenulis.setText(pnls);
+        obj.Bhs.setText(bhs);
+        obj.dGMD.setText(gmd);
+        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                  ImageIcon icon;
+        try {
+            icon = new ImageIcon(ImageIO.read(stream));
+             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        obj.setVisible(true);
+        obj.pack();
+        this.dispose();
+        obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
      public void jumlahnotif(){
          try {
             ;
@@ -76,13 +237,13 @@ public class Siswa_Home extends javax.swing.JFrame {
     private void initComponents() {
 
         kGradientPanel2 = new keeptoo.KGradientPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jToggleButton10 = new javax.swing.JToggleButton();
-        jToggleButton11 = new javax.swing.JToggleButton();
-        jToggleButton12 = new javax.swing.JToggleButton();
-        jToggleButton13 = new javax.swing.JToggleButton();
-        jToggleButton14 = new javax.swing.JToggleButton();
+        Profil = new javax.swing.JLabel();
+        Tagline = new javax.swing.JLabel();
+        img2 = new javax.swing.JToggleButton();
+        img3 = new javax.swing.JToggleButton();
+        img4 = new javax.swing.JToggleButton();
+        img5 = new javax.swing.JToggleButton();
+        img1 = new javax.swing.JToggleButton();
         lihatKatalog2 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
@@ -110,40 +271,60 @@ public class Siswa_Home extends javax.swing.JFrame {
         kGradientPanel2.setkTransparentControls(false);
         kGradientPanel2.setLayout(null);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
-        jLabel11.setText("Perpustakaan SMK PGRI 1 Jakarta ");
-        kGradientPanel2.add(jLabel11);
-        jLabel11.setBounds(35, 163, 633, 47);
+        Profil.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        Profil.setText("Perpustakaan SMK PGRI 1 Jakarta ");
+        kGradientPanel2.add(Profil);
+        Profil.setBounds(35, 163, 633, 47);
 
-        jLabel12.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
-        jLabel12.setText("Literasi Mencerdaskan");
-        kGradientPanel2.add(jLabel12);
-        jLabel12.setBounds(35, 228, 223, 26);
+        Tagline.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
+        Tagline.setText("Literasi Mencerdaskan");
+        kGradientPanel2.add(Tagline);
+        Tagline.setBounds(35, 228, 280, 26);
 
-        jToggleButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton10);
-        jToggleButton10.setBounds(193, 442, 140, 220);
-
-        jToggleButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton11);
-        jToggleButton11.setBounds(351, 442, 140, 220);
-
-        jToggleButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton12);
-        jToggleButton12.setBounds(509, 442, 140, 220);
-
-        jToggleButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        jToggleButton13.addActionListener(new java.awt.event.ActionListener() {
+        img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton13ActionPerformed(evt);
+                img2ActionPerformed(evt);
             }
         });
-        kGradientPanel2.add(jToggleButton13);
-        jToggleButton13.setBounds(667, 442, 140, 220);
+        kGradientPanel2.add(img2);
+        img2.setBounds(193, 442, 140, 220);
 
-        jToggleButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
-        kGradientPanel2.add(jToggleButton14);
-        jToggleButton14.setBounds(35, 442, 140, 220);
+        img3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img3ActionPerformed(evt);
+            }
+        });
+        kGradientPanel2.add(img3);
+        img3.setBounds(351, 442, 140, 220);
+
+        img4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img4ActionPerformed(evt);
+            }
+        });
+        kGradientPanel2.add(img4);
+        img4.setBounds(509, 442, 140, 220);
+
+        img5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img5ActionPerformed(evt);
+            }
+        });
+        kGradientPanel2.add(img5);
+        img5.setBounds(667, 442, 140, 220);
+
+        img1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
+        img1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img1ActionPerformed(evt);
+            }
+        });
+        kGradientPanel2.add(img1);
+        img1.setBounds(35, 442, 140, 220);
 
         lihatKatalog2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 1.png"))); // NOI18N
         lihatKatalog2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -458,9 +639,10 @@ public class Siswa_Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton13ActionPerformed
+    private void img5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img5ActionPerformed
+        getData(cn[4]);
+       Throw();
+    }//GEN-LAST:event_img5ActionPerformed
 
     private void lihatKatalog2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lihatKatalog2MouseEntered
         lihatKatalog2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Lihat Katalog 2.png")));
@@ -492,7 +674,12 @@ public class Siswa_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+         try {
+             obj = new Siswa_Usulan_Buku();
+         } catch (IOException ex) {
+             Logger.getLogger(Siswa_Home.class.getName()).log(Level.SEVERE, null, ex);
+         }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -604,7 +791,12 @@ public class Siswa_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+         try {
+             obj = new Login();
+         } catch (IOException ex) {
+             Logger.getLogger(Siswa_Home.class.getName()).log(Level.SEVERE, null, ex);
+         }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -631,14 +823,48 @@ public class Siswa_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_lihatKatalog2ActionPerformed
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+        try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+             Logger.getLogger(Siswa_Home.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toNotifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toNotifMouseClicked
         Siswa_Notifikasi obj = new Siswa_Notifikasi();
         obj.setVisible(true);
     }//GEN-LAST:event_toNotifMouseClicked
+
+    private void img1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img1ActionPerformed
+       getData(cn[0]);
+       Throw();
+    }//GEN-LAST:event_img1ActionPerformed
+
+    private void img2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img2ActionPerformed
+        getData(cn[1]);
+       Throw();
+    }//GEN-LAST:event_img2ActionPerformed
+
+    private void img3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img3ActionPerformed
+        getData(cn[2]);
+       Throw();
+    }//GEN-LAST:event_img3ActionPerformed
+
+    private void img4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img4ActionPerformed
+        getData(cn[3]);
+       Throw();
+    }//GEN-LAST:event_img4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -680,16 +906,16 @@ public class Siswa_Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PGRI;
+    private javax.swing.JLabel Profil;
     private javax.swing.JPanel SubSirk;
     private javax.swing.JPanel SubUser;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel Tagline;
+    private javax.swing.JToggleButton img1;
+    private javax.swing.JToggleButton img2;
+    private javax.swing.JToggleButton img3;
+    private javax.swing.JToggleButton img4;
+    private javax.swing.JToggleButton img5;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JToggleButton jToggleButton10;
-    private javax.swing.JToggleButton jToggleButton11;
-    private javax.swing.JToggleButton jToggleButton12;
-    private javax.swing.JToggleButton jToggleButton13;
-    private javax.swing.JToggleButton jToggleButton14;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JButton lihatKatalog2;
     private javax.swing.JLabel no;

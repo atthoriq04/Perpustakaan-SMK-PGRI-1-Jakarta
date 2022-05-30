@@ -11,11 +11,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputFilter.Config;
+//import java.io.ObjectInputFilter.Config;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     ResultSet rs = null;
     Connection CC = null;
     PreparedStatement pst = null;
+    Statement stt;
     public Siswa_Profil() {
         initComponents();
         CC = new koneksi().connect();
@@ -49,8 +51,20 @@ public class Siswa_Profil extends javax.swing.JFrame {
         UserId();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
-
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
@@ -74,7 +88,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
           e.printStackTrace();
         }
      }
-       public String photo;
+       public String pro;
      private void UserId(){
         //toUser.setText(UserSession.getUserLogin());
         try {
@@ -99,11 +113,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 String Email = rs.getString("anggota.email");
                 String NoHp = rs.getString("anggota.NoHp");
                 String expire = rs.getString("anggota.Expired");
-                String pro = rs.getString("anggota.Profiles");
-                System.out.println(pro);
-                InputStream stream = getClass().getResourceAsStream("/Uploads/Profiles/"+pro+"");
-                ImageIcon icon = new ImageIcon(ImageIO.read(stream));
-                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+                pro = rs.getString("anggota.Profiles");
+                //System.out.println(pro);
+//                InputStream stream = getClass().getResourceAsStream("/Uploads/Profiles/"+pro+"");
+//                ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
                 nama.setText(Nama);
                 nis.setText(Nis);
                 alamat.setText(Alamat);
@@ -112,11 +126,13 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 username.setText(user);
                 email.setText(Email);
                 nohp.setText(NoHp);
-                expired.setText(expire);
-                img.setIcon(icon);
-                 
-            } else
-            JOptionPane.showMessageDialog(this, "Ada Kesalahan");
+                tgl.setText(expire);    
+            }
+                File im = new File("src/Uploads/Profiles/"+pro+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+               Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+               img.setIcon(icon);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             e.printStackTrace();
@@ -156,6 +172,8 @@ public class Siswa_Profil extends javax.swing.JFrame {
         }
  }
  public void uploadToDir() throws IOException{
+            String foto=null;
+            if(f!=null){
             String filename = f.getAbsolutePath();
             String newpath = "src/Uploads/Profiles/";
             File directory = new File(newpath);
@@ -173,18 +191,21 @@ public class Siswa_Profil extends javax.swing.JFrame {
             String resultNew = newpath+"/newImage" + tanggal.toString()+ "." +extension;
             destinationFile = new File(resultNew);
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
-           System.out.println(destinationFile.getName());
+           //System.out.println(destinationFile.getName());
             file = destinationFile;
+            foto = destinationFile.getAbsoluteFile().getName();
+            }else{
+                foto = pro;
+            }
+            System.out.println(foto);
             try{
             String User = username.getText();
             String Email = email.getText();
             String NoHP = nohp.getText();
-            String foto = destinationFile.getAbsoluteFile().getName();
-            //System.out.println(destinationFile.getAbsoluteFile().getName());
             String Sql = "UPDATE user JOIN anggota on anggota.Nis = user.Nis\n" +
 "            SET user.Username = '"+User+"',\n" +
 "            anggota.Email='"+Email+"',\n" +
-"            anggota.NoHp='"+NoHP+"',anggota.Profiles ='"+foto+"' Where anggota.Nis = 99283" ;
+"            anggota.NoHp='"+NoHP+"',anggota.Profiles ='"+foto+"' Where anggota.Nis = '"+nis.getText()+"'" ;
                 pst = CC.prepareStatement(Sql);
                 pst.execute();
                 pst.close();
@@ -192,7 +213,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
               username.setText(User);
               email.setText(Email);
               nohp.setText(NoHP);
-              System.out.println(foto);
+              //System.out.println(foto);
 //            update.setEnabled(false);
 //            hapus.setEnabled(false);
          
@@ -268,7 +289,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toProf = new javax.swing.JLabel();
         toNotif = new javax.swing.JLabel();
         toOut = new javax.swing.JLabel();
-        expired = new javax.swing.JLabel();
+        tgl = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         PGRI = new javax.swing.JLabel();
         toSirkulasi = new javax.swing.JLabel();
@@ -276,6 +297,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         toBebpus = new javax.swing.JLabel();
         toUser = new javax.swing.JLabel();
         no = new javax.swing.JLabel();
+        expired1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -329,7 +351,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel12.setText("Username");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(407, 397, 110, 23);
+        jLabel12.setBounds(410, 390, 110, 23);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Unggah Foto");
@@ -344,12 +366,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel13.setText("Email");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(407, 447, 100, 23);
+        jLabel13.setBounds(410, 440, 100, 23);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel14.setText("No HP");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(407, 498, 90, 23);
+        jLabel14.setBounds(410, 490, 90, 23);
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         nama.setText("Nama");
@@ -383,7 +405,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1200, 680, 69, 23);
+        jButton2.setBounds(1200, 680, 67, 23);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -396,7 +418,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         nohp.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(nohp);
-        nohp.setBounds(660, 490, 350, 30);
+        nohp.setBounds(660, 480, 350, 30);
 
         username.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -405,11 +427,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(username);
-        username.setBounds(660, 390, 350, 30);
+        username.setBounds(660, 380, 350, 30);
 
         email.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jPanel1.add(email);
-        email.setBounds(660, 440, 350, 30);
+        email.setBounds(660, 430, 350, 30);
 
         SubSirk.setBackground(new java.awt.Color(255, 255, 255));
         SubSirk.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -585,11 +607,11 @@ public class Siswa_Profil extends javax.swing.JFrame {
         jPanel1.add(SubUser);
         SubUser.setBounds(1200, 40, 80, 80);
 
-        expired.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        expired.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        expired.setText("Expired");
-        jPanel1.add(expired);
-        expired.setBounds(40, 470, 230, 17);
+        tgl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tgl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tgl.setText("Expired");
+        jPanel1.add(tgl);
+        tgl.setBounds(40, 490, 230, 17);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -693,6 +715,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
 
         jPanel1.add(jPanel14);
         jPanel14.setBounds(0, 11, 1278, 20);
+
+        expired1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        expired1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        expired1.setText("Aktif Hingga");
+        jPanel1.add(expired1);
+        expired1.setBounds(40, 470, 230, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -817,7 +845,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -862,7 +895,12 @@ public class Siswa_Profil extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+        try {
+            obj = new Siswa_Usulan_Buku();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -875,10 +913,24 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private void toUsulanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseExited
         toUsulan.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_toUsulanMouseExited
-
+    
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+        try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
@@ -942,7 +994,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JPanel SubUser;
     private javax.swing.JLabel alamat;
     private javax.swing.JTextField email;
-    private javax.swing.JLabel expired;
+    private javax.swing.JLabel expired1;
     private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -964,6 +1016,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
     private javax.swing.JLabel nis;
     private javax.swing.JLabel no;
     private javax.swing.JTextField nohp;
+    private javax.swing.JLabel tgl;
     private javax.swing.JLabel toBebpus;
     private javax.swing.JLabel toDenda;
     private javax.swing.JLabel toHistori;

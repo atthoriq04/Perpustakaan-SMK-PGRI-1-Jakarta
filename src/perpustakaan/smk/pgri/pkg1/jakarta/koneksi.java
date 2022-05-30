@@ -15,7 +15,7 @@ public class koneksi {
     private Connection CC;
     public Connection connect(){
     try{
-    CC = DriverManager.getConnection("jdbc:mysql://localhost/perpustakaanpgri", "root", "root");
+    CC = DriverManager.getConnection("jdbc:mysql://localhost/perpustakaanpgri", "root", "");
     }
     catch(Exception e){
         JOptionPane.showMessageDialog(null, e);

@@ -6,9 +6,12 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -38,6 +41,19 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         }catch(Exception e){
         }
     }
+    int jumlah;
+    public void rule(){
+         try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From pengaturan");
+            if(rs.next()){
+                jumlah = rs.getInt("MaxPinjam");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void pinjam(){
         lamaPinjam();
         try{
@@ -49,14 +65,31 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
            if(rs.next()){
                ResultSet ra = stat.executeQuery("SELECT * FROM item WHERE item_Code = '"+ noEx.getText() +"' AND NOT (location_id = '3' OR location_id = '4')");
                if(ra.next()){
-                    stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
-                   + noEx.getText()+"','"
-                   +Nis.getText()+ "','"
-                   +dtf.format(now)+ "','"
-                   +dtf.format(next)+ "','1','Dipinjam')");
-                   stat.executeUpdate("UPDATE item SET location_Id = '3' WHERE item_Code = '"+ noEx.getText() +"' ");
-                    JOptionPane.showMessageDialog(null, "Data Peminjaman Dibuat");
-                this.dispose();
+                   ResultSet rb = stat.executeQuery("SELECT COUNT(nis) FROM transaksi WHERE nis = "+ Nis.getText() +" AND NOT Status = 4");
+                   if(rb.next()){
+                       if(rb.getInt("COUNT(nis)") < jumlah){
+                                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                                + noEx.getText()+"','"
+                                +Nis.getText()+ "','"
+                                +dtf.format(now)+ "','"
+                                +dtf.format(next)+ "','1','Dipinjam')");
+                                stat.executeUpdate("UPDATE item SET location_Id = '3' WHERE item_Code = '"+ noEx.getText() +"' ");
+                                JOptionPane.showMessageDialog(null, "Data Peminjaman Dibuat");
+                       }else{
+                         int opt = JOptionPane.showConfirmDialog(null, "Siswa Terkait Sudah melebihi batas peminjaman Aktif, Tetap Pinjamkan Buku?" , "Update", JOptionPane.YES_NO_OPTION);
+                        if(opt == 0){
+                                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                                + noEx.getText()+"','"
+                                +Nis.getText()+ "','"
+                                +dtf.format(now)+ "','"
+                                +dtf.format(next)+ "','1','Dipinjam')");
+                                stat.executeUpdate("UPDATE item SET location_Id = '3' WHERE item_Code = '"+ noEx.getText() +"' ");
+                                JOptionPane.showMessageDialog(null, "Data Peminjaman Dibuat");
+                
+                        }
+                   }
+                   }
+                   this.dispose();
                }else{
                    JOptionPane.showMessageDialog(null, "Data Eksemplar Tidak Ditemukan");
                }
@@ -80,12 +113,10 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Nis = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         noEx = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,16 +132,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
 
         Nis.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel2.add(Nis);
-        Nis.setBounds(150, 50, 284, 28);
-
-        jButton1.setText("Scan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(440, 50, 81, 31);
+        Nis.setBounds(150, 50, 370, 28);
 
         jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -137,16 +159,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
 
         noEx.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel2.add(noEx);
-        noEx.setBounds(150, 100, 284, 28);
-
-        jButton4.setText("Scan");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton4);
-        jButton4.setBounds(440, 100, 81, 31);
+        noEx.setBounds(150, 100, 370, 28);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,21 +191,14 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        rule();
         pinjam();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,10 +237,8 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Nis;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

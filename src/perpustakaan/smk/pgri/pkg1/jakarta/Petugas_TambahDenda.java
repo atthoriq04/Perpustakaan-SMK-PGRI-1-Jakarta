@@ -36,9 +36,22 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
         initComponents();
         denda.setEnabled(false);
     }
-    String Tunai = "0";
+    int Tunai = 0;
     String barang = "-";
     String Jenis;
+    int jumlah;
+    public void rule(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From pengaturan");
+            if(rst.next()){
+                jumlah = rst.getInt("DendaHilang");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -277,7 +290,9 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
             rst = stt.executeQuery(sql);
             if(rst.next()){
                 stt.executeUpdate("INSERT INTO bukuTidakTersedia(Barcode,IdDenda,Tanggal) VALUES('"+ brcd.getText() +"','"+ rst.getInt("IdDenda") +"','"+ sdformat.format(now) +"')");
+                JOptionPane.showMessageDialog(null, "Denda Berhasil Ditambahkan");
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Petugas_TambahDenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -286,9 +301,10 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     
     }
     private void nonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonActionPerformed
-         denda.setEnabled(true);
+        tunai.setSelected(false);
+        denda.setEnabled(true);
          Jenis = "NonTunai";
-         tunai.setEnabled(false);
+         //tunai.setEnabled(false);
     }//GEN-LAST:event_nonActionPerformed
 
     private void dendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dendaActionPerformed
@@ -297,11 +313,13 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(Jenis.equals("Tunai")){
-            Tunai = denda.getText();
+            rule();
+            Tunai = jumlah;
         }else{
             barang = denda.getText();
         }
         process();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -309,9 +327,10 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tunaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tunaiActionPerformed
-        denda.setEnabled(true);
+        non.setSelected(false);
         Jenis = "Tunai";
-        non.setEnabled(false);
+        denda.setEnabled(false);
+        //non.setEnabled(false);
     }//GEN-LAST:event_tunaiActionPerformed
 
     /**

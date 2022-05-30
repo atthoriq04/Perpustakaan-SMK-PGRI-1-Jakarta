@@ -50,6 +50,7 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
         Jrsn = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         Id = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +89,13 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
         Id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Id.setText("MM");
 
+        jButton3.setText("Tutup");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,11 +114,14 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
                                 .addComponent(iId))
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addComponent(Jrsn))))
+                            .addComponent(Jrsn, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton1)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,7 +142,8 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -149,6 +161,7 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
      
     
@@ -159,6 +172,33 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
                    + iId.getText()+"', jurusan=  '"
                    + Jrsn.getText()+"' WHERE IdJurusan = '"+ Id.getText() +"'");
            //JOptionPane.showMessageDialog(null, "Data Kelas Berhasil diUpdate");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
+    public void deleteSiswa(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("DELETE anggota FROM anggota INNER JOIN Kelas ON anggota.IdKelas = Kelas.IdKelas WHERE anggota.IdKelas = '"+Id.getText()+"'");
+           JOptionPane.showMessageDialog(null, "Data Siswa Berhasil Dihapus");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
+    public void deleteJurusan(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("DELETE FROM jurusan WHERE IdJurusan = '"+ Id.getText() +"'");
+           //JOptionPane.showMessageDialog(null, "Data Kelas Berhasil Dihaous");
+       }catch (Exception e){
+       e.printStackTrace();
+       }
+    }
+     public void DeleteKelas(){
+        try{
+           Statement stat = CC.createStatement();
+           stat.executeUpdate("DELETE Kelas FROM kelas INNER JOIN jurusan ON kelas.IdJurusan = jurusan.IdJurusan WHERE kelas.IdJurusan = '"+ Id.getText() +"'");
+           JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
        }catch (Exception e){
        e.printStackTrace();
        }
@@ -181,8 +221,18 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+         int opt = JOptionPane.showConfirmDialog(null, "Seluruh Data yang berkaitan dengan Jurusan ini akan dihapus, Apakah Anda yakin?", "Update", JOptionPane.YES_NO_OPTION);
+        if (opt == 0) {
+        deleteSiswa();
+        DeleteKelas();
+        deleteJurusan();
+        this.dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +275,7 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
     protected javax.swing.JTextField iId;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

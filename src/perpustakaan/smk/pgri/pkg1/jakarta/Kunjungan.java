@@ -5,14 +5,18 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Atthoriq
@@ -29,9 +33,21 @@ public class Kunjungan extends javax.swing.JFrame {
     public PreparedStatement prst;
     public Kunjungan() {
         initComponents();
+        getProfile();
         
         
         
+    }public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From profile");
+            if(rst.next()){
+                toLandingPage.setText(rst.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -314,7 +330,12 @@ public class Kunjungan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Kunjungan.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -342,7 +363,12 @@ public class Kunjungan extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseExited
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+        try {
+            obj = new TentangPerpus();
+        } catch (IOException ex) {
+            Logger.getLogger(Kunjungan.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked

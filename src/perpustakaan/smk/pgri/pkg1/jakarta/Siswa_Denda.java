@@ -4,14 +4,18 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.TableModel;
 /**
@@ -37,6 +41,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         Datas();
         no.setVisible(false);
         jumlahnotif();
+        getProfile();
     }
     int UserId = UserSession.GetUserId();
     public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE (transaksi.Nis = '"+ UserId +"') AND (denda.Status = '1' OR denda.Status='2' )ORDER BY transaksi.IdTransaksi";
@@ -46,6 +51,18 @@ public class Siswa_Denda extends javax.swing.JFrame {
         };
         tmdl = new DefaultTableModel(null, judul);
         TDen.setModel(tmdl);
+    }
+     public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT * From profile");
+            if(rst.next()){
+                PGRI.setText(rst.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
      public void jumlahnotif(){
          try {
@@ -584,7 +601,12 @@ public class Siswa_Denda extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Denda.class.getName()).log(Level.SEVERE, null, ex);
+        }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -643,7 +665,12 @@ public class Siswa_Denda extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+        try {
+            obj = new Siswa_Usulan_Buku();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Denda.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -658,8 +685,22 @@ public class Siswa_Denda extends javax.swing.JFrame {
     }//GEN-LAST:event_toUsulanMouseExited
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+         try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Siswa_Denda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered

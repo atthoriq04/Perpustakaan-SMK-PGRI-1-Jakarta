@@ -4,6 +4,22 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+
 /**
  *
  * @author Atthoriq
@@ -13,10 +29,57 @@ public class TentangPerpus extends javax.swing.JFrame {
     /**
      * Creates new form TentangPerpus
      */
-    public TentangPerpus() {
+    
+         ResultSet rs = null;
+    Connection CC = null;
+    PreparedStatement pst = null;
+    Statement stt;
+    public TentangPerpus() throws IOException {
         initComponents();
+        CC = new koneksi().connect();
+        getProfile();
+        
+        }
+    
+    public void getProfile() throws IOException{
+        String pro1=null;
+        String pro2=null;
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                toLandingPage.setText(rs.getString("Profil"));
+                tentang.setText("<html><p style ' text-align: justify;'>"+rs.getString("Tentang1")+"</p></html>");
+                hp.setText(rs.getString("Tentang2"));
+                mail.setText(rs.getString("Tentang3"));
+                medsos.setText(rs.getString("SMedia"));
+                pro1=rs.getString("foto1");
+                pro2=rs.getString("foto2");
+            }
+            
+//             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
+//             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+//             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto1.setIcon(icon1);
+               File im1 = new File("src/Uploads/Foto/Perpus1/"+pro1+"");
+               InputStream stream1 = new FileInputStream(im1);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+               Image image = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+               imgFoto1.setIcon(icon1);
+//             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
+//             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+//             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto2.setIcon(icon2);
+               File im2 = new File("src/Uploads/Foto/Perpus2/"+pro2+"");
+               InputStream stream2 = new FileInputStream(im2);
+               ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+               Image image2 = icon2.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+               imgFoto2.setIcon(icon2);
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,36 +90,28 @@ public class TentangPerpus extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
+        imgFoto2 = new javax.swing.JLabel();
         jLabel71 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         toLogin = new javax.swing.JLabel();
         toKunjungan = new javax.swing.JLabel();
         toTentang = new javax.swing.JLabel();
         toLandingPage = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        imgFoto1 = new javax.swing.JLabel();
+        tentang = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        hp = new javax.swing.JLabel();
+        mail = new javax.swing.JLabel();
+        medsos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel10.setBackground(new java.awt.Color(229, 231, 238));
-        jPanel10.setBorder(new javax.swing.border.MatteBorder(null));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
 
         jPanel11.setBackground(new java.awt.Color(229, 231, 238));
         jPanel11.setBorder(new javax.swing.border.MatteBorder(null));
@@ -65,49 +120,15 @@ public class TentangPerpus extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel12.setBackground(new java.awt.Color(229, 231, 238));
-        jPanel12.setBorder(new javax.swing.border.MatteBorder(null));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-
-        jPanel13.setBackground(new java.awt.Color(229, 231, 238));
-        jPanel13.setBorder(new javax.swing.border.MatteBorder(null));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-
-        jLabel69.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel69.setText("Heading");
-
-        jLabel70.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel70.setText("Heading");
-
-        jLabel71.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel71.setText("Heading");
+        jLabel71.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel71.setText("Contact Us     :");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -195,54 +216,118 @@ public class TentangPerpus extends javax.swing.JFrame {
                 .addComponent(toLandingPage))
         );
 
+        jPanel14.setBackground(new java.awt.Color(229, 231, 238));
+        jPanel14.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel14.setPreferredSize(new java.awt.Dimension(412, 270));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imgFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imgFoto1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        tentang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tentang.setText("jLabel1");
+
+        jLabel72.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel72.setText("Tentang Perpustakaan");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("No Telepon");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Email");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Media Sosial");
+
+        hp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        hp.setText("088809411134");
+
+        mail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        mail.setText("Alamat.Email@Mail.com");
+
+        medsos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        medsos.setText("@PerpustakaaanKita(Instagram,Twitter,Youtube)");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(766, 766, 766)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel70)
-                    .addComponent(jLabel71))
-                .addContainerGap(434, Short.MAX_VALUE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(65, 65, 65)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel69)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel71)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(hp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(mail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(medsos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(tentang, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(282, 282, 282)
+                    .addComponent(jLabel72)
+                    .addContainerGap(828, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel70))
+                        .addGap(136, 136, 136)
+                        .addComponent(tentang)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel71))))
-                .addGap(35, 35, 35)
-                .addComponent(jLabel69)
-                .addContainerGap(233, Short.MAX_VALUE))
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel71)
+                            .addComponent(hp))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(mail))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(medsos))))
+                .addGap(19, 19, 19))
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(102, 102, 102)
+                    .addComponent(jLabel72)
+                    .addContainerGap(589, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,7 +346,12 @@ public class TentangPerpus extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+             try {
+                 obj = new Login();
+             } catch (IOException ex) {
+                 Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+             }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -289,7 +379,12 @@ public class TentangPerpus extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseExited
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+             try {
+                 obj = new TentangPerpus();
+             } catch (IOException ex) {
+                 Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+             }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked
@@ -346,21 +441,31 @@ public class TentangPerpus extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TentangPerpus().setVisible(true);
+                try {
+                    new TentangPerpus().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TentangPerpus.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel hp;
+    private javax.swing.JLabel imgFoto1;
+    private javax.swing.JLabel imgFoto2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel mail;
+    private javax.swing.JLabel medsos;
+    private javax.swing.JLabel tentang;
     private javax.swing.JLabel toKunjungan;
     private javax.swing.JLabel toLandingPage;
     private javax.swing.JLabel toLogin;

@@ -6,6 +6,9 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,6 +52,8 @@ public class Katalog extends javax.swing.JFrame {
         SubSirk.setVisible(false);
         initial();
         check(from);
+        getProfile();
+        kategori.setVisible(false);
         
     }
     
@@ -64,11 +69,26 @@ public class Katalog extends javax.swing.JFrame {
     public String thtbt;
     public String gmd;
     public String bhs;
+    
+    public String g;
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
+    public void getProfile(){
+        try {
+            
+             stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * From profile");
+            if(rs.next()){
+                PGRI.setText(rs.getString("Profil"));
+                toLandingPage.setText(rs.getString("Profil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void check(int fc){
        try {
-           int Next = fc + 12;
+            int Next = fc + 12;
             Statement stt = CC.createStatement();
             rs = stt.executeQuery(formula+"LIMIT "+ Next +", 12");
             if(rs.next()){
@@ -157,11 +177,16 @@ public class Katalog extends javax.swing.JFrame {
                   Author[rowindex].setText(rs.getString("mst_author.author_name"));
                   cnn =rs.getString("new_bliblio.call_number");
                   img();
-                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
-                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
-                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
-                  img[rowindex].setIcon(icon);
-                  
+                  System.out.println(cvr);
+//                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+//                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+//                  img[rowindex].setIcon(icon);
+                  File im = new File("src/Uploads/Books/"+cvr+"");
+                    InputStream stream = new FileInputStream(im);
+                    ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                    Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                    img[rowindex].setIcon(icon);
                 //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
              rowindex++;
                 } while (rs.next());              
@@ -170,57 +195,7 @@ public class Katalog extends javax.swing.JFrame {
              e.printStackTrace();
         }
     }
-    private void onceclick(){
-         try{
-         JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
-         JLabel[]Judul = {judul1,judul2,judul3,judul4,judul5,judul6,judul7,judul8,judul9,judul10,judul11,judul12};
-         JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
-         JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
-         int offset = 12;
-         PreparedStatement stmt = CC.prepareStatement("SELECT Judul,image,mst_author.author_name FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id LIMIT 12",
-        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
-            );
-
-        ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
-        int numberOfColumns = rsmd.getColumnCount();
-        rs.first();
-       int rowcount = 0;
-            do {
-                    rowcount++;
-                } while (rs.next());
-            rs.first();
-           
-            int rowindex = 0; // initial rowindex
-            // iterate panel default false
-                 int panel;
-                   for (panel=0;panel<12;panel++){
-                       buku[panel].setVisible(false);
-                   }
-             //end of iterate panel     
-            Object array2D[][] = new Object[rowcount][];
-            do {
-                 array2D[rowindex] = new Object[numberOfColumns];
-                  for (int i = 0; i < numberOfColumns; i++) {
-                    array2D[rowindex][i] = rs.getObject(i + 1);
-                    }
-                  buku[rowindex].setVisible(true);
-                  Judul[rowindex].setText(rs.getString("Judul"));
-                  Author[rowindex].setText(rs.getString("mst_author.author_name"));
-//                 Image getAbsolutePath = null;
-                 ImageIcon icon = new ImageIcon(rs.getString("image"));
-                 Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
-                 img[rowindex].setIcon(icon);
-                  
-                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
-             rowindex++;
-                } while (rs.next());              
-        
-        }catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
-        }
-    
-    }
+   
     public void getData(){
         try{
 
@@ -231,11 +206,12 @@ public class Katalog extends javax.swing.JFrame {
                     if(rsa.next()){
                         Jdl = rsa.getString("Judul");
                         Cnn = rsa.getString("new_bliblio.call_number");
-                        pnrbt = rsa.getString("mst_publisher.publisher_id");
+                        pnrbt = rsa.getString("mst_publisher.publisher_name");
                         pnls = rsa.getString("mst_author.author_name");
                         gmd = rsa.getString("gmd.gmd_name");
                         bhs = rsa.getString("mst_language.language_name");
                         thtbt =  rsa.getString("new_bliblio.PublisherYear");
+                        g = rsa.getString("new_bliblio.image");
                         ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
                         if(rsb.next()){
                             Eks = rsb.getString("COUNT(*)");
@@ -331,10 +307,16 @@ public class Katalog extends javax.swing.JFrame {
         penulis12 = new javax.swing.JLabel();
         next = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+        kategori = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(null);
 
         PanelUmum.setBackground(new java.awt.Color(255, 255, 255));
@@ -698,6 +680,11 @@ public class Katalog extends javax.swing.JFrame {
         SubUser.setBounds(1200, 40, 80, 80);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextField1MouseEntered(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -714,7 +701,7 @@ public class Katalog extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Buku Terakhir");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(25, 77, 220, 29);
+        jLabel2.setBounds(25, 77, 240, 29);
 
         buku1.setBackground(new java.awt.Color(255, 255, 255));
         buku1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 231, 238), 1, true));
@@ -740,8 +727,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul1)
-                    .addComponent(penulis1))
+                    .addComponent(penulis1)
+                    .addComponent(judul1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku1Layout.setVerticalGroup(
@@ -783,8 +770,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul2)
-                    .addComponent(penulis2))
+                    .addComponent(penulis2)
+                    .addComponent(judul2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku2Layout.setVerticalGroup(
@@ -826,8 +813,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul4)
-                    .addComponent(penulis4))
+                    .addComponent(penulis4)
+                    .addComponent(judul4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku4Layout.setVerticalGroup(
@@ -869,8 +856,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul3)
-                    .addComponent(penulis3))
+                    .addComponent(penulis3)
+                    .addComponent(judul3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku3Layout.setVerticalGroup(
@@ -911,8 +898,8 @@ public class Katalog extends javax.swing.JFrame {
             .addGroup(buku5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(buku5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(judul5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toggle5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul5)
                     .addComponent(penulis5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -922,7 +909,7 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(toggle5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(judul5)
+                .addComponent(judul5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(penulis5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -955,8 +942,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul6)
-                    .addComponent(penulis6))
+                    .addComponent(penulis6)
+                    .addComponent(judul6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku6Layout.setVerticalGroup(
@@ -998,8 +985,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul7)
-                    .addComponent(penulis7))
+                    .addComponent(penulis7)
+                    .addComponent(judul7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku7Layout.setVerticalGroup(
@@ -1041,8 +1028,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle8, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul8)
-                    .addComponent(penulis8))
+                    .addComponent(penulis8)
+                    .addComponent(judul8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku8Layout.setVerticalGroup(
@@ -1084,8 +1071,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle9, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul9)
-                    .addComponent(penulis9))
+                    .addComponent(penulis9)
+                    .addComponent(judul9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku9Layout.setVerticalGroup(
@@ -1127,8 +1114,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle10, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul10)
-                    .addComponent(penulis10))
+                    .addComponent(penulis10)
+                    .addComponent(judul10, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku10Layout.setVerticalGroup(
@@ -1170,8 +1157,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle11, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul11)
-                    .addComponent(penulis11))
+                    .addComponent(penulis11)
+                    .addComponent(judul11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku11Layout.setVerticalGroup(
@@ -1213,8 +1200,8 @@ public class Katalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(buku12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggle12, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(judul12)
-                    .addComponent(penulis12))
+                    .addComponent(penulis12)
+                    .addComponent(judul12, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buku12Layout.setVerticalGroup(
@@ -1264,6 +1251,19 @@ public class Katalog extends javax.swing.JFrame {
         jPanel1.add(back);
         back.setBounds(620, 680, 12, 17);
 
+        kategori.setBackground(new java.awt.Color(255, 255, 255));
+        kategori.setText("Pencarian Kategori");
+        kategori.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kategoriMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                kategoriMouseExited(evt);
+            }
+        });
+        jPanel1.add(kategori);
+        kategori.setBounds(1100, 100, 130, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1296,6 +1296,20 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+//        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+//                  ImageIcon icon;
+        try {
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             
+            obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1324,7 +1338,12 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toSirkulasiMouseEntered
 
     private void toUsulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toUsulanMouseClicked
-        Siswa_Usulan_Buku obj = new Siswa_Usulan_Buku();
+        Siswa_Usulan_Buku obj = null;
+        try {
+            obj = new Siswa_Usulan_Buku();
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_toUsulanMouseClicked
 
@@ -1339,8 +1358,22 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toUsulanMouseExited
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-        Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-        obj.setVisible(true);
+        try {
+            Statement stat = CC.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
+            if(rs.next()){
+                if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
+                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                    obj.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_toBebpusMouseClicked
 
     private void toBebpusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseEntered
@@ -1446,7 +1479,12 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toNotifMouseExited
 
     private void toOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toOutMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         UserSession.setUserLogin(null);
         UserSession.setUserId(0);
         obj.setVisible(true);
@@ -1466,7 +1504,12 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_SubUserMouseExited
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -1494,7 +1537,12 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_toKunjunganMouseExited
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
-        TentangPerpus obj = new TentangPerpus();
+        TentangPerpus obj = null;
+        try {
+            obj = new TentangPerpus();
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toTentangMouseClicked
@@ -1534,6 +1582,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                 // ImageIcon icon;
+        try {
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+              obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1553,6 +1614,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                 // ImageIcon icon;
+        try {
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream)); 
+            obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1572,6 +1646,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream)); 
+            obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1591,6 +1678,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1610,6 +1710,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1629,6 +1742,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1648,6 +1774,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1667,6 +1806,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1686,6 +1838,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1705,6 +1870,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.setVisible(true);
         obj.pack();
         this.dispose();
@@ -1725,6 +1903,19 @@ public class Katalog extends javax.swing.JFrame {
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
         obj.setVisible(true);
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
+        try {
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+             obj.img.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
         obj.pack();
         this.dispose();
         obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1745,9 +1936,7 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_nextMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-       if(from<=12){
-           from = from-12;
-       }
+        from = from - 12;
         initial();
         check(from);
     }//GEN-LAST:event_backMouseClicked
@@ -1761,11 +1950,29 @@ public class Katalog extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseExited
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-       
-       formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR mst_author.author_name LIKE '%" + jTextField1.getText() + "%'";
-       initial();
+        if(kategori.isSelected()){     
+            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN ddc_db ON new_bliblio.klasifikasi = ddc_db.clas WHERE About LIKE '%" + jTextField1.getText() + "%'"; 
+        }else{
+            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'"; 
+       }initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseEntered
+       kategori.setVisible(true);
+    }//GEN-LAST:event_jTextField1MouseEntered
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+       kategori.setVisible(false);
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void kategoriMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kategoriMouseEntered
+        kategori.setVisible(true);
+    }//GEN-LAST:event_kategoriMouseEntered
+
+    private void kategoriMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kategoriMouseExited
+       kategori.setVisible(false);
+    }//GEN-LAST:event_kategoriMouseExited
 
     /**
      * @param args the command line arguments
@@ -1836,6 +2043,7 @@ public class Katalog extends javax.swing.JFrame {
     private javax.swing.JLabel judul7;
     private javax.swing.JLabel judul8;
     private javax.swing.JLabel judul9;
+    private javax.swing.JRadioButton kategori;
     private javax.swing.JLabel next;
     private javax.swing.JLabel penulis1;
     private javax.swing.JLabel penulis10;

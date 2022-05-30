@@ -92,7 +92,7 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("No Eksemplar");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 50, 108, 31);
+        jLabel1.setBounds(20, 50, 109, 31);
 
         bar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jPanel1.add(bar);

@@ -5,10 +5,13 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,10 +21,21 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -35,6 +49,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     public Statement stt;
     public DefaultTableModel tmdl;
     public PreparedStatement prst;
+    
 
     /**
      * Creates new form Petugas_InputAnggota
@@ -51,6 +66,71 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         readCBJurusan();
         userLogin();
         initial();
+        falseIn();
+        getAdd();
+        
+    }
+    public void SOP(String text){
+        System.out.println(text);
+    }
+    private void getAdd(){
+        try{
+         JTextField[]form = {add1,add2,add3,add4,add5};
+         JLabel[]label = {label1,label2,label3,label4,label5};
+         PreparedStatement stmt = CC.prepareStatement("SELECT * FROM adjust ",
+        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
+            );
+
+        ResultSet rs = stmt.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        rs.first();
+       int rowcount = 0;
+            do {
+                    rowcount++;
+                } while (rs.next());
+            rs.first();
+           
+            int rowindex = 0; // initial rowindex
+            // iterate panel default false
+                 int panelq;
+                   for (panelq =0;panelq <5;panelq++){
+                       label[panelq].setVisible(false);
+                       form[panelq].setVisible(false);
+                   }
+             //end of iterate panel     
+            Object array2D[][] = new Object[rowcount][];
+            do {
+                 array2D[rowindex] = new Object[numberOfColumns];
+                  for (int i = 0; i < numberOfColumns; i++) {
+                    array2D[rowindex][i] = rs.getObject(i + 1);
+                    }
+                  if(rs.getInt("Status")>0){
+                    label[rowindex].setVisible(true);
+                    form[rowindex].setVisible(true);
+                  }
+                    label[rowindex].setText(rs.getString("tName"));
+                  
+                  
+                //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
+             rowindex++;
+                } while (rs.next());              
+        
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
+    private void falseIn(){
+        add1.setVisible(false);
+        add2.setVisible(false);
+        add3.setVisible(false);
+        add4.setVisible(false);
+        add5.setVisible(false);
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
     }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
@@ -73,6 +153,21 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         ttl.setEnabled(false);
         lbl_ttl.setEnabled(false);
         submit.setEnabled(false);
+        add1.setEnabled(false);
+        add2.setEnabled(false);
+        add3.setEnabled(false);
+        add4.setEnabled(false);
+        add5.setEnabled(false);
+        label1.setEnabled(false);
+        label2.setEnabled(false);
+        label3.setEnabled(false);
+        label4.setEnabled(false);
+        label5.setEnabled(false);
+        tl.setEnabled(false);
+        tlform.setEnabled(false);
+        JK.setEnabled(false);
+        jkaname.setEnabled(false);
+        
     }
     public String sql;
     public void readCB(){
@@ -133,19 +228,36 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }
     public void inputAnggota(){
         try{
+            String ad1 = label1.getText().replaceAll("\\s+","");
+            String ad2 = label2.getText().replaceAll("\\s+","");
+            String ad3 = label3.getText().replaceAll("\\s+","");
+            String ad4 = label4.getText().replaceAll("\\s+","");
+            String ad5 = label5.getText().replaceAll("\\s+","");
+            String ttlahir = ttl.getText()+","+tlform.getText();
+            String jklmn = jkaname.getSelectedItem().toString();
+            char klmn = jklmn.charAt(0);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
             LocalDateTime now = LocalDateTime.now(); 
             LocalDateTime next = now.plusYears(1);
             //System.out.println(dtf.format(next)); 
            Statement stat = CC.createStatement();
-           stat.executeUpdate("INSERT INTO anggota(Nis,Nama,IdKelas,Email,Alamat,NoHp,TTL,Expired) VALUES('"+ Nis.getText() + "','" 
+           sql = ("INSERT INTO anggota(Nis,Nama,IdKelas,Email,Alamat,JK,NoHp,TTL,Profiles,"+ad1+","+ad2+","+ad3+","+ad4+","+ad5+",Expired) VALUES('"+ Nis.getText() + "','" 
                     + nama.getText() + "','"
                     + value + "',"
                             + "'Alamat@email.Siswa','"
-                    + alamat.getText() +"',"
+                    + alamat.getText() +"','"
+                    + klmn +"',"
                             + "'000088889999','"
-                    + ttl.getText() + "','"
+                    + ttlahir + "','"
+                    + "Default.png" + "','"
+                    + add1.getText() + "','"
+                    + add2.getText() + "','"
+                    + add3.getText() + "','"
+                    + add4.getText() + "','"
+                    + add5.getText() + "','"
                     + dtf.format(next)+ "')");
+           SOP(sql);
+           stat.executeUpdate(sql);
            JOptionPane.showMessageDialog(null, "Data Anggota Berhasil Ditambah");
        }catch (Exception e){
        e.printStackTrace();
@@ -182,7 +294,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         }
 
     }
-    public String nisn,name,jk,kls,address,date ;
+    public String nisn,name,jk,kls,address,date,plus1,plus2,plus3,plus4,plus5;
     public int rsNis,rsKls;
     public void insertCSV() throws FileNotFoundException, IOException{
          Reader in = new FileReader(excelFile);
@@ -195,6 +307,11 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
              kls = record.get(4);
              address = record.get(5);
              date = record.get(6);
+             plus1=record.get(7);
+             plus2=record.get(8);
+             plus3=record.get(9);
+             plus4=record.get(10);
+             plus5=record.get(11);
              try{
                cekKelas();
                cekNis();
@@ -207,7 +324,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }
     
     public void cekNis(){
-        try{
+            String ads1 = label1.getText().replaceAll("\\s+","");
+            String ads2 = label2.getText().replaceAll("\\s+","");
+            String ads3 = label3.getText().replaceAll("\\s+","");
+            String ads4 = label4.getText().replaceAll("\\s+","");
+            String ads5 = label5.getText().replaceAll("\\s+","");
+         try{
             Statement stat = CC.createStatement();
             sql="SELECT * FROM user INNER JOIN anggota ON anggota.Nis=user.Nis WHERE user.Nis='"+nisn+"'";
             ResultSet rs = stat.executeQuery(sql);
@@ -219,8 +341,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
                 LocalDateTime now = LocalDateTime.now().plusYears(1);
                 Date = dtf.format(now); 
-                sql="INSERT INTO anggota(Nis,Nama,IdKelas,JK,Email,Alamat,NoHp,TTL,Expired,Profiles) VALUES("+ nisn + ",'"+name+"',"
-                        + ""+rsKls+",'"+jk+"','Alamat@email.Siswa','"+address+"','000088889999','"+date+"','"+Date+"','Default.png')";
+                sql="INSERT INTO anggota(Nis,Nama,IdKelas,JK,Email,Alamat,NoHp,TTL,Expired,Profiles,"+ads1+","+ads2+","+ads3+","+ads4+","+ads5+") VALUES("+ nisn + ",'"+name+"',"
+                        + ""+rsKls+",'"+jk+"','Alamat@email.Siswa','"+address+"','000088889999','"+date+"','"+Date+"','Default.png','"+plus1+"','"+plus2+"','"+plus3+"','"+plus4+"','"+plus5+"')";
                 stt.executeUpdate(sql);
                 String sql2="INSERT INTO user(Nis,Username,Password)VALUES('"+nisn+"','"+nisn+"','"+nisn+"')";
                 stt.executeUpdate(sql2);
@@ -372,6 +494,21 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         cbTingkat = new javax.swing.JComboBox<>();
         cbJurusan = new javax.swing.JComboBox<>();
         filename = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        tl = new javax.swing.JLabel();
+        tlform = new javax.swing.JTextField();
+        label1 = new javax.swing.JLabel();
+        add1 = new javax.swing.JTextField();
+        label2 = new javax.swing.JLabel();
+        add2 = new javax.swing.JTextField();
+        add4 = new javax.swing.JTextField();
+        label4 = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
+        add3 = new javax.swing.JTextField();
+        label5 = new javax.swing.JLabel();
+        add5 = new javax.swing.JTextField();
+        JK = new javax.swing.JLabel();
+        jkaname = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -590,7 +727,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
+        toDataPetugas.setBounds(0, 40, 154, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -624,7 +761,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
+        toLogin.setBounds(0, 80, 154, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -650,6 +787,11 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel21.setText("Laporan Peminjaman");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout toLapPeminjamanLayout = new javax.swing.GroupLayout(toLapPeminjaman);
         toLapPeminjaman.setLayout(toLapPeminjamanLayout);
@@ -657,7 +799,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toLapPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toLapPeminjamanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
         toLapPeminjamanLayout.setVerticalGroup(
@@ -683,7 +825,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel22.setText("Laporan Buku");
+        jLabel22.setText("Laporan Buku Hilang");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout toLapBukuLayout = new javax.swing.GroupLayout(toLapBuku);
         toLapBuku.setLayout(toLapBukuLayout);
@@ -691,7 +838,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toLapBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toLapBukuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
         toLapBukuLayout.setVerticalGroup(
@@ -715,6 +862,11 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel23.setText("Laporan Anggota");
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout toLapAnggotaLayout = new javax.swing.GroupLayout(toLapAnggota);
         toLapAnggota.setLayout(toLapAnggotaLayout);
@@ -722,7 +874,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toLapAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toLapAnggotaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
         toLapAnggotaLayout.setVerticalGroup(
@@ -746,6 +898,11 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel24.setText("Laporan Pengembalian");
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel24MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout toLapPengembalianLayout = new javax.swing.GroupLayout(toLapPengembalian);
         toLapPengembalian.setLayout(toLapPengembalianLayout);
@@ -753,7 +910,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toLapPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toLapPengembalianLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
         toLapPengembalianLayout.setVerticalGroup(
@@ -777,6 +934,11 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel25.setText("Laporan Denda");
+        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel25MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout toLapDendaLayout = new javax.swing.GroupLayout(toLapDenda);
         toLapDenda.setLayout(toLapDendaLayout);
@@ -784,7 +946,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toLapDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toLapDendaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addContainerGap())
         );
         toLapDendaLayout.setVerticalGroup(
@@ -872,7 +1034,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
+        toInputAnggota.setBounds(0, 40, 152, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -906,7 +1068,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
+        toDataKelas.setBounds(0, 80, 152, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -940,7 +1102,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
+        toDataJurusan.setBounds(0, 120, 152, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -974,7 +1136,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1010,8 +1172,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toDataTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         toDataTransaksiLayout.setVerticalGroup(
             toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1240,7 +1402,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
+        toInputBuku.setBounds(0, 40, 150, 47);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1274,7 +1436,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
+        toDataPenulis.setBounds(0, 80, 152, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1327,7 +1489,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importData);
-        importData.setBounds(750, 110, 120, 21);
+        importData.setBounds(110, 90, 120, 25);
 
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1338,12 +1500,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(110, 110, 120, 21);
+        inputData.setBounds(110, 170, 120, 25);
 
         labelImport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelImport.setText("Pilih data");
         jPanel1.add(labelImport);
-        labelImport.setBounds(760, 170, 70, 20);
+        labelImport.setBounds(120, 130, 70, 20);
 
         importChose.setText("Pilih");
         importChose.addActionListener(new java.awt.event.ActionListener() {
@@ -1352,38 +1514,38 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importChose);
-        importChose.setBounds(840, 170, 60, 22);
+        importChose.setBounds(200, 130, 60, 25);
 
         lbl_alamat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_alamat.setText("Alamat");
         jPanel1.add(lbl_alamat);
-        lbl_alamat.setBounds(130, 360, 70, 20);
+        lbl_alamat.setBounds(120, 420, 70, 20);
 
         nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nis.setText("NIS");
         jPanel1.add(nis);
-        nis.setBounds(130, 170, 80, 20);
+        nis.setBounds(120, 230, 80, 20);
 
         Nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Nama.setText("Nama");
         jPanel1.add(Nama);
-        Nama.setBounds(130, 230, 70, 20);
+        Nama.setBounds(120, 290, 70, 20);
 
         lbl_kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_kelas.setText("Kelas");
         jPanel1.add(lbl_kelas);
-        lbl_kelas.setBounds(130, 290, 70, 20);
+        lbl_kelas.setBounds(120, 350, 70, 20);
 
         alamat.setColumns(20);
         alamat.setRows(5);
         jScrollPane1.setViewportView(alamat);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(200, 360, 390, 110);
+        jScrollPane1.setBounds(250, 420, 390, 70);
 
         Nis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Nis);
-        Nis.setBounds(200, 170, 390, 23);
+        Nis.setBounds(250, 230, 390, 23);
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nama.addActionListener(new java.awt.event.ActionListener() {
@@ -1392,7 +1554,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(nama);
-        nama.setBounds(200, 230, 390, 23);
+        nama.setBounds(250, 290, 390, 23);
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
@@ -1401,7 +1563,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1190, 680, 70, 22);
+        submit.setBounds(1180, 650, 70, 25);
 
         cbkelas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas" }));
@@ -1411,12 +1573,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbkelas);
-        cbkelas.setBounds(500, 290, 90, 22);
+        cbkelas.setBounds(550, 350, 90, 22);
 
         lbl_ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lbl_ttl.setText("TTL");
+        lbl_ttl.setText("Tempat Lahir");
         jPanel1.add(lbl_ttl);
-        lbl_ttl.setBounds(130, 500, 70, 20);
+        lbl_ttl.setBounds(120, 560, 90, 20);
 
         ttl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ttl.addActionListener(new java.awt.event.ActionListener() {
@@ -1425,7 +1587,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ttl);
-        ttl.setBounds(200, 500, 390, 23);
+        ttl.setBounds(250, 560, 390, 23);
 
         cbTingkat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTingkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tingkat" }));
@@ -1435,7 +1597,7 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbTingkat);
-        cbTingkat.setBounds(200, 290, 90, 22);
+        cbTingkat.setBounds(250, 350, 90, 22);
 
         cbJurusan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurusan" }));
@@ -1445,12 +1607,102 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbJurusan);
-        cbJurusan.setBounds(300, 290, 190, 22);
+        cbJurusan.setBounds(350, 350, 190, 22);
 
         filename.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        filename.setText("filename");
         jPanel1.add(filename);
-        filename.setBounds(920, 170, 210, 20);
+        filename.setBounds(280, 130, 210, 20);
+        jPanel1.add(jSeparator8);
+        jSeparator8.setBounds(80, 160, 1200, 10);
+
+        tl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tl.setText("Tanggal Lahir");
+        jPanel1.add(tl);
+        tl.setBounds(120, 620, 100, 20);
+
+        tlform.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tlform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tlformActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tlform);
+        tlform.setBounds(250, 620, 390, 23);
+
+        label1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label1.setText("NIS");
+        jPanel1.add(label1);
+        label1.setBounds(730, 230, 130, 20);
+
+        add1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(add1);
+        add1.setBounds(850, 230, 390, 23);
+
+        label2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label2.setText("Nama");
+        jPanel1.add(label2);
+        label2.setBounds(730, 290, 130, 20);
+
+        add2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add2);
+        add2.setBounds(850, 290, 390, 23);
+
+        add4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add4);
+        add4.setBounds(850, 410, 390, 23);
+
+        label4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label4.setText("Nama");
+        jPanel1.add(label4);
+        label4.setBounds(730, 410, 130, 20);
+
+        label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label3.setText("NIS");
+        jPanel1.add(label3);
+        label3.setBounds(730, 350, 130, 20);
+
+        add3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(add3);
+        add3.setBounds(850, 350, 390, 23);
+
+        label5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label5.setText("Nama");
+        jPanel1.add(label5);
+        label5.setBounds(730, 470, 130, 20);
+
+        add5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(add5);
+        add5.setBounds(850, 470, 390, 23);
+
+        JK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JK.setText("Jenis Kelamin");
+        jPanel1.add(JK);
+        JK.setBounds(120, 510, 90, 20);
+
+        jkaname.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jkaname.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan", " " }));
+        jkaname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jkanameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jkaname);
+        jkaname.setBounds(250, 510, 90, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1486,6 +1738,20 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         lbl_alamat.setEnabled(false);
         ttl.setEnabled(false);
         lbl_ttl.setEnabled(false);
+        tl.setEnabled(false);
+        tlform.setEnabled(false);
+        JK.setEnabled(false);
+        jkaname.setEnabled(false);
+        add1.setEnabled(false);
+        add2.setEnabled(false);
+        add3.setEnabled(false);
+        add4.setEnabled(false);
+        add5.setEnabled(false);
+        label1.setEnabled(false);
+        label2.setEnabled(false);
+        label3.setEnabled(false);
+        label4.setEnabled(false);
+        label5.setEnabled(false);
         submit.setEnabled(true);
         
     }//GEN-LAST:event_importDataActionPerformed
@@ -1507,6 +1773,20 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         lbl_alamat.setEnabled(true);
         ttl.setEnabled(true);
         lbl_ttl.setEnabled(true);
+        tl.setEnabled(true);
+        tlform.setEnabled(true);
+        JK.setEnabled(true);
+        jkaname.setEnabled(true);
+        add1.setEnabled(true);
+        add2.setEnabled(true);
+        add3.setEnabled(true);
+        add4.setEnabled(true);
+        add5.setEnabled(true);
+        label1.setEnabled(true);
+        label2.setEnabled(true);
+        label3.setEnabled(true);
+        label4.setEnabled(true);
+        label5.setEnabled(true);
         submit.setEnabled(true);
     }//GEN-LAST:event_inputDataActionPerformed
 
@@ -1621,7 +1901,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataPetugasMouseExited
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Petugas_InputAnggota.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -1637,50 +1922,6 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private void subMenuAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuAdminMouseExited
         subMenuAdmin.setVisible(false);
     }//GEN-LAST:event_subMenuAdminMouseExited
-
-    private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
-        toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapPeminjamanMouseEntered
-
-    private void toLapPeminjamanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseExited
-        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapPeminjamanMouseExited
-
-    private void toLapBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toLapBukuMouseClicked
-
-    private void toLapBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseEntered
-        toLapBuku.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapBukuMouseEntered
-
-    private void toLapBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseExited
-        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapBukuMouseExited
-
-    private void toLapAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseEntered
-        toLapAnggota.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapAnggotaMouseEntered
-
-    private void toLapAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseExited
-        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapAnggotaMouseExited
-
-    private void toLapPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseEntered
-        toLapPengembalian.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapPengembalianMouseEntered
-
-    private void toLapPengembalianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseExited
-        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapPengembalianMouseExited
-
-    private void toLapDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseEntered
-        toLapDenda.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapDendaMouseEntered
-
-    private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
-        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapDendaMouseExited
 
     private void subMenuLaporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuLaporanMouseExited
         subMenuLaporan.setVisible(false);
@@ -1843,7 +2084,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_ttlActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-     if(inputData.isSelected()){
+
+        if(inputData.isSelected()){
         getId();
         inputAnggota();
         inputUser();
@@ -1851,6 +2093,12 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         nama.setText(null);
         alamat.setText(null);
         ttl.setText(null);
+        tl.setText(null);
+        add1.setText(null);
+        add2.setText(null);
+        add3.setText(null);
+        add4.setText(null);
+        add5.setText(null);
      }else{
          try {
              insertCSV();
@@ -1942,6 +2190,222 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
    
     }//GEN-LAST:event_importChoseActionPerformed
 
+    private void tlformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tlformActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tlformActionPerformed
+
+    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add2ActionPerformed
+
+    private void add4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add4ActionPerformed
+
+    private void add5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add5ActionPerformed
+
+    private void jkanameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkanameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jkanameActionPerformed
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rst = stat.executeQuery(sql);
+            if (rst.next()){
+                a = rst.getString("profil");
+                b = rst.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanPeminjam.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanPeminjam.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
+        toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapPeminjamanMouseEntered
+
+    private void toLapPeminjamanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseExited
+        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapPeminjamanMouseExited
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rst = stat.executeQuery(sql);
+            if (rst.next()){
+                a = rst.getString("profil");
+                b = rst.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanBukuHilang.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanBukuHilang.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel22MouseClicked
+
+    private void toLapBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toLapBukuMouseClicked
+
+    private void toLapBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseEntered
+        toLapBuku.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapBukuMouseEntered
+
+    private void toLapBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseExited
+        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapBukuMouseExited
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rst = stat.executeQuery(sql);
+            if (rst.next()){
+                a = rst.getString("profil");
+                b = rst.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            //File namaFile = new File("src/Laporan/LaporanAnggota.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanAnggota.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            //String jr = "src/Laporan/LaporanAnggota.jasper";
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            //JasperViewer.viewReport(jp, false);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel23MouseClicked
+
+    private void toLapAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseEntered
+        toLapAnggota.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapAnggotaMouseEntered
+
+    private void toLapAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseExited
+        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapAnggotaMouseExited
+
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rst = stat.executeQuery(sql);
+            if (rst.next()){
+                a = rst.getString("profil");
+                b = rst.getString("alamat");
+            }
+            HashMap param = new HashMap(2);
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanPengembalian.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanPengembalian.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void toLapPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseEntered
+        toLapPengembalian.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapPengembalianMouseEntered
+
+    private void toLapPengembalianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseExited
+        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapPengembalianMouseExited
+
+    private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rst = stat.executeQuery(sql);
+            if (rst.next()){
+                a = rst.getString("profil");
+                b = rst.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanDenda.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanDenda.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel25MouseClicked
+
+    private void toLapDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseEntered
+        toLapDenda.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapDendaMouseEntered
+
+    private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
+        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapDendaMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1978,8 +2442,14 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JK;
     private javax.swing.JLabel Nama;
     private javax.swing.JTextField Nis;
+    private javax.swing.JTextField add1;
+    private javax.swing.JTextField add2;
+    private javax.swing.JTextField add3;
+    private javax.swing.JTextField add4;
+    private javax.swing.JTextField add5;
     private javax.swing.JTextArea alamat;
     private javax.swing.JComboBox<String> cbJurusan;
     private javax.swing.JComboBox<String> cbTingkat;
@@ -2023,6 +2493,13 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JComboBox<String> jkaname;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel label5;
     private javax.swing.JLabel labelImport;
     private javax.swing.JLabel lbl_alamat;
     private javax.swing.JLabel lbl_kelas;
@@ -2035,6 +2512,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit;
+    private javax.swing.JLabel tl;
+    private javax.swing.JTextField tlform;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;

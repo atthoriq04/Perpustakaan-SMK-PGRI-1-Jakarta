@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /**
@@ -61,6 +69,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         readPublisher();
         readPlace();
         readAuthor();
+        //value[15].replaceAll("<>", "");
     }
     public String sql;
     private void userLogin(){
@@ -506,6 +515,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         lbl_ddc.setEnabled(false);
         attach.setEnabled(false);
         submit.setEnabled(false);
+        submit1.setEnabled(false);
     }
     public String lineText = null;
 
@@ -544,9 +554,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
           CSVReader reader = new CSVReader(new FileReader(excelFile));
           String data[];
           reader.readNext();
-          String a = null;
+          String a[] = null;
           while((value = reader.readNext())!=null){
-//              value=a.split(";");
+              
               try{
                   readGMDExcel();
                   readPublisherExcel();
@@ -560,13 +570,13 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
                         LocalDateTime now = LocalDateTime.now();  
                         Date = dtf.format(now);  
                   sql="INSERT INTO new_bliblio (new_bliblio.Judul, new_bliblio.IdGMD, new_bliblio.Edisi, new_bliblio.isbn_issn, new_bliblio.IdPublisher, new_bliblio.PublisherYear,new_bliblio.Notes,new_bliblio.SeriesTitle, new_bliblio.call_number, new_bliblio.IdLanguage, new_bliblio.TempatTerbit, new_bliblio.Klasifikasi,new_bliblio.abstrak,new_bliblio.image,new_bliblio.penanggung, new_bliblio.author_id,new_bliblio.subjek,new_bliblio.input_date, new_bliblio.last_update)\n" +
-"                   VALUES('"+value[0]+"',"+rsGMD+",'"+value[2]+"','"+value[3]+"',"+rsPublisher+",'"+value[5]+"','"+value[6]+"','"+value[7]+"','"+value[8]+"',"+rsLang+","+rsPlace+",'"+value[11]+"','"+value[12]+"','Default.png','"+value[14]+"',"+rsAuthor+",'"+value[16]+"','"+Date+"','"+Date+"')";
+"                   VALUES('"+value[0]+"',"+rsGMD+",'"+value[2]+"','"+value[3]+"',"+rsPublisher+",'"+value[5]+"','"+value[6]+"','"+value[7]+"','"+value[8]+"',"+rsLang+","+rsPlace+",'"+value[11]+"','"+value[12]+"','Default.png','"+value[14].replaceAll("[<>]", "")+"',"+rsAuthor+",'"+value[16]+"','"+Date+"','"+Date+"')";
                   stt.executeUpdate(sql);
                   stt.close();
                   readIdBliblio();
                    stt1 = CC.createStatement();   
                   String sql1 = "INSERT INTO Item (Item.biblio_id,Item.call_number,Item.item_code, Item.input_date, Item.last_update)" +
-"                   VALUES("+rsId+",'"+value[8]+"','"+value[17]+"','"+Date+"','"+Date+"')";
+"                   VALUES("+rsId+",'"+value[8]+"','"+value[17].replaceAll("[<>]", "")+"','"+Date+"','"+Date+"')";
                   
                   stt1.executeUpdate(sql1);
                   stt1.close();
@@ -730,7 +740,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
   public void readAuthorExcel(){
       try{
            Statement stat = CC.createStatement();
-           sql = "SELECT author_id, author_name FROM mst_author WHERE author_name = '"+value[15]+"'";
+           String replace ="<";
+     
+           sql = "SELECT author_id, author_name FROM mst_author WHERE author_name = '"+value[15].replaceAll("[<>]", "")+"'";
            System.out.println(value[13]);
            ResultSet rs = stat.executeQuery(sql);
            if(rs.next()){
@@ -742,10 +754,10 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
              LocalDateTime now = LocalDateTime.now();  
              Date = dtf.format(now);  
              stt = CC.createStatement();
-             String SQL = "INSERT INTO mst_author (author_name,input_date,last_update) VALUES('"+value[15]+"','"+Date+"','"+Date+"')";
+             String SQL = "INSERT INTO mst_author (author_name,input_date,last_update) VALUES('"+value[15].replaceAll("[<>]", "")+"','"+Date+"','"+Date+"')";
              stt.executeUpdate(SQL);
              stt.close();
-             String Check = "SELECT mst_author.author_id, author_name FROM mst_author WHERE author_name = '"+value[15]+"'";
+             String Check = "SELECT mst_author.author_id, author_name FROM mst_author WHERE author_name = '"+value[15].replaceAll("[<>]", "")+"'";
             ResultSet rsa = stat.executeQuery(Check);
             if(rsa.next()){
                 int result1 = rsa.getInt("author_id");
@@ -770,6 +782,55 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        subMenuLaporan = new javax.swing.JPanel();
+        toLapPeminjaman = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        toLapBuku = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        toLapAnggota = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        toLapPengembalian = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        toLapDenda = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        subMenuSirkulasi = new javax.swing.JPanel();
+        toDataTransaksi = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        toPengembalianBuku = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        toDenda = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        toKonfDenda = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        toKonfDenda1 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        subMenuAnggota = new javax.swing.JPanel();
+        toDataAnggota = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        toInputAnggota = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        toDataKelas = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        toDataJurusan = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        toBebasPustaka = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        subMenuBlibliografi = new javax.swing.JPanel();
+        toDataBuku = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        toInputBuku = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        toDataPenulis = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        toDataUsulan = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        subMenuAdmin = new javax.swing.JPanel();
+        toProfilPetugas = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        toDataPetugas = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        toLogin = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -787,55 +848,6 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         empty1 = new javax.swing.JPanel();
         toUser = new javax.swing.JLabel();
         empty2 = new javax.swing.JPanel();
-        subMenuAdmin = new javax.swing.JPanel();
-        toProfilPetugas = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        toDataPetugas = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        toLogin = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        subMenuLaporan = new javax.swing.JPanel();
-        toLapPeminjaman = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        toLapBuku = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        toLapAnggota = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        toLapPengembalian = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        toLapDenda = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        subMenuAnggota = new javax.swing.JPanel();
-        toDataAnggota = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        toInputAnggota = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        toDataKelas = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        toDataJurusan = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        toBebasPustaka = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        subMenuSirkulasi = new javax.swing.JPanel();
-        toDataTransaksi = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        toPengembalianBuku = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        toDenda = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        toKonfDenda = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        toKonfDenda1 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        subMenuBlibliografi = new javax.swing.JPanel();
-        toDataBuku = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        toInputBuku = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        toDataPenulis = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        toDataUsulan = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         importData = new javax.swing.JRadioButton();
         inputData = new javax.swing.JRadioButton();
@@ -848,6 +860,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         Deskripsi = new javax.swing.JTextArea();
         Judul = new javax.swing.JTextField();
         Edisi = new javax.swing.JTextField();
+        submit1 = new javax.swing.JButton();
         submit = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JSeparator();
         lbl_isbn = new javax.swing.JLabel();
@@ -888,6 +901,831 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.setLayout(null);
+
+        subMenuLaporan.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuLaporanMouseExited(evt);
+            }
+        });
+        subMenuLaporan.setLayout(null);
+
+        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
+        toLapPeminjaman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLapPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLapPeminjamanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLapPeminjamanMouseExited(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel21.setText("Laporan Peminjaman");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toLapPeminjamanLayout = new javax.swing.GroupLayout(toLapPeminjaman);
+        toLapPeminjaman.setLayout(toLapPeminjamanLayout);
+        toLapPeminjamanLayout.setHorizontalGroup(
+            toLapPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLapPeminjamanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLapPeminjamanLayout.setVerticalGroup(
+            toLapPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuLaporan.add(toLapPeminjaman);
+        toLapPeminjaman.setBounds(0, 0, 210, 40);
+
+        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toLapBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLapBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLapBukuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLapBukuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLapBukuMouseExited(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel22.setText("Laporan Buku Hilang");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toLapBukuLayout = new javax.swing.GroupLayout(toLapBuku);
+        toLapBuku.setLayout(toLapBukuLayout);
+        toLapBukuLayout.setHorizontalGroup(
+            toLapBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLapBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLapBukuLayout.setVerticalGroup(
+            toLapBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuLaporan.add(toLapBuku);
+        toLapBuku.setBounds(0, 40, 210, 40);
+
+        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        toLapAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLapAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLapAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLapAnggotaMouseExited(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel23.setText("Laporan Anggota");
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toLapAnggotaLayout = new javax.swing.GroupLayout(toLapAnggota);
+        toLapAnggota.setLayout(toLapAnggotaLayout);
+        toLapAnggotaLayout.setHorizontalGroup(
+            toLapAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLapAnggotaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLapAnggotaLayout.setVerticalGroup(
+            toLapAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuLaporan.add(toLapAnggota);
+        toLapAnggota.setBounds(0, 80, 210, 40);
+
+        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
+        toLapPengembalian.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLapPengembalian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLapPengembalianMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLapPengembalianMouseExited(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel24.setText("Laporan Pengembalian");
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel24MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toLapPengembalianLayout = new javax.swing.GroupLayout(toLapPengembalian);
+        toLapPengembalian.setLayout(toLapPengembalianLayout);
+        toLapPengembalianLayout.setHorizontalGroup(
+            toLapPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLapPengembalianLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLapPengembalianLayout.setVerticalGroup(
+            toLapPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuLaporan.add(toLapPengembalian);
+        toLapPengembalian.setBounds(0, 120, 210, 40);
+
+        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
+        toLapDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLapDenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLapDendaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLapDendaMouseExited(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel25.setText("Laporan Denda");
+        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel25MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout toLapDendaLayout = new javax.swing.GroupLayout(toLapDenda);
+        toLapDenda.setLayout(toLapDendaLayout);
+        toLapDendaLayout.setHorizontalGroup(
+            toLapDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLapDendaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLapDendaLayout.setVerticalGroup(
+            toLapDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuLaporan.add(toLapDenda);
+        toLapDenda.setBounds(0, 160, 210, 40);
+
+        jPanel1.add(subMenuLaporan);
+        subMenuLaporan.setBounds(80, 400, 200, 210);
+
+        subMenuSirkulasi.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuSirkulasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuSirkulasiMouseExited(evt);
+            }
+        });
+        subMenuSirkulasi.setLayout(null);
+
+        toDataTransaksi.setBackground(new java.awt.Color(229, 231, 238));
+        toDataTransaksi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataTransaksiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataTransaksiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataTransaksiMouseExited(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel27.setText("Data Transaksi");
+
+        javax.swing.GroupLayout toDataTransaksiLayout = new javax.swing.GroupLayout(toDataTransaksi);
+        toDataTransaksi.setLayout(toDataTransaksiLayout);
+        toDataTransaksiLayout.setHorizontalGroup(
+            toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataTransaksiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+        toDataTransaksiLayout.setVerticalGroup(
+            toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toDataTransaksi);
+        toDataTransaksi.setBounds(0, 0, 300, 40);
+
+        toPengembalianBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toPengembalianBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toPengembalianBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toPengembalianBukuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toPengembalianBukuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toPengembalianBukuMouseExited(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel18.setText("Konfirmasi Pengembalian Buku");
+
+        javax.swing.GroupLayout toPengembalianBukuLayout = new javax.swing.GroupLayout(toPengembalianBuku);
+        toPengembalianBuku.setLayout(toPengembalianBukuLayout);
+        toPengembalianBukuLayout.setHorizontalGroup(
+            toPengembalianBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toPengembalianBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+        toPengembalianBukuLayout.setVerticalGroup(
+            toPengembalianBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toPengembalianBuku);
+        toPengembalianBuku.setBounds(0, 40, 300, 40);
+
+        toDenda.setBackground(new java.awt.Color(229, 231, 238));
+        toDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDendaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDendaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDendaMouseExited(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel19.setText("Data Denda");
+
+        javax.swing.GroupLayout toDendaLayout = new javax.swing.GroupLayout(toDenda);
+        toDenda.setLayout(toDendaLayout);
+        toDendaLayout.setHorizontalGroup(
+            toDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDendaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(185, Short.MAX_VALUE))
+        );
+        toDendaLayout.setVerticalGroup(
+            toDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toDenda);
+        toDenda.setBounds(0, 80, 300, 40);
+
+        toKonfDenda.setBackground(new java.awt.Color(229, 231, 238));
+        toKonfDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toKonfDenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toKonfDendaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toKonfDendaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toKonfDendaMouseExited(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel20.setText("Konfirmasi Pembayaran Denda");
+
+        javax.swing.GroupLayout toKonfDendaLayout = new javax.swing.GroupLayout(toKonfDenda);
+        toKonfDenda.setLayout(toKonfDendaLayout);
+        toKonfDendaLayout.setHorizontalGroup(
+            toKonfDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toKonfDendaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+        toKonfDendaLayout.setVerticalGroup(
+            toKonfDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toKonfDenda);
+        toKonfDenda.setBounds(0, 120, 300, 40);
+
+        toKonfDenda1.setBackground(new java.awt.Color(229, 231, 238));
+        toKonfDenda1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toKonfDenda1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toKonfDenda1MouseExited(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel28.setText("Data Pengunjung");
+
+        javax.swing.GroupLayout toKonfDenda1Layout = new javax.swing.GroupLayout(toKonfDenda1);
+        toKonfDenda1.setLayout(toKonfDenda1Layout);
+        toKonfDenda1Layout.setHorizontalGroup(
+            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toKonfDenda1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+        toKonfDenda1Layout.setVerticalGroup(
+            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuSirkulasi.add(toKonfDenda1);
+        toKonfDenda1.setBounds(0, 160, 300, 40);
+
+        jPanel1.add(subMenuSirkulasi);
+        subMenuSirkulasi.setBounds(80, 220, 250, 200);
+
+        subMenuAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuAnggotaMouseExited(evt);
+            }
+        });
+        subMenuAnggota.setLayout(null);
+
+        toDataAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        toDataAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataAnggotaMouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel12.setText("Data Anggota");
+
+        javax.swing.GroupLayout toDataAnggotaLayout = new javax.swing.GroupLayout(toDataAnggota);
+        toDataAnggota.setLayout(toDataAnggotaLayout);
+        toDataAnggotaLayout.setHorizontalGroup(
+            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataAnggotaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataAnggotaLayout.setVerticalGroup(
+            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataAnggota);
+        toDataAnggota.setBounds(0, 0, 150, 40);
+
+        toInputAnggota.setBackground(new java.awt.Color(229, 231, 238));
+        toInputAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toInputAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toInputAnggotaMouseExited(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel13.setText("Input Anggota");
+
+        javax.swing.GroupLayout toInputAnggotaLayout = new javax.swing.GroupLayout(toInputAnggota);
+        toInputAnggota.setLayout(toInputAnggotaLayout);
+        toInputAnggotaLayout.setHorizontalGroup(
+            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputAnggotaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toInputAnggotaLayout.setVerticalGroup(
+            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toInputAnggota);
+        toInputAnggota.setBounds(0, 40, 152, 40);
+
+        toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
+        toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataKelas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataKelasMouseExited(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel32.setText("Data Kelas");
+
+        javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
+        toDataKelas.setLayout(toDataKelasLayout);
+        toDataKelasLayout.setHorizontalGroup(
+            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataKelasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataKelasLayout.setVerticalGroup(
+            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataKelas);
+        toDataKelas.setBounds(0, 80, 152, 40);
+
+        toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataJurusanMouseExited(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel33.setText("Data Jurusan");
+
+        javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
+        toDataJurusan.setLayout(toDataJurusanLayout);
+        toDataJurusanLayout.setHorizontalGroup(
+            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataJurusanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toDataJurusanLayout.setVerticalGroup(
+            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toDataJurusan);
+        toDataJurusan.setBounds(0, 120, 152, 40);
+
+        toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
+        toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toBebasPustaka.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toBebasPustakaMouseExited(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel16.setText("Bebas Pustaka");
+
+        javax.swing.GroupLayout toBebasPustakaLayout = new javax.swing.GroupLayout(toBebasPustaka);
+        toBebasPustaka.setLayout(toBebasPustakaLayout);
+        toBebasPustakaLayout.setHorizontalGroup(
+            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toBebasPustakaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        toBebasPustakaLayout.setVerticalGroup(
+            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAnggota.add(toBebasPustaka);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
+
+        jPanel1.add(subMenuAnggota);
+        subMenuAnggota.setBounds(80, 310, 150, 210);
+
+        subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuBlibliografiMouseExited(evt);
+            }
+        });
+        subMenuBlibliografi.setLayout(null);
+
+        toDataBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toDataBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataBukuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataBukuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataBukuMouseExited(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setText("Data Buku");
+
+        javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
+        toDataBuku.setLayout(toDataBukuLayout);
+        toDataBukuLayout.setHorizontalGroup(
+            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        toDataBukuLayout.setVerticalGroup(
+            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toDataBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        subMenuBlibliografi.add(toDataBuku);
+        toDataBuku.setBounds(0, 0, 150, 40);
+
+        toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
+        toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toInputBukuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toInputBukuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toInputBukuMouseExited(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel9.setText("Input Buku");
+
+        javax.swing.GroupLayout toInputBukuLayout = new javax.swing.GroupLayout(toInputBuku);
+        toInputBuku.setLayout(toInputBukuLayout);
+        toInputBukuLayout.setHorizontalGroup(
+            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        toInputBukuLayout.setVerticalGroup(
+            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toInputBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        subMenuBlibliografi.add(toInputBuku);
+        toInputBuku.setBounds(0, 40, 150, 47);
+
+        toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
+        toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataPenulis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataPenulisMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataPenulisMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataPenulisMouseExited(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("Data Penulis");
+
+        javax.swing.GroupLayout toDataPenulisLayout = new javax.swing.GroupLayout(toDataPenulis);
+        toDataPenulis.setLayout(toDataPenulisLayout);
+        toDataPenulisLayout.setHorizontalGroup(
+            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataPenulisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        toDataPenulisLayout.setVerticalGroup(
+            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataPenulis);
+        toDataPenulis.setBounds(0, 80, 152, 43);
+
+        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
+        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataUsulanMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setText("Usulan Buku");
+
+        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
+        toDataUsulan.setLayout(toDataUsulanLayout);
+        toDataUsulanLayout.setHorizontalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataUsulanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        toDataUsulanLayout.setVerticalGroup(
+            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        subMenuBlibliografi.add(toDataUsulan);
+        toDataUsulan.setBounds(0, 120, 150, 43);
+
+        jPanel1.add(subMenuBlibliografi);
+        subMenuBlibliografi.setBounds(80, 140, 150, 170);
+
+        subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
+        subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                subMenuAdminMouseExited(evt);
+            }
+        });
+        subMenuAdmin.setLayout(null);
+
+        toProfilPetugas.setBackground(new java.awt.Color(229, 231, 238));
+        toProfilPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toProfilPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toProfilPetugasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toProfilPetugasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toProfilPetugasMouseExited(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel26.setText("Pengaturan");
+
+        javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
+        toProfilPetugas.setLayout(toProfilPetugasLayout);
+        toProfilPetugasLayout.setHorizontalGroup(
+            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toProfilPetugasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toProfilPetugasLayout.setVerticalGroup(
+            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAdmin.add(toProfilPetugas);
+        toProfilPetugas.setBounds(0, 0, 150, 40);
+
+        toDataPetugas.setBackground(new java.awt.Color(229, 231, 238));
+        toDataPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toDataPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toDataPetugasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toDataPetugasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toDataPetugasMouseExited(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel29.setText("Data Petugas");
+
+        javax.swing.GroupLayout toDataPetugasLayout = new javax.swing.GroupLayout(toDataPetugas);
+        toDataPetugas.setLayout(toDataPetugasLayout);
+        toDataPetugasLayout.setHorizontalGroup(
+            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toDataPetugasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toDataPetugasLayout.setVerticalGroup(
+            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAdmin.add(toDataPetugas);
+        toDataPetugas.setBounds(0, 40, 154, 40);
+
+        toLogin.setBackground(new java.awt.Color(229, 231, 238));
+        toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        toLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLoginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toLoginMouseExited(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel31.setText("Log Out");
+
+        javax.swing.GroupLayout toLoginLayout = new javax.swing.GroupLayout(toLogin);
+        toLogin.setLayout(toLoginLayout);
+        toLoginLayout.setHorizontalGroup(
+            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        toLoginLayout.setVerticalGroup(
+            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+        );
+
+        subMenuAdmin.add(toLogin);
+        toLogin.setBounds(0, 80, 154, 40);
+
+        jPanel1.add(subMenuAdmin);
+        subMenuAdmin.setBounds(80, 490, 150, 120);
 
         jPanel3.setBackground(new java.awt.Color(229, 231, 238));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1022,803 +1860,6 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 0, 80, 720);
 
-        subMenuAdmin.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuAdminMouseExited(evt);
-            }
-        });
-        subMenuAdmin.setLayout(null);
-
-        toProfilPetugas.setBackground(new java.awt.Color(229, 231, 238));
-        toProfilPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toProfilPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toProfilPetugasMouseExited(evt);
-            }
-        });
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel26.setText("Profil Petugas");
-
-        javax.swing.GroupLayout toProfilPetugasLayout = new javax.swing.GroupLayout(toProfilPetugas);
-        toProfilPetugas.setLayout(toProfilPetugasLayout);
-        toProfilPetugasLayout.setHorizontalGroup(
-            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toProfilPetugasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toProfilPetugasLayout.setVerticalGroup(
-            toProfilPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAdmin.add(toProfilPetugas);
-        toProfilPetugas.setBounds(0, 0, 150, 40);
-
-        toDataPetugas.setBackground(new java.awt.Color(229, 231, 238));
-        toDataPetugas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataPetugasMouseExited(evt);
-            }
-        });
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel29.setText("Data Petugas");
-
-        javax.swing.GroupLayout toDataPetugasLayout = new javax.swing.GroupLayout(toDataPetugas);
-        toDataPetugas.setLayout(toDataPetugasLayout);
-        toDataPetugasLayout.setHorizontalGroup(
-            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataPetugasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toDataPetugasLayout.setVerticalGroup(
-            toDataPetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
-
-        toLogin.setBackground(new java.awt.Color(229, 231, 238));
-        toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toLoginMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLoginMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLoginMouseExited(evt);
-            }
-        });
-
-        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel31.setText("Log Out");
-
-        javax.swing.GroupLayout toLoginLayout = new javax.swing.GroupLayout(toLogin);
-        toLogin.setLayout(toLoginLayout);
-        toLoginLayout.setHorizontalGroup(
-            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLoginLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLoginLayout.setVerticalGroup(
-            toLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
-
-        jPanel1.add(subMenuAdmin);
-        subMenuAdmin.setBounds(80, 490, 150, 120);
-
-        subMenuLaporan.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuLaporanMouseExited(evt);
-            }
-        });
-        subMenuLaporan.setLayout(null);
-
-        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
-        toLapPeminjaman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLapPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLapPeminjamanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLapPeminjamanMouseExited(evt);
-            }
-        });
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel21.setText("Laporan Peminjaman");
-
-        javax.swing.GroupLayout toLapPeminjamanLayout = new javax.swing.GroupLayout(toLapPeminjaman);
-        toLapPeminjaman.setLayout(toLapPeminjamanLayout);
-        toLapPeminjamanLayout.setHorizontalGroup(
-            toLapPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLapPeminjamanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLapPeminjamanLayout.setVerticalGroup(
-            toLapPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuLaporan.add(toLapPeminjaman);
-        toLapPeminjaman.setBounds(0, 0, 210, 40);
-
-        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toLapBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLapBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toLapBukuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLapBukuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLapBukuMouseExited(evt);
-            }
-        });
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel22.setText("Laporan Buku");
-
-        javax.swing.GroupLayout toLapBukuLayout = new javax.swing.GroupLayout(toLapBuku);
-        toLapBuku.setLayout(toLapBukuLayout);
-        toLapBukuLayout.setHorizontalGroup(
-            toLapBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLapBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLapBukuLayout.setVerticalGroup(
-            toLapBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuLaporan.add(toLapBuku);
-        toLapBuku.setBounds(0, 40, 210, 40);
-
-        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        toLapAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLapAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLapAnggotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLapAnggotaMouseExited(evt);
-            }
-        });
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel23.setText("Laporan Anggota");
-
-        javax.swing.GroupLayout toLapAnggotaLayout = new javax.swing.GroupLayout(toLapAnggota);
-        toLapAnggota.setLayout(toLapAnggotaLayout);
-        toLapAnggotaLayout.setHorizontalGroup(
-            toLapAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLapAnggotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLapAnggotaLayout.setVerticalGroup(
-            toLapAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuLaporan.add(toLapAnggota);
-        toLapAnggota.setBounds(0, 80, 210, 40);
-
-        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
-        toLapPengembalian.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLapPengembalian.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLapPengembalianMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLapPengembalianMouseExited(evt);
-            }
-        });
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel24.setText("Laporan Pengembalian");
-
-        javax.swing.GroupLayout toLapPengembalianLayout = new javax.swing.GroupLayout(toLapPengembalian);
-        toLapPengembalian.setLayout(toLapPengembalianLayout);
-        toLapPengembalianLayout.setHorizontalGroup(
-            toLapPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLapPengembalianLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLapPengembalianLayout.setVerticalGroup(
-            toLapPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuLaporan.add(toLapPengembalian);
-        toLapPengembalian.setBounds(0, 120, 210, 40);
-
-        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
-        toLapDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toLapDenda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLapDendaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLapDendaMouseExited(evt);
-            }
-        });
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel25.setText("Laporan Denda");
-
-        javax.swing.GroupLayout toLapDendaLayout = new javax.swing.GroupLayout(toLapDenda);
-        toLapDenda.setLayout(toLapDendaLayout);
-        toLapDendaLayout.setHorizontalGroup(
-            toLapDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toLapDendaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        toLapDendaLayout.setVerticalGroup(
-            toLapDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuLaporan.add(toLapDenda);
-        toLapDenda.setBounds(0, 160, 210, 40);
-
-        jPanel1.add(subMenuLaporan);
-        subMenuLaporan.setBounds(80, 400, 200, 210);
-
-        subMenuAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuAnggotaMouseExited(evt);
-            }
-        });
-        subMenuAnggota.setLayout(null);
-
-        toDataAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        toDataAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataAnggotaMouseExited(evt);
-            }
-        });
-
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel35.setText("Data Anggota");
-
-        javax.swing.GroupLayout toDataAnggotaLayout = new javax.swing.GroupLayout(toDataAnggota);
-        toDataAnggota.setLayout(toDataAnggotaLayout);
-        toDataAnggotaLayout.setHorizontalGroup(
-            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataAnggotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataAnggotaLayout.setVerticalGroup(
-            toDataAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataAnggota);
-        toDataAnggota.setBounds(0, 0, 150, 40);
-
-        toInputAnggota.setBackground(new java.awt.Color(229, 231, 238));
-        toInputAnggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toInputAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toInputAnggotaMouseExited(evt);
-            }
-        });
-
-        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel36.setText("Input Anggota");
-
-        javax.swing.GroupLayout toInputAnggotaLayout = new javax.swing.GroupLayout(toInputAnggota);
-        toInputAnggota.setLayout(toInputAnggotaLayout);
-        toInputAnggotaLayout.setHorizontalGroup(
-            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputAnggotaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toInputAnggotaLayout.setVerticalGroup(
-            toInputAnggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
-
-        toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
-        toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataKelas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataKelasMouseExited(evt);
-            }
-        });
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel14.setText("Data Kelas");
-
-        javax.swing.GroupLayout toDataKelasLayout = new javax.swing.GroupLayout(toDataKelas);
-        toDataKelas.setLayout(toDataKelasLayout);
-        toDataKelasLayout.setHorizontalGroup(
-            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataKelasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataKelasLayout.setVerticalGroup(
-            toDataKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
-
-        toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
-        toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataJurusanMouseExited(evt);
-            }
-        });
-
-        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel37.setText("Data Jurusan");
-
-        javax.swing.GroupLayout toDataJurusanLayout = new javax.swing.GroupLayout(toDataJurusan);
-        toDataJurusan.setLayout(toDataJurusanLayout);
-        toDataJurusanLayout.setHorizontalGroup(
-            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataJurusanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toDataJurusanLayout.setVerticalGroup(
-            toDataJurusanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
-
-        toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
-        toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toBebasPustaka.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toBebasPustakaMouseExited(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel16.setText("Bebas Pustaka");
-
-        javax.swing.GroupLayout toBebasPustakaLayout = new javax.swing.GroupLayout(toBebasPustaka);
-        toBebasPustaka.setLayout(toBebasPustakaLayout);
-        toBebasPustakaLayout.setHorizontalGroup(
-            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toBebasPustakaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        toBebasPustakaLayout.setVerticalGroup(
-            toBebasPustakaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
-
-        jPanel1.add(subMenuAnggota);
-        subMenuAnggota.setBounds(80, 310, 150, 210);
-
-        subMenuSirkulasi.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuSirkulasi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuSirkulasiMouseExited(evt);
-            }
-        });
-        subMenuSirkulasi.setLayout(null);
-
-        toDataTransaksi.setBackground(new java.awt.Color(229, 231, 238));
-        toDataTransaksi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataTransaksiMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataTransaksiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataTransaksiMouseExited(evt);
-            }
-        });
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel27.setText("Data Transaksi");
-
-        javax.swing.GroupLayout toDataTransaksiLayout = new javax.swing.GroupLayout(toDataTransaksi);
-        toDataTransaksi.setLayout(toDataTransaksiLayout);
-        toDataTransaksiLayout.setHorizontalGroup(
-            toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataTransaksiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-        toDataTransaksiLayout.setVerticalGroup(
-            toDataTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuSirkulasi.add(toDataTransaksi);
-        toDataTransaksi.setBounds(0, 0, 300, 40);
-
-        toPengembalianBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toPengembalianBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toPengembalianBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toPengembalianBukuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toPengembalianBukuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toPengembalianBukuMouseExited(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel18.setText("Konfirmasi Pengembalian Buku");
-
-        javax.swing.GroupLayout toPengembalianBukuLayout = new javax.swing.GroupLayout(toPengembalianBuku);
-        toPengembalianBuku.setLayout(toPengembalianBukuLayout);
-        toPengembalianBukuLayout.setHorizontalGroup(
-            toPengembalianBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toPengembalianBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        toPengembalianBukuLayout.setVerticalGroup(
-            toPengembalianBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuSirkulasi.add(toPengembalianBuku);
-        toPengembalianBuku.setBounds(0, 40, 300, 40);
-
-        toDenda.setBackground(new java.awt.Color(229, 231, 238));
-        toDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDenda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDendaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDendaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDendaMouseExited(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel19.setText("Data Denda");
-
-        javax.swing.GroupLayout toDendaLayout = new javax.swing.GroupLayout(toDenda);
-        toDenda.setLayout(toDendaLayout);
-        toDendaLayout.setHorizontalGroup(
-            toDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDendaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-        toDendaLayout.setVerticalGroup(
-            toDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuSirkulasi.add(toDenda);
-        toDenda.setBounds(0, 80, 300, 40);
-
-        toKonfDenda.setBackground(new java.awt.Color(229, 231, 238));
-        toKonfDenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toKonfDenda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toKonfDendaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toKonfDendaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toKonfDendaMouseExited(evt);
-            }
-        });
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel20.setText("Konfirmasi Pembayaran Denda");
-
-        javax.swing.GroupLayout toKonfDendaLayout = new javax.swing.GroupLayout(toKonfDenda);
-        toKonfDenda.setLayout(toKonfDendaLayout);
-        toKonfDendaLayout.setHorizontalGroup(
-            toKonfDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toKonfDendaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        toKonfDendaLayout.setVerticalGroup(
-            toKonfDendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuSirkulasi.add(toKonfDenda);
-        toKonfDenda.setBounds(0, 120, 300, 40);
-
-        toKonfDenda1.setBackground(new java.awt.Color(229, 231, 238));
-        toKonfDenda1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toKonfDenda1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toKonfDenda1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toKonfDenda1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toKonfDenda1MouseExited(evt);
-            }
-        });
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel28.setText("Data Pengunjung");
-
-        javax.swing.GroupLayout toKonfDenda1Layout = new javax.swing.GroupLayout(toKonfDenda1);
-        toKonfDenda1.setLayout(toKonfDenda1Layout);
-        toKonfDenda1Layout.setHorizontalGroup(
-            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toKonfDenda1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        toKonfDenda1Layout.setVerticalGroup(
-            toKonfDenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuSirkulasi.add(toKonfDenda1);
-        toKonfDenda1.setBounds(0, 160, 300, 40);
-
-        jPanel1.add(subMenuSirkulasi);
-        subMenuSirkulasi.setBounds(80, 220, 250, 200);
-
-        subMenuBlibliografi.setBackground(new java.awt.Color(229, 231, 238));
-        subMenuBlibliografi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                subMenuBlibliografiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                subMenuBlibliografiMouseExited(evt);
-            }
-        });
-        subMenuBlibliografi.setLayout(null);
-
-        toDataBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toDataBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataBukuMouseExited(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("Data Buku");
-
-        javax.swing.GroupLayout toDataBukuLayout = new javax.swing.GroupLayout(toDataBuku);
-        toDataBuku.setLayout(toDataBukuLayout);
-        toDataBukuLayout.setHorizontalGroup(
-            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        toDataBukuLayout.setVerticalGroup(
-            toDataBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-        );
-
-        subMenuBlibliografi.add(toDataBuku);
-        toDataBuku.setBounds(0, 0, 150, 40);
-
-        toInputBuku.setBackground(new java.awt.Color(229, 231, 238));
-        toInputBuku.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toInputBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toInputBukuMouseExited(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel9.setText("Input Buku");
-
-        javax.swing.GroupLayout toInputBukuLayout = new javax.swing.GroupLayout(toInputBuku);
-        toInputBuku.setLayout(toInputBukuLayout);
-        toInputBukuLayout.setHorizontalGroup(
-            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        toInputBukuLayout.setVerticalGroup(
-            toInputBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toInputBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
-
-        toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
-        toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataPenulis.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataPenulisMouseExited(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel8.setText("Data Penulis");
-
-        javax.swing.GroupLayout toDataPenulisLayout = new javax.swing.GroupLayout(toDataPenulis);
-        toDataPenulis.setLayout(toDataPenulisLayout);
-        toDataPenulisLayout.setHorizontalGroup(
-            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataPenulisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        toDataPenulisLayout.setVerticalGroup(
-            toDataPenulisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
-
-        subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
-
-        toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
-        toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        toDataUsulan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toDataUsulanMouseExited(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("Usulan Buku");
-
-        javax.swing.GroupLayout toDataUsulanLayout = new javax.swing.GroupLayout(toDataUsulan);
-        toDataUsulan.setLayout(toDataUsulanLayout);
-        toDataUsulanLayout.setHorizontalGroup(
-            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toDataUsulanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        toDataUsulanLayout.setVerticalGroup(
-            toDataUsulanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
-
-        subMenuBlibliografi.add(toDataUsulan);
-        toDataUsulan.setBounds(0, 120, 150, 43);
-
-        jPanel1.add(subMenuBlibliografi);
-        subMenuBlibliografi.setBounds(80, 140, 150, 170);
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Tambah Buku baru");
         jPanel1.add(jLabel1);
@@ -1833,7 +1874,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(importData);
-        importData.setBounds(100, 100, 120, 21);
+        importData.setBounds(100, 100, 120, 25);
 
         inputData.setBackground(new java.awt.Color(255, 255, 255));
         inputData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1844,7 +1885,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(inputData);
-        inputData.setBounds(100, 170, 120, 21);
+        inputData.setBounds(100, 170, 120, 25);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Pilih data");
@@ -1858,7 +1899,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(180, 130, 60, 22);
+        jButton1.setBounds(180, 130, 60, 25);
 
         lbl_judul.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_judul.setText("Judul");
@@ -1895,6 +1936,15 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         jPanel1.add(Edisi);
         Edisi.setBounds(310, 320, 630, 23);
 
+        submit1.setText("ddc");
+        submit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submit1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit1);
+        submit1.setBounds(610, 640, 80, 25);
+
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1902,7 +1952,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1170, 650, 80, 22);
+        submit.setBounds(1170, 650, 80, 25);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1988,7 +2038,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(NoPanggil);
-        NoPanggil.setBounds(310, 550, 630, 23);
+        NoPanggil.setBounds(310, 550, 290, 23);
 
         panelImg.setMinimumSize(new java.awt.Dimension(160, 220));
 
@@ -2017,7 +2067,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(attach);
-        attach.setBounds(1050, 410, 120, 22);
+        attach.setBounds(1050, 410, 120, 25);
 
         Bahasa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Bahasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Bahasa" }));
@@ -2035,7 +2085,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbGMD);
-        cbGMD.setBounds(310, 290, 150, 22);
+        cbGMD.setBounds(310, 290, 150, 24);
 
         lbl_ddc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_ddc.setText("Klasifikasi");
@@ -2049,7 +2099,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DDC);
-        DDC.setBounds(310, 640, 630, 23);
+        DDC.setBounds(310, 640, 290, 23);
 
         cbPenerbit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Penerbit" }));
@@ -2102,16 +2152,11 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
@@ -2153,7 +2198,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC.setEnabled(false);
         lbl_ddc.setEnabled(false);
         attach.setEnabled(false);
-        submit.setEnabled(true);
+        submit.setEnabled(true);    submit1.setEnabled(false);
+    
     }//GEN-LAST:event_importDataActionPerformed
 
     private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
@@ -2192,7 +2238,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         DDC.setEnabled(true);
         lbl_ddc.setEnabled(true);
         attach.setEnabled(true);
-        submit.setEnabled(true);
+        submit.setEnabled(true);    submit1.setEnabled(true);
+    
     }//GEN-LAST:event_inputDataActionPerformed
 
     private void EdisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdisiActionPerformed
@@ -2293,6 +2340,63 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jPanel3MouseExited
 
+    private void DDCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DDCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DDCActionPerformed
+
+    private void cbGMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGMDActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbGMDActionPerformed
+
+    private void BahasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BahasaActionPerformed
+        // TODO add your handling code here:
+        setValue3();
+    }//GEN-LAST:event_BahasaActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // TODO add your handling code here:
+        if(inputData.isSelected()){
+        setIndex1();
+        setIndex2();
+        setIndex3();
+        setIndex4();
+            try {
+                insertData();
+            } catch (IOException ex) {
+                Logger.getLogger(Petugas_InputBuku.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        reset();
+        }else if(importData.isSelected()){
+         insertCSV();
+        }
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void cbPenerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPenerbitActionPerformed
+        // TODO add your handling code here:
+        setValue1();
+    }//GEN-LAST:event_cbPenerbitActionPerformed
+
+    private void cbTempatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTempatActionPerformed
+        // TODO add your handling code here:
+        setValue2();
+    }//GEN-LAST:event_cbTempatActionPerformed
+
+    private void attachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attachActionPerformed
+        // TODO add your handling code here:
+        attach();
+    }//GEN-LAST:event_attachActionPerformed
+
+    private void cbPengarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPengarangActionPerformed
+        // TODO add your handling code here:
+        setValue4();
+    }//GEN-LAST:event_cbPengarangActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        readCSV();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void toProfilPetugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toProfilPetugasMouseClicked
         Petugas_ProfilPetugas obj = new Petugas_ProfilPetugas();
         obj.setVisible(true);
@@ -2322,7 +2426,12 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_toDataPetugasMouseExited
 
     private void toLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseClicked
-        Login obj = new Login();
+        Login obj = null;
+        try {
+            obj = new Login();
+        } catch (IOException ex) {
+            Logger.getLogger(Petugas_InputBuku.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked
@@ -2338,50 +2447,6 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private void subMenuAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuAdminMouseExited
         subMenuAdmin.setVisible(false);
     }//GEN-LAST:event_subMenuAdminMouseExited
-
-    private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
-        toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapPeminjamanMouseEntered
-
-    private void toLapPeminjamanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseExited
-        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapPeminjamanMouseExited
-
-    private void toLapBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toLapBukuMouseClicked
-
-    private void toLapBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseEntered
-        toLapBuku.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapBukuMouseEntered
-
-    private void toLapBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseExited
-        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapBukuMouseExited
-
-    private void toLapAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseEntered
-        toLapAnggota.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapAnggotaMouseEntered
-
-    private void toLapAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseExited
-        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapAnggotaMouseExited
-
-    private void toLapPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseEntered
-        toLapPengembalian.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapPengembalianMouseEntered
-
-    private void toLapPengembalianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseExited
-        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapPengembalianMouseExited
-
-    private void toLapDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseEntered
-        toLapDenda.setBackground(new java.awt.Color(188,190,208));
-    }//GEN-LAST:event_toLapDendaMouseEntered
-
-    private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
-        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
-    }//GEN-LAST:event_toLapDendaMouseExited
 
     private void subMenuLaporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuLaporanMouseExited
         subMenuLaporan.setVisible(false);
@@ -2535,58 +2600,6 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         subMenuSirkulasi.setVisible(false);
     }//GEN-LAST:event_subMenuSirkulasiMouseExited
 
-    private void DDCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DDCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DDCActionPerformed
-
-    private void cbGMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGMDActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cbGMDActionPerformed
-
-    private void BahasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BahasaActionPerformed
-        // TODO add your handling code here:
-        setValue3();
-    }//GEN-LAST:event_BahasaActionPerformed
-
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        if(inputData.isSelected()){
-        setIndex1();
-        setIndex2();
-        setIndex3();
-        setIndex4();
-            try {
-                insertData();
-            } catch (IOException ex) {
-                Logger.getLogger(Petugas_InputBuku.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        reset();
-        }else if(importData.isSelected()){
-         insertCSV();
-        }
-    }//GEN-LAST:event_submitActionPerformed
-
-    private void cbPenerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPenerbitActionPerformed
-        // TODO add your handling code here:
-        setValue1();
-    }//GEN-LAST:event_cbPenerbitActionPerformed
-
-    private void cbTempatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTempatActionPerformed
-        // TODO add your handling code here:
-        setValue2();
-    }//GEN-LAST:event_cbTempatActionPerformed
-
-    private void attachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attachActionPerformed
-        // TODO add your handling code here:
-        attach();
-    }//GEN-LAST:event_attachActionPerformed
-
-    private void cbPengarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPengarangActionPerformed
-        // TODO add your handling code here:
-        setValue4();
-    }//GEN-LAST:event_cbPengarangActionPerformed
-
     private void toDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toDataBukuMouseClicked
         Petugas_DataBuku obj = new Petugas_DataBuku();
         obj.setVisible(true);
@@ -2643,19 +2656,225 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toDataUsulanMouseExited
 
+    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
+        subMenuBlibliografi.setVisible(true);
+    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
+
     private void subMenuBlibliografiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseExited
 
         subMenuBlibliografi.setVisible(false);
     }//GEN-LAST:event_subMenuBlibliografiMouseExited
 
-    private void subMenuBlibliografiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuBlibliografiMouseEntered
-       subMenuBlibliografi.setVisible(true);
-    }//GEN-LAST:event_subMenuBlibliografiMouseEntered
+    private void submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit1ActionPerformed
+        DDC ob = new DDC();
+        ob.judul = Judul.getText();
+        ob.Pengarang = Pengarang.getText();
+        ob.edisi = Edisi.getText();
+        ob.isbn = ISBN.getText();
+        ob.tahunterbit = TahunTerbit.getText();
+        ob.deskripsifisik = Deskripsi.getText();
+        ob.judulseri = JudulSeri.getText();
+        ob.bahasa = lang.getText();
+        ob.tempatterbit = TempatTerbit.getText();
+        ob.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_submit1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
-        readCSV();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rs = stat.executeQuery(sql);
+            if (rs.next()){
+                a = rs.getString("profil");
+                b = rs.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanPeminjam.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanPeminjam.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
+        toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapPeminjamanMouseEntered
+
+    private void toLapPeminjamanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseExited
+        toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapPeminjamanMouseExited
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rs = stat.executeQuery(sql);
+            if (rs.next()){
+                a = rs.getString("profil");
+                b = rs.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanBukuHilang.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanBukuHilang.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel22MouseClicked
+
+    private void toLapBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toLapBukuMouseClicked
+
+    private void toLapBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseEntered
+        toLapBuku.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapBukuMouseEntered
+
+    private void toLapBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapBukuMouseExited
+        toLapBuku.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapBukuMouseExited
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rs = stat.executeQuery(sql);
+            if (rs.next()){
+                a = rs.getString("profil");
+                b = rs.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            //File namaFile = new File("src/Laporan/LaporanAnggota.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanAnggota.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            //String jr = "src/Laporan/LaporanAnggota.jasper";
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            //JasperViewer.viewReport(jp, false);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel23MouseClicked
+
+    private void toLapAnggotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseEntered
+        toLapAnggota.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapAnggotaMouseEntered
+
+    private void toLapAnggotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapAnggotaMouseExited
+        toLapAnggota.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapAnggotaMouseExited
+
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rs = stat.executeQuery(sql);
+            if (rs.next()){
+                a = rs.getString("profil");
+                b = rs.getString("alamat");
+            }
+            HashMap param = new HashMap(2);
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanPengembalian.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanPengembalian.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void toLapPengembalianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseEntered
+        toLapPengembalian.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapPengembalianMouseEntered
+
+    private void toLapPengembalianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPengembalianMouseExited
+        toLapPengembalian.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapPengembalianMouseExited
+
+    private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
+        // TODO add your handling code here:
+        String a = null;
+        String b = null;
+        int count = 0;
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "SELECT * FROM profile";
+            rs = stat.executeQuery(sql);
+            if (rs.next()){
+                a = rs.getString("profil");
+                b = rs.getString("alamat");
+            }
+            HashMap param = new HashMap();
+            param.put("instansi", a);
+            param.put("alamat", b);
+
+            File namaFile = new File("src/Laporan/LaporanDenda.jasper");
+            InputStream file = new FileInputStream(new File("src/Laporan/LaporanDenda.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(file);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr,param,CC);
+            JasperViewer.viewReport(jp, false);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jLabel25MouseClicked
+
+    private void toLapDendaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseEntered
+        toLapDenda.setBackground(new java.awt.Color(188,190,208));
+    }//GEN-LAST:event_toLapDendaMouseEntered
+
+    private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
+        toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
+    }//GEN-LAST:event_toLapDendaMouseExited
 
     /**
      * @param args the command line arguments
@@ -2697,17 +2916,17 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Bahasa;
-    private javax.swing.JTextField DDC;
-    private javax.swing.JTextArea Deskripsi;
-    private javax.swing.JTextField Edisi;
-    private javax.swing.JTextField ISBN;
-    private javax.swing.JTextField Judul;
-    private javax.swing.JTextField JudulSeri;
-    private javax.swing.JTextField NoPanggil;
-    private javax.swing.JTextField Penerbit;
-    private javax.swing.JTextField Pengarang;
-    private javax.swing.JTextField TahunTerbit;
-    private javax.swing.JTextField TempatTerbit;
+    public javax.swing.JTextField DDC;
+    public javax.swing.JTextArea Deskripsi;
+    public javax.swing.JTextField Edisi;
+    public javax.swing.JTextField ISBN;
+    public javax.swing.JTextField Judul;
+    public javax.swing.JTextField JudulSeri;
+    public javax.swing.JTextField NoPanggil;
+    public javax.swing.JTextField Penerbit;
+    public javax.swing.JTextField Pengarang;
+    public javax.swing.JTextField TahunTerbit;
+    public javax.swing.JTextField TempatTerbit;
     private javax.swing.JButton attach;
     private javax.swing.JComboBox<String> cbGMD;
     private javax.swing.JComboBox<String> cbPenerbit;
@@ -2721,7 +2940,9 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JRadioButton inputData;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -2738,10 +2959,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2755,7 +2974,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JTextField lang;
+    public javax.swing.JTextField lang;
     private javax.swing.JLabel lbl_bahasa;
     private javax.swing.JLabel lbl_ddc;
     private javax.swing.JLabel lbl_edisi;
@@ -2776,6 +2995,7 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JButton submit;
+    private javax.swing.JButton submit1;
     private javax.swing.JLabel toAdmin;
     private javax.swing.JLabel toAnggo;
     private javax.swing.JPanel toBebasPustaka;
