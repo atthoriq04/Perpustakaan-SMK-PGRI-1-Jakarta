@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -50,8 +52,12 @@ public class Login extends javax.swing.JFrame {
                 profile=rs.getString("logo");
             }
             //InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Logo/"+profile+"");
-             ImageIcon icon1 = new ImageIcon(ImageIO.read(Siswa_Profil.class.getResourceAsStream("/Uploads/Foto/Logo/"+profile+"")));
-             Image image1 = icon1.getImage().getScaledInstance(imgLogo.getWidth(),imgLogo.getHeight(),Image.SCALE_SMOOTH);
+             //ImageIcon icon1 = new ImageIcon(ImageIO.read(Siswa_Profil.class.getResourceAsStream("/Uploads/Foto/Logo/"+profile+"")));
+             //Image image1 = icon1.getImage().getScaledInstance(imgLogo.getWidth(),imgLogo.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/foto/Logo/"+profile+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream));
+               Image image1 = icon1.getImage().getScaledInstance(imgLogo.getWidth(),imgLogo.getHeight(),Image.SCALE_SMOOTH);
              imgLogo.setIcon(icon1);
              stt.close();
         } catch (SQLException ex) {
@@ -387,7 +393,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-       Reset_Password ob = new Reset_Password();
+       Reset_Password ob = null;
+        try {
+            ob = new Reset_Password();
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
        ob.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked

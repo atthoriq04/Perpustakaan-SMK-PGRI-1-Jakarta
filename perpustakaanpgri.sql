@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 30/05/2022 02:48:15
+ Date: 30/05/2022 14:10:25
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,7 @@ CREATE TABLE `anggota`  (
 -- ----------------------------
 -- Records of anggota
 -- ----------------------------
-INSERT INTO `anggota` VALUES (11111, 'Muhammad Atthoriq Aziz', 19, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'newImage20220529080437.jpg', 'a', 'a', 'a', 'a', 'a', '2023-05-27');
+INSERT INTO `anggota` VALUES (11111, 'Muhammad Atthoriq Aziz', 19, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'Default.png', 'a', 'a', 'a', 'a', 'a', '2023-05-27');
 INSERT INTO `anggota` VALUES (11112, 'Yos Patriot', 19, 'L', 'Alamat@email.Siswa', 'CIracas', '000088889999', 'Ciracas,01 Januari 1999', 'Default.png', ' ', '', '', '', '', '2023-05-27');
 INSERT INTO `anggota` VALUES (13218, 'ADHITYA RIZKY ARDIANSYAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29');
 INSERT INTO `anggota` VALUES (13219, 'ADITHYA PRAYOGA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29');
@@ -5630,7 +5630,7 @@ CREATE TABLE `pengunjung`  (
   `Instansi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TanggalKunjungan` datetime NOT NULL,
   PRIMARY KEY (`IdPengunjung`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of pengunjung
@@ -5665,6 +5665,7 @@ INSERT INTO `pengunjung` VALUES (27, 'VANESA PRAYSILIA RADJA', 'Alamat@email.Sis
 INSERT INTO `pengunjung` VALUES (28, 'RANDY ROBUN DZATRYASTO', 'Alamat@email.Siswa', 'Siswa', '2022-05-28 18:07:36');
 INSERT INTO `pengunjung` VALUES (29, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-28 18:15:01');
 INSERT INTO `pengunjung` VALUES (30, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-29 00:10:40');
+INSERT INTO `pengunjung` VALUES (31, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-30 12:15:26');
 
 -- ----------------------------
 -- Table structure for petugas
@@ -5706,7 +5707,7 @@ CREATE TABLE `profile`  (
 -- ----------------------------
 -- Records of profile
 -- ----------------------------
-INSERT INTO `profile` VALUES (1, 'SMK PGRI Jakarta', 'Cerdas Mencerdaskan', 'perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah vperpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah', '089612141144', 'Perpustakaan.Sekolah@gmail.com', 'Jl. PLK II No. 24 Jakarta Timur', 'Derita_Tukang_Baca(Instagram)', 'newImage20220529080645.jpg', 'Default.jpeg', 'Default.jpg');
+INSERT INTO `profile` VALUES (1, 'SMK PGRI Jakarta', 'Cerdas Mencerdaskan', 'perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah vperpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah', '089612141144', 'Perpustakaan.Sekolah@gmail.com', 'Jl. PLK II No. 24 Jakarta Timur', 'Derita_Tukang_Baca(Instagram)', 'Default.jpeg', 'Default.jpeg', 'Default.jpg');
 
 -- ----------------------------
 -- Table structure for reqbebaspustaka

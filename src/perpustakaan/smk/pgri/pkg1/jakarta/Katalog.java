@@ -6,6 +6,8 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -176,11 +178,15 @@ public class Katalog extends javax.swing.JFrame {
                   cnn =rs.getString("new_bliblio.call_number");
                   img();
                   System.out.println(cvr);
-                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
-                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
-                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
-                  img[rowindex].setIcon(icon);
-                  
+//                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
+//                  ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//                  Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+//                  img[rowindex].setIcon(icon);
+                  File im = new File("src/Uploads/Books/"+cvr+"");
+                    InputStream stream = new FileInputStream(im);
+                    ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+                    Image image = icon.getImage().getScaledInstance(img[rowindex].getWidth(),img[rowindex].getHeight(),Image.SCALE_SMOOTH);
+                    img[rowindex].setIcon(icon);
                 //System.out.println("array2D[" + rowindex + "] = " + Arrays.toString(array2D[rowindex])); 
              rowindex++;
                 } while (rs.next());              
@@ -1290,12 +1296,16 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+//        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+//                  ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
-             obj.img.setIcon(icon);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             
+            obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1572,12 +1582,15 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                 // ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
-             obj.img.setIcon(icon);
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
+              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1601,12 +1614,15 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+                 // ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
-             obj.img.setIcon(icon);
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream)); 
+            obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1630,12 +1646,15 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
-             obj.img.setIcon(icon);
+//            icon = new ImageIcon(ImageIO.read(stream));
+//             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream)); 
+            obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1659,11 +1678,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1688,11 +1710,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1717,11 +1742,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1746,11 +1774,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1775,11 +1806,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1804,11 +1838,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1833,11 +1870,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -1863,11 +1903,14 @@ public class Katalog extends javax.swing.JFrame {
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
         obj.setVisible(true);
-        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
-                  ImageIcon icon;
+        //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
+          //        ImageIcon icon;
         try {
-            icon = new ImageIcon(ImageIO.read(stream));
-             Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+            //icon = new ImageIcon(ImageIO.read(stream));
+             //Image image = icon.getImage().getScaledInstance(obj.img.getWidth(),obj.img.getHeight(),Image.SCALE_SMOOTH);
+             File im = new File("src/Uploads/Books/"+g+"");
+             InputStream stream = new FileInputStream(im);
+             ImageIcon icon = new ImageIcon(ImageIO.read(stream));
              obj.img.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);

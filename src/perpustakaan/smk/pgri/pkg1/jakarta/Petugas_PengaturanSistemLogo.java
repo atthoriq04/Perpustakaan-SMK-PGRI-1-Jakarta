@@ -6,6 +6,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -55,10 +56,15 @@ public class Petugas_PengaturanSistemLogo extends javax.swing.JFrame {
                 pro1 = rs.getString("logo");
              
             }
-             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Logo/"+pro1+"");
-             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
-             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
-             imgFoto1.setIcon(icon1);
+//             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Logo/"+pro1+"");
+//             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+//             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto1.setIcon(icon1);
+                File im = new File("src/Uploads/foto/Logo/"+pro1+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream));
+               Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+                imgFoto1.setIcon(icon1);
          
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);

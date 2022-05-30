@@ -128,8 +128,9 @@ public class Siswa_Profil extends javax.swing.JFrame {
                 nohp.setText(NoHp);
                 tgl.setText(expire);    
             }
-                //InputStream stream = getClass().getResourceAsStream("Uploads/Profiles/"+pro+"");
-                ImageIcon icon = new ImageIcon(ImageIO.read(Siswa_Profil.class.getResourceAsStream("/Uploads/Profiles/"+pro+"")));
+                File im = new File("src/Uploads/Profiles/"+pro+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon = new ImageIcon(ImageIO.read(stream));
                Image image = icon.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
                img.setIcon(icon);
         } catch (Exception e) {

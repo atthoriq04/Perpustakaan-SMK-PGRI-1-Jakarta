@@ -5,6 +5,8 @@
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -56,14 +58,24 @@ public class TentangPerpus extends javax.swing.JFrame {
                 pro2=rs.getString("foto2");
             }
             
-             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
-             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
-             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
-             imgFoto1.setIcon(icon1);
-             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
-             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
-             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
-             imgFoto2.setIcon(icon2);
+//             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
+//             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+//             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto1.setIcon(icon1);
+               File im1 = new File("src/Uploads/Foto/Perpus1/"+pro1+"");
+               InputStream stream1 = new FileInputStream(im1);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+               Image image = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+               imgFoto1.setIcon(icon1);
+//             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
+//             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+//             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto2.setIcon(icon2);
+               File im2 = new File("src/Uploads/Foto/Perpus2/"+pro2+"");
+               InputStream stream2 = new FileInputStream(im2);
+               ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+               Image image2 = icon2.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+               imgFoto2.setIcon(icon2);
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,11 +120,11 @@ public class TentangPerpus extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(imgFoto2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

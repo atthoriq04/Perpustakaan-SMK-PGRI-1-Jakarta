@@ -456,10 +456,15 @@ public class Petugas_EditBuku extends javax.swing.JFrame {
                  pro = rs.getString("new_bliblio.image");
 //                 a.replace("\\","\\\\");
                  //file = .getAbsolutePath();
-                 InputStream stream1 = getClass().getResourceAsStream("/Uploads/Books/"+pro+"");
-                 ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
-                 Image image1 = icon1.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
-                 img.setIcon(icon1);
+//                 InputStream stream1 = getClass().getResourceAsStream("/Uploads/Books/"+pro+"");
+//                 ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+//                 Image image1 = icon1.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+//                 img.setIcon(icon1);
+               File im = new File("src/Uploads/Books/"+pro+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream));
+               Image image1 = icon1.getImage().getScaledInstance(img.getWidth(),img.getHeight(),Image.SCALE_SMOOTH);
+               img.setIcon(icon1);
              }
          }catch(Exception e){
              JOptionPane.showMessageDialog(null, e);

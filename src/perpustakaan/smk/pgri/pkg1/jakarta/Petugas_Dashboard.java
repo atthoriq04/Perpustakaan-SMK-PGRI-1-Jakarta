@@ -1711,7 +1711,10 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
              obj = new Login();
          } catch (IOException ex) {
              Logger.getLogger(Petugas_Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+         
          }
+        UserSession.setUserLogin(null);
+        UserSession.setUserId(0);
         obj.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_toLoginMouseClicked

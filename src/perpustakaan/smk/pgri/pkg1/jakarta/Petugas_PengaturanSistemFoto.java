@@ -6,6 +6,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -55,13 +56,23 @@ public class Petugas_PengaturanSistemFoto extends javax.swing.JFrame {
                 pro1 = rs.getString("foto1");
                 pro2 = rs.getString("foto2");
             }
-             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
-             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
-             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+//             InputStream stream1 = getClass().getResourceAsStream("/Uploads/Foto/Perpus1/"+pro1+"");
+//             ImageIcon icon1 = new ImageIcon(ImageIO.read(stream1));
+//             Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto1.setIcon(icon1);
+                File im = new File("src/Uploads/foto/Perpus1/"+pro1+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream));
+               Image image1 = icon1.getImage().getScaledInstance(imgFoto1.getWidth(),imgFoto1.getHeight(),Image.SCALE_SMOOTH);
              imgFoto1.setIcon(icon1);
-             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
-             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
-             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+//             InputStream stream2 = getClass().getResourceAsStream("/Uploads/Foto/Perpus2/"+pro2+"");
+//             ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+//             Image image2 = icon1.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
+//             imgFoto2.setIcon(icon2);
+               File ima = new File("src/Uploads/foto/Perpus2/"+pro2+"");
+               InputStream stream2 = new FileInputStream(ima);
+               ImageIcon icon2 = new ImageIcon(ImageIO.read(stream2));
+               Image image2 = icon2.getImage().getScaledInstance(imgFoto2.getWidth(),imgFoto2.getHeight(),Image.SCALE_SMOOTH);
              imgFoto2.setIcon(icon2);
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);

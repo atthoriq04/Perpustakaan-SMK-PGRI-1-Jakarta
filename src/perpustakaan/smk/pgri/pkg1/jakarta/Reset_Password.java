@@ -3,10 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.Image;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +26,8 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -34,21 +41,28 @@ public class Reset_Password extends javax.swing.JFrame {
     Connection CC = null;
     PreparedStatement pst = null;
     Statement stt;
-    public Reset_Password() {
+    public Reset_Password() throws IOException {
         initComponents();CC =
         new koneksi().connect();
         getProfile();
     }
     String nama,nis,mail,hp;
     int sum = 0;
-    public void getProfile(){
+    public void getProfile() throws FileNotFoundException, IOException{
+        String profile=null;
         try {
             
              stt = CC.createStatement();
             rs = stt.executeQuery("SELECT * From profile");
             if(rs.next()){
                 Profil.setText(rs.getString("Profil"));
+                profile=rs.getString("logo");
             }
+            File im = new File("src/Uploads/foto/Logo/"+profile+"");
+               InputStream stream = new FileInputStream(im);
+               ImageIcon icon1 = new ImageIcon(ImageIO.read(stream));
+               Image image1 = icon1.getImage().getScaledInstance(imgLogo.getWidth(),imgLogo.getHeight(),Image.SCALE_SMOOTH);
+             imgLogo.setIcon(icon1);
         } catch (SQLException ex) {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,7 +137,7 @@ public class Reset_Password extends javax.swing.JFrame {
         Hp = new javax.swing.JTextField();
         Profil = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        imgLogo = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,10 +218,10 @@ public class Reset_Password extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/pgri.jpg"))); // NOI18N
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        imgLogo.setPreferredSize(new java.awt.Dimension(259, 235));
+        imgLogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                imgLogoActionPerformed(evt);
             }
         });
 
@@ -228,7 +242,7 @@ public class Reset_Password extends javax.swing.JFrame {
                                 .addComponent(jButton1))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(220, 220, 220)
-                                .addComponent(jToggleButton1)))
+                                .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -238,7 +252,7 @@ public class Reset_Password extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(159, 159, 159)
-                .addComponent(jToggleButton1)
+                .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Profil)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -281,10 +295,6 @@ public class Reset_Password extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         get();
         sum = 0;
@@ -298,6 +308,10 @@ public class Reset_Password extends javax.swing.JFrame {
             reset();
          }
     }//GEN-LAST:event_emailKeyReleased
+
+    private void imgLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imgLogoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imgLogoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,7 +343,11 @@ public class Reset_Password extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reset_Password().setVisible(true);
+                try {
+                    new Reset_Password().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Reset_Password.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -340,6 +358,7 @@ public class Reset_Password extends javax.swing.JFrame {
     private javax.swing.JTextField NamaLengkap;
     private javax.swing.JLabel Profil;
     private javax.swing.JTextField email;
+    private javax.swing.JToggleButton imgLogo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -349,7 +368,6 @@ public class Reset_Password extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JCheckBox ptgs;
     // End of variables declaration//GEN-END:variables
 }
