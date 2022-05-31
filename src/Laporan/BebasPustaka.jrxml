@@ -98,8 +98,8 @@
 				<textFieldExpression><![CDATA[$P{instansi}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="0" y="0" width="110" height="72" uuid="c4372472-cd6b-4e29-aa97-c44b08cb26e7"/>
-				<imageExpression><![CDATA["D:\\Dera\\Kuliah\\Perpustakaan-SMK-PGRI-1-Jakarta\\src\\Uploads\\Foto\\Logo\\Default.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="146" height="85" uuid="accdb792-c19c-4945-a770-2b1f03cc6bfc"/>
+				<imageExpression><![CDATA["C:\\Users\\Yos Patriot\\OneDrive\\Dokumen\\GitHub\\Perpustakaan-SMK-PGRI-1-Jakarta\\src\\Uploads\\Foto\\Logo\\Default.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

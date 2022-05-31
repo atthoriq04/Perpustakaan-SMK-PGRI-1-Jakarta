@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 30, 2022 at 03:55 PM
--- Server version: 5.7.24
--- PHP Version: 7.4.16
+-- Host: 127.0.0.1
+-- Generation Time: May 31, 2022 at 12:38 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE `adjust` (
 --
 
 INSERT INTO `adjust` (`idAdjust`, `tName`, `Status`) VALUES
-(1, 'Nama Orang Dalam', 1),
+(1, 'add1', 1),
 (2, 'add2', 0),
 (3, 'add3', 0),
 (4, 'add4', 0),
@@ -87,7 +87,7 @@ CREATE TABLE `anggota` (
   `NoHp` varchar(15) NOT NULL,
   `TTL` varchar(255) NOT NULL,
   `Profiles` varchar(255) NOT NULL,
-  `NamaOrangDalam` varchar(50) DEFAULT NULL,
+  `add1` varchar(50) DEFAULT NULL,
   `add2` varchar(50) DEFAULT NULL,
   `add3` varchar(50) DEFAULT NULL,
   `add4` varchar(50) DEFAULT NULL,
@@ -99,9 +99,9 @@ CREATE TABLE `anggota` (
 -- Dumping data for table `anggota`
 --
 
-INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `NamaOrangDalam`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
-(11111, 'Muhammad Atthoriq Aziz', 19, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'Default.png', 'a', 'a', 'a', 'a', 'a', '2023-05-27'),
-(11112, 'Yos Patriot', 19, 'L', 'Alamat@email.Siswa', 'CIracas', '000088889999', 'Ciracas,01 Januari 1999', 'Default.png', ' ', '', '', '', '', '2023-05-27'),
+INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `add1`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
+(11111, 'Muhammad Atthoriq Aziz', 19, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'Default.png', NULL, 'a', 'a', 'a', 'a', '2023-05-27'),
+(11112, 'Yos Patriot', 19, 'L', 'Alamat@email.Siswa', 'CIracas', '000088889999', 'Ciracas,01 Januari 1999', 'Default.png', NULL, '', '', '', '', '2023-05-27'),
 (13218, 'ADHITYA RIZKY ARDIANSYAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29'),
 (13219, 'ADITHYA PRAYOGA', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29'),
 (13220, 'ADITIYA MAULANA SIDIQ', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29'),
@@ -162,14 +162,14 @@ CREATE TABLE `biblio` (
   `source` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
   `publish_place_id` int(11) DEFAULT NULL,
   `classification` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `notes` text COLLATE utf8_unicode_ci,
+  `notes` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `file_att` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `opac_hide` smallint(6) DEFAULT '0',
-  `promoted` smallint(6) DEFAULT '0',
-  `labels` text COLLATE utf8_unicode_ci,
-  `frequency_id` int(11) NOT NULL DEFAULT '0',
-  `spec_detail_info` text COLLATE utf8_unicode_ci,
+  `opac_hide` smallint(6) DEFAULT 0,
+  `promoted` smallint(6) DEFAULT 0,
+  `labels` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `frequency_id` int(11) NOT NULL DEFAULT 0,
+  `spec_detail_info` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `content_type_id` int(11) DEFAULT NULL,
   `media_type_id` int(11) DEFAULT NULL,
   `carrier_type_id` int(11) DEFAULT NULL,
@@ -226,7 +226,8 @@ INSERT INTO `bukutidaktersedia` (`IdRusak`, `Barcode`, `IdDenda`, `Tanggal`) VAL
 (8, 'SMKPGRI-123456', 6, '2022-05-26'),
 (9, 'SMKPGRI-123456', 6, '2022-05-26'),
 (10, 'SMKPGRI-123456', 6, '2022-05-26'),
-(11, 'SMKPGRI-27820', 12, '2022-05-27');
+(11, 'SMKPGRI-27820', 12, '2022-05-27'),
+(12, '150121020', 14, '2022-05-31');
 
 -- --------------------------------------------------------
 
@@ -5017,7 +5018,8 @@ INSERT INTO `denda` (`IdDenda`, `IdTransaksi`, `jenis`, `Barang`, `Nominal`, `St
 (10, 11, 'Tunai', '-', 50000, '1', 'Menghilangkan Buku'),
 (11, 11, 'Tunai', '-', 50000, '1', 'Menghilangkan Buku'),
 (12, 17, 'NonTunai', 'Mawar', 0, '3', 'Menghilangkan Buku'),
-(13, 12, 'Tunai', '-', 1000, '3', 'Keterlambatan Pengembalian');
+(13, 12, 'Tunai', '-', 1000, '3', 'Keterlambatan Pengembalian'),
+(14, 18, 'Tunai', '-', 50000, '3', 'Menghilangkan Buku');
 
 -- --------------------------------------------------------
 
@@ -5096,7 +5098,7 @@ CREATE TABLE `item` (
   `order_date` date DEFAULT NULL,
   `item_status_id` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
   `site` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `source` int(11) NOT NULL DEFAULT '0',
+  `source` int(11) NOT NULL DEFAULT 0,
   `invoice` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `price_currency` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -5143,7 +5145,9 @@ INSERT INTO `item` (`item_id`, `biblio_id`, `call_number`, `coll_type_id`, `item
 (30, 30, '500 MIE i', NULL, 'SMKPGRI-429', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2022-05-30 02:43:08', '2022-05-30 02:43:08', NULL),
 (31, 31, '746 BUD k', NULL, 'SMKPGRI-0000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2022-05-30 02:43:08', '2022-05-30 02:43:08', NULL),
 (32, 32, '650 DEV', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2022-05-30 02:43:08', '2022-05-30 02:43:08', NULL),
-(33, 1, '813 NAD b', 2, 'SMKPGRI1-00323', 'AW', '2022-05-02', NULL, NULL, 1, '2022-05-10', NULL, NULL, 2, NULL, 0, NULL, '2022-05-04', '2022-05-30 02:46:31', '2022-05-30 02:46:31', NULL);
+(33, 1, '813 NAD b', 2, 'SMKPGRI1-00323', 'AW', '2022-05-02', NULL, NULL, 1, '2022-05-10', NULL, NULL, 2, NULL, 0, NULL, '2022-05-04', '2022-05-30 02:46:31', '2022-05-30 02:46:31', NULL),
+(34, 2, '741.5592 TAK k', 2, '150121020', 'INV-150121020', '2022-05-31', NULL, NULL, 4, '2022-05-16', NULL, NULL, 2, NULL, 0, NULL, '2022-05-16', '2022-05-31 13:15:15', '2022-05-31 13:15:15', NULL),
+(35, 2, '741.5592 TAK k', 2, 'EMK150090111', 'INV-EMK150090111', '2022-05-31', NULL, NULL, 1, '2022-05-24', NULL, NULL, 2, NULL, 0, NULL, '2022-05-30', '2022-05-31 13:16:10', '2022-05-31 13:16:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -5605,7 +5609,6 @@ INSERT INTO `new_bliblio` (`IdBliblio`, `IdGMD`, `Judul`, `author_id`, `subjek`,
 (1, 1, 'Bunga-bunga gugur di Timor Timur', 1, '', '', '', 68, '2003', '', '', '813 NAD b', 1, 10, '813', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
 (2, 35, 'Kungfu boy legends', 2, '', 'Ed.5', '978-979-27-4362-3', 36, '2009', '', '', '741.5592 TAK k', 1, 10, '7,415,592', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
 (3, 35, 'Legenda malin kundang si anak durhaka', 3, '', '', '', 75, '', '', '', '398.259.8 ARY l', 1, 9, '398.259.8', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
-(4, 35, 'Kungfu boy legends', 2, '', 'Ed.5', '978-979-27-4362-3', 36, '2009', '', '', '741.5592 TAK k', 1, 10, '7,415,592', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
 (5, 1, 'Berkelana ke Timur Tengah', 4, '', '', '978-979-033-838-8', 28, '2009', '', '', '813 DED b', 1, 10, '813', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
 (6, 35, 'Biar Tua Tapi Bahagia ', 5, '', '', '978-979-19397-8-2', 87, '2012', '', '', '813 ANN b', 1, 10, '813', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
 (7, 1, 'Pocong juga pocong ', 6, '', '', '602-220-002-4', 19, '2011', '', '', '813 ANW p', 1, 10, '813', '', 'Default.png', '', '2022-05-30 02:43:07', '2022-05-30 02:43:07'),
@@ -5647,7 +5650,7 @@ CREATE TABLE `notifikasi` (
   `Nis` int(11) NOT NULL,
   `Isi` varchar(100) NOT NULL,
   `Tanggal` date NOT NULL,
-  `Status` int(11) NOT NULL DEFAULT '1'
+  `Status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
@@ -5677,18 +5680,22 @@ INSERT INTO `notifikasi` (`idNotifikasi`, `idJudul`, `Nis`, `Isi`, `Tanggal`, `S
 (22, 2, 11112, 'Pengembalian Buku Berhasil(Kode Transaksi = 14 )', '2022-05-27', 2),
 (23, 2, 11111, 'Pengembalian Buku Berhasil(Kode Transaksi = 13 )', '2022-05-27', 2),
 (24, 4, 11111, 'Anda Mendapat Denda Merusak/Menghilangkan Buku(Kode Transaksi = 17 )', '2022-05-27', 2),
-(25, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 1),
-(26, 4, 11111, 'Anda Mendapat Denda Keterlambatan Pengembalian Buku(Kode Transaksi = 12 )', '2022-05-29', 1),
-(27, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 1),
-(28, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 1),
-(29, 3, 11111, 'Denda Dengan Kode  13 Berhasil Dibayarkan ', '2022-05-29', 1),
-(30, 3, 11111, 'Denda Dengan Kode  12 Berhasil Dibayarkan ', '2022-05-29', 1),
-(31, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1),
-(32, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1),
-(33, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1),
-(34, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1),
-(35, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1),
-(36, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 1);
+(25, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 2),
+(26, 4, 11111, 'Anda Mendapat Denda Keterlambatan Pengembalian Buku(Kode Transaksi = 12 )', '2022-05-29', 2),
+(27, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 2),
+(28, 6, 11111, 'Silahkan Cek Kembali Status Peminjaman Dan Denda Anda', '2022-05-29', 2),
+(29, 3, 11111, 'Denda Dengan Kode  13 Berhasil Dibayarkan ', '2022-05-29', 2),
+(30, 3, 11111, 'Denda Dengan Kode  12 Berhasil Dibayarkan ', '2022-05-29', 2),
+(31, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(32, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(33, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(34, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(35, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(36, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-29', 2),
+(37, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-05-31', 2),
+(38, 1, 11111, 'Buku Yang Dikembalikan Tidak Sesuai(Kode Transaksi = 18 )', '2022-05-31', 2),
+(39, 4, 11111, 'Anda Mendapat Denda Merusak/Menghilangkan Buku(Kode Transaksi = 18 )', '2022-05-31', 2),
+(40, 3, 11111, 'Denda Dengan Kode  14 Berhasil Dibayarkan ', '2022-05-31', 1);
 
 -- --------------------------------------------------------
 
@@ -5709,7 +5716,7 @@ CREATE TABLE `pengaturan` (
 --
 
 INSERT INTO `pengaturan` (`idPengaturan`, `LamaPinjam`, `DendaHarian`, `MaxPinjam`, `DendaHilang`) VALUES
-(1, 1, 500, '2', '50000');
+(1, 1, 500, '1', '50000');
 
 -- --------------------------------------------------------
 
@@ -5760,7 +5767,8 @@ INSERT INTO `pengunjung` (`IdPengunjung`, `Nama`, `Email`, `Instansi`, `TanggalK
 (28, 'RANDY ROBUN DZATRYASTO', 'Alamat@email.Siswa', 'Siswa', '2022-05-28 18:07:36'),
 (29, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-28 18:15:01'),
 (30, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-29 00:10:40'),
-(31, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-30 12:15:26');
+(31, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-30 12:15:26'),
+(32, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-31 12:08:30');
 
 -- --------------------------------------------------------
 
@@ -5809,7 +5817,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `Profil`, `Tagline`, `Tentang1`, `Tentang2`, `Tentang3`, `alamat`, `SMedia`, `foto1`, `foto2`, `logo`) VALUES
-(1, 'SMK PGRI Jakarta', 'Cerdas Mencerdaskan', 'perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah vperpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah', '089612141144', 'Perpustakaan.Sekolah@gmail.com', 'Jl. PLK II No. 24 Jakarta Timur', 'Derita_Tukang_Baca(Instagram)', 'Default.jpeg', 'Default.jpeg', 'Default.jpg');
+(1, 'SMK PGRI 1 Jakarta', 'Literasi Mencerdaskan', 'perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah vperpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah', '089612141144', 'Perpustakaan.Sekolah@gmail.com', 'Jl. PLK II No. 25 Jakarta Timur', 'Derita_Tukang_Baca(Instagram)', 'Default.jpeg', 'Default.jpeg', 'Default.jpg');
 
 -- --------------------------------------------------------
 
@@ -5829,7 +5837,8 @@ CREATE TABLE `reqbebaspustaka` (
 
 INSERT INTO `reqbebaspustaka` (`IdReq`, `TglPermintaan`, `Nis`) VALUES
 (2, '2022-05-05', 99282),
-(3, '2022-05-08', 99281);
+(3, '2022-05-08', 99281),
+(14, '2022-05-31', 11111);
 
 -- --------------------------------------------------------
 
@@ -5866,7 +5875,8 @@ INSERT INTO `transaksi` (`IdTransaksi`, `Barcode`, `Nis`, `TanggalPinjam`, `Teng
 (14, 'SMKPGRI-51427', 11112, '2022-05-27', '2022-05-27', '2022-05-27', '4', 'Selesai'),
 (15, 'SMKPGRI-65438', 11112, '2022-05-27', '2022-05-27', NULL, '1', 'Dipinjam'),
 (16, 'SMKPGRI-654321', 11112, '2022-05-27', '2022-05-27', NULL, '1', 'Dipinjam'),
-(17, 'SMKPGRI-27820', 11111, '2022-05-27', '2022-05-28', '2022-05-27', '4', 'Buku Hilang');
+(17, 'SMKPGRI-27820', 11111, '2022-05-27', '2022-05-28', '2022-05-27', '4', 'Buku Hilang'),
+(18, '150121020', 11111, '2022-05-31', '2022-05-31', '2022-05-31', '4', 'Buku Hilang');
 
 -- --------------------------------------------------------
 
@@ -5878,7 +5888,7 @@ CREATE TABLE `user` (
   `Nis` int(10) UNSIGNED NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Role` int(11) NOT NULL DEFAULT '3'
+  `Role` int(11) NOT NULL DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
@@ -5886,7 +5896,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Nis`, `Username`, `Password`, `Role`) VALUES
-(11111, '11111', '11111', 3),
+(11111, 'Atthoriq', '12345', 3),
 (11112, '11112', '11112', 3),
 (13218, '13218', '13218', 3),
 (13219, '13219', '13219', 3),
@@ -5953,7 +5963,8 @@ INSERT INTO `usulanbuku` (`IdUsulan`, `Nis`, `Judul`, `Penulis`, `Penerbit`, `Ta
 (7, 99282, 'Judul', 'Penulis', 'Tidak Disebutkan', '2000', 1),
 (8, 99801, 'Merlian', 'Tidak Disebutkan', 'Tidak Disebutkan', '2005', 1),
 (9, 99801, 'Tidak Disebutkan', 'Diyah', 'Tidak Disebutkan', '', 1),
-(10, 11111, 'Diary Si Kecil', 'Danyl Kvatt', 'JuanSyndo', '', 1);
+(10, 11111, 'Diary Si Kecil', 'Danyl Kvatt', 'JuanSyndo', '', 1),
+(11, 11111, 'Kungfu Boy', 'Tidak Disebutkan', 'Tidak Disebutkan', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -6173,13 +6184,13 @@ ALTER TABLE `biblio`
 -- AUTO_INCREMENT for table `bukutidaktersedia`
 --
 ALTER TABLE `bukutidaktersedia`
-  MODIFY `IdRusak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `IdRusak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `denda`
 --
 ALTER TABLE `denda`
-  MODIFY `IdDenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `IdDenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `gmd`
@@ -6191,7 +6202,7 @@ ALTER TABLE `gmd`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `judulnotifikasi`
@@ -6251,7 +6262,7 @@ ALTER TABLE `new_bliblio`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `idNotifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `idNotifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -6263,7 +6274,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
-  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -6275,13 +6286,13 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT for table `reqbebaspustaka`
 --
 ALTER TABLE `reqbebaspustaka`
-  MODIFY `IdReq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `IdReq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -6293,7 +6304,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `usulanbuku`
 --
 ALTER TABLE `usulanbuku`
-  MODIFY `IdUsulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `IdUsulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

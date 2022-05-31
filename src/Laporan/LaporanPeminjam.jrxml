@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="720" pageHeight="842" columnWidth="680" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="891e0b80-d356-4e27-bec2-1cee41a09bf4">
 	<property name="ireport.zoom" value="1.100000000000001"/>
-	<property name="ireport.x" value="99"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.x" value="305"/>
+	<property name="ireport.y" value="108"/>
+	<subDataset name="New Dataset 1" uuid="32b3f755-b958-4ab0-abd9-e68bd1583eab">
+		<queryString language="SQL">
+			<![CDATA[SELECT Anggota.Nis,Nama,Kelas.IdKelas,kelas.TingkatKelas,kelas.IdJurusan,kelas.Kelas, new_bliblio.Judul,transaksi.TanggalPinjam,transaksi.Tenggat,transaksi.Keterangan  FROM anggota JOIN transaksi ON anggota.Nis=transaksi.Nis JOIN kelas ON anggota.IdKelas = kelas.IdKelas JOIN Item ON Item.item_code=transaksi.Barcode JOIN new_bliblio ON new_bliblio.IdBliblio = Item.biblio_id ORDER By transaksi.TanggalPinjam]]>
+		</queryString>
+		<field name="Nis" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Nama" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="IdKelas" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="TingkatKelas" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="IdJurusan" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Kelas" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Judul" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="TanggalPinjam" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Tenggat" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Keterangan" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
 	<parameter name="instansi" class="java.lang.String"/>
 	<parameter name="no" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
 	</parameter>
 	<parameter name="alamat" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM anggota JOIN transaksi ON anggota.Nis=transaksi.Nis JOIN kelas ON anggota.IdKelas = kelas.IdKelas JOIN Item ON Item.item_code=transaksi.Barcode JOIN new_bliblio ON new_bliblio.IdBliblio = Item.biblio_id ORDER By transaksi.TanggalPinjam]]>
+		<![CDATA[SELECT Anggota.Nis,Nama,Kelas.IdKelas,kelas.TingkatKelas,kelas.IdJurusan,kelas.Kelas, new_bliblio.Judul,transaksi.TanggalPinjam,transaksi.Tenggat,transaksi.Keterangan  FROM anggota JOIN transaksi ON anggota.Nis=transaksi.Nis JOIN kelas ON anggota.IdKelas = kelas.IdKelas JOIN Item ON Item.item_code=transaksi.Barcode JOIN new_bliblio ON new_bliblio.IdBliblio = Item.biblio_id ORDER By transaksi.TanggalPinjam]]>
 	</queryString>
 	<field name="Nis" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
