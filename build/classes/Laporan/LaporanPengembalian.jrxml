@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="864" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5caf3137-f378-498a-a9b6-25eba5f039ec">
 	<property name="ireport.zoom" value="1.4641000000000155"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="224"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="instansi" class="java.lang.String"/>
 	<parameter name="no" class="java.lang.Integer">
@@ -46,16 +46,16 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<textField>
-				<reportElement x="256" y="10" width="265" height="29" uuid="3f8e9743-b1ac-4655-a6c1-4514f5d4596e"/>
+				<reportElement x="256" y="23" width="265" height="29" uuid="3f8e9743-b1ac-4655-a6c1-4514f5d4596e"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{instansi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="45" width="210" height="20" uuid="ed9edab2-2d3d-44b9-8e9d-cc302fb27b7c"/>
+				<reportElement x="286" y="58" width="210" height="20" uuid="ed9edab2-2d3d-44b9-8e9d-cc302fb27b7c"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
