@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="576" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1bf50a98-1ddf-4a54-a516-ab6ed5964d60">
 	<property name="ireport.zoom" value="1.210000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="240"/>
 	<parameter name="instansi" class="java.lang.String"/>
 	<parameter name="alamat" class="java.lang.String"/>
 	<parameter name="nis" class="java.lang.String"/>
 	<parameter name="nama" class="java.lang.String"/>
 	<parameter name="kelas" class="java.lang.String"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM reqbebaspustaka JOIN anggota ON anggota.Nis=reqbebaspustaka.Nis JOIN kelas ON kelas.IdKelas = anggota.IdKelas]]>
+	<parameter name="img" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
 	</queryString>
 	<field name="IdReq" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -18,57 +19,6 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Nis" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Nama" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="IdKelas" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="JK" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Email" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Alamat" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NoHp" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TTL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Profiles" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NamaOrangDalam" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="add2" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="add3" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="add4" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="add5" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Expired" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TingkatKelas" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="IdJurusan" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Kelas" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -98,8 +48,8 @@
 				<textFieldExpression><![CDATA[$P{instansi}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="0" y="0" width="146" height="85" uuid="accdb792-c19c-4945-a770-2b1f03cc6bfc"/>
-				<imageExpression><![CDATA["C:\\Users\\Yos Patriot\\OneDrive\\Dokumen\\GitHub\\Perpustakaan-SMK-PGRI-1-Jakarta\\src\\Uploads\\Foto\\Logo\\Default.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="146" height="79" uuid="accdb792-c19c-4945-a770-2b1f03cc6bfc"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
 			</image>
 		</band>
 	</title>

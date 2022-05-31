@@ -648,6 +648,9 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
         toLapPeminjaman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toLapPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLapPeminjamanMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toLapPeminjamanMouseEntered(evt);
             }
@@ -1908,18 +1911,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
+        Statement stb;
+        ResultSet rsa;
         int count = 0;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rs = stat.executeQuery(sql);
-            if (rs.next()){
-                a = rs.getString("profil");
-                b = rs.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanPeminjam.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanPeminjam.jrxml"));
@@ -1934,6 +1943,10 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel21MouseClicked
 
+    private void toLapPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toLapPeminjamanMouseClicked
+
     private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
         toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_toLapPeminjamanMouseEntered
@@ -1946,18 +1959,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
+        Statement stb;
+        ResultSet rsa;
         int count = 0;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rs = stat.executeQuery(sql);
-            if (rs.next()){
-                a = rs.getString("profil");
-                b = rs.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanBukuHilang.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanBukuHilang.jrxml"));
@@ -1988,18 +2007,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rs = stat.executeQuery(sql);
-            if (rs.next()){
-                a = rs.getString("profil");
-                b = rs.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             //File namaFile = new File("src/Laporan/LaporanAnggota.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanAnggota.jrxml"));
@@ -2028,18 +2053,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rs = stat.executeQuery(sql);
-            if (rs.next()){
-                a = rs.getString("profil");
-                b = rs.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
-            HashMap param = new HashMap(2);
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
+            HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanPengembalian.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanPengembalian.jrxml"));
@@ -2066,18 +2097,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rs = stat.executeQuery(sql);
-            if (rs.next()){
-                a = rs.getString("profil");
-                b = rs.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanDenda.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanDenda.jrxml"));

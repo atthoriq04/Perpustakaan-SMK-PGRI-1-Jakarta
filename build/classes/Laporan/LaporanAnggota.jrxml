@@ -2,43 +2,17 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6ad67dc8-3cb0-48e9-be39-050f2f3505f3">
 	<property name="ireport.zoom" value="1.0000000000000016"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="72"/>
-	<subDataset name="New Dataset 1" uuid="0bfaf34b-2a9a-4def-afcb-f036144d307e">
-		<queryString language="SQL">
-			<![CDATA[SELECT * FROM Profile]]>
-		</queryString>
-		<field name="id" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Profil" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Tagline" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Tentang1" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Tentang2" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="Tentang3" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="dataset1" uuid="7aeaaff4-6a82-4820-be90-ff62e358f69f"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="instansi" class="java.lang.String"/>
 	<parameter name="no" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
 	</parameter>
 	<parameter name="alamat" class="java.lang.String"/>
-	<queryString language="SQL">
+	<parameter name="img" class="java.lang.String"/>
+	<queryString>
 		<![CDATA[SELECT DISTINCT anggota.nama,kelas.TingkatKelas,kelas.IdJurusan,kelas.Kelas, jurusan.Jurusan,anggota.Expired FROM anggota JOIN transaksi ON anggota.Nis = transaksi.Nis JOIN kelas ON anggota.IdKelas = kelas.IdKelas JOIN jurusan ON kelas.IdJurusan = jurusan.IdJurusan order BY anggota.nama]]>
 	</queryString>
-	<field name="Nama" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Expired" class="java.sql.Date">
+	<field name="nama" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TingkatKelas" class="java.lang.String">
@@ -53,6 +27,9 @@
 	<field name="Jurusan" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="Expired" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="nomor" class="java.lang.Integer" resetType="None" calculation="Count">
 		<variableExpression><![CDATA[$V{nomor}]]></variableExpression>
 	</variable>
@@ -60,7 +37,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="94" splitType="Stretch">
 			<textField>
 				<reportElement x="153" y="23" width="265" height="23" uuid="f91c2c42-a821-4e58-9cda-d8bda1343e8e"/>
 				<textElement textAlignment="Center">
@@ -69,12 +46,16 @@
 				<textFieldExpression><![CDATA[$P{instansi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="59" width="210" height="20" uuid="3a149300-3478-4d6f-847b-02ca71d6e044"/>
+				<reportElement x="182" y="59" width="208" height="20" uuid="3a149300-3478-4d6f-847b-02ca71d6e044"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{alamat}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="0" width="146" height="79" uuid="e5c8220a-889f-48ba-b50e-7ce710aa81b6"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -167,7 +148,7 @@
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Nama}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="252" y="1" width="20" height="20" uuid="2c17aa8f-af4e-4c39-953c-010c246dff5a"/>

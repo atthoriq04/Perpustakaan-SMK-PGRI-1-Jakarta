@@ -510,7 +510,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 154, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -544,7 +544,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 154, 40);
 
         jPanel2.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -560,6 +560,9 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         toLapPeminjaman.setBackground(new java.awt.Color(229, 231, 238));
         toLapPeminjaman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         toLapPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLapPeminjamanMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 toLapPeminjamanMouseEntered(evt);
             }
@@ -817,7 +820,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 152, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -851,7 +854,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 152, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -885,7 +888,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 152, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -919,7 +922,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 152, 40);
 
         jPanel2.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1185,7 +1188,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 47);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1219,7 +1222,7 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 152, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1746,22 +1749,50 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
        subMenuBlibliografi.setVisible(true);
     }//GEN-LAST:event_subMenuBlibliografiMouseEntered
 
+    private void petugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petugasMouseClicked
+         int i = petugas.getSelectedRow();
+        TableModel model = petugas.getModel();
+        String nik = model.getValueAt(i, 0).toString();
+        getData(nik);
+        System.out.println(score);
+        if(score !=0){
+        Petugas_EditPetugas ob = new Petugas_EditPetugas();
+        ob.Nama.setText(Nm);
+        ob.NIK.setText(Nk);
+        ob.Nik.setText(Nk);
+        ob.Alamat.setText(Almt);
+        ob.NoHp.setText(noHp);
+        ob.Email.setText(mail);
+        if(rl<2){
+            ob.admin.setSelected(true);
+        }else{
+            ob.pus.setSelected(true);
+        }
+        ob.setVisible(true);}
+    }//GEN-LAST:event_petugasMouseClicked
+
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
+        Statement stb;
+        ResultSet rsa;
         int count = 0;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rst = stat.executeQuery(sql);
-            if (rst.next()){
-                a = rst.getString("profil");
-                b = rst.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanPeminjam.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanPeminjam.jrxml"));
@@ -1776,6 +1807,10 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel21MouseClicked
 
+    private void toLapPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toLapPeminjamanMouseClicked
+
     private void toLapPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapPeminjamanMouseEntered
         toLapPeminjaman.setBackground(new java.awt.Color(188,190,208));
     }//GEN-LAST:event_toLapPeminjamanMouseEntered
@@ -1788,18 +1823,24 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
+        Statement stb;
+        ResultSet rsa;
         int count = 0;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rst = stat.executeQuery(sql);
-            if (rst.next()){
-                a = rst.getString("profil");
-                b = rst.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanBukuHilang.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanBukuHilang.jrxml"));
@@ -1830,18 +1871,24 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rst = stat.executeQuery(sql);
-            if (rst.next()){
-                a = rst.getString("profil");
-                b = rst.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             //File namaFile = new File("src/Laporan/LaporanAnggota.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanAnggota.jrxml"));
@@ -1870,18 +1917,24 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rst = stat.executeQuery(sql);
-            if (rst.next()){
-                a = rst.getString("profil");
-                b = rst.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
-            HashMap param = new HashMap(2);
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
+            HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanPengembalian.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanPengembalian.jrxml"));
@@ -1908,18 +1961,24 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String a = null;
         String b = null;
+        String img = null;
         int count = 0;
+        Statement stb;
+        ResultSet rsa;
         try{
-            Statement stat = CC.createStatement();
+            stb = CC.createStatement();
             String sql = "SELECT * FROM profile";
-            rst = stat.executeQuery(sql);
-            if (rst.next()){
-                a = rst.getString("profil");
-                b = rst.getString("alamat");
+            rsa = stb.executeQuery(sql);
+            if (rsa.next()){
+                a = rsa.getString("profil");
+                b = rsa.getString("alamat");
+                img = rsa.getString("logo");
             }
+            String icon = "src/Uploads/Foto/Logo/"+img+"";
             HashMap param = new HashMap();
             param.put("instansi", a);
             param.put("alamat", b);
+            param.put("img", icon);
 
             File namaFile = new File("src/Laporan/LaporanDenda.jasper");
             InputStream file = new FileInputStream(new File("src/Laporan/LaporanDenda.jrxml"));
@@ -1941,28 +2000,6 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
     private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
         toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toLapDendaMouseExited
-
-    private void petugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petugasMouseClicked
-         int i = petugas.getSelectedRow();
-        TableModel model = petugas.getModel();
-        String nik = model.getValueAt(i, 0).toString();
-        getData(nik);
-        System.out.println(score);
-        if(score !=0){
-        Petugas_EditPetugas ob = new Petugas_EditPetugas();
-        ob.Nama.setText(Nm);
-        ob.NIK.setText(Nk);
-        ob.Nik.setText(Nk);
-        ob.Alamat.setText(Almt);
-        ob.NoHp.setText(noHp);
-        ob.Email.setText(mail);
-        if(rl<2){
-            ob.admin.setSelected(true);
-        }else{
-            ob.pus.setSelected(true);
-        }
-        ob.setVisible(true);}
-    }//GEN-LAST:event_petugasMouseClicked
 
     /**
      * @param args the command line arguments
