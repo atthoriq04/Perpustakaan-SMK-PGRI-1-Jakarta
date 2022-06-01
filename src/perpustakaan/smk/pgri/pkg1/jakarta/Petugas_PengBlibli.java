@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -57,6 +58,8 @@ public class Petugas_PengBlibli extends javax.swing.JFrame {
         judulLokasi();
         getrole();
         getAkses();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
         gmdup.setEnabled(false);
         gmddel.setEnabled(false);
         lksup.setEnabled(false);

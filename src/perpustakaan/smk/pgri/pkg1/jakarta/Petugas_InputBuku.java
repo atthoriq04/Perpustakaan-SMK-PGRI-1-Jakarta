@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +70,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
         readPublisher();
         readPlace();
         readAuthor();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
         //value[15].replaceAll("<>", "");
     }
     public String sql;

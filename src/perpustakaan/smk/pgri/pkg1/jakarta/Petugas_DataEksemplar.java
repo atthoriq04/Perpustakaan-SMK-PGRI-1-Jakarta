@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -61,7 +62,8 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         setValueLabel();
         getrole();
         getakses();
-        
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
       
     }
     private void userLogin(){

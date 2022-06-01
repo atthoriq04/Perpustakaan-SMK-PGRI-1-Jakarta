@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -50,6 +51,8 @@ public class Petugas_DataUsulan extends javax.swing.JFrame {
         judul();
         Datas();
         userLogin();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());

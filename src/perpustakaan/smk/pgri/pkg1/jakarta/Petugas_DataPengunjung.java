@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -53,6 +54,8 @@ public class Petugas_DataPengunjung extends javax.swing.JFrame {
         judul();
         Datas();
         userLogin();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());

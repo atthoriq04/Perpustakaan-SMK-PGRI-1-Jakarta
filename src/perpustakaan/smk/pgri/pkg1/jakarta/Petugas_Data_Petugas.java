@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -55,6 +56,8 @@ public class Petugas_Data_Petugas extends javax.swing.JFrame {
         getrole();
         getakses();
         sort.setVisible(false);
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
     String role;
     public void getrole(){

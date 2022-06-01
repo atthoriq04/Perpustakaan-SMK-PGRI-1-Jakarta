@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,6 +53,8 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         koleksi();
         readLokasi();
         call_number.setEnabled(false);
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());

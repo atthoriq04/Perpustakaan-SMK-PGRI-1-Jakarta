@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -49,6 +50,8 @@ public class Petugas_DataPenulis extends javax.swing.JFrame {
         userLogin();
         judul();
         Datas();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
 
     private void userLogin(){

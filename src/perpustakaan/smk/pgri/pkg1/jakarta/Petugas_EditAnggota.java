@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -56,6 +57,8 @@ public class Petugas_EditAnggota extends javax.swing.JFrame {
         getAdd();
         telepon.setEditable(false);
         email.setEditable(false);
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
    public String sql;
    

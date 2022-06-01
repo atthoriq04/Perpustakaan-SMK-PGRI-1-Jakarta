@@ -22,6 +22,7 @@ import javax.swing.table.TableModel;
 import java.text.*;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -57,6 +58,8 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         judul();
         Datas();
         setting();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
 
      private void userLogin(){

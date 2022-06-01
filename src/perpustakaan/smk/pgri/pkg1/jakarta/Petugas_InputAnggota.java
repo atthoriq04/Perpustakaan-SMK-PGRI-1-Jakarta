@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -68,7 +69,8 @@ public class Petugas_InputAnggota extends javax.swing.JFrame {
         initial();
         falseIn();
         getAdd();
-        
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
     public void SOP(String text){
         System.out.println(text);

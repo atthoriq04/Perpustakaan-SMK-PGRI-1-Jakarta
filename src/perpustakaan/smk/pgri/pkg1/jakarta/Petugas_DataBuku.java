@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -66,6 +67,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
         userLogin();
         showtable();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
     private void userLogin(){
         toUser.setText(UserSession.getUserLogin());

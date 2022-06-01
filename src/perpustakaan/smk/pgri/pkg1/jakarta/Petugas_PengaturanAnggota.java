@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -61,6 +62,8 @@ public class Petugas_PengaturanAnggota extends javax.swing.JFrame {
         userLogin();
         getrole();
         getAkses();
+         Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
         ToPAnggota.setBackground(new java.awt.Color(188, 190, 208));
     }
      String role;

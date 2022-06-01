@@ -21,6 +21,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -70,6 +71,8 @@ public class Petugas_Dashboard extends javax.swing.JFrame {
         initial();
         showBarChart();
         getall();
+        Locale local = new Locale("id", "ID");
+        Locale.setDefault(local);
     }
     private void getall(){
          try {
