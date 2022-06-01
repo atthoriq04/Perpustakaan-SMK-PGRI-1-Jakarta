@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -56,7 +57,6 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
         Datas();
         sort.setVisible(false);
     }
-
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }

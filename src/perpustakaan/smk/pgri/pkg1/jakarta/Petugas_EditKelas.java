@@ -6,6 +6,7 @@ package perpustakaan.smk.pgri.pkg1.jakarta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +27,8 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     public Petugas_EditKelas() {
         initComponents();
         readCB();
+        getrole();
+        getAkses();
         Kelas.setEditable(false);
     }
     public String jrsn;
@@ -52,6 +55,36 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
        
        }
    }
+     String role;
+    public void getrole(){
+        try {
+            stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * FROM User WHERE Nis = '"+ UserSession.GetUserId() +"' ");
+            if(rs.next()){
+                if(rs.getInt("role") > 1){
+                    role = "Petugas";
+                }else{
+                    role = "Admin";
+                }
+            }
+            //jLabel3
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void getAkses(){
+        try{
+            Statement stat = CC.createStatement();
+            String sql = "Select * FROM Akses WHERE NamaAkses = 'Kelas'";
+           ResultSet rs = stat.executeQuery(sql);
+           if(rs.next()){
+                if(rs.getInt(role) < 1){
+                    hps.setVisible(false);
+           }
+        }}
+        catch (Exception e){
+    }}
+    
     public void getPreviousData(){
          try{
            Petugas_DataKelas obj = new Petugas_DataKelas();
@@ -133,7 +166,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        hps = new javax.swing.JButton();
         Kelas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Tingkat = new javax.swing.JLabel();
@@ -173,12 +206,12 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Jurusan");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(35, 126, 48, 17);
+        jLabel2.setBounds(35, 126, 49, 17);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tingkat");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(35, 59, 45, 17);
+        jLabel3.setBounds(35, 59, 46, 17);
 
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -187,16 +220,16 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(220, 266, 90, 22);
+        jButton1.setBounds(220, 266, 90, 23);
 
-        jButton2.setText("Hapus");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        hps.setText("Hapus");
+        hps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                hpsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(20, 260, 80, 22);
+        jPanel1.add(hps);
+        hps.setBounds(20, 260, 80, 23);
 
         Kelas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(Kelas);
@@ -205,7 +238,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Kelas");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(35, 193, 30, 17);
+        jLabel4.setBounds(35, 193, 32, 17);
 
         Tingkat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Tingkat.setText("XII");
@@ -220,7 +253,7 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         klaz.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         klaz.setText("XIIIAKL3");
         jPanel1.add(klaz);
-        klaz.setBounds(35, 222, 51, 17);
+        klaz.setBounds(35, 222, 55, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,11 +294,11 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void hpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hpsActionPerformed
         getPreviousData();
         delete();
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_hpsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,8 +338,8 @@ public class Petugas_EditKelas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JTextField Kelas;
     public javax.swing.JLabel Tingkat;
+    public javax.swing.JButton hps;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

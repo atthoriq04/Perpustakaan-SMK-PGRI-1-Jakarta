@@ -59,6 +59,8 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         userLogin();
         showtable();
         setValueLabel();
+        getrole();
+        getakses();
         
       
     }
@@ -90,6 +92,39 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
 //    
 //    }
  }
+ 
+    String role;
+    public void getrole(){
+        try {
+            stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT * FROM User WHERE Nis = '"+ UserSession.GetUserId() +"' ");
+            if(rs.next()){
+                if(rs.getInt("role") > 1){
+                    role = "Petugas";
+                }else{
+                    role = "Admin";
+                }
+            }
+            //jLabel3
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    } int score;
+    public void getakses(){
+        try {
+            System.out.println(role);
+            stt = CC.createStatement();
+            rs = stt.executeQuery("SELECT "+ role +" FROM akses WHERE NamaAkses = 'Edit Buku' ");
+            if(rs.next()){
+                score = rs.getInt(role);
+                if(score == 0){
+                jLabel3.setVisible(false);}
+            }
+            //jLabel3
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
  public String value,call;
     public void showtable(){
         DefaultTableModel model = new DefaultTableModel() ;
