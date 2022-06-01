@@ -49,7 +49,6 @@ public class LandingPage extends javax.swing.JFrame {
         initComponents();
         initial();
         getProfile();
-        
     }
     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
     public int from = 0;
