@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2022 at 12:38 PM
+-- Generation Time: Jun 01, 2022 at 12:37 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -38,7 +38,7 @@ CREATE TABLE `adjust` (
 --
 
 INSERT INTO `adjust` (`idAdjust`, `tName`, `Status`) VALUES
-(1, 'add1', 1),
+(1, 'Nama Orang', 1),
 (2, 'add2', 0),
 (3, 'add3', 0),
 (4, 'add4', 0),
@@ -69,7 +69,8 @@ INSERT INTO `akses` (`idAkses`, `NamaAkses`, `Admin`, `Petugas`) VALUES
 (5, 'Pengaturan Transaksi', 1, 0),
 (6, 'Pengaturan Bliblio', 1, 0),
 (7, 'Naik Kelas', 1, 0),
-(8, 'Jurusan', 1, 0);
+(8, 'Jurusan', 1, 0),
+(9, 'Edit Buku', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,7 @@ CREATE TABLE `anggota` (
   `NoHp` varchar(15) NOT NULL,
   `TTL` varchar(255) NOT NULL,
   `Profiles` varchar(255) NOT NULL,
-  `add1` varchar(50) DEFAULT NULL,
+  `NamaOrang` varchar(50) DEFAULT NULL,
   `add2` varchar(50) DEFAULT NULL,
   `add3` varchar(50) DEFAULT NULL,
   `add4` varchar(50) DEFAULT NULL,
@@ -99,7 +100,7 @@ CREATE TABLE `anggota` (
 -- Dumping data for table `anggota`
 --
 
-INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `add1`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
+INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `NamaOrang`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
 (11111, 'Muhammad Atthoriq Aziz', 19, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'Default.png', NULL, 'a', 'a', 'a', 'a', '2023-05-27'),
 (11112, 'Yos Patriot', 19, 'L', 'Alamat@email.Siswa', 'CIracas', '000088889999', 'Ciracas,01 Januari 1999', 'Default.png', NULL, '', '', '', '', '2023-05-27'),
 (13218, 'ADHITYA RIZKY ARDIANSYAH', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, NULL, NULL, NULL, NULL, '2023-05-29'),
@@ -5147,7 +5148,7 @@ INSERT INTO `item` (`item_id`, `biblio_id`, `call_number`, `coll_type_id`, `item
 (32, 32, '650 DEV', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2022-05-30 02:43:08', '2022-05-30 02:43:08', NULL),
 (33, 1, '813 NAD b', 2, 'SMKPGRI1-00323', 'AW', '2022-05-02', NULL, NULL, 1, '2022-05-10', NULL, NULL, 2, NULL, 0, NULL, '2022-05-04', '2022-05-30 02:46:31', '2022-05-30 02:46:31', NULL),
 (34, 2, '741.5592 TAK k', 2, '150121020', 'INV-150121020', '2022-05-31', NULL, NULL, 4, '2022-05-16', NULL, NULL, 2, NULL, 0, NULL, '2022-05-16', '2022-05-31 13:15:15', '2022-05-31 13:15:15', NULL),
-(35, 2, '741.5592 TAK k', 2, 'EMK150090111', 'INV-EMK150090111', '2022-05-31', NULL, NULL, 1, '2022-05-24', NULL, NULL, 2, NULL, 0, NULL, '2022-05-30', '2022-05-31 13:16:10', '2022-05-31 13:16:10', NULL);
+(35, 2, '741.5592 TAK k', 2, 'EMK150090111', 'INV-EMK150090111', '2022-05-31', NULL, NULL, 3, '2022-05-24', NULL, NULL, 2, NULL, 0, NULL, '2022-05-30', '2022-05-31 13:16:10', '2022-05-31 13:16:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -5768,7 +5769,8 @@ INSERT INTO `pengunjung` (`IdPengunjung`, `Nama`, `Email`, `Instansi`, `TanggalK
 (29, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-28 18:15:01'),
 (30, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-29 00:10:40'),
 (31, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-30 12:15:26'),
-(32, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-31 12:08:30');
+(32, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-05-31 12:08:30'),
+(33, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-01 16:21:51');
 
 -- --------------------------------------------------------
 
@@ -5876,7 +5878,8 @@ INSERT INTO `transaksi` (`IdTransaksi`, `Barcode`, `Nis`, `TanggalPinjam`, `Teng
 (15, 'SMKPGRI-65438', 11112, '2022-05-27', '2022-05-27', NULL, '1', 'Dipinjam'),
 (16, 'SMKPGRI-654321', 11112, '2022-05-27', '2022-05-27', NULL, '1', 'Dipinjam'),
 (17, 'SMKPGRI-27820', 11111, '2022-05-27', '2022-05-28', '2022-05-27', '4', 'Buku Hilang'),
-(18, '150121020', 11111, '2022-05-31', '2022-05-31', '2022-05-31', '4', 'Buku Hilang');
+(18, '150121020', 11111, '2022-05-31', '2022-05-31', '2022-05-31', '4', 'Buku Hilang'),
+(19, 'EMK150090111', 11111, '2022-06-01', '2022-06-01', NULL, '1', 'Dipinjam');
 
 -- --------------------------------------------------------
 
@@ -5896,7 +5899,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Nis`, `Username`, `Password`, `Role`) VALUES
-(11111, 'Atthoriq', '12345', 3),
+(11111, 'Atthoriq', '11111', 3),
 (11112, '11112', '11112', 3),
 (13218, '13218', '13218', 3),
 (13219, '13219', '13219', 3),
@@ -6172,7 +6175,7 @@ ALTER TABLE `adjust`
 -- AUTO_INCREMENT for table `akses`
 --
 ALTER TABLE `akses`
-  MODIFY `idAkses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idAkses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `biblio`
@@ -6274,7 +6277,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
-  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -6292,7 +6295,7 @@ ALTER TABLE `reqbebaspustaka`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
