@@ -4,6 +4,7 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -211,7 +212,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
 "                     Item.source="+select+",\n" +
 "                     Item.price="+harga+",\n" +
 "                     item.invoice='"+factur+"',\n"+
-"                     item.last_upadte='"+Date+"' WHERE Item.item_id="+id+"";
+"                     item.last_update='"+Date+"' WHERE Item.item_id="+id+"";
              stt.executeUpdate(sql);
              JOptionPane.showMessageDialog(null, "Data Eksemplar Berhasil Di Update !!");
               stt.close();
@@ -567,7 +568,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 47);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -601,7 +602,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 152, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1092,7 +1093,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 154, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1126,7 +1127,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 154, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel1.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -1205,7 +1206,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 152, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1239,7 +1240,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 152, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1273,7 +1274,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 152, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1307,7 +1308,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 152, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel1.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1352,7 +1353,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit);
-        submit.setBounds(1180, 660, 80, 25);
+        submit.setBounds(1180, 660, 80, 23);
         jPanel1.add(jSeparator8);
         jSeparator8.setBounds(80, 160, 1200, 10);
 
@@ -1405,19 +1406,24 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
                 fakturActionPerformed(evt);
             }
         });
+        faktur.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fakturKeyPressed(evt);
+            }
+        });
         jPanel1.add(faktur);
         faktur.setBounds(310, 530, 630, 23);
 
         jPanel1.add(koleksi);
-        koleksi.setBounds(310, 290, 170, 24);
+        koleksi.setBounds(310, 290, 170, 22);
 
         tgl_penerima.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_penerima);
-        tgl_penerima.setBounds(310, 370, 630, 22);
+        tgl_penerima.setBounds(310, 370, 630, 20);
 
         tgl_pesan.setDateFormatString("yyyy-MM-dd");
         jPanel1.add(tgl_pesan);
-        tgl_pesan.setBounds(310, 450, 630, 22);
+        tgl_pesan.setBounds(310, 450, 630, 20);
 
         hadiah.setText("Hadiah / Hibah");
         hadiah.addActionListener(new java.awt.event.ActionListener() {
@@ -1426,7 +1432,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(hadiah);
-        hadiah.setBounds(310, 490, 110, 25);
+        hadiah.setBounds(310, 490, 110, 23);
 
         beli.setText("Beli");
         beli.addActionListener(new java.awt.event.ActionListener() {
@@ -1435,7 +1441,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(beli);
-        beli.setBounds(450, 490, 50, 25);
+        beli.setBounds(450, 490, 50, 23);
 
         price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1443,7 +1449,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(price);
-        price.setBounds(540, 490, 90, 22);
+        price.setBounds(540, 490, 90, 20);
 
         jLabel3.setText("Rp");
         jPanel1.add(jLabel3);
@@ -1460,7 +1466,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbLokasi);
-        cbLokasi.setBounds(500, 410, 110, 22);
+        cbLokasi.setBounds(500, 410, 110, 20);
 
         submit1.setText("Hapus");
         submit1.addActionListener(new java.awt.event.ActionListener() {
@@ -1469,7 +1475,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit1);
-        submit1.setBounds(1090, 660, 70, 25);
+        submit1.setBounds(1090, 660, 70, 23);
 
         submit2.setText("Kembali");
         submit2.addActionListener(new java.awt.event.ActionListener() {
@@ -1478,7 +1484,7 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(submit2);
-        submit2.setBounds(100, 660, 110, 25);
+        submit2.setBounds(100, 660, 110, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2139,6 +2145,18 @@ public class Petugas_EditEksemplar extends javax.swing.JFrame {
     private void toLapDendaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLapDendaMouseExited
         toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toLapDendaMouseExited
+
+    private void fakturKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fakturKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            setIndexLocation();
+        updateData();
+        Petugas_DataEksemplar a = new Petugas_DataEksemplar();
+        a.setValueLabel();
+        a.setVisible(true);
+        this.dispose();
+        
+        }
+    }//GEN-LAST:event_fakturKeyPressed
 
     /**
      * @param args the command line arguments

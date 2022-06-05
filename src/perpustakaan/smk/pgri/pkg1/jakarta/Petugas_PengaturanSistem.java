@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -470,7 +471,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 154, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -504,7 +505,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 154, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel3.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -780,7 +781,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 152, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -814,7 +815,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 152, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -848,7 +849,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 152, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -882,7 +883,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 152, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel3.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1155,7 +1156,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 47);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1189,7 +1190,7 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 152, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1283,6 +1284,11 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
         PanelPPetugas.add(Tentang3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 480, -1));
 
         Tentang4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Tentang4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Tentang4KeyPressed(evt);
+            }
+        });
         PanelPPetugas.add(Tentang4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, 480, -1));
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -2210,6 +2216,17 @@ public class Petugas_PengaturanSistem extends javax.swing.JFrame {
     private void noaksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noaksMouseExited
         noaks.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_noaksMouseExited
+
+    private void Tentang4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Tentang4KeyPressed
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             if(Profil.getText().isEmpty() || Tagline.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Harap Isi Data yang Kosong");
+           }else{
+           edit();
+           get();
+           }
+         }
+    }//GEN-LAST:event_Tentang4KeyPressed
 
     /**
      * @param args the command line arguments

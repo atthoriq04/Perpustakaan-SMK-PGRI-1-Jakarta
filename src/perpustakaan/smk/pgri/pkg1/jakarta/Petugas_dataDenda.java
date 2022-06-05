@@ -63,7 +63,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
-      public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
+      public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
      public void judul() {
         Object[] judul = {
             "Id denda", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"
@@ -1644,7 +1644,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     private void tuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseClicked
         sort.setVisible(false);
         Active.setText(tuntas.getText());
-        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='3' ORDER BY transaksi.IdTransaksi";
+        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE denda.Status='3' ORDER BY transaksi.IdTransaksi";
         Datas();
     }//GEN-LAST:event_tuntasMouseClicked
 
@@ -1659,7 +1659,7 @@ public class Petugas_dataDenda extends javax.swing.JFrame {
     private void tunggukonfirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tunggukonfirMouseClicked
         sort.setVisible(false);
         Active.setText(tunggukonfir.getText());
-        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
+        sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE denda.Status='1' ORDER BY transaksi.IdTransaksi";
         Datas();
     }//GEN-LAST:event_tunggukonfirMouseClicked
 

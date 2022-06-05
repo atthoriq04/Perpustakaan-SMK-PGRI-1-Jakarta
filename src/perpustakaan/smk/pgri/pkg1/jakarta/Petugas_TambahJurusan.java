@@ -91,6 +91,11 @@ public class Petugas_TambahJurusan extends javax.swing.JFrame {
 
         Jrsn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Jrsn.setToolTipText("");
+        Jrsn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JrsnKeyPressed(evt);
+            }
+        });
 
         jButton3.setText("Tutup");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +174,14 @@ public class Petugas_TambahJurusan extends javax.swing.JFrame {
     private void iIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_iIdActionPerformed
+
+    private void JrsnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JrsnKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             Insert();
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_JrsnKeyPressed
 
     /**
      * @param args the command line arguments

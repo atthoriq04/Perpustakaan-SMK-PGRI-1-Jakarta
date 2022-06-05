@@ -4,6 +4,7 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
     public Siswa_KonfirmasiPeminjaman() {
         initComponents();
     }
-    String cnn;
+    String cnn,id;
     int nis = UserSession.GetUserId();
     String bcd;
      public int waktu = 0;
@@ -54,8 +55,9 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
             ResultSet rs = stat.executeQuery(sql);
             if (rs.next())
             {
-                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                stat.executeUpdate("INSERT INTO transaksi(Barcode,id_bliblio,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
                    + bcd+"','"
+                   + id+"','"
                    +nis+ "','"
                    +dtf.format(now)+ "','"
                    +dtf.format(next)+ "','1','Dipinjam')");
@@ -92,9 +94,14 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("No Eksemplar");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 50, 109, 31);
+        jLabel1.setBounds(20, 50, 108, 31);
 
         bar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        bar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                barKeyPressed(evt);
+            }
+        });
         jPanel1.add(bar);
         bar.setBounds(150, 50, 370, 30);
 
@@ -144,6 +151,14 @@ public class Siswa_KonfirmasiPeminjaman extends javax.swing.JFrame {
         pinjam();
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void barKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            bcd = bar.getText();
+            pinjam();
+            this.dispose();
+        }
+    }//GEN-LAST:event_barKeyPressed
 
     /**
      * @param args the command line arguments

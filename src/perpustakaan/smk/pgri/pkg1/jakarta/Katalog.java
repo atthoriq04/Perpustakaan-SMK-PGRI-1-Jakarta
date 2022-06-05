@@ -58,7 +58,8 @@ public class Katalog extends javax.swing.JFrame {
     }
     
     int from = 0;
-    public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
+    public String formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
+    public String id;
     public String judul;
     public String auth;
     public String Jdl;
@@ -212,6 +213,7 @@ public class Katalog extends javax.swing.JFrame {
                         bhs = rsa.getString("mst_language.language_name");
                         thtbt =  rsa.getString("new_bliblio.PublisherYear");
                         g = rsa.getString("new_bliblio.image");
+                        id = rsa.getString("IdBliblio");
                         ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
                         if(rsb.next()){
                             Eks = rsb.getString("COUNT(*)");
@@ -1296,6 +1298,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
 //        InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
 //                  ImageIcon icon;
         try {
@@ -1582,6 +1585,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
                  // ImageIcon icon;
         try {
@@ -1614,6 +1618,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
                  // ImageIcon icon;
         try {
@@ -1646,6 +1651,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1678,6 +1684,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1710,6 +1717,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1742,6 +1750,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1774,6 +1783,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1806,6 +1816,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1838,6 +1849,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1870,6 +1882,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1903,6 +1916,7 @@ public class Katalog extends javax.swing.JFrame {
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
         obj.setVisible(true);
+        obj.id = id;
         //InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
           //        ImageIcon icon;
         try {
@@ -1951,9 +1965,9 @@ public class Katalog extends javax.swing.JFrame {
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         if(kategori.isSelected()){     
-            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN ddc_db ON new_bliblio.klasifikasi = ddc_db.clas WHERE About LIKE '%" + jTextField1.getText() + "%'"; 
+            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN ddc_db ON new_bliblio.klasifikasi = ddc_db.clas WHERE About LIKE '%" + jTextField1.getText() + "%'"; 
         }else{
-            formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'"; 
+            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'"; 
        }initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased

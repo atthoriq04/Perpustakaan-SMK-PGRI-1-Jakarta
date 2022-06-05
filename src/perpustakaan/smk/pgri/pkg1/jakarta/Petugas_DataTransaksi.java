@@ -62,7 +62,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
      private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
-     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 1";
+     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE transaksi.status = 1";
      public void judul() {
         Object[] judul = {
             "No", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Tanggal Pinjam" , "Tenggat Pengembalian"
@@ -1640,7 +1640,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private void tuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tuntasMouseClicked
         sort.setVisible(false);
         Active.setText(tuntas.getText());
-        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 4";
+        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE transaksi.status = 4";
         Datas();
     }//GEN-LAST:event_tuntasMouseClicked
 
@@ -1655,7 +1655,7 @@ public class Petugas_DataTransaksi extends javax.swing.JFrame {
     private void btuntasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btuntasMouseClicked
         sort.setVisible(false);
         Active.setText(btuntas.getText());
-        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 1";
+        sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE transaksi.status = 1";
         Datas();
     }//GEN-LAST:event_btuntasMouseClicked
 

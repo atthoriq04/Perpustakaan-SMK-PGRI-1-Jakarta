@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -1249,6 +1250,11 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
                 maxActionPerformed(evt);
             }
         });
+        max.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                maxKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Denda Menghilangkan buku Rp.");
@@ -2184,6 +2190,18 @@ public class Petugas_PengaturanTransaksi extends javax.swing.JFrame {
     private void noaksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noaksMouseExited
         noaks.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_noaksMouseExited
+
+    private void maxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maxKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(durasi.getText().isEmpty()){
+            }else if(denda.getText().isEmpty()){
+            }else if(durasi.getText().isEmpty() && denda.getText().isEmpty() ){
+            }else{
+             update();
+            }
+        }
+
+    }//GEN-LAST:event_maxKeyPressed
 
     /**
      * @param args the command line arguments

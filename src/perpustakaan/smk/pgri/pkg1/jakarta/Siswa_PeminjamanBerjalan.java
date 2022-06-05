@@ -75,7 +75,7 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
           e.printStackTrace();
         }
      }
-    public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE (transaksi.Nis = '"+ UserId +"') AND (transaksi.status = 1 OR transaksi.Status = 2 )ORDER BY Tenggat";
+    public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE (transaksi.Nis = '"+ UserId +"') AND (transaksi.status = 1 OR transaksi.Status = 2 )ORDER BY Tenggat";
      public void judul() {
         Object[] judul = {
             "Id Transaksi", "NIS", "Kelas", "Barcode", "Judul Buku", "Tanggal Pinjam" , "Tenggat Pengembalian", "Status"
@@ -636,7 +636,9 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if(x<=0){
                 String m = JOptionPane.showInputDialog("Barcode Buku");
-                if(m.equals(jdl)){
+                System.out.println(m);
+                System.out.println(jdl);
+                if(m.trim().equalsIgnoreCase(jdl.trim())){
                     try{
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
                         LocalDateTime now = LocalDateTime.now(); 

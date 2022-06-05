@@ -73,8 +73,8 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
      public String nm;
      public String kls;
      public String jdl;
-      String nis;
-     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE transaksi.status = 2 OR transaksi.status = 3";
+      String nis,id;
+     public String sqlz = "SELECT * FROM transaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE transaksi.status = 2 OR transaksi.status = 3";
      public void setting(){
          try{
             Statement stat = CC.createStatement();
@@ -165,6 +165,20 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public String get(String a){
+        String i = null;
+        try {
+            stt = CC.createStatement();
+            rst = stt.executeQuery("SELECT* FROM transaksi WHERE IdTransaksi = '"+ a +"'");
+            
+            if(rst.next()){
+                i =  rst.getString("id_bliblio");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return i;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1277,6 +1291,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
             nm = model.getValueAt(i,2).toString();
             kls = model.getValueAt(i,3).toString();
             jdl = model.getValueAt(i,5).toString();
+            id = get(idt);
             if(kt.equals("Buku Hilang")){
                 Petugas_TambahDenda obj = new Petugas_TambahDenda();
                 obj.NIS.setText(nis);
@@ -1285,6 +1300,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
                 obj.Jdbk.setText(jdl);
                 obj.brcd.setText(bcd);
                 obj.id.setText(idt);
+                obj.idl = id;
                 obj.setVisible(true);
                 obj.pack();
                 obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

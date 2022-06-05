@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -1230,7 +1231,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
         jPanel3.add(Update);
-        Update.setBounds(1170, 690, 67, 23);
+        Update.setBounds(1170, 660, 67, 23);
 
         PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
         PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));
@@ -1262,6 +1263,11 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
         NoHP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoHP1ActionPerformed(evt);
+            }
+        });
+        NoHP1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NoHP1KeyPressed(evt);
             }
         });
 
@@ -2252,6 +2258,32 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
     private void noaksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noaksMouseExited
         noaks.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_noaksMouseExited
+
+    private void NoHP1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoHP1KeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           try{
+            
+            String User = Username.getText();
+            String eml = Email.getText();
+            String nohp = NoHP1.getText();
+            String Pass = Password1.getText();
+            String Sql = "UPDATE Petugas JOIN User ON Petugas.Nik = User.Nis SET Petugas.NoHP='"+ nohp +"',Petugas.Email ='"+eml+"',User.Username = '"+User+"',User.Password = '" + Pass + "' WHERE Petugas.Nik = '"+ Nik +"'" ;
+                pst = CC.prepareStatement(Sql);
+                pst.execute();
+                pst.close();
+              JOptionPane.showMessageDialog(null, "Update Berhasil");
+              Username.setText(User);
+              Email.setText(eml);
+              NoHP1.setText(nohp);
+              Password1.setText(Pass);
+//            update.setEnabled(false);
+//            hapus.setEnabled(false);
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+       }
+    }//GEN-LAST:event_NoHP1KeyPressed
 
     /**
      * @param args the command line arguments

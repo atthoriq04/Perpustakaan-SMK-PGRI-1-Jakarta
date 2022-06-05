@@ -44,7 +44,7 @@ public class Siswa_Denda extends javax.swing.JFrame {
         getProfile();
     }
     int UserId = UserSession.GetUserId();
-    public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE (transaksi.Nis = '"+ UserId +"') AND (denda.Status = '1' OR denda.Status='2' )ORDER BY transaksi.IdTransaksi";
+    public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON (transaksi.id_bliblio = new_bliblio.IdBliblio AND item.call_number = new_bliblio.call_number) WHERE (transaksi.Nis = '"+ UserId +"') AND (denda.Status = '1' OR denda.Status='2' )ORDER BY transaksi.IdTransaksi";
      public void judul() {
         Object[] judul = {
             "Id denda", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"

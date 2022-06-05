@@ -1,5 +1,5 @@
-#Thu Jun 02 01:11:54 ICT 2022
+#Sun Jun 05 19:03:03 ICT 2022
 Username\ \:=root
-Password\ \:=
 Database\ \:=perpustakaanpgri
+Password\ \:=root
 IP\ Server\ \ \:=localhost

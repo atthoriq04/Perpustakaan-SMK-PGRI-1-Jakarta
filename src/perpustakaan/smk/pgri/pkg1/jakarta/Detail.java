@@ -39,6 +39,7 @@ public class Detail extends javax.swing.JFrame {
     }
     int UserId = UserSession.GetUserId();
     String UserLogin = UserSession.getUserLogin();
+    public String id;
     public void ref(){
         try {
             
@@ -700,6 +701,7 @@ public class Detail extends javax.swing.JFrame {
         if( UserId == 0){
             Siswa_KonfirmasiPeminjamanLogin obj = new Siswa_KonfirmasiPeminjamanLogin();
             obj.cnn = dCN.getText();
+            obj.id = id;
             obj.setVisible(true);
             obj.pack();
             obj.setLocationRelativeTo(null);
@@ -714,6 +716,7 @@ public class Detail extends javax.swing.JFrame {
                    if(rs.getInt("COUNT(nis)") < jumlah){
                         Siswa_KonfirmasiPeminjaman obj = new Siswa_KonfirmasiPeminjaman();
                         obj.cnn = dCN.getText();
+                        obj.id = id;
                         obj.setVisible(true);
                         obj.pack();
                         obj.setLocationRelativeTo(null);
@@ -728,6 +731,7 @@ public class Detail extends javax.swing.JFrame {
                Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
            }
         }
+        System.out.println(id);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -153,7 +153,7 @@ public class Siswa_Home extends javax.swing.JFrame {
     public String thtbt;
     public String gmd;
     public String bhs;
-    public String g;
+    public String g,id;
     public void getData(String cnu){
         try{
 
@@ -170,6 +170,8 @@ public class Siswa_Home extends javax.swing.JFrame {
                         bhs = rsa.getString("mst_language.language_name");
                         thtbt =  rsa.getString("new_bliblio.PublisherYear");
                         g = rsa.getString("new_bliblio.image");
+                        
+                        id = rsa.getString("IdBliblio");
                         ResultSet rsb = stat.executeQuery("SELECT COUNT(*) FROM item WHERE call_number = '"+ Cnn +"'AND NOT location_id = '3' AND NOT location_id = '4'");
                         if(rsb.next()){
                             Eks = rsb.getString("COUNT(*)");
@@ -193,6 +195,7 @@ public class Siswa_Home extends javax.swing.JFrame {
         obj.dPenulis.setText(pnls);
         obj.Bhs.setText(bhs);
         obj.dGMD.setText(gmd);
+        obj.id = id;
         InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+g+"");
                   ImageIcon icon;
         try {

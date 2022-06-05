@@ -1493,6 +1493,8 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Tidak Ada Eksemplar Tersedia" );
                 }else{
                     Dialog_Konfirmasi obj = new Dialog_Konfirmasi();
+                    obj.judul = jdl;
+                    obj.cnn = cn;
                     obj.setVisible(true);
                 }
                 

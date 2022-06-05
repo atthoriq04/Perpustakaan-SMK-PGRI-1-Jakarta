@@ -4,6 +4,7 @@
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,6 +93,14 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
         pwbaru.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         pwbaru2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pwbaru2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwbaru2KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pwbaru2KeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Ubah");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +188,17 @@ public class Siswa_UbahPassword extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void pwbaru2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwbaru2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwbaru2KeyReleased
+
+    private void pwbaru2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwbaru2KeyPressed
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             changepw();
+            this.dispose();
+         }        // TODO add your handling code here:
+    }//GEN-LAST:event_pwbaru2KeyPressed
 
     /**
      * @param args the command line arguments

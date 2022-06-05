@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -158,6 +159,11 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
 
         ttBuku.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         ttBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        ttBuku.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ttBukuKeyPressed(evt);
+            }
+        });
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel30.setText("Form Usulan Buku");
@@ -272,6 +278,17 @@ public class Siswa_Usulan_Buku extends javax.swing.JFrame {
         penBuku.setText(null);
         ttBuku.setText(null);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ttBukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ttBukuKeyPressed
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+         insert();
+            jBuku.setText(null);
+            pBuku.setText(null);
+            penBuku.setText(null);
+            ttBuku.setText(null);
+            this.dispose();
+         }        // TODO add your handling code here:
+    }//GEN-LAST:event_ttBukuKeyPressed
 
     /**
      * @param args the command line arguments

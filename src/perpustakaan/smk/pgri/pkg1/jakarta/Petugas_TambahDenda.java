@@ -40,6 +40,7 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
     String barang = "-";
     String Jenis;
     int jumlah;
+    String idl;
     public void rule(){
         try {
             
@@ -289,7 +290,7 @@ public class Petugas_TambahDenda extends javax.swing.JFrame {
             String sql = "SELECT IdDenda FROM denda WHERE IdTransaksi = '"+ id.getText() +"'";
             rst = stt.executeQuery(sql);
             if(rst.next()){
-                stt.executeUpdate("INSERT INTO bukuTidakTersedia(Barcode,IdDenda,Tanggal) VALUES('"+ brcd.getText() +"','"+ rst.getInt("IdDenda") +"','"+ sdformat.format(now) +"')");
+                stt.executeUpdate("INSERT INTO bukuTidakTersedia(Barcode,id_bliblio,IdDenda,Tanggal) VALUES('"+ brcd.getText() +"', '"+ idl +"' ,'"+ rst.getInt("IdDenda") +"','"+ sdformat.format(now) +"')");
                 JOptionPane.showMessageDialog(null, "Denda Berhasil Ditambahkan");
             }
             

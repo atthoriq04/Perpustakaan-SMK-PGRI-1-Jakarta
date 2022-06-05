@@ -78,6 +78,11 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
         Jrsn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Jrsn.setText("Multimedia");
         Jrsn.setToolTipText("");
+        Jrsn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JrsnKeyPressed(evt);
+            }
+        });
 
         jButton2.setText("Hapus jurusan");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +238,14 @@ public class Petugas_EditJurusan extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void JrsnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JrsnKeyPressed
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             editJurusan();
+            editKelas();
+            this.dispose();
+         }
+    }//GEN-LAST:event_JrsnKeyPressed
 
     /**
      * @param args the command line arguments

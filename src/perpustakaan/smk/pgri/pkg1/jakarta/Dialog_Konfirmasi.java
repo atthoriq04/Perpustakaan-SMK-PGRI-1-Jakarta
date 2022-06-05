@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.smk.pgri.pkg1.jakarta;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +32,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         initComponents();
     }
     public int waktu = 0;
+    public String judul,cnn;
     public void lamaPinjam(){
         try{
             Statement stat = CC.createStatement();
@@ -54,6 +56,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    String id;
     public void pinjam(){
         lamaPinjam();
         try{
@@ -63,13 +66,15 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
            Statement stat = CC.createStatement();
            ResultSet rs = stat.executeQuery("SELECT * FROM Anggota WHERE Nis = '"+ Nis.getText() +"'");
            if(rs.next()){
-               ResultSet ra = stat.executeQuery("SELECT * FROM item WHERE item_Code = '"+ noEx.getText() +"' AND NOT (location_id = '3' OR location_id = '4')");
+               ResultSet ra = stat.executeQuery("SELECT * FROM item INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE item_Code = '"+ noEx.getText() +"' AND NOT (location_id = '3' OR location_id = '4') AND item.call_number = '"+ cnn +"' AND new_bliblio.Judul = '"+ judul +"' ");
                if(ra.next()){
+                   id = ra.getString("IdBliblio");
                    ResultSet rb = stat.executeQuery("SELECT COUNT(nis) FROM transaksi WHERE nis = "+ Nis.getText() +" AND NOT Status = 4");
                    if(rb.next()){
                        if(rb.getInt("COUNT(nis)") < jumlah){
-                                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                                stat.executeUpdate("INSERT INTO transaksi(Barcode,id_bliblio,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
                                 + noEx.getText()+"','"
+                                + id+"','"
                                 +Nis.getText()+ "','"
                                 +dtf.format(now)+ "','"
                                 +dtf.format(next)+ "','1','Dipinjam')");
@@ -78,8 +83,9 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
                        }else{
                          int opt = JOptionPane.showConfirmDialog(null, "Siswa Terkait Sudah melebihi batas peminjaman Aktif, Tetap Pinjamkan Buku?" , "Update", JOptionPane.YES_NO_OPTION);
                         if(opt == 0){
-                                stat.executeUpdate("INSERT INTO transaksi(Barcode,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
+                                stat.executeUpdate("INSERT INTO transaksi(Barcode,id_bliblio,Nis,TanggalPinjam,Tenggat,Status,Keterangan) VALUES('"
                                 + noEx.getText()+"','"
+                                + id+"','"
                                 +Nis.getText()+ "','"
                                 +dtf.format(now)+ "','"
                                 +dtf.format(next)+ "','1','Dipinjam')");
@@ -91,7 +97,7 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
                    }
                    this.dispose();
                }else{
-                   JOptionPane.showMessageDialog(null, "Data Eksemplar Tidak Ditemukan");
+                   JOptionPane.showMessageDialog(null, "Data Eksemplar Tidak Ditemukan Atau tidak sesuai dengan Buku yang dipilih");
                }
            }else{
                    JOptionPane.showMessageDialog(null, "Data Anggota Tidak Ditemukan");
@@ -158,6 +164,11 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         jLabel2.setBounds(20, 100, 108, 31);
 
         noEx.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        noEx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                noExKeyPressed(evt);
+            }
+        });
         jPanel2.add(noEx);
         noEx.setBounds(150, 100, 370, 28);
 
@@ -199,6 +210,13 @@ public class Dialog_Konfirmasi extends javax.swing.JFrame {
         rule();
         pinjam();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void noExKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noExKeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           rule();
+           pinjam();
+       }
+    }//GEN-LAST:event_noExKeyPressed
 
     /**
      * @param args the command line arguments
