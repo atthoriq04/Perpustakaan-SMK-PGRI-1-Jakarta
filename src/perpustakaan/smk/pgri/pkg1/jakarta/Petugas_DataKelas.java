@@ -209,7 +209,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         kelas = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1284,23 +1283,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(110, 100, 120, 15);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
-        jLabel3.setText("Export Data");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
-            }
-        });
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(1060, 120, 70, 15);
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 112, 207));
         jLabel5.setText("Input Kelas Baru");
@@ -1337,14 +1319,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-    }//GEN-LAST:event_jLabel3MouseEntered
-
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        jLabel3.setForeground(new java.awt.Color(0, 112, 207));
-    }//GEN-LAST:event_jLabel3MouseExited
-
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
 
         subMenuBlibliografi.setVisible(false);
@@ -1355,11 +1329,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
         Datas();
         sort.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-
-
-    }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         Petugas_InputKelas obk = new Petugas_InputKelas();
@@ -2079,7 +2048,6 @@ public class Petugas_DataKelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

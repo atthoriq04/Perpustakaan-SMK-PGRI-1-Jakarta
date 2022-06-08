@@ -634,7 +634,7 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
             int x = JOptionPane.showOptionDialog(null, "Pilih Aksi",
             "Click a button",
             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-            if(x<=0){
+            if(x==0){
                 String m = JOptionPane.showInputDialog("Barcode Buku");
                 System.out.println(m);
                 System.out.println(jdl);
@@ -653,7 +653,7 @@ public class Siswa_PeminjamanBerjalan extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Barcode Yang Dimasukan Tidak Sesuai");
                 }
                 System.out.print(m+ " " +jdl);
-            }else{
+            }else if(x>0){
                  int opt = JOptionPane.showConfirmDialog(null, "Apakah Data sudah Benar?" , "Update", JOptionPane.YES_NO_OPTION);
                  if(opt == 0){
                      try{

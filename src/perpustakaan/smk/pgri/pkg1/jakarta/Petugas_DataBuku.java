@@ -262,6 +262,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         tblBuku = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -480,7 +481,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 154, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -514,7 +515,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 154, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel2.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -790,7 +791,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 152, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -824,7 +825,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 152, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -858,7 +859,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 152, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -892,7 +893,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 152, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel2.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1161,7 +1162,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 47);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1195,7 +1196,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 152, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1404,6 +1405,25 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel6);
         jLabel6.setBounds(930, 100, 124, 15);
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextField1MouseEntered(evt);
+            }
+        });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+        jPanel2.add(jTextField1);
+        jTextField1.setBounds(910, 40, 340, 32);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2254,6 +2274,51 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         toLapDenda.setBackground(new java.awt.Color(229, 231, 238));
     }//GEN-LAST:event_toLapDendaMouseExited
 
+    private void jTextField1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseEntered
+
+    }//GEN-LAST:event_jTextField1MouseEntered
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        DefaultTableModel model = new DefaultTableModel() ;
+          model.addColumn("No");
+          model.addColumn("No Panggil");
+          model.addColumn("Judul Buku");
+          model.addColumn("GMD");
+          model.addColumn("Edisi");
+          model.addColumn("ISBN");
+          model.addColumn("Penulis");
+          model.addColumn("Penerbit");
+          model.addColumn("Tahun Terbit");
+          model.addColumn("Judul Seri");
+          model.addColumn("Bahasa");
+          
+          try{
+              Statement stat = CC.createStatement();
+              int no = 1;
+              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'";
+              ResultSet rs = stat.executeQuery(SQL);
+              while(rs.next()){
+                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
+                rs.getString("new_bliblio.Judul"),
+                rs.getString("gmd.gmd_name"),
+                rs.getString("new_bliblio.Edisi"),
+                rs.getString("new_bliblio.isbn_issn"),
+                rs.getString("mst_author.author_name"),
+                rs.getString("mst_publisher.publisher_name"),
+                rs.getString("new_bliblio.PublisherYear"),
+                rs.getString("new_bliblio.SeriesTitle"),
+                rs.getString("mst_language.language_name")});
+                tblBuku.setModel(model);
+              }
+          }catch(Exception e){
+              JOptionPane.showMessageDialog(null, e);
+          }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -2332,6 +2397,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel judul;
     private javax.swing.JLabel nPanggil;
     private javax.swing.JPanel sort;

@@ -107,7 +107,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
                      stt.executeUpdate("UPDATE item SET location_Id = '2' WHERE item_Code = '"+ bcd +"' ");
                      stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('2','"+ nis +"','Pengembalian Buku Berhasil(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
                      JOptionPane.showMessageDialog(null, "Berhasil");
-                 }else{
+                 }else if (opt == 1){
                      stt.executeUpdate("UPDATE transaksi SET Status = '1', Keterangan = 'Dipinjam' WHERE IdTransaksi = '"+ idt +"' ");
                      stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('1','"+ nis +"','Buku Yang Dikembalikan Tidak Sesuai(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
                      JOptionPane.showMessageDialog(null, "Berhasil");
@@ -124,7 +124,7 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
                     stt.executeUpdate("UPDATE item SET location_Id = '2' WHERE item_Code = '"+ bcd +"' ");
                     stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('4','"+ nis +"','Anda Mendapat Denda Keterlambatan Pengembalian Buku(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
                     JOptionPane.showMessageDialog(null, "Berhasil");
-                    }else{
+                    }else if (opt == 1){
                      stt.executeUpdate("UPDATE transaksi SET Status = '1', Keterangan = 'Dipinjam' WHERE IdTransaksi = '"+ idt +"' ");
                      stt.executeUpdate("INSERT INTO notifikasi(idJudul,Nis,Isi,Tanggal,Status) VALUES('1','"+ nis +"','Buku Yang Dikembalikan Tidak Sesuai(Kode Transaksi = "+ idt +" )','"+ sdformat.format(now) +"','1' )");
                      JOptionPane.showMessageDialog(null, "Berhasil");
