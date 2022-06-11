@@ -52,11 +52,12 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
         judul();
         Datas();
+        userLogin();
          Locale local = new Locale("id", "ID");
         Locale.setDefault(local);
     }
     private void userLogin(){
-        toUser.setText(UserSession.getUserLogin());
+        toUser3.setText(UserSession.getUserLogin());
     }
    String SQLK = "SELECT * FROM mainclass";
     public void judul() {
@@ -184,7 +185,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         tkat = new javax.swing.JTable();
         ipt = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,7 +402,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 150, 40);
+        toDataPetugas.setBounds(0, 40, 142, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -435,7 +436,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 150, 40);
+        toLogin.setBounds(0, 80, 142, 40);
 
         jPanel8.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -711,7 +712,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 150, 40);
+        toInputAnggota.setBounds(0, 40, 146, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -745,7 +746,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 150, 40);
+        toDataKelas.setBounds(0, 80, 146, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -779,7 +780,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 150, 40);
+        toDataJurusan.setBounds(0, 120, 146, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -813,7 +814,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 150, 40);
+        toBebasPustaka.setBounds(0, 160, 146, 40);
 
         jPanel8.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1079,7 +1080,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 43);
+        toInputBuku.setBounds(0, 40, 150, 33);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1113,7 +1114,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 150, 43);
+        toDataPenulis.setBounds(0, 80, 146, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1214,6 +1215,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void toAdmin3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdmin3MouseEntered
@@ -1854,9 +1856,6 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel empty1;
-    private javax.swing.JPanel empty2;
-    private javax.swing.JPanel empty3;
     private javax.swing.JPanel empty4;
     private javax.swing.JPanel empty5;
     private javax.swing.JLabel ipt;
@@ -1883,29 +1882,9 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
-    private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JSeparator jSeparator18;
-    private javax.swing.JSeparator jSeparator19;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator20;
-    private javax.swing.JSeparator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator23;
     private javax.swing.JSeparator jSeparator24;
@@ -1913,35 +1892,16 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator26;
     private javax.swing.JSeparator jSeparator27;
     private javax.swing.JSeparator jSeparator28;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel subMenuAdmin;
     private javax.swing.JPanel subMenuAnggota;
     private javax.swing.JPanel subMenuBlibliografi;
     private javax.swing.JPanel subMenuLaporan;
     private javax.swing.JPanel subMenuSirkulasi;
     private javax.swing.JTable tkat;
-    private javax.swing.JLabel toAdmin;
-    private javax.swing.JLabel toAdmin1;
-    private javax.swing.JLabel toAdmin2;
     private javax.swing.JLabel toAdmin3;
-    private javax.swing.JLabel toAnggo;
-    private javax.swing.JLabel toAnggo1;
-    private javax.swing.JLabel toAnggo2;
     private javax.swing.JLabel toAnggo3;
     private javax.swing.JPanel toBebasPustaka;
-    private javax.swing.JLabel toBlibli;
-    private javax.swing.JLabel toBlibli1;
-    private javax.swing.JLabel toBlibli2;
     private javax.swing.JLabel toBlibli3;
-    private javax.swing.JLabel toDash;
-    private javax.swing.JLabel toDash1;
-    private javax.swing.JLabel toDash2;
     private javax.swing.JLabel toDash3;
     private javax.swing.JPanel toDataAnggota;
     private javax.swing.JPanel toDataBuku;
@@ -1961,20 +1921,11 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
     private javax.swing.JPanel toLapDenda;
     private javax.swing.JPanel toLapPeminjaman;
     private javax.swing.JPanel toLapPengembalian;
-    private javax.swing.JLabel toLaporan;
-    private javax.swing.JLabel toLaporan1;
-    private javax.swing.JLabel toLaporan2;
     private javax.swing.JLabel toLaporan3;
     private javax.swing.JPanel toLogin;
     private javax.swing.JPanel toPengembalianBuku;
     private javax.swing.JPanel toProfilPetugas;
-    private javax.swing.JLabel toSriku;
-    private javax.swing.JLabel toSriku1;
-    private javax.swing.JLabel toSriku2;
     private javax.swing.JLabel toSriku3;
-    private javax.swing.JLabel toUser;
-    private javax.swing.JLabel toUser1;
-    private javax.swing.JLabel toUser2;
     private javax.swing.JLabel toUser3;
     // End of variables declaration//GEN-END:variables
 }
