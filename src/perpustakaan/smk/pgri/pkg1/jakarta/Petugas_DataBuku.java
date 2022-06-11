@@ -66,14 +66,18 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
         userLogin();
-        showtable();
+        if(a == null){
+        a = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage"; 
+        }
+        showtable(a);
          Locale local = new Locale("id", "ID");
         Locale.setDefault(local);
     }
     private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
-    private void showtable(){
+    public String a;
+    public void showtable(String SSS){
         DefaultTableModel model = new DefaultTableModel() ;
           model.addColumn("No");
           model.addColumn("No Panggil");
@@ -90,7 +94,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
           try{
               Statement stat = CC.createStatement();
               int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage";
+              String SQL = SSS;
               ResultSet rs = stat.executeQuery(SQL);
               while(rs.next()){
                 model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
@@ -256,6 +260,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         Tanggal = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Active = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1319,6 +1324,23 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         jPanel2.add(Active);
         Active.setBounds(170, 100, 60, 15);
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 112, 207));
+        jLabel7.setText("Lihat Klasifikasi");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel7MouseExited(evt);
+            }
+        });
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(830, 100, 90, 15);
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 112, 207));
         jLabel3.setText("Input Buku");
@@ -1458,6 +1480,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        sort.setVisible(false);
     }//GEN-LAST:event_jPanel2MouseEntered
 
     private void tblBukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblBukuKeyPressed
@@ -1624,40 +1647,10 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private void nPanggilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseClicked
         sort.setVisible(false);
         Active.setText(nPanggil.getText());
-       DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY call_Number ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
+        if(a == null){
+        a = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage"; 
+        }
+        showtable(a + " ORDER BY call_Number ASC");
     }//GEN-LAST:event_nPanggilMouseClicked
 
     private void nPanggilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nPanggilMouseEntered
@@ -1671,40 +1664,10 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private void judulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseClicked
         sort.setVisible(false);
         Active.setText(judul.getText());
-        DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY Judul ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
+        if(a == null){
+        a = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage"; 
+        }
+        showtable(a + " ORDER BY Judul ASC");
     }//GEN-LAST:event_judulMouseClicked
 
     private void judulMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_judulMouseEntered
@@ -1718,40 +1681,10 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private void TanggalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseClicked
         sort.setVisible(false);
         Active.setText(Tanggal.getText());
-        DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage ORDER BY IdBliblio ASC";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
+        if(a == null){
+        a = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage"; 
+        }
+        showtable(a + " ORDER BY IdBliblio ASC");
     }//GEN-LAST:event_TanggalMouseClicked
 
     private void TanggalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalMouseEntered
@@ -2283,41 +2216,22 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        DefaultTableModel model = new DefaultTableModel() ;
-          model.addColumn("No");
-          model.addColumn("No Panggil");
-          model.addColumn("Judul Buku");
-          model.addColumn("GMD");
-          model.addColumn("Edisi");
-          model.addColumn("ISBN");
-          model.addColumn("Penulis");
-          model.addColumn("Penerbit");
-          model.addColumn("Tahun Terbit");
-          model.addColumn("Judul Seri");
-          model.addColumn("Bahasa");
-          
-          try{
-              Statement stat = CC.createStatement();
-              int no = 1;
-              String SQL = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'";
-              ResultSet rs = stat.executeQuery(SQL);
-              while(rs.next()){
-                model.addRow(new Object[]{no++,rs.getString("new_bliblio.call_number"),
-                rs.getString("new_bliblio.Judul"),
-                rs.getString("gmd.gmd_name"),
-                rs.getString("new_bliblio.Edisi"),
-                rs.getString("new_bliblio.isbn_issn"),
-                rs.getString("mst_author.author_name"),
-                rs.getString("mst_publisher.publisher_name"),
-                rs.getString("new_bliblio.PublisherYear"),
-                rs.getString("new_bliblio.SeriesTitle"),
-                rs.getString("mst_language.language_name")});
-                tblBuku.setModel(model);
-              }
-          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, e);
-          }
+        showtable("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN gmd ON gmd.gmd_id = new_bliblio.IdGMD INNER JOIN mst_publisher ON mst_publisher.publisher_id = new_bliblio.IdPublisher INNER JOIN mst_language ON mst_language.language_id = new_bliblio.IdLanguage WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'");       
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+       Petugas_DataKategori obj = new Petugas_DataKategori();
+       obj.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+         jLabel7.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
+         jLabel7.setForeground(new java.awt.Color(0,112,207));
+    }//GEN-LAST:event_jLabel7MouseExited
 
     /**
      * @param args the command line arguments
@@ -2385,6 +2299,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -2397,7 +2312,7 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextField jTextField1;
+    protected javax.swing.JTextField jTextField1;
     private javax.swing.JLabel judul;
     private javax.swing.JLabel nPanggil;
     private javax.swing.JPanel sort;

@@ -58,7 +58,7 @@ public class Katalog extends javax.swing.JFrame {
     }
     
     int from = 0;
-    public String formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ";
+    public String formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY new_bliblio.IdBliblio DESC ";
     public String id;
     public String judul;
     public String auth;
@@ -1965,9 +1965,9 @@ public class Katalog extends javax.swing.JFrame {
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         if(kategori.isSelected()){     
-            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN ddc_db ON new_bliblio.klasifikasi = ddc_db.clas WHERE About LIKE '%" + jTextField1.getText() + "%'"; 
+            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN klasifikasi_between ON new_bliblio.klasifikasi BETWEEN klasifikasi_between.from AND klasifikasi_between.to WHERE klasifikasi_between.klasifikasi LIKE '%" + jTextField1.getText() + "%' ORDER BY new_bliblio.IdBliblio DESC "; 
         }else{
-            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%'"; 
+            formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE Judul LIKE '%"+ jTextField1.getText() +"%' OR call_number LIKE '%" + jTextField1.getText() + "%' OR author_name LIKE '%" + jTextField1.getText() + "%' ORDER BY new_bliblio.IdBliblio DESC "; 
        }initial();
        check(from);
     }//GEN-LAST:event_jTextField1KeyReleased

@@ -577,14 +577,8 @@ public class Petugas_InputBuku extends javax.swing.JFrame {
                   stt.executeUpdate(sql);
                   stt.close();
                   readIdBliblio();
-                   stt1 = CC.createStatement();   
-                  String sql1 = "INSERT INTO Item (Item.biblio_id,Item.call_number,Item.item_code, Item.input_date, Item.last_update)" +
-"                   VALUES("+rsId+",'"+value[8]+"','"+value[17].replaceAll("[<>]", "")+"','"+Date+"','"+Date+"')";
-                  
-                  stt1.executeUpdate(sql1);
                   stt1.close();
               }catch(Exception e){
-                   JOptionPane.showMessageDialog(null, e);
                  System.err.println(e);
               }
           }
