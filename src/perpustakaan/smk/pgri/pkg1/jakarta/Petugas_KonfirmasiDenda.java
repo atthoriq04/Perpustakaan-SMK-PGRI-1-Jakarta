@@ -61,7 +61,7 @@ public class Petugas_KonfirmasiDenda extends javax.swing.JFrame {
       private void userLogin(){
         toUser.setText(UserSession.getUserLogin());
     }
-     public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='2' ORDER BY transaksi.IdTransaksi";
+     public String sqlz = "SELECT * FROM denda INNER JOIN transaksi ON denda.IdTransaksi = transaksi.IdTransaksi INNER JOIN Anggota ON transaksi.Nis = Anggota.Nis INNER JOIN kelas ON anggota.IdKelas = kelas.IdKelas INNER JOIN item ON transaksi.Barcode = item.item_code INNER JOIN new_bliblio ON item.call_number = new_bliblio.call_number WHERE denda.Status='2' AND new_bliblio.IdBliblio = transaksi.id_bliblio ORDER BY transaksi.IdTransaksi";
      public void judul() {
         Object[] judul = {
             "Id denda", "Nis", "Nama", "Kelas", "Barcode", "Judul Buku", "Jenis Denda" , "Barang", "Nominal", "Keterangan"

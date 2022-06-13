@@ -122,9 +122,13 @@ public class Petugas_NaikKelas extends javax.swing.JFrame {
     }
     public void NaikKelas(){
         try{
+            
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+            LocalDateTime now = LocalDateTime.now(); 
+            LocalDateTime next = now.plusYears(1);
            Statement stat = CC.createStatement();
            stat.executeUpdate("UPDATE Anggota SET IdKelas = '"
-                   + IdKelasTujuan+"' WHERE IdKelas = '"+ IdKelasAsal +"'");
+                   + IdKelasTujuan+"', Expired = '"+ next +"' WHERE IdKelas = '"+ IdKelasAsal +"'");
            JOptionPane.showMessageDialog(null, "Data Kelas Berhasil diUpdate");
        }catch (Exception e){
        e.printStackTrace();

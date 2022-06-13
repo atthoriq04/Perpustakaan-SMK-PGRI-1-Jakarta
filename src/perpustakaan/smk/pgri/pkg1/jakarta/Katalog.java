@@ -60,6 +60,7 @@ public class Katalog extends javax.swing.JFrame {
     int from = 0;
     public String formula = "SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY new_bliblio.IdBliblio DESC ";
     public String id;
+    int idbl;
     public String judul;
     public String auth;
     public String Jdl;
@@ -126,7 +127,7 @@ public class Katalog extends javax.swing.JFrame {
         try {
             
              stt = CC.createStatement();
-            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE call_number = '"+cnn+"'");
+            rs = stt.executeQuery("SELECT image FROM new_bliblio WHERE IdBliblio = '"+cnn+"'");
             if(rs.next()){
                 cvr = rs.getString("image");
             }
@@ -134,6 +135,8 @@ public class Katalog extends javax.swing.JFrame {
             Logger.getLogger(Katalog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    int  bl1,bl2,bl3,bl4,bl5,bl6,bl7,bl8,bl9,bl10,bl11,bl12;
+    int[]bl = {bl1,bl2,bl3,bl4,bl5,bl6,bl7,bl8,bl9,bl10,bl11,bl12};
     private void initial(){
         try{
          JPanel[]buku = {buku1,buku2,buku3,buku4,buku5,buku6,buku7,buku8,buku9,buku10,buku11,buku12};
@@ -141,6 +144,7 @@ public class Katalog extends javax.swing.JFrame {
          JLabel[]Author = {penulis1,penulis2,penulis3,penulis4,penulis5,penulis6,penulis7,penulis8,penulis9,penulis10,penulis11,penulis12};
          JToggleButton[]img = {toggle1,toggle2,toggle3,toggle4,toggle5,toggle6,toggle7,toggle8,toggle9,toggle10,toggle11,toggle12};
          String[]rsim = null;
+         
          PreparedStatement stmt = CC.prepareStatement(formula+"LIMIT "+ from +", 12",
         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE
             );
@@ -176,7 +180,8 @@ public class Katalog extends javax.swing.JFrame {
                   buku[rowindex].setVisible(true);
                   Judul[rowindex].setText(rs.getString("Judul"));
                   Author[rowindex].setText(rs.getString("mst_author.author_name"));
-                  cnn =rs.getString("new_bliblio.call_number");
+                  cnn =rs.getString("new_bliblio.IdBliblio");
+                  bl[rowindex] = rs.getInt("new_bliblio.IdBliblio");
                   img();
                   System.out.println(cvr);
 //                  InputStream stream = getClass().getResourceAsStream("/Uploads/Books/"+cvr+"");
@@ -201,9 +206,9 @@ public class Katalog extends javax.swing.JFrame {
         try{
 
                Statement stat = CC.createStatement();
-               ResultSet rs = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE mst_author.author_name = '"+ auth +"' AND new_bliblio.Judul = '"+ judul +"'");
+               ResultSet rs = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id WHERE new_bliblio.IdBliblio = '"+ idbl +"'");
                if(rs.next()){
-                    ResultSet rsa = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN mst_publisher ON new_bliblio.IdPublisher = mst_publisher.publisher_id INNER JOIN gmd ON new_bliblio.IdGMD = gmd.gmd_id INNER JOIN mst_language ON new_bliblio.IdLanguage = mst_language.language_id WHERE new_bliblio.call_number = '"+ rs.getString("new_bliblio.call_number") +"' LIMIT 1");
+                    ResultSet rsa = stat.executeQuery("SELECT * FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id INNER JOIN mst_publisher ON new_bliblio.IdPublisher = mst_publisher.publisher_id INNER JOIN gmd ON new_bliblio.IdGMD = gmd.gmd_id INNER JOIN mst_language ON new_bliblio.IdLanguage = mst_language.language_id WHERE new_bliblio.IdBliblio = '"+ rs.getString("new_bliblio.IdBliblio") +"' LIMIT 1");
                     if(rsa.next()){
                         Jdl = rsa.getString("Judul");
                         Cnn = rsa.getString("new_bliblio.call_number");
@@ -1288,6 +1293,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku1MouseClicked
         judul = judul1.getText();
         auth = penulis1.getText();
+        idbl = bl[0];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1575,6 +1581,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku2MouseClicked
         judul = judul2.getText();
         auth = penulis2.getText();
+        idbl = bl[1];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1608,6 +1615,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku3MouseClicked
         judul = judul3.getText();
         auth = penulis3.getText();
+        idbl = bl[2];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1641,6 +1649,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku4MouseClicked
         judul = judul4.getText();
         auth = penulis4.getText();
+        idbl = bl[3];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1674,6 +1683,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku5MouseClicked
         judul = judul5.getText();
         auth = penulis5.getText();
+        idbl = bl[4];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1707,6 +1717,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku6MouseClicked
         judul = judul6.getText();
         auth = penulis6.getText();
+        idbl = bl[5];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1740,6 +1751,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku7MouseClicked
         judul = judul7.getText();
         auth = penulis7.getText();
+        idbl = bl[6];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1773,6 +1785,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku8MouseClicked
         judul = judul8.getText();
         auth = penulis8.getText();
+        idbl = bl[7];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1806,6 +1819,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku9MouseClicked
         judul = judul9.getText();
         auth = penulis9.getText();
+        idbl = bl[8];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1839,6 +1853,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku10MouseClicked
         judul = judul10.getText();
         auth = penulis10.getText();
+        idbl = bl[9];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1872,6 +1887,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku11MouseClicked
         judul = judul11.getText();
         auth = penulis11.getText();
+        idbl = bl[10];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);
@@ -1905,6 +1921,7 @@ public class Katalog extends javax.swing.JFrame {
     private void buku12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buku12MouseClicked
         judul = judul12.getText();
         auth = penulis12.getText();
+        idbl = bl[11];
         getData();
         Detail obj = new Detail();
         obj.dJudul.setText(Jdl);

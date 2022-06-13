@@ -109,8 +109,8 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
                     ToPSistem.setVisible(false);
                 }
            }
-           if(role.equals("Admin")){
-           noaks.setVisible(true);}
+           if(role.equals("Petugas")){
+           noaks.setVisible(false);}
         }
         catch (Exception e){
     }}
@@ -1231,7 +1231,7 @@ public class Petugas_ProfilPetugas extends javax.swing.JFrame {
             }
         });
         jPanel3.add(Update);
-        Update.setBounds(1170, 660, 67, 23);
+        Update.setBounds(1157, 660, 80, 23);
 
         PanelPPetugas.setBackground(new java.awt.Color(255, 255, 255));
         PanelPPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 238)));

@@ -405,7 +405,7 @@ public class Siswa_Profil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(1200, 660, 67, 23);
+        jButton2.setBounds(1187, 660, 80, 23);
 
         jButton3.setText("Ubah Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
