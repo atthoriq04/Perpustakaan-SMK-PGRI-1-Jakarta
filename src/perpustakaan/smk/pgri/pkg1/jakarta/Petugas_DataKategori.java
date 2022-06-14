@@ -59,10 +59,10 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
     private void userLogin(){
         toUser3.setText(UserSession.getUserLogin());
     }
-   String SQLK = "SELECT * FROM mainclass";
+   String SQLK = "SELECT *, COUNT(new_bliblio.IdBliblio) AS `value_occurrence` FROM mainclass INNER JOIN new_bliblio ON new_bliblio.Klasifikasi BETWEEN mainclass.from AND mainclass.to GROUP BY mainclass.Klasifikasi  ORDER BY idmm ASC";
     public void judul() {
             Object[] judul = {
-         "Kategori", "range"
+         "Kategori", "Jumlah Buku"
         };
         tmdl = new DefaultTableModel(null, judul);
         tkat.setModel(tmdl);}
@@ -75,12 +75,12 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
             rst = stt.executeQuery(SQLK);
                 int i =1;
             while(rst.next()){
-                String a = rst.getString("Klasifikasi");
+                String a = rst.getString("value_occurrence");
                 String b = rst.getString("from");
                 String c = rst.getString("to");
                 Object[] data = {
-                    a,
                     b+"-"+c,
+                    a
                    
                     };
                     tmdl.addRow(data);
@@ -402,7 +402,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toDataPetugas);
-        toDataPetugas.setBounds(0, 40, 142, 40);
+        toDataPetugas.setBounds(0, 40, 150, 40);
 
         toLogin.setBackground(new java.awt.Color(229, 231, 238));
         toLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -436,7 +436,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAdmin.add(toLogin);
-        toLogin.setBounds(0, 80, 142, 40);
+        toLogin.setBounds(0, 80, 150, 40);
 
         jPanel8.add(subMenuAdmin);
         subMenuAdmin.setBounds(80, 490, 150, 120);
@@ -712,7 +712,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toInputAnggota);
-        toInputAnggota.setBounds(0, 40, 146, 40);
+        toInputAnggota.setBounds(0, 40, 150, 40);
 
         toDataKelas.setBackground(new java.awt.Color(229, 231, 238));
         toDataKelas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -746,7 +746,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataKelas);
-        toDataKelas.setBounds(0, 80, 146, 40);
+        toDataKelas.setBounds(0, 80, 150, 40);
 
         toDataJurusan.setBackground(new java.awt.Color(229, 231, 238));
         toDataJurusan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -780,7 +780,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toDataJurusan);
-        toDataJurusan.setBounds(0, 120, 146, 40);
+        toDataJurusan.setBounds(0, 120, 150, 40);
 
         toBebasPustaka.setBackground(new java.awt.Color(229, 231, 238));
         toBebasPustaka.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -814,7 +814,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuAnggota.add(toBebasPustaka);
-        toBebasPustaka.setBounds(0, 160, 146, 40);
+        toBebasPustaka.setBounds(0, 160, 150, 40);
 
         jPanel8.add(subMenuAnggota);
         subMenuAnggota.setBounds(80, 310, 150, 210);
@@ -1080,7 +1080,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toInputBuku);
-        toInputBuku.setBounds(0, 40, 150, 33);
+        toInputBuku.setBounds(0, 40, 150, 43);
 
         toDataPenulis.setBackground(new java.awt.Color(229, 231, 238));
         toDataPenulis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1114,7 +1114,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         );
 
         subMenuBlibliografi.add(toDataPenulis);
-        toDataPenulis.setBounds(0, 80, 146, 43);
+        toDataPenulis.setBounds(0, 80, 150, 43);
 
         toDataUsulan.setBackground(new java.awt.Color(229, 231, 238));
         toDataUsulan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -1154,7 +1154,7 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         subMenuBlibliografi.setBounds(80, 140, 150, 170);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Kategori");
+        jLabel1.setText("Kategori Tersedia");
         jPanel8.add(jLabel1);
         jLabel1.setBounds(110, 30, 350, 30);
 
@@ -1795,16 +1795,17 @@ public class Petugas_DataKategori extends javax.swing.JFrame {
         TableModel model = tkat.getModel() ;
         String ra = model.getValueAt(i, 0).toString();
         String rg = model.getValueAt(i, 1).toString();
-        namesList = rg.split("-");
+        namesList = ra.split("-");
         if( ra.equals("Agama Islam") ){
             System.out.println("2x");
         }else{
-        SQLK = "SELECT * FROM klasifikasi_between WHERE klasifikasi_between.from BETWEEN "+namesList[0]+" AND "+namesList[1]+"  ";
+            // 
+        SQLK = "SELECT *, COUNT(new_bliblio.IdBliblio) AS `value_occurrence` FROM klasifikasi_between INNER JOIN new_bliblio ON new_bliblio.Klasifikasi BETWEEN klasifikasi_between.from AND klasifikasi_between.to WHERE klasifikasi_between.from BETWEEN "+namesList[0]+" AND "+namesList[1]+" GROUP BY klasifikasi_between.Klasifikasi ORDER BY IdKbt ASC ";
         Datas();}
     }//GEN-LAST:event_tkatMouseClicked
 
     private void iptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iptMouseClicked
-         SQLK = "SELECT * FROM mainclass";
+         SQLK = "SELECT *, COUNT(new_bliblio.IdBliblio) AS `value_occurrence` FROM mainclass INNER JOIN new_bliblio ON new_bliblio.Klasifikasi BETWEEN mainclass.from AND mainclass.to GROUP BY mainclass.Klasifikasi  ORDER BY idmm ASC";
         Datas();
     }//GEN-LAST:event_iptMouseClicked
 

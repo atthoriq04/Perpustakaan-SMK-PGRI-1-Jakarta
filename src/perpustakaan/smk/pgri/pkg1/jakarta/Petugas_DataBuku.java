@@ -1512,14 +1512,13 @@ public class Petugas_DataBuku extends javax.swing.JFrame {
                 if (rs.next()){
                     obj.desk.setText(rs.getString("Notes"));
                     String n = rs.getString("Notes");
-                    UserSession.setFisik(n);
+                    obj.showtable("SELECT * FROM Item INNER JOIN new_bliblio ON Item.biblio_id = new_bliblio.IdBliblio INNER JOIN mst_coll_type ON mst_coll_type.coll_type_id = Item.coll_type_id INNER JOIN mst_location ON mst_location.location_id = Item.location_id WHERE item.call_number='"+cn+"'");
 
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
             obj.setVisible(true);
-            obj.showtable();
             obj.pack();
             obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             this.dispose();

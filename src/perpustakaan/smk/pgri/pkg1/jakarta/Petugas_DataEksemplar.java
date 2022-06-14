@@ -58,7 +58,6 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
         CC = new koneksi().connect();
         userLogin();
-        showtable();
         setValueLabel();
         getrole();
         getakses();
@@ -128,7 +127,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
         }
     }
  public String value,call;
-    public void showtable(){
+    public void showtable(String sss){
         DefaultTableModel model = new DefaultTableModel() ;
           model.addColumn("No");
           model.addColumn("ID Eksemplar");
@@ -144,7 +143,7 @@ public class Petugas_DataEksemplar extends javax.swing.JFrame {
 
               Statement stat = CC.createStatement();
               int no = 1;
-              String SQL = "SELECT * FROM Item INNER JOIN new_bliblio ON Item.biblio_id = new_bliblio.IdBliblio INNER JOIN mst_coll_type ON mst_coll_type.coll_type_id = Item.coll_type_id INNER JOIN mst_location ON mst_location.location_id = Item.location_id WHERE new_bliblio.call_number='"+UserSession.getCallNumb()+"'";
+              String SQL = sss;
               ResultSet rs = stat.executeQuery(SQL);
               while(rs.next()){
                 int a = rs.getInt("Item.source");
