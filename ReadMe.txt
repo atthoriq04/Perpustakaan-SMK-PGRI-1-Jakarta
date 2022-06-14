@@ -5,11 +5,7 @@ TO Do List
 - Logout Clear Seassion Admin (Done)
 
 Error List
-- Error Radio Button Denda (Fixed)
-- Error foto ubah profil (Fixed)
-- Error read Foto in JAR (Fixed)
-- Error Field Laporan (Fixed)
-- Relative Image Bebas Pustaka(Fixed)
+- Import Buku & Eksemlar
 
 Report need  jdk 1.8 
 Link : https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
