@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 14, 2022 at 01:48 PM
--- Server version: 5.7.24
--- PHP Version: 7.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Jun 15, 2022 at 06:34 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -5213,7 +5213,7 @@ CREATE TABLE `item` (
   `order_date` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `item_status_id` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
   `site` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `source` int(11) NOT NULL DEFAULT '0',
+  `source` int(11) NOT NULL DEFAULT 0,
   `invoice` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `price_currency` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -5245,7 +5245,7 @@ INSERT INTO `item` (`item_id`, `biblio_id`, `call_number`, `coll_type_id`, `item
 (15, 15, '332.1 AMS p', 2, 'SMKPGRI-964', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
 (16, 16, '336.2 ATE p', 2, 'SMKPGRI-400', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
 (17, 17, '155.25 MAH k', 2, 'SMKPGRI1-151', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
-(18, 18, '649.1 DEN m', 2, 'SMKPGRI1-268', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
+(18, 18, '649.1 DEN m', 2, 'SMKPGRI1-268', 'INV', '2022-05-15', NULL, NULL, 3, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
 (19, 18, '649.1 DEN m', 2, 'SMKPGRI1-146', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
 (20, 20, '813 KAR c', 2, 'SMKPGRI-437', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
 (21, 21, '813 CAT m', 2, 'SMKPGRI-375', 'INV', '2022-05-15', NULL, NULL, 1, '2022-05-13', NULL, NULL, 2, NULL, 0, NULL, '2022-05-15', '2022-06-10 22:50:57', '2022-06-10 22:50:57', NULL),
@@ -7126,7 +7126,7 @@ CREATE TABLE `notifikasi` (
   `Nis` int(11) NOT NULL,
   `Isi` varchar(100) NOT NULL,
   `Tanggal` date NOT NULL,
-  `Status` int(11) NOT NULL DEFAULT '1'
+  `Status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
@@ -7183,7 +7183,9 @@ CREATE TABLE `pengunjung` (
 INSERT INTO `pengunjung` (`IdPengunjung`, `Nama`, `Email`, `Instansi`, `TanggalKunjungan`) VALUES
 (1, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-11 17:49:14'),
 (2, 'Adhitya Rizky Ardiansyah', 'Alamat@email.Siswa', 'Siswa', '2022-06-11 17:50:54'),
-(3, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-12 19:48:02');
+(3, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-12 19:48:02'),
+(4, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-15 11:30:14'),
+(5, 'Yos Patriot', 'Alamat@email.Siswa', 'Siswa', '2022-06-15 11:32:03');
 
 -- --------------------------------------------------------
 
@@ -7273,7 +7275,8 @@ INSERT INTO `transaksi` (`IdTransaksi`, `Barcode`, `id_bliblio`, `Nis`, `Tanggal
 (2, 'SMKPGRI1-0001', '50', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Selesai'),
 (3, 'SMKPGRI1-184', '21', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Buku Hilang'),
 (4, 'SMKPGRI-002', '323', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Selesai'),
-(5, 'SMKPGRI1-289', '261', 11112, '2022-06-14', '2022-06-15', NULL, '1', 'Dipinjam');
+(5, 'SMKPGRI1-289', '261', 11112, '2022-06-14', '2022-06-14', '2022-06-15', '2', 'Pending'),
+(6, 'SMKPGRI1-268', '3', 11111, '2022-06-15', '2022-06-15', '2022-06-15', '3', 'Buku Hilang');
 
 -- --------------------------------------------------------
 
@@ -7285,7 +7288,7 @@ CREATE TABLE `user` (
   `Nis` int(10) UNSIGNED NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Role` int(11) NOT NULL DEFAULT '3'
+  `Role` int(11) NOT NULL DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
@@ -7868,7 +7871,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
-  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -7886,7 +7889,7 @@ ALTER TABLE `reqbebaspustaka`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IdTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`

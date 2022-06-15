@@ -1277,6 +1277,8 @@ public class Petugas_KonfrimasiPengembalian extends javax.swing.JFrame {
         subMenuAnggota.setVisible(false);
         subMenuLaporan.setVisible(false);
         subMenuAdmin.setVisible(false);
+        judul();
+        Datas();
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void kPengembMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kPengembMouseClicked
