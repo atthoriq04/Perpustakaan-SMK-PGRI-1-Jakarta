@@ -1068,13 +1068,29 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
     }//GEN-LAST:event_toUsulanMouseExited
 
     private void toBebpusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toBebpusMouseClicked
-         try {
+          try {
             Statement stat = CC.createStatement();
             ResultSet rs = stat.executeQuery("SELECT TingkatKelas from Kelas INNER JOIN Anggota ON Anggota.IdKelas = Kelas.IdKelas WHERE Anggota.Nis = '"+ UserId +"'");
             if(rs.next()){
                 if(rs.getString("TingkatKelas").equalsIgnoreCase("XII")){
-                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
-                    obj.setVisible(true);
+                    ResultSet rst = stat.executeQuery("SELECT COUNT(*) FROM transaksi WHERE Nis = '"+ UserId +"'  AND status = '1' OR status = '2' OR status = '3'");
+                    if(rst.next()){
+                        int num = rst.getInt("COUNT(*)");
+                        if(num <= 0){
+                            ResultSet rsj = stat.executeQuery("SELECT COUNT(*) FROM Denda INNER JOIN transaksi ON Denda.IdTransaksi = transaksi.IdTransaksi WHERE Nis = '"+ UserId +"'  AND Denda.status = '1' OR Denda.status = '2'");
+                            if(rsj.next()){
+                                int numlg = rsj.getInt("COUNT(*)");
+                                if(numlg <= 0){
+                                    Siswa_BebasPustaka obj = new Siswa_BebasPustaka();
+                                    obj.setVisible(true);
+                                }else{
+                                    JOptionPane.showMessageDialog(null, "Anda Masih memiliki Transaksi Atau Denda yang belum dipenuhi, Silahkan Penuhi Tanggungan Anda");
+                                }
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Anda Masih memiliki Transaksi Atau Denda yang belum dipenuhi, Silahkan Penuhi Tanggungan Anda");
+                        }
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "Menu Ini Diperuntukan Untuk kelas XII");
                 }
@@ -1082,7 +1098,7 @@ public class Siswa_HistoriPeminjaman extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
-            Logger.getLogger(Siswa_HistoriPeminjaman.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Siswa_Profil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_toBebpusMouseClicked
 
