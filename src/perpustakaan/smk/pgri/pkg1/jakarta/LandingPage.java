@@ -49,6 +49,8 @@ public class LandingPage extends javax.swing.JFrame {
         initComponents();
         initial();
         getProfile();
+        log.setBorderPainted(false);
+        log.setContentAreaFilled(false);
     }
     public String formula = "SELECT Judul,image,mst_author.author_name,new_bliblio.call_number FROM new_bliblio INNER JOIN mst_author ON mst_author.author_id = new_bliblio.author_id ORDER BY IdBliblio DESC ";
     public int from = 0;
@@ -73,7 +75,6 @@ public class LandingPage extends javax.swing.JFrame {
              stt = CC.createStatement();
             rs = stt.executeQuery("SELECT * From profile");
             if(rs.next()){
-                toLandingPage.setText(rs.getString("Profil"));
                 Profil.setText(rs.getString("Profil"));
                 Tagline.setText(rs.getString("Tagline"));
             }
@@ -229,8 +230,8 @@ public class LandingPage extends javax.swing.JFrame {
         toLogin = new javax.swing.JLabel();
         toKunjungan = new javax.swing.JLabel();
         toTentang = new javax.swing.JLabel();
-        toLandingPage = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        log = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -241,13 +242,14 @@ public class LandingPage extends javax.swing.JFrame {
         kGradientPanel1.setkTransparentControls(false);
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Profil.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        Profil.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        Profil.setForeground(new java.awt.Color(2, 117, 216));
         Profil.setText("SMK PGRI 1 Jakarta");
-        kGradientPanel1.add(Profil, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
+        kGradientPanel1.add(Profil, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, -1, -1));
 
         Tagline.setFont(new java.awt.Font("Georgia", 0, 22)); // NOI18N
         Tagline.setText("Literasi Mencerdaskan");
-        kGradientPanel1.add(Tagline, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 233, 324, -1));
+        kGradientPanel1.add(Tagline, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 324, -1));
 
         img2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/perpustakaan/smk/pgri/pkg1/jakarta/Button/Cover.png"))); // NOI18N
         img2.addActionListener(new java.awt.event.ActionListener() {
@@ -356,29 +358,12 @@ public class LandingPage extends javax.swing.JFrame {
             }
         });
 
-        toLandingPage.setBackground(new java.awt.Color(255, 255, 255));
-        toLandingPage.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        toLandingPage.setText("SMK PGRI 1 Jakarta");
-        toLandingPage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                toLandingPageMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                toLandingPageMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                toLandingPageMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(toLandingPage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(826, Short.MAX_VALUE)
                 .addComponent(toTentang)
                 .addGap(59, 59, 59)
                 .addComponent(toKunjungan)
@@ -391,15 +376,24 @@ public class LandingPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(toLogin)
                 .addComponent(toKunjungan)
-                .addComponent(toTentang)
-                .addComponent(toLandingPage))
+                .addComponent(toTentang))
         );
 
         kGradientPanel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 1280, -1));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(2, 117, 216));
         jLabel4.setText("Perpustakaan");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 168, -1, -1));
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
+
+        log.setBackground(new java.awt.Color(255, 255, 255));
+        log.setIcon(new javax.swing.ImageIcon(getClass().getResource("/p.jpg"))); // NOI18N
+        log.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 90, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -442,14 +436,6 @@ public class LandingPage extends javax.swing.JFrame {
       Throw();
     }//GEN-LAST:event_img1ActionPerformed
 
-    private void toLandingPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseEntered
-        toLandingPage.setForeground(new java.awt.Color(0,72,181));
-    }//GEN-LAST:event_toLandingPageMouseEntered
-
-    private void toLandingPageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseExited
-        toLandingPage.setForeground(new java.awt.Color(0,0,0));
-    }//GEN-LAST:event_toLandingPageMouseExited
-
     private void toTentangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseEntered
         toTentang.setForeground(new java.awt.Color(0,72,181));
     }//GEN-LAST:event_toTentangMouseEntered
@@ -473,12 +459,6 @@ public class LandingPage extends javax.swing.JFrame {
     private void toLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoginMouseExited
         toLogin.setForeground(new java.awt.Color(0,0,0));
     }//GEN-LAST:event_toLoginMouseExited
-
-    private void toLandingPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLandingPageMouseClicked
-        LandingPage obj = new LandingPage();
-        obj.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_toLandingPageMouseClicked
 
     private void toTentangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toTentangMouseClicked
         TentangPerpus obj = null;
@@ -522,6 +502,10 @@ public class LandingPage extends javax.swing.JFrame {
         getData(cn[3]);
         Throw();
     }//GEN-LAST:event_img4ActionPerformed
+
+    private void logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,8 +555,8 @@ public class LandingPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton lihatKatalog;
+    private javax.swing.JButton log;
     private javax.swing.JLabel toKunjungan;
-    private javax.swing.JLabel toLandingPage;
     private javax.swing.JLabel toLogin;
     private javax.swing.JLabel toTentang;
     // End of variables declaration//GEN-END:variables
