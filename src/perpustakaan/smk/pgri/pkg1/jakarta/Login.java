@@ -41,8 +41,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         CC = new koneksi().connect();
         getProfile();
-        UserSession.setUserId(0);
-        UserSession.setUserLogin("");
     }
     public void getProfile() throws IOException{
         try {
