@@ -60,11 +60,14 @@ public class Petugas_PengaturanMaster extends javax.swing.JFrame {
         subMenuAdmin.setVisible(false);
         getrole();
         getAkses();
+        userLogin();
          Locale local = new Locale("id", "ID");
         Locale.setDefault(local);
         noaks.setBackground(new java.awt.Color(188, 190, 208));
     }
-
+    private void userLogin(){
+        toUser.setText(UserSession.getUserLogin());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
