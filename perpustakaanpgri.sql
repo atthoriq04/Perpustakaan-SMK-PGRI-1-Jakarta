@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 15, 2022 at 06:34 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: localhost:3306
+-- Generation Time: Aug 01, 2022 at 01:43 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -101,8 +101,6 @@ CREATE TABLE `anggota` (
 --
 
 INSERT INTO `anggota` (`Nis`, `Nama`, `IdKelas`, `JK`, `Email`, `Alamat`, `NoHp`, `TTL`, `Profiles`, `add1`, `add2`, `add3`, `add4`, `add5`, `Expired`) VALUES
-(11111, 'Muhammad Atthoriq Aziz', 18, 'L', 'Alamat@email.Siswa', 'JL P Sulawesi', '000088889999', 'Jakarta,22 Oktober 2000', 'newImage20220605121313.jpg', NULL, 'a', 'a', 'a', 'a', '2023-06-13'),
-(11112, 'Yos Patriot', 19, 'L', 'Alamat@email.Siswa', 'CIracas', '000088889999', 'Ciracas,01 Januari 1999', 'Default.png', NULL, '', '', '', '', '2023-05-27'),
 (13218, 'Adhitya Rizky Ardiansyah', 1, 'L', 'Adhitya@mail.com', '', '000088889999', '', 'Default.png', NULL, '', '', '', '', '2023-06-11'),
 (13219, 'Adithya Prayoga', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, '', '', '', '', '2023-06-11'),
 (13220, 'Aditiya Maulana Sidiq', 1, 'L', 'Alamat@email.Siswa', '', '000088889999', '', 'Default.png', NULL, '', '', '', '', '2023-06-11'),
@@ -5213,7 +5211,7 @@ CREATE TABLE `item` (
   `order_date` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `item_status_id` char(3) COLLATE utf8_unicode_ci DEFAULT NULL,
   `site` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `source` int(11) NOT NULL DEFAULT 0,
+  `source` int(11) NOT NULL DEFAULT '0',
   `invoice` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `price_currency` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -7126,7 +7124,7 @@ CREATE TABLE `notifikasi` (
   `Nis` int(11) NOT NULL,
   `Isi` varchar(100) NOT NULL,
   `Tanggal` date NOT NULL,
-  `Status` int(11) NOT NULL DEFAULT 1
+  `Status` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
@@ -7138,8 +7136,7 @@ INSERT INTO `notifikasi` (`idNotifikasi`, `idJudul`, `Nis`, `Isi`, `Tanggal`, `S
 (2, 4, 13218, 'Anda Mendapat Denda Merusak/Menghilangkan Buku(Kode Transaksi = 3 )', '2022-06-11', 1),
 (3, 2, 13218, 'Pengembalian Buku Berhasil(Kode Transaksi = 2 )', '2022-06-11', 1),
 (4, 2, 13218, 'Pengembalian Buku Berhasil(Kode Transaksi = 4 )', '2022-06-11', 1),
-(5, 3, 13218, 'Denda Dengan Kode  1 Berhasil Dibayarkan ', '2022-06-11', 1),
-(6, 5, 11111, 'Surat Bebas Pustaka Anda Telah Dicetak, Silahkan Hubungi Petugas Perpustakaan', '2022-06-12', 1);
+(5, 3, 13218, 'Denda Dengan Kode  1 Berhasil Dibayarkan ', '2022-06-11', 1);
 
 -- --------------------------------------------------------
 
@@ -7185,7 +7182,8 @@ INSERT INTO `pengunjung` (`IdPengunjung`, `Nama`, `Email`, `Instansi`, `TanggalK
 (2, 'Adhitya Rizky Ardiansyah', 'Alamat@email.Siswa', 'Siswa', '2022-06-11 17:50:54'),
 (3, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-12 19:48:02'),
 (4, 'Muhammad Atthoriq Aziz', 'Alamat@email.Siswa', 'Siswa', '2022-06-15 11:30:14'),
-(5, 'Yos Patriot', 'Alamat@email.Siswa', 'Siswa', '2022-06-15 11:32:03');
+(5, 'Yos Patriot', 'Alamat@email.Siswa', 'Siswa', '2022-06-15 11:32:03'),
+(6, 'Adhitya Rizky Ardiansyah', 'Adhitya@mail.com', 'Siswa', '2022-06-24 22:27:55');
 
 -- --------------------------------------------------------
 
@@ -7234,7 +7232,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `Profil`, `Tagline`, `Tentang1`, `Tentang2`, `Tentang3`, `alamat`, `SMedia`, `foto1`, `foto2`, `logo`) VALUES
-(1, 'SMK PGRI Jakarta', 'Cerdas Mencerdaskan', 'perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah vperpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah perpustakaan Adalah', '089612141144', 'Perpustakaan.Sekolah@gmail.com', 'Jl. PLK II No. 24 Jakarta Timur', '@PRPSTKN(Instagram)', 'Default.jpeg', 'Default.jpeg', 'Default.jpg');
+(1, 'SMK PGRI 1 Jakarta', 'Literasi Mencerdaskan', 'Perpustakaan sebagai wahana belajar sepanjang hayat dalam mengembangkan potensi masyarakat agar menjadi manusia yang beriman dan bertakwa kepada Tuhan Yang Maha Esa, berakhlak mulia, sehat, berilmu,cakap, kreatif, mandiri dan menjadi warga negara yang demokratis serta bertanggung jawab dalam mendukung penyelenggaraan pendidikan nasional.\nPerpustakaan  SMK PGRI 1 Jakarta ini diharapkan menjadi sumber belajar warga sekolah yang dalampelayanannya tidak hanya menyediakan bahan pustaka pendukung kurikulum pendidikan, namun bahan bacaan ringan seperti fiksi, ataupun bacaan lain sehingga warga sekolah tidak menjadi enggan untuk senantiasa mengunjungi dan membaca bahan pustaka yang ada dalam perpustakaan SMK PGRI 1 Jakarta', '(021)8009773', 'info@smkpgri1jkt.sch.id', 'Jl. PLK II No. 25 Jakarta Timur', '@smkpgri1jakarta(Instagram)', 'Default.jpeg', 'Default.jpeg', 'Default.jpg');
 
 -- --------------------------------------------------------
 
@@ -7272,11 +7270,9 @@ CREATE TABLE `transaksi` (
 
 INSERT INTO `transaksi` (`IdTransaksi`, `Barcode`, `id_bliblio`, `Nis`, `TanggalPinjam`, `Tenggat`, `TanggalKembali`, `Status`, `Keterangan`) VALUES
 (1, 'SMKPGRI1-0001', '50', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Selesai'),
-(2, 'SMKPGRI1-0001', '50', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Selesai'),
-(3, 'SMKPGRI1-184', '21', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Buku Hilang'),
-(4, 'SMKPGRI-002', '323', 13218, '2022-06-11', '2022-06-11', '2022-06-11', '4', 'Selesai'),
-(5, 'SMKPGRI1-289', '261', 11112, '2022-06-14', '2022-06-14', '2022-06-15', '2', 'Pending'),
-(6, 'SMKPGRI1-268', '3', 11111, '2022-06-15', '2022-06-15', '2022-06-15', '3', 'Buku Hilang');
+(2, 'SMKPGRI1-0001', '50', 13218, '2022-06-11', '2022-06-11', '2022-06-21', '4', 'Selesai'),
+(3, 'SMKPGRI1-184', '21', 13218, '2022-06-11', '2022-06-11', '2022-06-22', '4', 'Buku Hilang'),
+(4, 'SMKPGRI-002', '323', 13218, '2022-06-11', '2022-06-11', '2022-06-23', '4', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -7288,7 +7284,7 @@ CREATE TABLE `user` (
   `Nis` int(10) UNSIGNED NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Role` int(11) NOT NULL DEFAULT 3
+  `Role` int(11) NOT NULL DEFAULT '3'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
@@ -7296,8 +7292,6 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Nis`, `Username`, `Password`, `Role`) VALUES
-(11111, 'Atthoriq', '11111', 3),
-(11112, '11112', '11112', 3),
 (13218, 'Adhit', 'adhit', 3),
 (13219, '13219', '13219', 3),
 (13220, '13220', '13220', 3),
@@ -7871,7 +7865,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
-  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IdPengunjung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `profile`
