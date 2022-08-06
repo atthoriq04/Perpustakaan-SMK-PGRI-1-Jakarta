@@ -202,7 +202,7 @@
 				<text><![CDATA[Jakarta, ]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="439" y="25" width="116" height="20" uuid="414b7e64-02b1-4b5f-8027-7cd8b35b1bbe"/>
+				<reportElement x="439" y="25" width="200" height="20" uuid="414b7e64-02b1-4b5f-8027-7cd8b35b1bbe"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

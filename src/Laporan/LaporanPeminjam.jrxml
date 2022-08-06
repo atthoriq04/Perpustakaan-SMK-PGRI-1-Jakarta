@@ -242,7 +242,7 @@
 	<pageFooter>
 		<band height="154" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="564" y="0" width="116" height="20" uuid="29480c91-dd4a-4c68-9ac7-5eeafca93200"/>
+				<reportElement x="564" y="0" width="200" height="20" uuid="29480c91-dd4a-4c68-9ac7-5eeafca93200"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

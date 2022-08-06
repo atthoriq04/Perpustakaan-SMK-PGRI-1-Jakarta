@@ -247,7 +247,7 @@
 				<text><![CDATA[Kepala Perpustakaan]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="636" y="0" width="116" height="20" uuid="0d9004e6-e358-4edb-b03a-19a16a106f33"/>
+				<reportElement x="636" y="0" width="200" height="20" uuid="0d9004e6-e358-4edb-b03a-19a16a106f33"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
